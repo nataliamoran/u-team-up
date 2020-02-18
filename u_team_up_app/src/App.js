@@ -1,26 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+import SearchTeam from './react-components/SearchTeam';
+import Team from './react-components/Team';
+
+class App extends React.Component {
+
+    state = {
+        user: "user",
+        user2: "user2",
+        admin: "admin"
+    }
+
+    render() {
+        return (
+
+            <div>
+                <BrowserRouter>
+                    <Switch>
+                        <Route exact path='/' render={() =>
+                            (<SearchTeam state={this.state}/>)}/>
+                        <Route exact path='/team' render={() =>
+                            (<Team state={this.state}/>)}/>
+
+                    </Switch>
+                </BrowserRouter>
+            </div>
+
+        );
+    }
 }
 
 export default App;
