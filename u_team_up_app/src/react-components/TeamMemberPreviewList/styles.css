@@ -1,0 +1,4 @@
+.team-member-preview__list{
+    display: flex;
+    flex-direction: row;
+}

@@ -9,13 +9,4 @@
     height: 40px;
 }
 
-button.MuiButton-outlinedPrimary {
-    border-radius: 80px;
-    color: cadetblue;
-    border: 2px solid cadetblue;
-}
 
-button.MuiButton-outlinedPrimary:hover {
-    color: cadetblue;
-    border: 2px solid cadetblue;
-}

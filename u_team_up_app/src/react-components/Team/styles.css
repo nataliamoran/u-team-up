@@ -1,0 +1,28 @@
+.team{
+    padding-left: 30px;
+}
+
+.header {
+    display: flex;
+}
+
+.header__team{
+    color: cadetblue;
+    font-size: 2.2em;
+}
+
+.header__description{
+    color: cadetblue;
+}
+
+.header__team_data {
+    padding-top:10px;
+    padding-left:10px;
+    font-size: 1.5em;
+    color: #B94A48;
+    font-weight: bold;
+}
+
+.h2 {
+    color: cadetblue;
+}

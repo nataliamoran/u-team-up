@@ -1,0 +1,40 @@
+.team-member-preview__bg-image{
+    background-size: contain;
+    height: 250px;
+    width: 250px;
+
+    background-image: url("./static/puzzle-piece.png");
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.team-member-preview td {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    border-bottom-style: hidden !important;
+    text-align: center;
+    padding-left: 75px;
+    padding-top: 70px;
+    padding-right:80px;
+    background-color: white;
+    opacity: 0.9;
+}
+
+.team_member__photo {
+    height: 100px;
+
+
+}
+
+.name_cell {
+    padding-top: 40px !important;
+    height: 5px;
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+
+}
+
+.photo_cell {
+
+}
