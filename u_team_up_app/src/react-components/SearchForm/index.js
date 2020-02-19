@@ -17,13 +17,15 @@ class SearchForm extends React.Component {
         } = this.props;
 
         return (
-            <Grid className="search-form" container spacing={3}>
-                {/* Inputs to add student */}
+
+            <Grid className="search-form" container direction="row" justify="center" alignItems="center">
+
                 <Input
                     name="teamUniversity"
                     value={teamUniversity}
                     onChange={handleSearch}
                     label="University"
+                    className="university__input"
                 />
 
                 <Input
@@ -31,27 +33,23 @@ class SearchForm extends React.Component {
                     value={teamCourse}
                     onChange={handleSearch}
                     label="Course"
+                    className="course__input"
                 />
 
-                <Grid
-                    className="search-form__button-grid"
-                    item
-                    xl={2}
-                    lg={2}
-                    md={12}
-                    s={12}
-                    xs={12}
+
+                <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={filterTeams}
+                    className="search-form__submit-button"
                 >
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={filterTeams}
-                        className="search-form__submit-button"
-                    >
-                        Search
-                    </Button>
-                </Grid>
+
+                    Search
+                </Button>
+
+
             </Grid>
+
         );
     }
 }

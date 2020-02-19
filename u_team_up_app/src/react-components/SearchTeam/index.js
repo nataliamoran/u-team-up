@@ -1,5 +1,6 @@
 import React from "react";
 
+import "./styles.css";
 
 import TeamPreviewList from "./../TeamPreviewList";
 import SearchForm from "./../SearchForm";
@@ -17,7 +18,7 @@ class SearchTeam extends React.Component {
         ],
         filteredTeams: [
             { teamUniversity:"UofT", teamCourse: "CSC309", teamID: "1", teamDescription: "A+ group looking for a JS Jedi" },
-            { teamUniversity:"UofT", teamCourse: "CSC207", teamID: "2", teamDescription: "Let's crash this course together!"  }
+            { teamUniversity:"UofT", teamCourse: "CSC207", teamID: "2", teamDescription: "Let's crush this course together!"  }
         ]
     };
 
@@ -35,14 +36,16 @@ class SearchTeam extends React.Component {
     render() {
         return (
             <div className="App">
-                <h1>Find your team</h1>
+                <h1>find your team</h1>
 
+                <div className="search_form">
                 <SearchForm
                     teamUniversity={this.state.teamUniversity}
                     teamCourse={this.state.teamCourse}
                     handleSearch={this.handleSearchInput}
                     filterTeams={() => filterTeams(this)}
                 />
+                </div>
 
                 <TeamPreviewList teams={this.state.filteredTeams} />
             </div>

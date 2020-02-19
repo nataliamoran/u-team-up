@@ -1,10 +1,13 @@
 import React from "react";
 
+import "./styles.css";
 
 import Button from "@material-ui/core/Button";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
 
 class TeamPreview extends React.Component {
 
@@ -16,28 +19,46 @@ class TeamPreview extends React.Component {
     }
 
     render() {
-        const { teamPreview } = this.props;
+        const {teamPreview} = this.props;
 
         return (
-            <TableRow className="team-preview" key={teamPreview.teamID}>
-                <TableCell component="th" scope="row">
-                    {teamPreview.teamUniversity}
-                </TableCell>
+            <div id="wrapper">
+                <div className="team-preview__bg-image">
+                    <Table className="team-preview">
+                        <TableBody>
+                            <TableRow key={teamPreview.teamID}>
+                                <TableCell component="td" scope="row" className="university_cell">
+                                    {teamPreview.teamUniversity}
+                                </TableCell>
 
-                <TableCell component="th" scope="row">
-                    {teamPreview.teamCourse}
-                </TableCell>
+                                <TableCell component="td" scope="row" className="course_cell">
+                                    {teamPreview.teamCourse}
+                                </TableCell>
 
-                <TableCell component="th" scope="row">
-                    {teamPreview.teamDescription}
-                </TableCell>
+                                <TableCell component="td" scope="row" className="description_cell">
+                                    {teamPreview.teamDescription}
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+                </div>
+                <div className="button__bg-image">
+                    <Table className="button-preview">
+                        <TableBody>
+                            <TableRow key={teamPreview.teamID}>
+                                <TableCell component="td" scope="row" className="button_cell">
 
-                <TableCell component="th" scope="row">
-                    <Link to={"./../Team"}>
-                        <Button className="join__button">Join</Button>
-                    </Link>
-                </TableCell>
-            </TableRow>
+                                    <Link className="join__link" to={"./../Team"}>
+                                        <Button variant="outlined" color="primary"
+                                                className="join__button">Join</Button>
+                                    </Link>
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+
+                </div>
+            </div>
         );
     }
 }

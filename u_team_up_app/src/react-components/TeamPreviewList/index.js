@@ -1,7 +1,5 @@
 import React from "react";
 import { uid } from "react-uid";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
 
 import TeamPreview from "../TeamPreview";
 
@@ -13,8 +11,7 @@ class TeamPreviewList extends React.Component {
         const { teams } = this.props;
 
         return (
-            <Table className="team-preview-list">
-                <TableBody>
+           <div>
                     {teams.map(teamPreview => (
                         <TeamPreview
                             key={uid(
@@ -23,8 +20,8 @@ class TeamPreviewList extends React.Component {
                             teamPreview={teamPreview}
                         />
                     ))}
-                </TableBody>
-            </Table>
+           </div>
+
         );
     }
 }
