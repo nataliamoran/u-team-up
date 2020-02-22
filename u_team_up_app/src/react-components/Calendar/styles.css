@@ -71,3 +71,10 @@
     margin: auto;
     display: inline-block;
 }
+
+.calendar__schedule
+{
+    font-size: 10px;
+    background-color: #958798;
+    color: #fff;
+}

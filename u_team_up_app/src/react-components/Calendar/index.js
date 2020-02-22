@@ -8,6 +8,14 @@ const debug = console.log;
 const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
+const isSameDay = (a, b) => a.getMonth() === b.getMonth()
+      && a.getFullYear() === b.getFullYear()
+      && a.getDate() === b.getDate();
+
+const formatTime = d => d.getHours() + (d.getMinutes() ? (':' + d.getMinutes()) : '');
+
+const formatTimeInterval = s => formatTime(s.start) + '-' + formatTime(s.end);
+
 class Calendar extends React.Component {
     constructor(props) {
         super(props);
@@ -22,7 +30,9 @@ class Calendar extends React.Component {
         this.state = {
             today: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 2),
             displayDate,
+            schedule: props.schedule,
         };
+        debug(this.state.schedule);
 
         this.changeMonth = this.changeMonth.bind(this);
     }
@@ -66,6 +76,46 @@ class Calendar extends React.Component {
             
             return Math.ceil((numDays[date.getMonth()] - firstDayNum(date)) / 7);
         };
+
+        const generateCalendarDays = () =>
+              Array(numWeeks(this.state.displayDate)).fill(0)
+              .map((_, week) =>
+                   <tr className='calendar__week' key={ week }>
+                       {
+                           [0, 1, 2, 3, 4, 5, 6].map(day => {
+                               debug('w=', week);
+                               const d = new Date(this.state.displayDate.getTime());
+                               debug('d=', d);
+                               const dayCode = firstDayNum(d) + week * 7 + day;
+                               d.setDate(dayCode);
+
+                               const isDisplayMonth = d.getMonth() === this.state.displayDate.getMonth();
+                               const isToday = isSameDay(d, this.state.today);
+                               const classes = 'calendar__day'
+                                     + (isDisplayMonth ? '' : ' calendar__day_inactive')
+                                     + (isToday ? ' calendar__day_today' : '');
+
+                               return (<td key={ dayCode }
+                                           className={ classes }>
+                                           <div>
+                                               <div className='calendar__date'>{ d.getDate() }</div>
+                                               { this.state.schedule
+                                                 .filter(s => isSameDay(s.start, d))
+                                                 .sort((a, b) => a.start.getTime() - b.start.getTime())
+                                                 .map(s =>
+                                                      <div className='calendar__schedule'
+                                                           key={s.start.getTime() + ' ' + s.end.getTime()}>
+                                                          { formatTimeInterval(s) }
+                                                          <div className='calendar__schedule_name'>
+                                                              {s.name}
+                                                          </div>
+                                                      </div>)
+                                               }
+                                           </div>
+                                       </td>);
+                           })
+                       }
+                   </tr>);
         
         return (
             <div className='calendar'>
@@ -83,7 +133,7 @@ class Calendar extends React.Component {
                     <table>
                         <tbody>
                             <tr className='calendar__title'>
-                                <th colspan='7' className='calendar__title'>
+                                <th colSpan='7' className='calendar__title'>
                                     { monthNames[this.state.displayDate.getMonth()] }&nbsp;
                                     { this.state.displayDate.getFullYear() }</th>
                             </tr>
@@ -91,34 +141,7 @@ class Calendar extends React.Component {
                                 <th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th>
                                 <th>Thu</th><th>Fri</th><th>Sat</th>
                             </tr>
-                            {
-                                Array(numWeeks(this.state.displayDate)).fill(0)
-                                .map((_, week) =>
-                                     <tr className='calendar__week' key={ week }>
-                                         {
-                                             [0, 1, 2, 3, 4, 5, 6].map(day => {
-                                                 debug('w=', week);
-                                                 const d = new Date(this.state.displayDate.getTime());
-                                                 debug('d=', d);
-                                                 const dayCode = firstDayNum(d) + week * 7 + day;
-                                                 d.setDate(dayCode);
-
-                                                 const isDisplayMonth = d.getMonth() === this.state.displayDate.getMonth();
-                                                 const isToday = d.getMonth() === this.state.today.getMonth()
-                                                       && d.getFullYear() === this.state.today.getFullYear()
-                                                       && d.getDate() === this.state.today.getDate();
-                                                 const classes = 'calendar__day'
-                                                       + (isDisplayMonth ? '' : ' calendar__day_inactive')
-                                                       + (isToday ? ' calendar__day_today' : '');
-
-                                                 return (<td key={ dayCode }
-                                                       className={ classes }>
-                                    { d.getDate() }
-                                </td>);
-                                             })
-                                         }
-                                     </tr>)
-                            }
+                            { generateCalendarDays() }
                         </tbody>
                     </table>
                 </div>
