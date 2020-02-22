@@ -5,6 +5,7 @@ import './App.css';
 
 import SearchTeam from './react-components/SearchTeam';
 import Team from './react-components/Team';
+import TeamAppointment from './react-components/TeamAppointment';
 
 class App extends React.Component {
 
@@ -24,7 +25,8 @@ class App extends React.Component {
                             (<SearchTeam state={this.state}/>)}/>
                         <Route exact path='/team' render={() =>
                             (<Team state={this.state}/>)}/>
-
+                        <Route exact path='/team/appointment'
+                               render={() => <TeamAppointment teamId={1} otherSchedule={ [] } /> }/>
                     </Switch>
                 </BrowserRouter>
             </div>
