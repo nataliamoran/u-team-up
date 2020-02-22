@@ -3,6 +3,11 @@
     text-align: center;
 }
 
+.calendar__container
+{
+    display: inline-block;
+}
+
 .calendar table
 {
     display: inline-block;
@@ -18,12 +23,24 @@
     display: block;
 }
 
-.calendar__header td
+.calendar__title
 {
+    display: block;
+    min-width: 98%;
     background-color: #958798;
     color: #fff;
     max-height: 20px;
-    min-width: 100px;
+}
+
+.calendar__header th
+{
+    display: inline-block;
+    background-color: #958798;
+    color: #fff;
+    max-height: 20px;
+    min-width: 14%;
+    padding: auto;
+    margin: auto;
 }
 
 .calendar__week
@@ -49,4 +66,8 @@
     color: gray;
 }
 
-
+.calendar__button
+{
+    margin: auto;
+    display: inline-block;
+}
