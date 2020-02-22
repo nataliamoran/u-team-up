@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './styles.css';
+
 const debug = console.log;
 
 class Calendar extends React.Component {
@@ -55,14 +57,14 @@ class Calendar extends React.Component {
             <div className='calendar'>
                 <table>
                     <tbody>
-                        <tr>
+                        <th className='calendar__header'>
                             <td>Sun</td><td>Mon</td><td>Tue</td><td>Wed</td>
                             <td>Thu</td><td>Fri</td><td>Sat</td>
-                        </tr>
+                        </th>
                         {
                             Array(numWeeks(this.state.displayDate)).fill(0)
                             .map((_, week) =>
-                                 <tr key={ week }>
+                                 <tr className='calendar__week' key={ week }>
                                      {
                                          [0, 1, 2, 3, 4, 5, 6].map(day => {
                                              debug('w=', week);

@@ -1,0 +1,52 @@
+.calendar
+{
+    text-align: center;
+}
+
+.calendar table
+{
+    display: inline-block;
+}
+
+.calendar tbody
+{
+    display: block;
+}
+
+.calendar__header
+{
+    display: block;
+}
+
+.calendar__header td
+{
+    background-color: #958798;
+    color: #fff;
+    max-height: 20px;
+    min-width: 100px;
+}
+
+.calendar__week
+{
+    min-height: 100px;
+    display: block;
+}
+
+.calendar__week td
+{
+    min-width: 100px;
+    min-height: 100px;
+    display: inline-block;
+}
+
+.calendar__day_today
+{
+    background-color: #f76073;
+}
+
+.calendar__day_inactive
+{
+    color: gray;
+}
+
+
