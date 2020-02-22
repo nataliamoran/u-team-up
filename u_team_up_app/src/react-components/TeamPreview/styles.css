@@ -12,8 +12,8 @@
     padding-left: 20px;
     padding-right: 100px;
     width: 400px;
-    border-left: 2px solid cadetblue;
-    border-right: 2px solid cadetblue;
+    border-left: 2px solid #283b63;
+    border-right: 2px solid #283b63;
 }
 
 .team-preview__bg-image {
@@ -29,17 +29,17 @@
 }
 
 .university_cell{
-    color: #B94A48 !important;
+    color: #F76073 !important;
     font-weight: bold !important;
     font-size: 1.5em !important;
     background-color: white;
     fill-opacity: 0.8;
-    border-top: 2px solid cadetblue;
+    border-top: 2px solid #283b63;
     border-bottom-style: hidden !important;
 }
 
 .course_cell{
-    color: cadetblue !important;
+    color: #283b63 !important;
     font-weight: bold !important;
     font-size: 1.2em !important;
     background-color: white;
@@ -52,7 +52,7 @@
     padding-bottom: 50px !important;
     background-color: white;
     fill-opacity: 0.8;
-    border-bottom: 2px solid cadetblue !important;
+    border-bottom: 2px solid #283b63 !important;
 }
 
 

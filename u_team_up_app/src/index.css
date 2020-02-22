@@ -11,11 +11,11 @@ code {
 
 button.MuiButton-outlinedPrimary {
     border-radius: 80px;
-    color: cadetblue;
-    border: 2px solid cadetblue;
+    color: #283b63;
+    border: 2px solid #283b63;
 }
 
 button.MuiButton-outlinedPrimary:hover {
-    color: cadetblue;
-    border: 2px solid cadetblue;
+    color: #283b63;
+    border: 2px solid #283b63;
 }

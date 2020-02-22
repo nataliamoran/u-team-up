@@ -1,5 +1,9 @@
 .search_form_title {
-    color: cadetblue;
+    color: #283b63;
     font-size: 2.2em;
 }
 
+
+.search_team_view {
+    text-align: center;
+}

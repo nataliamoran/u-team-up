@@ -35,7 +35,7 @@ class SearchTeam extends React.Component {
 
     render() {
         return (
-            <div className="App">
+            <div className="search_team_view">
                 <h1 className="search_form_title">find your team</h1>
 
                 <div className="search_form">

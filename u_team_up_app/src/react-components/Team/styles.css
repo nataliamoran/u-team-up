@@ -7,22 +7,36 @@
 }
 
 .header__team{
-    color: cadetblue;
+    color: #283b63;
     font-size: 2.2em;
 }
 
 .header__description{
-    color: cadetblue;
+    color: #283b63;
 }
 
 .header__team_data {
     padding-top:10px;
     padding-left:10px;
     font-size: 1.5em;
-    color: #B94A48;
+    color: #F76073;
     font-weight: bold;
 }
 
 .h2 {
-    color: cadetblue;
+    color: #283b63;
+}
+
+.team_page__link{
+    text-decoration: none !important;
+}
+
+.team_page__button{
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+}
+
+.team_page__menu_buttons{
+    padding-top: 30px;
+    padding-left: 30px;
 }
