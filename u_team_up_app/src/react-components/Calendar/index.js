@@ -26,7 +26,8 @@ class Calendar extends React.Component {
         const now = new Date();
         const displayMonth = props.displayMonth || now.getMonth();
         const displayYear = props.displayYear || now.getFullYear();
-        const displayDate = new Date(displayYear, displayMonth, 1, 2);
+        const displayDay = props.displayDay || now.getDate();
+        const displayDate = new Date(displayYear, displayMonth, displayDay, 2);
 
         debug(displayDate);
               
@@ -57,8 +58,8 @@ class Calendar extends React.Component {
     }
 
     addEvent() {
-
-        const timeRe = /^([0-9]{1,2})(?::([0-9]{1,2}))$/;
+        debug('addEvent');
+        const timeRe = /^([0-9]{1,2})(?::([0-9]{1,2}))?$/;
         const arr = this.state.newEventStartTime.match(timeRe);
         if (!arr) { return; }
         const arr2 = this.state.newEventEndTime.match(timeRe);
@@ -68,12 +69,19 @@ class Calendar extends React.Component {
         const m = this.state.displayDate.getMonth();
         const d = this.state.displayDate.getDate();
 
-        const [, h1, m1] = arr;
-        const [, h2, m2] = arr2;
+        const [h1, m1] = arr.slice(1)
+              .map(k => parseInt(k))
+              .map(k => k === k ? k : 0);
+        const [h2, m2] = arr2.slice(1)
+              .map(k => parseInt(k))
+              .map(k => k === k ? k : 0);
+        debug(h1, m1, h2, m2);
         const start = new Date(y, m, d, h1, m1);
         const end = new Date(y, m, d, h2, m2);
 
         const name = this.state.newEventName;
+
+        debug('calling callback');
         
         this.addEventCallback({ start, end, name });
     }
@@ -142,8 +150,8 @@ class Calendar extends React.Component {
                                const isDisplayDate = isSameDay(d, this.state.displayDate);
                                const classes = 'calendar__day'
                                      + (isDisplayMonth ? '' : ' calendar__day_inactive')
-                                     + (isToday ? ' calendar__day_today' :
-                                        (isDisplayDate ? ' calendar__day_display' : ''));
+                                     + (isDisplayDate ? ' calendar__day_display' :
+                                         isToday ? ' calendar__day_today' : '');
 
                                return (<td key={ dayCode }
                                            className={ classes }

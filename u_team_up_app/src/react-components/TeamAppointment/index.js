@@ -3,6 +3,8 @@ import React from 'react';
 import Calendar from '../Calendar';
 import Header from '../Header';
 
+const debug = console.log;
+
 class TeamAppointment extends React.Component {
     constructor(props) {
         super(props);
@@ -15,8 +17,21 @@ class TeamAppointment extends React.Component {
             }, // {start: Date, end: Date}
             otherSchedule: props.otherSchedule || [], // [{start: Date, end: Date}, ...]
         };
+
+        this.addEvent = this.addEvent.bind(this);
     }
 
+    // @param: ev: {start: Date, end: Date, name: string}
+    addEvent(ev) {
+        debug('ta-addevent');
+        const { otherSchedule } = this.state;
+
+        otherSchedule.push(ev);
+        debug(otherSchedule);
+
+        this.setState({ otherSchedule });
+    }
+    
     render() {
         return (
             <div className="team_appointment">
@@ -28,7 +43,7 @@ class TeamAppointment extends React.Component {
                 <div className="body">
                     <Calendar highlight={ this.state.appointmentTime }
                               schedule={ this.state.otherSchedule }
-                              addEventCallback={ () => false } />
+                              addEventCallback={ this.addEvent } />
                 </div>
             </div>
         );
