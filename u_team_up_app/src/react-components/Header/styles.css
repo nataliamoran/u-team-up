@@ -24,11 +24,11 @@
     margin-top: 0;
     margin-bottom: 0;
     margin-left: 10px;
+    display: inline-block;
 }
 
 .header__title_inline
 {
-    display: inline-block;
 }
 
 span.header__title
