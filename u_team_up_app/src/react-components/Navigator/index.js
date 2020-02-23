@@ -22,10 +22,10 @@ class Navigator extends React.Component {
                         <div className='navigator__auth_button_container'>
                             {
                                 this.state.global.loginStatus === 'guest' ?
-                                <Link className='navigator__auth_link' to='/'>
+                                <Link className='navigator__auth_link' to='/login'>
                                     <Button variant='outlined' color='primary'>Log in</Button>
                                 </Link> :
-                                <Link className='navigator__auth_link' to='/'>
+                                <Link className='navigator__auth_link' to='/logout'>
                                     <Button variant='outlined' color='primary'>Log out</Button>
                                 </Link>
                             }
