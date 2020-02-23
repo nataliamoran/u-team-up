@@ -1,0 +1,40 @@
+.left-box {
+    float: left;
+    padding-left: 250px;
+    width: 40%;
+    margin-top: 160px;
+    margin-bottom:40px;
+}
+
+.right-box {
+    float: left;
+    padding-left: 20px;
+    width: 20%;
+    margin-top: 125px;
+}
+
+
+.inner {
+    border: solid #283b63 3px;
+    margin-top: 20px;
+    padding: 10px 10px;
+}
+
+/* body {
+
+    background-image: url("./static/profile-bg.jpeg");
+} */
+
+.profile-pic {
+    top: 30px;
+	left: 270px;
+	width: 170px;
+	border-radius: 50%;
+	border-style: solid;
+	border-color: white;
+	position: absolute;
+}
+
+.notifications {
+    text-align: right;
+}
