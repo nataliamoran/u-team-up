@@ -27,7 +27,8 @@ class TeamAppointment extends React.Component {
                     data={ this.state.teamId } />
                 <div className="body">
                     <Calendar highlight={ this.state.appointmentTime }
-                              schedule={ this.state.otherSchedule } />
+                              schedule={ this.state.otherSchedule }
+                              addEventCallback={ () => false } />
                 </div>
             </div>
         );

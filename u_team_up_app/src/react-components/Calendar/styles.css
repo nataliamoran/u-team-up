@@ -59,6 +59,13 @@
 .calendar__day_today
 {
     background-color: #f76073;
+    color: #fff;
+}
+
+.calendar__day_display
+{
+    background-color: #283b63;
+    color: #fff;
 }
 
 .calendar__day_inactive
@@ -74,7 +81,33 @@
 
 .calendar__schedule
 {
-    font-size: 10px;
+    max-width: 100px;
+    font-size: 0.8em;
     background-color: #958798;
     color: #fff;
+}
+
+.calendar__add_event_container
+{
+    text-align: center;
+    display: block;
+}
+
+.calendar__add_event_line
+{
+    display: block;
+    text-align: center;
+}
+
+.calendar__add_event
+{
+    display: inline-block;
+    margin: 10px;
+}
+
+.calendar__add_event_input
+{
+    display: inline-block;
+    text-align: center;
+    width: max-content;
 }
