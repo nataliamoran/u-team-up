@@ -1,0 +1,36 @@
+.content {
+    max-width: 600px;
+    padding: 30px 30px;
+    text-align: center;
+    margin: 0 auto;
+    /* font-family: serif; */
+}
+
+.login {
+    box-sizing: inherit;
+}
+
+.login_input {
+    border: 3px solid #f5f1ed;
+    border-radius: 10px;
+    /* box-sizing: border-box; */
+    font-size: 20px;
+    padding: 15px;
+    width: 100%;
+}
+
+lable {
+    letter-spacing: 2px;
+    /* float: left; */
+}
+
+.login_button {
+    border-radius: 50px;
+    color: #f1574b;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    /* font-family: serif; */
+    line-height: 1;
+    padding: 15px 15px;
+}
