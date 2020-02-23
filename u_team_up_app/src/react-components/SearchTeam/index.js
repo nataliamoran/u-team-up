@@ -4,6 +4,7 @@ import "./styles.css";
 
 import TeamPreviewList from "./../TeamPreviewList";
 import SearchForm from "./../SearchForm";
+import Menu from "./../Menu";
 
 import { filterTeams } from "../../actions/searchTeam";
 
@@ -22,7 +23,6 @@ class SearchTeam extends React.Component {
         ]
     };
 
-
     handleSearchInput = event => {
         const target = event.target;
         const value = target.value;
@@ -34,7 +34,11 @@ class SearchTeam extends React.Component {
     };
 
     render() {
+        const {studentId} = this.props;
+
         return (
+            <div>
+                <Menu studentId={studentId} />
             <div className="search_team_view">
                 <h1 className="search_form_title">find your team</h1>
 
@@ -48,6 +52,7 @@ class SearchTeam extends React.Component {
                 </div>
 
                 <TeamPreviewList teams={this.state.filteredTeams} />
+            </div>
             </div>
         );
     }

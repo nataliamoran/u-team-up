@@ -4,6 +4,7 @@ import "./styles.css";
 import TeamMemberPreviewList from "./../TeamMemberPreviewList";
 import Button from "@material-ui/core/Button/Button";
 import {Link} from "react-router-dom";
+import Menu from "../Menu";
 import Header from '../Header';
 
 class Team extends React.Component {
@@ -21,7 +22,11 @@ class Team extends React.Component {
 
     render() {
 
+        const {studentId} = this.props;
+
         return (
+            <div>
+                <Menu studentId={studentId} />
             <div className="team">
                 <Header type='main' title='team: ' data={ `${this.state.university} ${this.state.course}` }>
                     <Link className="team_page__link" to={"./"}>
@@ -44,6 +49,7 @@ class Team extends React.Component {
 
                     <TeamMemberPreviewList members={this.state.members}/>
                 </div>
+            </div>
             </div>
         );
     }
