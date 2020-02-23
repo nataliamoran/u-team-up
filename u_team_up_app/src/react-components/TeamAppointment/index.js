@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Calendar from '../Calendar';
+import Header from '../Header';
 
 class TeamAppointment extends React.Component {
     constructor(props) {
@@ -19,10 +20,11 @@ class TeamAppointment extends React.Component {
     render() {
         return (
             <div className="team_appointment">
-                <div className="header">
-                    <h1>Your Appointment</h1>
-                    <p>Project Team ID: { this.state.teamId }</p>
-                </div>
+                <Header type='main' 
+ title='Your Appointment' />
+                <Header type='secondary'
+                    title='Project Team ID:'
+                    data={ this.state.teamId } />
                 <div className="body">
                     <Calendar highlight={ this.state.appointmentTime }
                               schedule={ this.state.otherSchedule } />

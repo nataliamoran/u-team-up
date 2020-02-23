@@ -6,20 +6,21 @@ import './App.css';
 import SearchTeam from './react-components/SearchTeam';
 import Team from './react-components/Team';
 import TeamAppointment from './react-components/TeamAppointment';
+import Navigator from './react-components/Navigator';
 
 class App extends React.Component {
 
     state = {
         user: "user",
         user2: "user2",
-        admin: "admin"
+        admin: "admin",
+        loginStatus: 'guest' // guest, user, admin
     }
 
     render() {
         return (
-
-            <div>
-                <BrowserRouter>
+            <BrowserRouter>
+                <Navigator globalState={ this.state }>
                     <Switch>
                         <Route exact path='/' render={() =>
                             (<SearchTeam state={this.state}/>)}/>
@@ -41,9 +42,8 @@ class App extends React.Component {
                                                       },
                                                      ] } /> }/>
                     </Switch>
-                </BrowserRouter>
-            </div>
-
+                </Navigator>
+            </BrowserRouter>
         );
     }
 }

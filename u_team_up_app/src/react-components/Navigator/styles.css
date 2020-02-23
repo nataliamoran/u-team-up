@@ -1,0 +1,9 @@
+.navigator__header_line
+{
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid #958798;
+    min-height: 3em;
+    height: max-content;
+}
+
