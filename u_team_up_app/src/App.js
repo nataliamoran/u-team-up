@@ -4,6 +4,7 @@ import './App.css';
 
 
 import SearchTeam from './react-components/SearchTeam';
+import SearchStudent from './react-components/SearchStudent';
 import Team from './react-components/Team';
 import TeamAppointment from './react-components/TeamAppointment';
 import Navigator from './react-components/Navigator';
@@ -24,6 +25,8 @@ class App extends React.Component {
                     <Switch>
                         <Route exact path='/' render={() =>
                             (<SearchTeam state={this.state}/>)}/>
+                        <Route exact path='/search-student' render={() =>
+                            (<SearchStudent state={this.state}/>)}/>
                         <Route exact path='/team' render={() =>
                             (<Team state={this.state}/>)}/>
                         <Route exact path='/team/appointment'

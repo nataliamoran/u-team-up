@@ -1,8 +1,4 @@
-const log = console.log;
-
-
 export const filterTeams = search => {
-    log("filtering teams");
 
     const team = {
         university: search.state.teamUniversity,

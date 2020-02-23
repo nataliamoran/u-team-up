@@ -28,8 +28,11 @@ export default function AppMenu() {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    <Link className="join__link" to={"/"}>
+                    <Link to={"/"}>
                         <MenuItem>search teams</MenuItem>
+                    </Link>
+                    <Link to={"/search-student"}>
+                        <MenuItem>search students</MenuItem>
                     </Link>
                     <MenuItem onClick={handleClose}>logout</MenuItem>
                 </Menu>
