@@ -9,35 +9,28 @@ import Header from '../Header';
 
 class Team extends React.Component {
 
-    state = {
-        id: "1",
-        university: "UofT",
-        course: "CSC309",
-        description: "A+ group looking for a JS Jedi",
-        members: [
-            {name: "Tom", photo: "./static/boy.png"},
-            {name: "Kate", photo: "./static/girl.png"}
-        ]
-    };
+    // @param {team: Object}
+    constructor(props) {
+        super(props);
+
+        
+    }
 
     render() {
-
-        const {studentId} = this.props;
+        const { team } = this.props;
 
         return (
-            <div>
-                <Menu studentId={studentId} />
             <div className="team">
-                <Header type='main' title='team: ' data={ `${this.state.university} ${this.state.course}` }>
-                    <Link className="team_page__link" to={"./"}>
+                <Header type='main' title='team: ' data={ `${team.university} ${team.course}` }>
+                    <Link className="team_page__link" to={"/team/${team.id}/edit"}>
                         <Button variant="outlined" color="primary"
                                 className="team_page__button">edit team profile</Button>
                     </Link>
-                    <Link className="team_page__link" to={"/team/appointment"}>
+                    <Link className="team_page__link" to={`/team/${team.id}/appointment`}>
                         <Button variant="outlined" color="primary"
                                 className="team_page__button">team calendar</Button>
                     </Link>
-                    <Link className="team_page__link" to={"./"}>
+                    <Link className="team_page__link" to={"/team/${team.id}/application"}>
                         <Button variant="outlined" color="primary"
                                 className="team_page__button">applications</Button>
                     </Link>
@@ -45,11 +38,10 @@ class Team extends React.Component {
 
                 <div className="body">
                     <h2 className="header__description">description:</h2>
-                    <p className="header__team_description">{this.state.description}</p>
+                    <p className="header__team_description">{team.description}</p>
 
-                    <TeamMemberPreviewList members={this.state.members}/>
+                    <TeamMemberPreviewList members={team.members}/>
                 </div>
-            </div>
             </div>
         );
     }

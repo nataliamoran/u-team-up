@@ -48,6 +48,13 @@ h1.header__title
     font-weight: bold;
 }
 
+.header__data a,
+.header__data a:hover,
+.header__data a:visited
+{
+    color: #f76073;
+}
+
 .header__right
 {
     float: right;

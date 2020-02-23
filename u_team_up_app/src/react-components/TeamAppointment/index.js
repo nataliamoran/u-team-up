@@ -2,8 +2,10 @@ import React from 'react';
 
 import Calendar from '../Calendar';
 import Header from '../Header';
+import { Link } from 'react-router-dom';
 
 const debug = console.log;
+
 
 class TeamAppointment extends React.Component {
     constructor(props) {
@@ -36,10 +38,14 @@ class TeamAppointment extends React.Component {
         return (
             <div className="team_appointment">
                 <Header type='main' 
- title='Your Appointment' />
+                        title='Your Appointment' />
                 <Header type='secondary'
-                    title='Project Team ID:'
-                    data={ this.state.teamId } />
+                        title='Project Team ID:'
+                        data={
+                            <Link to={ `/team/${this.state.teamId}` }>
+                                { this.state.teamId }
+                            </Link>
+                        } />
                 <div className="body">
                     <Calendar highlight={ this.state.appointmentTime }
                               schedule={ this.state.otherSchedule }
