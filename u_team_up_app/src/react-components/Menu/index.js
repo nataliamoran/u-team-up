@@ -35,6 +35,9 @@ export default function AppMenu() {
                         <MenuItem>search students</MenuItem>
                     </Link>
                     <MenuItem onClick={handleClose}>logout</MenuItem>
+                    <Link to={"/appointments"}>
+                        <MenuItem>your appointments</MenuItem>
+                    </Link>
                 </Menu>
             </div>
     );

@@ -8,6 +8,7 @@ import SearchStudent from './react-components/SearchStudent';
 import Team from './react-components/Team';
 import TeamAppointment from './react-components/TeamAppointment';
 import Navigator from './react-components/Navigator';
+import StudentAppointment from './react-components/StudentAppointment';
 
 class App extends React.Component {
 
@@ -43,7 +44,22 @@ class App extends React.Component {
                                                           start: new Date(2020, 1, 22, 13, 0),
                                                           end: new Date(2020, 1, 22, 14, 0)
                                                       },
-                                                     ] } /> }/>
+                                                     ] } />}/>
+                        <Route exact path='/appointments' render={() =>
+                                            <StudentAppointment
+                                                 studentId={1}
+                                                 otherSchedule={
+                                                     [{
+                                                         name: 'Some Meeting',
+                                                         start: new Date(2020, 1, 20, 14, 30),
+                                                         end: new Date(2020, 1, 20, 15, 20)
+                                                     },
+                                                      {
+                                                          name: 'Something else',
+                                                          start: new Date(2020, 1, 22, 13, 0),
+                                                          end: new Date(2020, 1, 22, 14, 0)
+                                                      },
+                                                     ] } />}/>
                     </Switch>
                 </Navigator>
             </BrowserRouter>
