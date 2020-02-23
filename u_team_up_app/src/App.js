@@ -43,7 +43,7 @@ class App extends React.Component {
                                                           name: 'Something else',
                                                           start: new Date(2020, 1, 22, 13, 0),
                                                           end: new Date(2020, 1, 22, 14, 0)
-                                                      },
+                                                      }
                                                      ] } />}/>
                         <Route exact path='/appointments' render={() =>
                                             <StudentAppointment
@@ -51,14 +51,19 @@ class App extends React.Component {
                                                  otherSchedule={
                                                      [{
                                                          name: 'Some Meeting',
-                                                         start: new Date(2020, 1, 20, 14, 30),
-                                                         end: new Date(2020, 1, 20, 15, 20)
+                                                         start: new Date(2020, 1, 25, 15, 45),
+                                                         end: new Date(2020, 1, 25, 16, 20)
                                                      },
                                                       {
                                                           name: 'Something else',
-                                                          start: new Date(2020, 1, 22, 13, 0),
-                                                          end: new Date(2020, 1, 22, 14, 0)
+                                                          start: new Date(2020, 1, 28, 11, 0),
+                                                          end: new Date(2020, 1, 28, 14, 0)
                                                       },
+                                                      {
+                                                          name: 'Something else',
+                                                          start: new Date(2020, 3, 28, 11, 0),
+                                                          end: new Date(2020, 3, 28, 14, 0)
+                                                      }
                                                      ] } />}/>
                     </Switch>
                 </Navigator>
