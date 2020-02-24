@@ -1,5 +1,6 @@
 import React from "react";
 
+
 import "./styles.css";
 import TeamMemberPreviewList from "./../TeamMemberPreviewList";
 import Button from "@material-ui/core/Button/Button";
@@ -37,7 +38,7 @@ class Team extends React.Component {
                         <Button variant="outlined" color="primary"
                                 className="team_page__button">team calendar</Button>
                     </Link>
-                    <Link className="team_page__link" to={"./"}>
+                    <Link className="team_page__link" to={"./team/applications"}>
                         <Button variant="outlined" color="primary"
                                 className="team_page__button">applications</Button>
                     </Link>

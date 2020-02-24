@@ -1,44 +1,31 @@
-import React from "react";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Button from "@material-ui/core/Button";
-import {Link} from "react-router-dom";
+import React, { Component } from "react";
+import { Menu, Message } from "semantic-ui-react";
 
-export default function AppMenu() {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+export default class AppMenu extends Component {
+  state = {};
+  handleClick = () => this.setState({ message: "onClick handled" });
 
-    const handleClick = event => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+  render() {
+    const { message } = this.state;
 
     return (
-            <div className="main_menu">
-                <Button className="main_menu_button" aria-controls="simple-menu" aria-haspopup="true"
-                        onClick={handleClick}>
-                    menu
-                </Button>
-                <Menu
-                    className="main_menu_content"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
-                >
-                    <Link to={"/"}>
-                        <MenuItem>search teams</MenuItem>
-                    </Link>
-                    <Link to={"/search-student"}>
-                        <MenuItem>search students</MenuItem>
-                    </Link>
-                    <MenuItem onClick={handleClose}>logout</MenuItem>
-                    <Link to={"/appointments"}>
-                        <MenuItem>your appointments</MenuItem>
-                    </Link>
-                </Menu>
-            </div>
+      <div>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.11/semantic.min.css"></link>
+        <Menu>
+          <Menu.Item href="/" target="_blank">
+            Search Teams
+          </Menu.Item>
+          <Menu.Item href="/search-student" target="_blank">
+            Search Students
+          </Menu.Item>
+          <Menu.Item href="/appointments" target="_blank">
+            Your Appointments
+          </Menu.Item>
+        </Menu>
+
+        {message && <Message content={message} />}
+      </div>
     );
+  }
 }
+

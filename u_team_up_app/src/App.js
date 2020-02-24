@@ -65,6 +65,8 @@ class App extends React.Component {
                                                           end: new Date(2020, 3, 28, 14, 0)
                                                       }
                                                      ] } />}/>
+                      <Route exact path='/team/applications' render={() =>
+                            (<Team state={this.state}/>)}/>
                     </Switch>
                 </Navigator>
             </BrowserRouter>

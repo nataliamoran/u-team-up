@@ -1,4 +1,6 @@
 import React from "react";
+import ReactDOM from "react-dom";
+import { Container, Header, List } from "semantic-ui-react";
 
 import "./styles.css";
 
