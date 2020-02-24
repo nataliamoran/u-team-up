@@ -45,7 +45,7 @@ class Team extends React.Component {
                                 className="team_page__button">team calendar</Button>
                     </Link>
 
-                    <Link className="team_page__link" to={"./team/applications"}>
+            
 
                     <Link className="team_page__link" to={`/team/${team.id}/application`}>
 
