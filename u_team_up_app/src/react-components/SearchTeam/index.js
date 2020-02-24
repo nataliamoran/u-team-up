@@ -39,8 +39,6 @@ class SearchTeam extends React.Component {
         const {studentId} = this.props;
 
         return (
-            <div>
-                <Menu studentId={studentId} />
             <div className="search_team_view">
                 <h1 className="search_form_title">find your team</h1>
 
@@ -54,7 +52,6 @@ class SearchTeam extends React.Component {
                 </div>
 
                 <TeamPreviewList teams={this.state.filteredTeams} />
-            </div>
             </div>
         );
     }
