@@ -24,11 +24,11 @@
     margin-top: 0;
     margin-bottom: 0;
     margin-left: 10px;
+    display: inline-block;
 }
 
 .header__title_inline
 {
-    display: inline-block;
 }
 
 span.header__title
@@ -46,6 +46,13 @@ h1.header__title
     padding-left:10px;
     color: #f76073;
     font-weight: bold;
+}
+
+.header__data a,
+.header__data a:hover,
+.header__data a:visited
+{
+    color: #f76073;
 }
 
 .header__right

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Header from '../Header';
+import Menu from '../Menu';
 import { Link, withRouter } from 'react-router-dom';
 import Button from '@material-ui/core/Button/Button';
 import './styles.css';
@@ -31,18 +32,10 @@ class Navigator extends React.Component {
                             { '<<' }
                         </Button>
                     </div>
+                    
                     <Header type='main' title='UTeamUp!' className='navigator__header_title'>
-                        <div className='navigator__auth_button_container'>
-                            {
-                                this.state.global.loginStatus === 'guest' ?
-                                <Link className='navigator__auth_link' to='/login'>
-                                    <Button variant='outlined' color='primary'>Log in</Button>
-                                </Link> :
-                                <Link className='navigator__auth_link' to='/logout'>
-                                    <Button variant='outlined' color='primary'>Log out</Button>
-                                </Link>
-                            }
-                        </div>
+                        <Menu loginStatus={ this.state.global.loginStatus }
+                              identity={ this.state.global.identity } />
                     </Header>
                 </div>
                 { this.props.children }
