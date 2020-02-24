@@ -19,18 +19,11 @@ class App extends React.Component {
             admin: "admin",
         },
         loginStatus: 'guest', // guest, user, admin
-        teams: {
-            '1': {
-                id: "1",
-                university: "UofT",
-                course: "CSC309",
-                description: "A+ group looking for a JS Jedi",
-                members: [
-                    {name: "Tom", photo: "./static/boy.png"},
-                    {name: "Kate", photo: "./static/girl.png"}
-                ]
-            },
-        }
+        identity: {
+            type: 'guest',
+            username: '',
+            uid: '',
+        },
     }
 
     render() {
@@ -44,24 +37,11 @@ class App extends React.Component {
                             (<SearchStudent state={this.state}/>)}/>
                         <Route exact path='/team/:id/appointment' render={
                             ({ match }) =>
-                                <TeamAppointment
-                                    teamId={ match.params.id }
-                                    otherSchedule={
-                                        [{
-                                            name: 'Some Meeting',
-                                            start: new Date(2020, 1, 20, 14, 30),
-                                            end: new Date(2020, 1, 20, 15, 20)
-                                        },
-                                         {
-                                             name: 'Something else',
-                                             start: new Date(2020, 1, 22, 13, 0),
-                                             end: new Date(2020, 1, 22, 14, 0)
-                                         }
-                                        ] } />
+                                <TeamAppointment teamId={ match.params.id } />
                         }/>
                         <Route exact path='/team/:id' render={
                             ({ match }) =>
-                                <Team state={this.state} team={ this.state.teams[match.params.id] } />}/>
+                                <Team globalState={this.state} teamId={ match.params.id } />}/>
                         <Route exact path='/appointments' render={() =>
                                             <StudentAppointment
                                                  studentId={1}

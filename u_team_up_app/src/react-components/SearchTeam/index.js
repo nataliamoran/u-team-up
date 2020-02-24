@@ -10,18 +10,20 @@ import { filterTeams } from "../../actions/searchTeam";
 
 class SearchTeam extends React.Component {
 
-    state = {
-        teamUniversity: "",
-        teamCourse: "",
-        teams: [
-            { teamUniversity:"UofT", teamCourse: "CSC309", teamID: "1", teamDescription: "A+ group looking for a JS Jedi" },
-            { teamUniversity:"UofT", teamCourse: "CSC207", teamID: "2", teamDescription: "Let's crash this course together!"  }
-        ],
-        filteredTeams: [
-            { teamUniversity:"UofT", teamCourse: "CSC309", teamID: "1", teamDescription: "A+ group looking for a JS Jedi" },
-            { teamUniversity:"UofT", teamCourse: "CSC207", teamID: "2", teamDescription: "Let's crush this course together!"  }
-        ]
-    };
+    constructor(props) {
+        super(props);
+        
+        this.state = {
+            teamUniversity: "",
+            teamCourse: "",
+            teams: [ // TODO: FETCH
+                { teamUniversity:"UofT", teamCourse: "CSC309", teamId: "1", teamDescription: "A+ group looking for a JS Jedi" },
+                { teamUniversity:"UofT", teamCourse: "CSC207", teamId: "2", teamDescription: "Let's crash this course together!"  }
+            ],
+        }
+
+        this.state.filteredTeams = Array.from(this.state.teams);
+    }
 
     handleSearchInput = event => {
         const target = event.target;

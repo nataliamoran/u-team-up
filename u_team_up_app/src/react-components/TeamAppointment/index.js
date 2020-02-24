@@ -17,7 +17,18 @@ class TeamAppointment extends React.Component {
                 start: null,
                 end: null
             }, // {start: Date, end: Date}
-            otherSchedule: props.otherSchedule || [], // [{start: Date, end: Date}, ...]
+            otherSchedule: [ // TODO: FETCH
+                {
+                    name: 'Some Meeting',
+                    start: new Date(2020, 1, 20, 14, 30),
+                    end: new Date(2020, 1, 20, 15, 20)
+                },
+                {
+                    name: 'Something else',
+                    start: new Date(2020, 1, 22, 13, 0),
+                    end: new Date(2020, 1, 22, 14, 0)
+                }
+            ], // [{start: Date, end: Date, name: string}, ...]
         };
 
         this.addEvent = this.addEvent.bind(this);
@@ -32,6 +43,8 @@ class TeamAppointment extends React.Component {
         debug(otherSchedule);
 
         this.setState({ otherSchedule });
+
+        // TODO: UPLOAD
     }
     
     render() {
