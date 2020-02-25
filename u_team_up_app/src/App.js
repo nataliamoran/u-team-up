@@ -9,6 +9,7 @@ import Team from './react-components/Team';
 import TeamAppointment from './react-components/TeamAppointment';
 import Navigator from './react-components/Navigator';
 import StudentAppointment from './react-components/StudentAppointment';
+import TeamApplicationInvitation from './react-components/TeamApplicationInvitation';
 
 class App extends React.Component {
 
@@ -62,8 +63,9 @@ class App extends React.Component {
                                                           end: new Date(2020, 3, 28, 14, 0)
                                                       }
                                                      ] } />}/>
-                      <Route exact path='/team/applications' render={() =>
-                            (<Team state={this.state}/>)}/>
+                      <Route exact path='/team/1/application' render={() =>
+                            (<TeamApplicationInvitation state={this.state}/>)}/>
+
                     </Switch>
                 </Navigator>
             </BrowserRouter>
