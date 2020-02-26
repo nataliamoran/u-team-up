@@ -63,26 +63,9 @@ class App extends React.Component {
                         <Route exact path='/team/:id' render={
                             ({ match }) =>
                                 <Team globalState={this.state} teamId={ match.params.id } />}/>
-                        <Route exact path='/appointments' render={() =>
-                                            <StudentAppointment
-                                                 studentId={1}
-                                                 otherSchedule={
-                                                     [{
-                                                         name: 'Some Meeting',
-                                                         start: new Date(2020, 1, 25, 15, 45),
-                                                         end: new Date(2020, 1, 25, 16, 20)
-                                                     },
-                                                      {
-                                                          name: 'Something else',
-                                                          start: new Date(2020, 1, 28, 11, 0),
-                                                          end: new Date(2020, 1, 28, 14, 0)
-                                                      },
-                                                      {
-                                                          name: 'Something else',
-                                                          start: new Date(2020, 3, 28, 11, 0),
-                                                          end: new Date(2020, 3, 28, 14, 0)
-                                                      }
-                                                     ] } />}/>
+                        <Route exact path='/appointments' render={
+                            () => <StudentAppointment globalState={ this.state } studentId='1' />
+                        }/>
                       <Route exact path='/team/:id/application' render={() =>
                             (<TeamApplicationInvitation state={this.state}/>)}/>
 
