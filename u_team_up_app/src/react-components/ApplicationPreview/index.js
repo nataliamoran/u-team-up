@@ -35,7 +35,7 @@ class ApplicationPreview extends React.Component {
                             <TableRow className="row-preview">
                                 <TableCell component="td" scope="row" className="button_cell">
 
-                                    <Link className="see__link" to={`/team/1/`}>
+                                    <Link className="see__link" to={`/student-profile`}>
                                         <Button variant="outlined" color="primary"
                                                 className="see__button">See</Button>
                                     </Link>
