@@ -25,13 +25,19 @@ class Login extends React.Component {
     }
 
     handleSubmit(e) {
-        if ((e.target.username.value === this.state.users[0].username &&
-            e.target.password.value === this.state.users[0].password) ||
-            (e.target.username.value === this.state.users[1].username &&
-            e.target.password.value === this.state.users[1].password)){
-            alert('Correct password')
+        if ((e.target.username.value !== this.state.users[0].username) &&
+        (e.target.username.value !== this.state.users[1].username)) {
+            alert('Username does not exist')
         } else {
-            alert('Wrong password')
+            if ((e.target.username.value === this.state.users[0].username &&
+                e.target.password.value === this.state.users[0].password) ||
+                (e.target.username.value === this.state.users[1].username &&
+                e.target.password.value === this.state.users[1].password)){
+                alert('Correct password')
+            } else {
+                    alert('Wrong password')
+
+            }
         }
 
         e.preventDefault();
@@ -42,7 +48,7 @@ class Login extends React.Component {
             <div>
             <title>UTeamUp Login</title>
             <div className="login__content">
-              <h1>UTeamUp</h1>
+              <h1>UTeamUp!</h1>
               <form className="login" method="post" onSubmit={this.handleSubmit}>
 
               <label htmlFor="username">USERNAME</label>
