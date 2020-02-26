@@ -12,6 +12,7 @@ import Navigator from './react-components/Navigator';
 import StudentProfile from './react-components/StudentProfile';
 import StudentAppointment from './react-components/StudentAppointment';
 import TeamApplicationInvitation from './react-components/TeamApplicationInvitation';
+import MessageBox from './react-components/MessageBox';
 
 class App extends React.Component {
 
@@ -66,9 +67,9 @@ class App extends React.Component {
                         <Route exact path='/appointments' render={
                             () => <StudentAppointment globalState={ this.state } studentId='1' />
                         }/>
-                      <Route exact path='/team/:id/application' render={() =>
+                        <Route exact path='/team/:id/application' render={() =>
                             (<TeamApplicationInvitation state={this.state}/>)}/>
-
+                        <Route exact path='/inbox' render={() => <MessageBox globalState={ this.state} />} />
                     </Switch>
                 </Navigator>
             </BrowserRouter>
