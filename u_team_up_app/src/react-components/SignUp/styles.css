@@ -1,16 +1,16 @@
-.content {
+.signup__content {
     max-width: 600px;
     padding: 30px 30px;
     text-align: center;
     margin: 0 auto;
-    font-family: serif;
+    /* font-family: serif; */
 }
 
-.login {
+/* .signup {
     box-sizing: inherit;
-}
+} */
 
-.login_input {
+.signup__input {
     border: 3px solid #f5f1ed;
     border-radius: 10px;
     box-sizing: border-box;
@@ -21,16 +21,15 @@
 
 lable {
     letter-spacing: 2px;
-    /* float: left; */
 }
 
-.login_button {
+.signup__button {
     border-radius: 50px;
     color: #f1574b;
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
-    font-family: serif;
+    /* font-family: serif; */
     line-height: 1;
-    padding: 15px 15px;
+    padding: 13px 15px;
 }
