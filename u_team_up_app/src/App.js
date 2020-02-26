@@ -2,12 +2,14 @@ import React from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import './App.css';
 
-
+import Login from './react-components/Login';
+import SignUp from './react-components/SignUp';
 import SearchTeam from './react-components/SearchTeam';
 import SearchStudent from './react-components/SearchStudent';
 import Team from './react-components/Team';
 import TeamAppointment from './react-components/TeamAppointment';
 import Navigator from './react-components/Navigator';
+import StudentProfile from './react-components/StudentProfile';
 import StudentAppointment from './react-components/StudentAppointment';
 import TeamApplicationInvitation from './react-components/TeamApplicationInvitation';
 
@@ -34,6 +36,12 @@ class App extends React.Component {
                     <Switch>
                         <Route exact path='/' render={() =>
                             (<SearchTeam state={this.state}/>)}/>
+                        <Route exact path='/login' render={() =>
+                            (<Login state={this.state}/>)}/>
+                        <Route exact path='/signup' render={() =>
+                            (<SignUp state={this.state}/>)}/>
+                        <Route exact path='/student-profile' render={() =>
+                            (<StudentProfile state={this.state}/>)}/>
                         <Route exact path='/search-student' render={() =>
                             (<SearchStudent state={this.state}/>)}/>
                         <Route exact path='/team/:id/appointment' render={
