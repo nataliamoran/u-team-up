@@ -11,7 +11,6 @@ class Navigator extends React.Component {
         super(props);
 
         this.state = {
-            global: props.globalState,
         };
         
         this.back = this.back.bind(this);
@@ -34,8 +33,8 @@ class Navigator extends React.Component {
                     </div>
                     
                     <Header type='main' title='UTeamUp!' className='navigator__header_title'>
-                        <Menu loginStatus={ this.state.global.loginStatus }
-                              identity={ this.state.global.identity } />
+                        <Menu loginStatus={ this.props.globalState.loginStatus }
+                              identity={ this.props.globalState.identity } />
                     </Header>
                 </div>
                 { this.props.children }

@@ -15,20 +15,31 @@ import TeamApplicationInvitation from './react-components/TeamApplicationInvitat
 
 class App extends React.Component {
 
-    state = {
-        auth: {
-            user: "user",
-            user2: "user2",
-            admin: "admin",
-        },
-        loginStatus: 'guest', // guest, user, admin
-        identity: {
-            type: 'guest',
-            username: '',
-            uid: '',
-        },
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            auth: {
+                user: "user",
+                user2: "user2",
+                admin: "admin",
+            },
+            loginStatus: 'guest', // guest, user, admin
+            identity: {
+                type: 'guest',
+                username: '',
+                uid: '',
+            },
+        };
+
+        this.setIdentity = this.setIdentity.bind(this);
     }
 
+    // @param: identity: const Object
+    setIdentity(identity) {
+        this.setState({ identity, loginStatus: identity.type });
+    }
+    
     render() {
         return (
             <BrowserRouter>
@@ -36,8 +47,9 @@ class App extends React.Component {
                     <Switch>
                         <Route exact path='/' render={() =>
                             (<SearchTeam state={this.state}/>)}/>
-                        <Route exact path='/login' render={() =>
-                            (<Login state={this.state}/>)}/>
+                        <Route exact path='/login' render={
+                            () => <Login loginCallback={ this.setIdentity }/>
+                        }/>
                         <Route exact path='/signup' render={() =>
                             (<SignUp state={this.state}/>)}/>
                         <Route exact path='/student-profile' render={() =>
