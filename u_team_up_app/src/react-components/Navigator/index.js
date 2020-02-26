@@ -32,7 +32,8 @@ class Navigator extends React.Component {
                         </Button>
                     </div>
                     
-                    <Header type='main' title='UTeamUp!' className='navigator__header_title'>
+                    <Header type='main' title={<Link to='/'>UTeamUp!</Link>}
+                            className='navigator__header_title'>
                         <Menu loginStatus={ this.props.globalState.loginStatus }
                               identity={ this.props.globalState.identity } />
                     </Header>
