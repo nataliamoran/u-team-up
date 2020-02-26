@@ -21,7 +21,7 @@ class ApplicationPreview extends React.Component {
                 <div className="application-preview__bg-image1">
                     <Table className="application-preview1">
                         <TableBody>
-                            <TableRow key={applicationPreview.studentID}>
+                            <TableRow key={applicationPreview.studentId}>
                                 <TableCell component="td" scope="row" className="name_cell1">
                                     {applicationPreview.studentName}
                                 </TableCell>

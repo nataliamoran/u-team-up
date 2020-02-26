@@ -22,18 +22,18 @@ class TeamApplicationInvitation extends React.Component {
             studentName: "",
 	        studentUniversity: "",
 	        studentCourse: "",
-	        studentID: "", 
+	        studentId: "", 
 	        applicationStatus: "",
 	        invitationStatus: "",
 	        applications: [ // TODO: FETCH
-                { studentName: "Tom", studentID: "1", applicationStatus: "Accepted" },
-                { studentName: "Christopher Breaux", studentID: "2", applicationStatus: "Rejected" },
-                { studentName: "Elizabeth Grant", studentID: "3", applicationStatus: "Pending" }
+                { studentName: "Tom", studentId: "1", applicationStatus: "Accepted" },
+                { studentName: "Christopher Breaux", studentId: "2", applicationStatus: "Rejected" },
+                { studentName: "Elizabeth Grant", studentId: "3", applicationStatus: "Pending" }
             ],
 	        invitations: [ //TODO FETCH
-            	{ studentName: "Rosalia Tobella", studentID: "1", invitationStatus: "Pending" }, 
-            	{ studentName: "Tyler Okonma", studentID: "2", invitationStatus: "Pending" },
-            	{ studentName: "Kanye West", studentID: "3", invitationStatus: "Invite" }
+            	{ studentName: "Rosalia Tobella", studentId: "1", invitationStatus: "Pending" }, 
+            	{ studentName: "Tyler Okonma", studentId: "2", invitationStatus: "Pending" },
+            	{ studentName: "Kanye West", studentId: "3", invitationStatus: "Invite" }
             ]
         }
 

@@ -71,7 +71,7 @@ class App extends React.Component {
                                                           end: new Date(2020, 3, 28, 14, 0)
                                                       }
                                                      ] } />}/>
-                      <Route exact path='/team/1/application' render={() =>
+                      <Route exact path='/team/:id/application' render={() =>
                             (<TeamApplicationInvitation state={this.state}/>)}/>
 
                     </Switch>

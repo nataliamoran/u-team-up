@@ -25,11 +25,11 @@
     width: 50%;
     height: 300px;
     /*background-image: url("./static/puzzle.png");*/
-    margin-left: 0px !important;
-    margin-right: 50px !important;
-    margin-bottom: 0px !important;
-    padding-top: 20px !important;
-    padding-left: 0px !important;
+    margin-left: 0px /*!important*/;
+    margin-right: 50px /*!important*/;
+    margin-bottom: 0px /*!important*/;
+    padding-top: 20px /*!important*/;
+    padding-left: 0px /*!important*/;
 }
 
 .row-preview {
@@ -59,42 +59,42 @@
 
 
 .button-preview1 td {
-    border-bottom-style: hidden !important;
-    padding: 20px 20px 20px 45px !important;
+    border-bottom-style: hidden /*!important*/;
+    padding: 20px 20px 20px 45px /*!important*/;
     background-color: white;
     opacity: 0.9;
 }
 
 .see__link{
-    text-decoration: none !important;
+    text-decoration: none /*!important*/;
 
 }
 
 .see__button{
-    width: 90px !important;
-    font-size: 1.2em !important;
+    width: 90px /*!important*/;
+    font-size: 1.2em /*!important*/;
 
 }
 
 .accept__link{
-    text-decoration: none !important;
+    text-decoration: none /*!important*/;
 
 }
 
 .accept__button{
-    width: 90px !important;
-    font-size: 1.2em !important;
+    width: 90px /*!important*/;
+    font-size: 1.2em /*!important*/;
 
 }
 
 .reject__link{
-    text-decoration: none !important;
+    text-decoration: none /*!important*/;
 
 }
 
 .reject__button{
-    width: 90px !important;
-    font-size: 1.2em !important;
+    width: 90px /*!important*/;
+    font-size: 1.2em /*!important*/;
 
 }
 

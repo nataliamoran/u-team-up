@@ -17,7 +17,7 @@ class InvitationPreview extends React.Component {
                 <div className="invitation-preview__bg-image">
                     <Table className="invitation-preview">
                         <TableBody>
-                            <TableRow key={invitationPreview.studentID}>
+                            <TableRow key={invitationPreview.studentId}>
                                 <TableCell component="td" scope="row" className="name_cell">
                                     {invitationPreview.studentName}
                                 </TableCell>
