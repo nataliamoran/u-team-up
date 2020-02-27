@@ -38,7 +38,6 @@ class Calendar extends React.Component {
             newEventName: '',
             newEventStartTime: '',
             newEventEndTime: '',
-            newEvent: null,
         };
         debug(this.state.schedule);
 
@@ -91,32 +90,26 @@ class Calendar extends React.Component {
     }
 
     addEvent() {
-        if (this.state.newEvent !== null) {
-            const e = this.state.newEvent;
+        const e = this.eventFromInput()
+        if (e !== null) {
             this.addEventCallback(e);
             this.setState({
-                newEvent: null,
                 newEventName: '',
                 newEventStartTime: '',
                 newEventEndTime: '',
             });
         }
     }
-
+    
     handleChange(e) {
         e.preventDefault();
 
         const { name, value } = e.target;
-
-        const updateEvent = () => {
-            const newEvent = this.eventFromInput();
-            this.setState({ newEvent });
-        }
         
         if (/Time$/.test(name)) {
-            this.setState({ [name]: value.replace(/[^0-9:]/g, '') }, updateEvent);
+            this.setState({ [name]: value.replace(/[^0-9:]/g, '') });
         } else {
-            this.setState({ [name]: value }, updateEvent);
+            this.setState({ [name]: value });
         }
     }
 
@@ -158,8 +151,10 @@ class Calendar extends React.Component {
             return Math.ceil((numDays[date.getMonth()] - firstDayNum(date)) / 7);
         };
 
-        const schedule = this.state.newEvent
-              ? this.state.schedule.concat(this.state.newEvent)
+        const newEvent = this.eventFromInput();
+        
+        const schedule = newEvent
+              ? this.state.schedule.concat(newEvent)
               : this.state.schedule;
         
         const generateCalendarDays = () =>
@@ -190,7 +185,7 @@ class Calendar extends React.Component {
                                                  .sort((a, b) => a.start.getTime() - b.start.getTime())
                                                  .map(s =>
                                                       <div className={
-                                                          (s === this.state.newEvent
+                                                          (s === newEvent
                                                            ? 'calendar__schedule_new ' : '')
                                                               + 'calendar__schedule'}
                                                            key={s.start.getTime() + ' ' + s.end.getTime()}>
