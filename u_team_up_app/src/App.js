@@ -59,7 +59,7 @@ class App extends React.Component {
                             (<SearchStudent state={this.state}/>)}/>
                         <Route exact path='/team/:id/appointment' render={
                             ({ match }) =>
-                                <TeamAppointment teamId={ match.params.id } />
+                                <TeamAppointment teamId={ match.params.id } globalState={ this.state } />
                         }/>
                         <Route exact path='/team/:id' render={
                             ({ match }) =>
