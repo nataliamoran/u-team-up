@@ -60,7 +60,7 @@ class TeamApplicationInvitation extends React.Component {
                 <ApplicationPreviewList applications={this.state.filteredApplications} /> 
 
                 <h1 className="search_form_title">Team Invitations</h1>
-                <div className="search_student_form">
+                <div className="search_student_form">       
                 <SearchStudentForm
                     studentName={this.state.studentName}
                     handleSearch={this.handleSearchInput}

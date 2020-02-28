@@ -12,6 +12,7 @@ import Navigator from './react-components/Navigator';
 import StudentProfile from './react-components/StudentProfile';
 import StudentAppointment from './react-components/StudentAppointment';
 import TeamApplicationInvitation from './react-components/TeamApplicationInvitation';
+import AdminDashboard from './react-components/AdminDashboard';
 
 class App extends React.Component {
 
@@ -73,7 +74,8 @@ class App extends React.Component {
                                                      ] } />}/>
                       <Route exact path='/team/:id/application' render={() =>
                             (<TeamApplicationInvitation state={this.state}/>)}/>
-
+                      <Route exact path='/adminDashboard' render={() =>
+                            (<AdminDashboard state={this.state}/>)}/>
                     </Switch>
                 </Navigator>
             </BrowserRouter>
