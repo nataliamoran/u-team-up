@@ -12,6 +12,7 @@ import Navigator from './react-components/Navigator';
 import StudentProfile from './react-components/StudentProfile';
 import StudentAppointment from './react-components/StudentAppointment';
 import TeamApplicationInvitation from './react-components/TeamApplicationInvitation';
+import StudentApplicationInvitation from './react-components/StudentApplicationInvitation';
 import MessageBox from './react-components/MessageBox';
 
 class App extends React.Component {
@@ -40,7 +41,7 @@ class App extends React.Component {
     setIdentity(identity) {
         this.setState({ identity, loginStatus: identity.type });
     }
-    
+
     render() {
         return (
             <BrowserRouter>
@@ -69,6 +70,8 @@ class App extends React.Component {
                         }/>
                         <Route exact path='/team/:id/application' render={() =>
                             (<TeamApplicationInvitation state={this.state}/>)}/>
+                        <Route exact path='/student-app-inv' render={() => // MODIFY LATER
+                            (<StudentApplicationInvitation state={this.state}/>)}/>
                         <Route exact path='/inbox' render={() => <MessageBox globalState={ this.state} />} />
                     </Switch>
                 </Navigator>
