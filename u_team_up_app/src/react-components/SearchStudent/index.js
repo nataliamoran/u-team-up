@@ -10,6 +10,8 @@ import TableBody from "@material-ui/core/TableBody/TableBody";
 import TableRow from "@material-ui/core/TableRow/TableRow";
 import TableCell from "@material-ui/core/TableCell/TableCell";
 import {uid} from "react-uid";
+import TeamMemberPreviewList from "../TeamMemberPreviewList";
+import Grid from "@material-ui/core/Grid/Grid";
 
 class SearchStudent extends React.Component {
 
@@ -18,12 +20,12 @@ class SearchStudent extends React.Component {
         studentUniversity: "",
         studentCourse: "",
         students: [
-            {studentName: "Tom", studentUniversity: "UofT", studentCourse: "CSC309", studentID: "1"},
-            {studentName: "Kate", studentUniversity: "UofT", studentCourse: "CSC207", studentID: "2"}
+            {name: "Tom", university: "UofT", course: "CSC309", id: "1", photo: "./static/boy.png", profileLink: "/student-profile"},
+            {name: "Alice Alison", university: "UofT", course: "CSC207",  id: "2", photo: "./static/alice.png", profileLink: "/student-profile"}
         ],
         filteredStudents: [
-            {studentName: "Tom", studentUniversity: "UofT", studentCourse: "CSC309", studentID: "1"},
-            {studentName: "Kate", studentUniversity: "UofT", studentCourse: "CSC207", studentID: "2"}
+            {name: "Tom", university: "UofT", course: "CSC309", id: "1", photo: "./static/boy.png", profileLink: "/student-profile"},
+            {name: "Alice Alison", university: "UofT", course: "CSC207",  id: "2", photo: "./static/alice.png", profileLink: "/student-profile"}
         ]
     };
 
@@ -42,12 +44,11 @@ class SearchStudent extends React.Component {
 
         return (
             <div>
-                <Menu studentId={studentId}/>
                 <div className="search_student_view">
-                    <h1 className="search_student_form_title">find a partner</h1>
+                    <h1 className="search_form_title">find a partner</h1>
 
                     {/* Students Search Form */}
-                    <div className="search_student_form">
+                    <div className="search-form">
                         <SearchStudentForm
                             studentName={this.state.studentName}
                             studentUniversity={this.state.studentUniversity}
@@ -58,34 +59,7 @@ class SearchStudent extends React.Component {
                     </div>
 
                     {/* Student Previews Table*/}
-                    <div>
-                        {this.state.filteredStudents.map(studentPreview => (
-                            <div key={uid(
-                                studentPreview
-                            )}>
-                            <div id="wrapper">
-                                <div className="student-preview__bg-image">
-                                    <Table className="student-preview">
-                                        <TableBody>
-                                            <TableRow key={studentPreview.studentID}>
-                                                <TableCell component="td" scope="row" className="name_cell">
-                                                    {studentPreview.studentName}
-                                                </TableCell>
-                                                <TableCell component="td" scope="row" className="university_cell">
-                                                    {studentPreview.studentUniversity}
-                                                </TableCell>
-
-                                                <TableCell component="td" scope="row" className="course_cell">
-                                                    {studentPreview.studentCourse}
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableBody>
-                                    </Table>
-                                </div>
-                            </div>
-                            </div>
-                        ))}
-                    </div>
+                    <TeamMemberPreviewList members={this.state.filteredStudents}/>
                 </div>
             </div>
         );

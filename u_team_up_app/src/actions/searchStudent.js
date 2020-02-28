@@ -8,13 +8,13 @@ export const filterStudents = search => {
 
 
     const newlyFilteredStudents = search.state.students.filter(s => {
-        return (s.studentName === student.name &&
-            s.studentUniversity === student.university &&
-            s.studentCourse === student.course) ||
+        return (s.name === student.name &&
+            s.university === student.university &&
+            s.course === student.course) ||
             (student.name === "" && student.university === "" && student.course === "") ||
-            (s.studentName === student.name) ||
-            (s.studentCourse === student.course) ||
-            (s.studentUniversity === student.university);
+            (s.name === student.name) ||
+            (s.course === student.course) ||
+            (s.university === student.university);
     });
 
     search.setState({
