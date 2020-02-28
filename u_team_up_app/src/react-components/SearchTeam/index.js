@@ -1,6 +1,7 @@
 import React from "react";
 
 import "./styles.css";
+import {uid} from "react-uid";
 
 import { filterTeams } from "../../actions/searchTeam";
 import Table from "@material-ui/core/Table/Table";
@@ -20,7 +21,7 @@ class SearchTeam extends React.Component {
         this.state = {
             teamUniversity: "",
             teamCourse: "",
-            teams: [ // TODO: FETCH
+            teams: [ // TODO: FETCH DATA FROM DB
                 { teamUniversity:"UofT", teamCourse: "CSC309", teamId: "1", teamDescription: "A+ group looking for a JS Jedi" },
                 { teamUniversity:"UofT", teamCourse: "CSC207", teamId: "2", teamDescription: "Let's crash this course together!"  }
             ],
@@ -46,6 +47,7 @@ class SearchTeam extends React.Component {
             <div className="search_team_view">
                 <h1 className="search_form_title">find your team</h1>
 
+                /* Team Search Form */
                 <Grid className="search-form" container direction="row" justify="center" alignItems="center">
                     <Input
                         name="teamUniversity"
@@ -72,8 +74,12 @@ class SearchTeam extends React.Component {
                     </Button>
                 </Grid>
 
+                /* Team Previews Table*/
                 <div>
                     {this.state.filteredTeams.map(teamPreview => (
+                        <div key={uid(
+                                teamPreview
+                            )}>
                         <div id="wrapper">
                             <div className="team-preview__bg-image">
                                 <Table className="team-preview">
@@ -111,7 +117,7 @@ class SearchTeam extends React.Component {
 
                             </div>
                         </div>
-
+                        </div>
                     ))}
                 </div>
 

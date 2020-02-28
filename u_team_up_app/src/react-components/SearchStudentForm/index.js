@@ -14,7 +14,7 @@ class SearchStudentForm extends React.Component {
             studentUniversity,
             studentCourse,
             handleSearch,
-            filterTeams
+            filterStudents
         } = this.props;
 
         return (
@@ -49,7 +49,7 @@ class SearchStudentForm extends React.Component {
                 <Button
                     variant="outlined"
                     color="primary"
-                    onClick={filterTeams}
+                    onClick={filterStudents}
                     className="search-form__submit-button"
                 >
 
