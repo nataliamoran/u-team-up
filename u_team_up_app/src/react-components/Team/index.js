@@ -24,7 +24,7 @@ class Team extends React.Component {
                 description: "A+ group looking for a JS Jedi",
                 members: [
                     {name: "Tom", photo: "./static/boy.png"},
-                    {name: "Kate", photo: "./static/girl.png"}
+                    {name: "Alice Alison", photo: "./static/alice.png"}
                 ]
             } : null,
         };
