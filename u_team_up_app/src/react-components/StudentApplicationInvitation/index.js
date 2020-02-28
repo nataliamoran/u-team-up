@@ -2,6 +2,8 @@ import React from "react";
 import "./styles.css";
 import ApplicationPreviewList from "./../ApplicationPreviewList";
 import InvitationPreviewList from "./../InvitationPreviewList";
+import Button from "@material-ui/core/Button";
+import {Link} from "react-router-dom";
 
 class StudentApplicationInvitation extends React.Component {
 
@@ -21,7 +23,7 @@ class StudentApplicationInvitation extends React.Component {
 	        invitations: [ //TODO FETCH
             	{ studentName: "UofT CSC309 team2", studentId: "2", invitationStatus: "Pending" },
             	{ studentName: "UofT CSC309 team3", studentId: "3", invitationStatus: "Pending" },
-            	{ studentName: "UofT CSC309 team4", studentId: "4", invitationStatus: "Invite" }
+            	{ studentName: "UofT CSC309 team4", studentId: "4", invitationStatus: "Accepted" }
             ]
         }
 
@@ -32,17 +34,32 @@ class StudentApplicationInvitation extends React.Component {
 
     render() {
         return (
-            <div>
-            <div className="application_view">
-                <h1 className="search_form_title">Current Applications</h1>
-                <ApplicationPreviewList applications={this.state.filteredApplications} />
-            </div>
 
-            <div className="invitation_view">
-                <h1 className="search_form_title">Current Invitations</h1>
+            <div className="application_invitation_view">
+                <h1 className="search_form_title">Current Applications</h1>
+                <Link className="add_new__link" to={`/`}>
+                    <Button variant="outlined" color="primary"
+                            className="add_new__button">+NEW</Button>
+                </Link>
+
+                <table className="headers">
+                    <tr>
+                        <td className="name">
+                            <h2>Name</h2>
+                        </td>
+                        <td className="status">
+                            <h2>Status</h2>
+                        </td>
+                    </tr>
+                </table>
+
                 <InvitationPreviewList invitations={this.state.filteredInvitations} />
 
-            </div>
+                <h1 className="search_form_title">Current Invitations</h1>
+                <ApplicationPreviewList applications={this.state.filteredApplications} />
+
+
+
             </div>
         );
     }
