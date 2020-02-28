@@ -23,8 +23,8 @@ class Team extends React.Component {
                 course: "CSC309",
                 description: "A+ group looking for a JS Jedi",
                 members: [
-                    {name: "Tom", photo: "./static/boy.png"},
-                    {name: "Alice Alison", photo: "./static/alice.png"}
+                    {name: "Tom", university: "UofT", photo: "./static/boy.png", profileLink: "/student-profile"},
+                    {name: "Alice Alison", university: "UofT", photo: "./static/alice.png", profileLink: "/student-profile"}
                 ]
             } : null,
         };
