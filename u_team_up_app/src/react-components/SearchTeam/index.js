@@ -47,7 +47,7 @@ class SearchTeam extends React.Component {
             <div className="search_team_view">
                 <h1 className="search_form_title">find your team</h1>
 
-                /* Team Search Form */
+                {/* Team Search Form */}
                 <Grid className="search-form" container direction="row" justify="center" alignItems="center">
                     <Input
                         name="teamUniversity"
@@ -74,7 +74,7 @@ class SearchTeam extends React.Component {
                     </Button>
                 </Grid>
 
-                /* Team Previews Table*/
+                {/* Team Previews Table*/}
                 <div>
                     {this.state.filteredTeams.map(teamPreview => (
                         <div key={uid(

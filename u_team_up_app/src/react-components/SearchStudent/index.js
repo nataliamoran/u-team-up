@@ -46,7 +46,7 @@ class SearchStudent extends React.Component {
                 <div className="search_student_view">
                     <h1 className="search_student_form_title">find a partner</h1>
 
-                    /* Students Search Form */
+                    {/* Students Search Form */}
                     <div className="search_student_form">
                         <SearchStudentForm
                             studentName={this.state.studentName}
@@ -57,7 +57,7 @@ class SearchStudent extends React.Component {
                         />
                     </div>
 
-                    /* Student Previews Table*/
+                    {/* Student Previews Table*/}
                     <div>
                         {this.state.filteredStudents.map(studentPreview => (
                             <div key={uid(
