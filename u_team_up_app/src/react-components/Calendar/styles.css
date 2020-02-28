@@ -87,6 +87,11 @@
     color: #fff;
 }
 
+.calendar__schedule_new
+{
+    opacity: 50%;
+}
+
 .calendar__add_event_container
 {
     text-align: center;

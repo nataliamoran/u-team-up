@@ -13,21 +13,35 @@ import StudentProfile from './react-components/StudentProfile';
 import StudentAppointment from './react-components/StudentAppointment';
 import TeamApplicationInvitation from './react-components/TeamApplicationInvitation';
 import AdminDashboard from './react-components/AdminDashboard';
+import StudentApplicationInvitation from './react-components/StudentApplicationInvitation';
+import MessageBox from './react-components/MessageBox';
+
 
 class App extends React.Component {
 
-    state = {
-        auth: {
-            user: "user",
-            user2: "user2",
-            admin: "admin",
-        },
-        loginStatus: 'guest', // guest, user, admin
-        identity: {
-            type: 'guest',
-            username: '',
-            uid: '',
-        },
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            auth: {
+                user: "user",
+                user2: "user2",
+                admin: "admin",
+            },
+            loginStatus: 'guest', // guest, user, admin
+            identity: {
+                type: 'guest',
+                username: '',
+                uid: '',
+            },
+        };
+
+        this.setIdentity = this.setIdentity.bind(this);
+    }
+
+    // @param: identity: const Object
+    setIdentity(identity) {
+        this.setState({ identity, loginStatus: identity.type });
     }
 
     render() {
@@ -37,8 +51,9 @@ class App extends React.Component {
                     <Switch>
                         <Route exact path='/' render={() =>
                             (<SearchTeam state={this.state}/>)}/>
-                        <Route exact path='/login' render={() =>
-                            (<Login state={this.state}/>)}/>
+                        <Route exact path='/login' render={
+                            () => <Login loginCallback={ this.setIdentity }/>
+                        }/>
                         <Route exact path='/signup' render={() =>
                             (<SignUp state={this.state}/>)}/>
                         <Route exact path='/student-profile' render={() =>
@@ -47,35 +62,21 @@ class App extends React.Component {
                             (<SearchStudent state={this.state}/>)}/>
                         <Route exact path='/team/:id/appointment' render={
                             ({ match }) =>
-                                <TeamAppointment teamId={ match.params.id } />
+                                <TeamAppointment teamId={ match.params.id } globalState={ this.state } />
                         }/>
                         <Route exact path='/team/:id' render={
                             ({ match }) =>
                                 <Team globalState={this.state} teamId={ match.params.id } />}/>
-                        <Route exact path='/appointments' render={() =>
-                                            <StudentAppointment
-                                                 studentId={1}
-                                                 otherSchedule={
-                                                     [{
-                                                         name: 'Some Meeting',
-                                                         start: new Date(2020, 1, 25, 15, 45),
-                                                         end: new Date(2020, 1, 25, 16, 20)
-                                                     },
-                                                      {
-                                                          name: 'Something else',
-                                                          start: new Date(2020, 1, 28, 11, 0),
-                                                          end: new Date(2020, 1, 28, 14, 0)
-                                                      },
-                                                      {
-                                                          name: 'Something else',
-                                                          start: new Date(2020, 3, 28, 11, 0),
-                                                          end: new Date(2020, 3, 28, 14, 0)
-                                                      }
-                                                     ] } />}/>
-                      <Route exact path='/team/:id/application' render={() =>
+                        <Route exact path='/appointments' render={
+                            () => <StudentAppointment globalState={ this.state } studentId='1' />
+                        }/>
+                        <Route exact path='/team/:id/application' render={() =>
                             (<TeamApplicationInvitation state={this.state}/>)}/>
                       <Route exact path='/adminDashboard' render={() =>
                             (<AdminDashboard state={this.state}/>)}/>
+                        <Route exact path='/student-app-inv' render={() => // MODIFY LATER
+                            (<StudentApplicationInvitation state={this.state}/>)}/>
+                        <Route exact path='/inbox' render={() => <MessageBox globalState={ this.state} />} />
                     </Switch>
                 </Navigator>
             </BrowserRouter>

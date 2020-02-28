@@ -1,4 +1,6 @@
 import React from "react";
+
+import { withRouter } from 'react-router-dom';
 import "./styles.css";
 
 class Login extends React.Component {
@@ -14,6 +16,8 @@ class Login extends React.Component {
             ],
         }
 
+        this.loginCallback = this.props.loginCallback
+
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
@@ -25,16 +29,28 @@ class Login extends React.Component {
     }
 
     handleSubmit(e) {
-        if ((e.target.username.value === this.state.users[0].username &&
-            e.target.password.value === this.state.users[0].password) ||
-            (e.target.username.value === this.state.users[1].username &&
-            e.target.password.value === this.state.users[1].password)){
-            alert('Correct password')
-        } else {
-            alert('Wrong password')
-        }
-
         e.preventDefault();
+
+        const { username, password } = this.state;
+        const matchUsers = this.state.users.filter(u => u.username === username);
+        
+        if (matchUsers.length === 0) {
+            alert('Username does not exist')
+        } else {
+            if (matchUsers[0].password === password) { // TODO: UPLOAD
+                const identity = {
+                    type: 'user',
+                    username: matchUsers[0].username,
+                    uid: '', // TODO: what will be the id?
+                };
+                this.loginCallback(identity);
+
+                this.props.history.goBack();
+            } else {
+                alert('Wrong password')
+
+            }
+        }
     }
 
     render() {
@@ -42,7 +58,7 @@ class Login extends React.Component {
             <div>
             <title>UTeamUp Login</title>
             <div className="login__content">
-              <h1>UTeamUp</h1>
+              <h1>UTeamUp!</h1>
               <form className="login" method="post" onSubmit={this.handleSubmit}>
 
               <label htmlFor="username">USERNAME</label>
@@ -83,4 +99,4 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);

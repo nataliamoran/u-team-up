@@ -57,13 +57,12 @@ class Calendar extends React.Component {
         this.setState({ displayDate });
     }
 
-    addEvent() {
-        debug('addEvent');
+    eventFromInput() {
         const timeRe = /^([0-9]{1,2})(?::([0-9]{1,2}))?$/;
         const arr = this.state.newEventStartTime.match(timeRe);
-        if (!arr) { return; }
+        if (!arr) { return null; }
         const arr2 = this.state.newEventEndTime.match(timeRe);
-        if (!arr2) { return; }
+        if (!arr2) { return null; }
 
         const y = this.state.displayDate.getFullYear();
         const m = this.state.displayDate.getMonth();
@@ -75,21 +74,38 @@ class Calendar extends React.Component {
         const [h2, m2] = arr2.slice(1)
               .map(k => parseInt(k))
               .map(k => k === k ? k : 0);
-        debug(h1, m1, h2, m2);
+
+        // if the time is invalid, stop
+        if (!([h1, h2].every(h => 0 <= h && h <= 23)
+              && [m1, m2].every(m => 0 <= m && m <= 59)
+              && (h1 * 60 + m1 < h2 * 60 + m2))) {
+            return null;
+        }
+
         const start = new Date(y, m, d, h1, m1);
         const end = new Date(y, m, d, h2, m2);
 
         const name = this.state.newEventName;
-
-        debug('calling callback');
-        
-        this.addEventCallback({ start, end, name });
+        return { start, end, name };
     }
 
+    addEvent() {
+        const e = this.eventFromInput()
+        if (e !== null) {
+            this.addEventCallback(e);
+            this.setState({
+                newEventName: '',
+                newEventStartTime: '',
+                newEventEndTime: '',
+            });
+        }
+    }
+    
     handleChange(e) {
         e.preventDefault();
 
         const { name, value } = e.target;
+        
         if (/Time$/.test(name)) {
             this.setState({ [name]: value.replace(/[^0-9:]/g, '') });
         } else {
@@ -135,6 +151,12 @@ class Calendar extends React.Component {
             return Math.ceil((numDays[date.getMonth()] - firstDayNum(date)) / 7);
         };
 
+        const newEvent = this.eventFromInput();
+        
+        const schedule = newEvent
+              ? this.state.schedule.concat(newEvent)
+              : this.state.schedule;
+        
         const generateCalendarDays = () =>
               Array(numWeeks(this.state.displayDate)).fill(0)
               .map((_, week) =>
@@ -158,11 +180,14 @@ class Calendar extends React.Component {
                                            onClick={ () => this.changeDisplayDate(d) }>
                                            <div>
                                                <div className='calendar__date'>{ d.getDate() }</div>
-                                               { this.state.schedule
+                                               { schedule
                                                  .filter(s => isSameDay(s.start, d))
                                                  .sort((a, b) => a.start.getTime() - b.start.getTime())
                                                  .map(s =>
-                                                      <div className='calendar__schedule'
+                                                      <div className={
+                                                          (s === newEvent
+                                                           ? 'calendar__schedule_new ' : '')
+                                                              + 'calendar__schedule'}
                                                            key={s.start.getTime() + ' ' + s.end.getTime()}>
                                                           { formatTimeInterval(s) }
                                                           <div className='calendar__schedule_name'>

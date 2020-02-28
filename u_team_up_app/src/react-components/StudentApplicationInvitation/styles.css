@@ -1,0 +1,13 @@
+.application_view {
+    margin: auto;
+    width: 50%;
+}
+
+.invitation_view {
+    margin: auto;
+    width: 50%;
+}
+
+.search_form_title {
+    text-align: center;
+}

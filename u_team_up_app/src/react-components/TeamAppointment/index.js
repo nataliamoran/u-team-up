@@ -8,6 +8,7 @@ const debug = console.log;
 
 
 class TeamAppointment extends React.Component {
+    // @param props: {teamId: string, globalState}
     constructor(props) {
         super(props);
 
@@ -48,22 +49,27 @@ class TeamAppointment extends React.Component {
     }
     
     render() {
+        const authorized = this.props.globalState.identity.type === 'user';
+        
         return (
             <div className="team_appointment">
                 <Header type='main' 
-                        title='Your Appointment' />
-                <Header type='secondary'
-                        title='Project Team ID:'
-                        data={
-                            <Link to={ `/team/${this.state.teamId}` }>
-                                { this.state.teamId }
-                            </Link>
-                        } />
-                <div className="body">
-                    <Calendar highlight={ this.state.appointmentTime }
-                              schedule={ this.state.otherSchedule }
-                              addEventCallback={ this.addEvent } />
-                </div>
+                        title='Team Appointment' />
+                { authorized ? [
+                    <Header type='secondary'
+                            title='Project Team ID:'
+                            data={
+                                <Link to={ `/team/${this.state.teamId}` }>
+                                    { this.state.teamId }
+                                </Link>
+                            } />,
+                    <div className="body">
+                        <Calendar highlight={ this.state.appointmentTime }
+                                  schedule={ this.state.otherSchedule }
+                                  addEventCallback={ this.addEvent } />
+                    </div>
+                ] : 'You are not allowed to visit this page. Please log in or sign up.'
+                }
             </div>
         );
     }
