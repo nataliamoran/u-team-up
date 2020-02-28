@@ -17,6 +17,7 @@ import StudentApplicationInvitation from './react-components/StudentApplicationI
 import MessageBox from './react-components/MessageBox';
 
 
+
 class App extends React.Component {
 
     constructor(props) {

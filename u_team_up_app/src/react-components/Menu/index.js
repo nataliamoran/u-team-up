@@ -49,6 +49,9 @@ export default function AppMenu(props) {
                              <Link to={"/appointments"}>
                                  <MenuItem>your appointments</MenuItem>
                              </Link>,
+                             <Link to={"/adminDashboard"}>
+                                 <MenuItem>Admin Dashboard</MenuItem>
+                             </Link>,
                              <Link to='/logout'>
                                  <MenuItem>Log out</MenuItem>
                              </Link>,
