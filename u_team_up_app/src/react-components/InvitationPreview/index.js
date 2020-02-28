@@ -13,20 +13,18 @@ class InvitationPreview extends React.Component {
         const {invitationPreview} = this.props;
 
         return (
-            <div id="wrapper">
+            <div id="wrapper3">
                 <div className="invitation-preview__bg-image">
-                    <Table className="invitation-preview">
-                        <TableBody>
-                            <TableRow key={invitationPreview.studentId}>
-                                <TableCell component="td" scope="row" className="name_cell">
+                    <table className="invitation-preview">
+                            <tr key={invitationPreview.invitationId}>
+                                <td className="name_cell2">
                                     {invitationPreview.studentName}
-                                </TableCell>
-                                <TableCell component="td" scope="row" className="status_cell">
+                                </td>
+                                <td className="status_cell2">
                                     {invitationPreview.invitationStatus}
-                                </TableCell>
-                            </TableRow>
-                        </TableBody>
-                    </Table>
+                                </td>
+                            </tr>
+                    </table>
                 </div>
             </div>
         );
@@ -35,3 +33,7 @@ class InvitationPreview extends React.Component {
 
 
 export default InvitationPreview;
+
+
+
+

@@ -67,7 +67,16 @@ class TeamApplicationInvitation extends React.Component {
                     filterStudents={() => filterStudents(this)}
                 />
                 </div>
-
+                <table className="headers">
+                    <tr> 
+                        <td className="name">
+                            <h2>Name</h2> 
+                        </td>
+                        <td className="status">
+                            <h2>Status</h2> 
+                        </td>
+                    </tr> 
+                </table>
                 <InvitationPreviewList invitations={this.state.filteredInvitations} />
             </div>
         );
