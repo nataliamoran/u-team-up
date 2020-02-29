@@ -33,7 +33,7 @@ class App extends React.Component {
             identity: {
                 type: 'guest',
                 username: '',
-                uid: '',
+                uid: '1',
             },
         };
 
