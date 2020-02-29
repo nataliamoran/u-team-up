@@ -11,8 +11,8 @@ class Login extends React.Component {
             username: "",
             password: "",
             users: [ // TODO: FETCH
-                {username:"user", password:"user"},
-                {username: "user2", password: "user2"}
+                {username:"user", password:"user", uid:"1"},
+                {username: "user2", password: "user2", uid:"2"}
             ],
         }
 
@@ -41,7 +41,7 @@ class Login extends React.Component {
                 const identity = {
                     type: 'user',
                     username: matchUsers[0].username,
-                    uid: '', // TODO: what will be the id?
+                    uid: matchUsers[0].uid, // TODO: what will be the id?
                 };
                 this.loginCallback(identity);
 
