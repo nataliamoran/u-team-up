@@ -3,10 +3,9 @@ import React from "react";
 
 import "./styles.css";
 import TeamMemberPreviewList from "./../TeamMemberPreviewList";
-import Button from "@material-ui/core/Button/Button";
-import {Link} from "react-router-dom";
-import Menu from "../Menu";
 import Header from '../Header';
+import {Link} from "react-router-dom";
+import Button from "@material-ui/core/Button/Button";
 
 class Team extends React.Component {
 
@@ -23,8 +22,20 @@ class Team extends React.Component {
                 course: "CSC309",
                 description: "A+ group looking for a JS Jedi",
                 members: [
-                    {name: "Bob Bobson", university: "UofT", photo: "./static/boy.png", profileLink: "/student-profile"},
-                    {name: "Alice Alison", university: "UofT", photo: "./static/alice.png", profileLink: "/student-profile"}
+                    {
+                        uid: "2",
+                        name: "Bob Bobson",
+                        university: "UofT",
+                        photo: "./static/boy.png",
+                        profileLink: "/student-profile"
+                    },
+                    {
+                        uid: "1",
+                        name: "Alice Alison",
+                        university: "UofT",
+                        photo: "./static/alice.png",
+                        profileLink: "/student-profile"
+                    }
                 ]
             } : {
                 id: "2",
@@ -32,34 +43,56 @@ class Team extends React.Component {
                 course: "CSC207",
                 description: "Let's crash this course together!",
                 members: [
-                    {name: "Bob Bobson", university: "UofT", photo: "./static/boy.png", profileLink: "/student-profile"}
+                    {
+                        uid: "2",
+                        name: "Bob Bobson",
+                        university: "UofT",
+                        photo: "./static/boy.png",
+                        profileLink: "/student-profile"
+                    }
                 ]
             },
         };
     }
 
     render() {
-        const { team } = this.state;
+        const team = this.state.team;
+        const global = this.state.global;
+
+        let editButton;
+        let calendarButton;
+        let applicationsButton;
+
+        {
+            // Check the user id to determine if this user is a member of the team
+            // to show team config buttons to team members only
+        }
+        if (!(team.members.map(member => member.uid).filter(uid => uid === global.identity.uid).length === 0)) {
+            editButton =
+                <Link className="team_page__link" to={`/team/${team.id}/edit`}>
+                    <Button variant="outlined" color="primary"
+                            className="team_page__button">edit team profile</Button>
+                </Link>;
+            calendarButton =
+                <Link className="team_page__link" to={`/team/${team.id}/appointment`}>
+                    <Button variant="outlined" color="primary"
+                            className="team_page__button">team calendar</Button>
+                </Link>;
+            applicationsButton =
+                <Link className="team_page__link" to={`/team/${team.id}/application`}>
+                    <Button variant="outlined" color="primary"
+                            className="team_page__button">applications</Button>
+                </Link>;
+
+
+        }
 
         return (
             <div className="team">
-                <Header type='main' title='team: ' data={ `${team.university} ${team.course}` }>
-                    <Link className="team_page__link" to={`/team/${team.id}/edit`}>
-                        <Button variant="outlined" color="primary"
-                                className="team_page__button">edit team profile</Button>
-                    </Link>
-                    <Link className="team_page__link" to={`/team/${team.id}/appointment`}>
-                        <Button variant="outlined" color="primary"
-                                className="team_page__button">team calendar</Button>
-                    </Link>
-
-            
-
-                    <Link className="team_page__link" to={`/team/${team.id}/application`}>
-
-                        <Button variant="outlined" color="primary"
-                                className="team_page__button">applications</Button>
-                    </Link>
+                <Header type='main' title='team: ' data={`${team.university} ${team.course}`}>
+                    {editButton}
+                    {calendarButton}
+                    {applicationsButton}
                 </Header>
 
                 <div className="body">
