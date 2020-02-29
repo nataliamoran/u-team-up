@@ -16,7 +16,7 @@ class SearchStudent extends React.Component {
             {
                 name: "Bob Bobson",
                 university: "UofT",
-                course: "CSC309",
+                course: ["CSC309", "CSC369"],
                 id: "1",
                 photo: "./static/boy.png",
                 profileLink: "/student-profile"
@@ -24,7 +24,7 @@ class SearchStudent extends React.Component {
             {
                 name: "Alice Alison",
                 university: "UofT",
-                course: "CSC207",
+                course: ["CSC309", "CSC207"],
                 id: "2",
                 photo: "./static/alice.png",
                 profileLink: "/student-profile"
@@ -34,7 +34,7 @@ class SearchStudent extends React.Component {
             {
                 name: "Bob Bobson",
                 university: "UofT",
-                course: "CSC309",
+                course: ["CSC309", "CSC369"],
                 id: "1",
                 photo: "./static/boy.png",
                 profileLink: "/student-profile"
@@ -42,7 +42,7 @@ class SearchStudent extends React.Component {
             {
                 name: "Alice Alison",
                 university: "UofT",
-                course: "CSC207",
+                course: ["CSC309", "CSC207"],
                 id: "2",
                 photo: "./static/alice.png",
                 profileLink: "/student-profile"
