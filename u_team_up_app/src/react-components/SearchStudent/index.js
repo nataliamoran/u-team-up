@@ -20,11 +20,11 @@ class SearchStudent extends React.Component {
         studentUniversity: "",
         studentCourse: "",
         students: [
-            {name: "Tom", university: "UofT", course: "CSC309", id: "1", photo: "./static/boy.png", profileLink: "/student-profile"},
+            {name: "Bob Bobson", university: "UofT", course: "CSC309", id: "1", photo: "./static/boy.png", profileLink: "/student-profile"},
             {name: "Alice Alison", university: "UofT", course: "CSC207",  id: "2", photo: "./static/alice.png", profileLink: "/student-profile"}
         ],
         filteredStudents: [
-            {name: "Tom", university: "UofT", course: "CSC309", id: "1", photo: "./static/boy.png", profileLink: "/student-profile"},
+            {name: "Bob Bobson", university: "UofT", course: "CSC309", id: "1", photo: "./static/boy.png", profileLink: "/student-profile"},
             {name: "Alice Alison", university: "UofT", course: "CSC207",  id: "2", photo: "./static/alice.png", profileLink: "/student-profile"}
         ]
     };
