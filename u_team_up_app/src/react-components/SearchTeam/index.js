@@ -3,7 +3,7 @@ import React from "react";
 import "./styles.css";
 import {uid} from "react-uid";
 
-import { filterTeams } from "../../actions/searchTeam";
+
 import Table from "@material-ui/core/Table/Table";
 import TableBody from "@material-ui/core/TableBody/TableBody";
 import TableRow from "@material-ui/core/TableRow/TableRow";
@@ -22,14 +22,15 @@ class SearchTeam extends React.Component {
             teamUniversity: "",
             teamCourse: "",
             teams: [ // TODO: FETCH DATA FROM DB
-                { teamUniversity:"UofT", teamCourse: "CSC309", teamId: "1", teamDescription: "A+ group looking for a JS Jedi" },
-                { teamUniversity:"UofT", teamCourse: "CSC207", teamId: "2", teamDescription: "Let's crash this course together!"  }
+                { university:"UofT", course: "CSC309", id: "1", description: "A+ group looking for a JS Jedi" },
+                { university:"UofT", course: "CSC207", id: "2", description: "Let's crash this course together!"  }
             ],
         }
 
         this.state.filteredTeams = Array.from(this.state.teams);
     }
 
+    /* Method to handle the Team Search Form input */
     handleSearchInput = event => {
         const target = event.target;
         const value = target.value;
@@ -38,6 +39,28 @@ class SearchTeam extends React.Component {
         this.setState({
             [name]: value
         });
+    };
+
+    /* Method to filter teams per Team Search Form input */
+    filterTeams = search => {
+
+        const team = {
+            university: search.state.teamUniversity,
+            course: search.state.teamCourse
+        };
+
+
+        const newlyFilteredTeams = search.state.teams.filter(t => {
+            return (t.university === team.university && t.course === team.course) ||
+                (team.university==="" && team.course==="") ||
+                (team.university==="" && t.course === team.course) ||
+                (t.university === team.university && team.course==="");
+        });
+
+        search.setState({
+            filteredTeams: newlyFilteredTeams
+        });
+
     };
 
     render() {
@@ -66,7 +89,7 @@ class SearchTeam extends React.Component {
                     <Button
                         variant="outlined"
                         color="primary"
-                        onClick={() => filterTeams(this)}
+                        onClick={() => this.filterTeams(this)}
                         className="search-form__submit-button"
                     >
 
@@ -86,15 +109,15 @@ class SearchTeam extends React.Component {
                                     <TableBody>
                                         <TableRow>
                                             <TableCell component="td" scope="row" className="university_cell">
-                                                {teamPreview.teamUniversity}
+                                                {teamPreview.university}
                                             </TableCell>
 
                                             <TableCell component="td" scope="row" className="course_cell">
-                                                {teamPreview.teamCourse}
+                                                {teamPreview.course}
                                             </TableCell>
 
                                             <TableCell component="td" scope="row" className="description_cell">
-                                                {teamPreview.teamDescription}
+                                                {teamPreview.description}
                                             </TableCell>
                                         </TableRow>
                                     </TableBody>
@@ -106,7 +129,7 @@ class SearchTeam extends React.Component {
                                         <TableRow>
                                             <TableCell component="td" scope="row" className="button_cell">
 
-                                                <Link className="join__link" to={`/team/${teamPreview.teamId}`}>
+                                                <Link className="join__link" to={`/team/${teamPreview.id}`}>
                                                     <Button variant="outlined" color="primary"
                                                             className="join__button">Join</Button>
                                                 </Link>

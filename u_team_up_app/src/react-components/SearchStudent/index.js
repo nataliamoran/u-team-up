@@ -2,16 +2,8 @@ import React from "react";
 
 import "./styles.css";
 import SearchStudentForm from "./../SearchStudentForm";
-import Menu from "./../Menu";
 
-import {filterStudents} from "../../actions/searchStudent";
-import Table from "@material-ui/core/Table/Table";
-import TableBody from "@material-ui/core/TableBody/TableBody";
-import TableRow from "@material-ui/core/TableRow/TableRow";
-import TableCell from "@material-ui/core/TableCell/TableCell";
-import {uid} from "react-uid";
 import TeamMemberPreviewList from "../TeamMemberPreviewList";
-import Grid from "@material-ui/core/Grid/Grid";
 
 class SearchStudent extends React.Component {
 
@@ -29,6 +21,7 @@ class SearchStudent extends React.Component {
         ]
     };
 
+    /* Method to handle the Student Search Form input */
     handleSearchInput = event => {
         const target = event.target;
         const value = target.value;
@@ -37,6 +30,32 @@ class SearchStudent extends React.Component {
         this.setState({
             [name]: value
         });
+    };
+
+    /* Method to filter students per Student Search Form input */
+    filterStudents = search => {
+
+        const student = {
+            name: search.state.studentName,
+            university: search.state.studentUniversity,
+            course: search.state.studentCourse
+        };
+
+
+        const newlyFilteredStudents = search.state.students.filter(s => {
+            return (s.name === student.name &&
+                s.university === student.university &&
+                s.course === student.course) ||
+                (student.name === "" && student.university === "" && student.course === "") ||
+                (s.name === student.name) ||
+                (s.course === student.course) ||
+                (s.university === student.university);
+        });
+
+        search.setState({
+            filteredStudents: newlyFilteredStudents
+        });
+
     };
 
     render() {
@@ -54,7 +73,7 @@ class SearchStudent extends React.Component {
                             studentUniversity={this.state.studentUniversity}
                             studentCourse={this.state.studentCourse}
                             handleSearch={this.handleSearchInput}
-                            filterStudents={() => filterStudents(this)}
+                            filterStudents={() => this.filterStudents(this)}
                         />
                     </div>
 
