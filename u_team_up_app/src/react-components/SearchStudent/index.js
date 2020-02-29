@@ -1,6 +1,7 @@
 import React from "react";
 
 import "./styles.css";
+import {filterUnits} from "../../actions/filterUnits";
 import SearchStudentForm from "./../SearchStudentForm";
 
 import TeamMemberPreviewList from "../TeamMemberPreviewList";
@@ -12,12 +13,40 @@ class SearchStudent extends React.Component {
         studentUniversity: "",
         studentCourse: "",
         students: [
-            {name: "Bob Bobson", university: "UofT", course: "CSC309", id: "1", photo: "./static/boy.png", profileLink: "/student-profile"},
-            {name: "Alice Alison", university: "UofT", course: "CSC207",  id: "2", photo: "./static/alice.png", profileLink: "/student-profile"}
+            {
+                name: "Bob Bobson",
+                university: "UofT",
+                course: "CSC309",
+                id: "1",
+                photo: "./static/boy.png",
+                profileLink: "/student-profile"
+            },
+            {
+                name: "Alice Alison",
+                university: "UofT",
+                course: "CSC207",
+                id: "2",
+                photo: "./static/alice.png",
+                profileLink: "/student-profile"
+            }
         ],
         filteredStudents: [
-            {name: "Bob Bobson", university: "UofT", course: "CSC309", id: "1", photo: "./static/boy.png", profileLink: "/student-profile"},
-            {name: "Alice Alison", university: "UofT", course: "CSC207",  id: "2", photo: "./static/alice.png", profileLink: "/student-profile"}
+            {
+                name: "Bob Bobson",
+                university: "UofT",
+                course: "CSC309",
+                id: "1",
+                photo: "./static/boy.png",
+                profileLink: "/student-profile"
+            },
+            {
+                name: "Alice Alison",
+                university: "UofT",
+                course: "CSC207",
+                id: "2",
+                photo: "./static/alice.png",
+                profileLink: "/student-profile"
+            }
         ]
     };
 
@@ -30,32 +59,6 @@ class SearchStudent extends React.Component {
         this.setState({
             [name]: value
         });
-    };
-
-    /* Method to filter students per Student Search Form input */
-    filterStudents = search => {
-
-        const student = {
-            name: search.state.studentName,
-            university: search.state.studentUniversity,
-            course: search.state.studentCourse
-        };
-
-
-        const newlyFilteredStudents = search.state.students.filter(s => {
-            return (s.name === student.name &&
-                s.university === student.university &&
-                s.course === student.course) ||
-                (student.name === "" && student.university === "" && student.course === "") ||
-                (s.name === student.name) ||
-                (s.course === student.course) ||
-                (s.university === student.university);
-        });
-
-        search.setState({
-            filteredStudents: newlyFilteredStudents
-        });
-
     };
 
     render() {
@@ -73,7 +76,14 @@ class SearchStudent extends React.Component {
                             studentUniversity={this.state.studentUniversity}
                             studentCourse={this.state.studentCourse}
                             handleSearch={this.handleSearchInput}
-                            filterStudents={() => this.filterStudents(this)}
+                            filterStudents={() => this.setState({
+                                filteredStudents: filterUnits({
+                                        name: this.state.studentName,
+                                        university: this.state.studentUniversity,
+                                        course: this.state.studentCourse
+                                    },
+                                    this.state.students)
+                            })}
                         />
                     </div>
 

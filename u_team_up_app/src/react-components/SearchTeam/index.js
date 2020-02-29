@@ -3,6 +3,7 @@ import React from "react";
 import "./styles.css";
 import {uid} from "react-uid";
 
+import {filterUnits} from "../../actions/filterUnits";
 
 import Table from "@material-ui/core/Table/Table";
 import TableBody from "@material-ui/core/TableBody/TableBody";
@@ -22,8 +23,8 @@ class SearchTeam extends React.Component {
             teamUniversity: "",
             teamCourse: "",
             teams: [ // TODO: FETCH DATA FROM DB
-                { university:"UofT", course: "CSC309", id: "1", description: "A+ group looking for a JS Jedi" },
-                { university:"UofT", course: "CSC207", id: "2", description: "Let's crash this course together!"  }
+                {university: "UofT", course: "CSC309", id: "1", description: "A+ group looking for a JS Jedi"},
+                {university: "UofT", course: "CSC207", id: "2", description: "Let's crash this course together!"}
             ],
         }
 
@@ -39,28 +40,6 @@ class SearchTeam extends React.Component {
         this.setState({
             [name]: value
         });
-    };
-
-    /* Method to filter teams per Team Search Form input */
-    filterTeams = search => {
-
-        const team = {
-            university: search.state.teamUniversity,
-            course: search.state.teamCourse
-        };
-
-
-        const newlyFilteredTeams = search.state.teams.filter(t => {
-            return (t.university === team.university && t.course === team.course) ||
-                (team.university==="" && team.course==="") ||
-                (team.university==="" && t.course === team.course) ||
-                (t.university === team.university && team.course==="");
-        });
-
-        search.setState({
-            filteredTeams: newlyFilteredTeams
-        });
-
     };
 
     render() {
@@ -89,7 +68,13 @@ class SearchTeam extends React.Component {
                     <Button
                         variant="outlined"
                         color="primary"
-                        onClick={() => this.filterTeams(this)}
+                        onClick={() => this.setState({
+                            filteredTeams: filterUnits({
+                                    university: this.state.teamUniversity,
+                                    course: this.state.teamCourse,
+                                },
+                                this.state.teams)
+                        })}
                         className="search-form__submit-button"
                     >
 
@@ -101,45 +86,45 @@ class SearchTeam extends React.Component {
                 <div>
                     {this.state.filteredTeams.map(teamPreview => (
                         <div key={uid(
-                                teamPreview
-                            )}>
-                        <div id="wrapper">
-                            <div className="team-preview__bg-image">
-                                <Table className="team-preview">
-                                    <TableBody>
-                                        <TableRow>
-                                            <TableCell component="td" scope="row" className="university_cell">
-                                                {teamPreview.university}
-                                            </TableCell>
+                            teamPreview
+                        )}>
+                            <div id="wrapper">
+                                <div className="team-preview__bg-image">
+                                    <Table className="team-preview">
+                                        <TableBody>
+                                            <TableRow>
+                                                <TableCell component="td" scope="row" className="university_cell">
+                                                    {teamPreview.university}
+                                                </TableCell>
 
-                                            <TableCell component="td" scope="row" className="course_cell">
-                                                {teamPreview.course}
-                                            </TableCell>
+                                                <TableCell component="td" scope="row" className="course_cell">
+                                                    {teamPreview.course}
+                                                </TableCell>
 
-                                            <TableCell component="td" scope="row" className="description_cell">
-                                                {teamPreview.description}
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableBody>
-                                </Table>
+                                                <TableCell component="td" scope="row" className="description_cell">
+                                                    {teamPreview.description}
+                                                </TableCell>
+                                            </TableRow>
+                                        </TableBody>
+                                    </Table>
+                                </div>
+                                <div className="button__bg-image">
+                                    <Table className="button-preview">
+                                        <TableBody>
+                                            <TableRow>
+                                                <TableCell component="td" scope="row" className="button_cell">
+
+                                                    <Link className="join__link" to={`/team/${teamPreview.id}`}>
+                                                        <Button variant="outlined" color="primary"
+                                                                className="join__button">Join</Button>
+                                                    </Link>
+                                                </TableCell>
+                                            </TableRow>
+                                        </TableBody>
+                                    </Table>
+
+                                </div>
                             </div>
-                            <div className="button__bg-image">
-                                <Table className="button-preview">
-                                    <TableBody>
-                                        <TableRow>
-                                            <TableCell component="td" scope="row" className="button_cell">
-
-                                                <Link className="join__link" to={`/team/${teamPreview.id}`}>
-                                                    <Button variant="outlined" color="primary"
-                                                            className="join__button">Join</Button>
-                                                </Link>
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableBody>
-                                </Table>
-
-                            </div>
-                        </div>
                         </div>
                     ))}
                 </div>
