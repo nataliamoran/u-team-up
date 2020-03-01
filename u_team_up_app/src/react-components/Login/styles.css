@@ -3,13 +3,8 @@
     padding: 30px 30px;
     text-align: center;
     margin: 0 auto;
-    /* font-family: serif; */
 }
 
-
-/* .login {
-    box-sizing: inherit;
-} */
 
 .login__input {
     border: 3px solid #f5f1ed;
@@ -17,7 +12,13 @@
     font-size: 20px;
     padding: 15px;
     width: 100%;
+    outline: none;
 }
+
+.login__input:focus {
+  border: 3px solid #fde8d4;
+}
+
 
 lable {
     letter-spacing: 2px;
@@ -29,7 +30,6 @@ lable {
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
-    /* font-family: serif; */
     line-height: 1;
     padding: 15px 15px;
 }
