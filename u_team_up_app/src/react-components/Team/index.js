@@ -23,6 +23,7 @@ class Team extends React.Component {
             isInEditMode: false,
             teamExists: true,
             teamDescription: "",
+            newQuizQuestion: "",
             // TODO: FETCH
             team: props.teamId === '1' ? {
                 id: "1",
@@ -76,6 +77,14 @@ class Team extends React.Component {
         const target = event.target;
         const value = target.value;
         this.state.quizApplication.push(value);
+    };
+
+    handleNewQuestionInput = event => {
+        const target = event.target;
+        const value = target.value;
+        this.setState({
+            newQuizQuestion: value
+        });
     };
 
     submitApplication = () => {
@@ -134,6 +143,13 @@ class Team extends React.Component {
         })
     };
 
+    addQuizQuestion = () => {
+        this.state.team.quizQuestions.push(this.state.newQuizQuestion);
+        this.setState({
+            team: this.state.team
+        })
+    };
+
     renderDeletionConfirmation = () => {
         return (
             <h2 id="deletion_confirmation">Your team is successfully deleted</h2>
@@ -147,7 +163,7 @@ class Team extends React.Component {
                 <div>
                     <div>
                         <div className="edit_team_page__description">
-                            <h4>Team Description</h4>
+                            <h4 className="edit_team_page__title">Team Description</h4>
                             <textarea
                                 name="teamDescription"
                                 className="edit_team_page__input"
@@ -167,7 +183,7 @@ class Team extends React.Component {
                         </div>
 
                         <Grid className="edit_team_page__members">
-                            <h4>Team Members</h4>
+                            <h4 className="edit_team_page__title">Team Members</h4>
                             {this.state.team.members.map(member => (
                                 <div key={uid(
                                     member
@@ -185,7 +201,7 @@ class Team extends React.Component {
                         </Grid>
 
                         <Grid className="edit_team_page__quiz">
-                            <h4>Quiz Questions</h4>
+                            <h4 className="edit_team_page__title">Quiz Questions</h4>
                             {this.state.team.quizQuestions.map(question => (
                                 <div key={uid(
                                     question
@@ -200,6 +216,27 @@ class Team extends React.Component {
 
                                 </div>
                             ))}
+                        </Grid>
+
+                        <Grid className="edit_team_page__quiz">
+                            <h4 className="edit_team_page__title">New Quiz Questions</h4>
+                            <div className="team_page__new_quiz_question">
+                                <TextField
+                                    id="filled-textarea"
+                                    label={"Write a quiz question"}
+                                    onChange={this.handleNewQuestionInput}
+                                    multiline
+                                    variant="filled"
+                                />
+                                <div>
+                                    <Button
+                                        variant="outlined"
+                                        color="primary"
+                                        className="team_page__button"
+                                        onClick={this.addQuizQuestion.bind(this)}>Add
+                                    </Button>
+                                </div>
+                            </div>
                         </Grid>
 
                     </div>

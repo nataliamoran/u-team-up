@@ -34,6 +34,7 @@
 .team_page__button{
     margin-left: 10px !important;
     margin-right: 10px !important;
+    margin-top: 10px !important;
 }
 
 .team_page__menu_buttons{
@@ -86,7 +87,17 @@
     margin-left: 10px;
 }
 
+.team_page__new_quiz_question{
+    margin-top: 30px;
+}
+
 #deletion_confirmation{
     text-align: center;
     margin-top: 200px;
+}
+
+.edit_team_page__title{
+    color: #f1574b;
+    font-weight: bold;
+    font-size: 1.2em;
 }
