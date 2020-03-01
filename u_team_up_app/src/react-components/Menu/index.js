@@ -37,7 +37,10 @@ export default function AppMenu(props) {
                                  <MenuItem>Sign up</MenuItem>
                              </Link>
                             ] :
-                            [<Link to='/inbox'>
+                            [<Link to='/student-profile'>
+                                 <MenuItem>your profile</MenuItem>
+                             </Link>,
+                            <Link to='/inbox'>
                                  <MenuItem>message box</MenuItem>
                              </Link>,
                              <Link to={"/"}>
