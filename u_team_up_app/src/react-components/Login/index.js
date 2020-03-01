@@ -33,7 +33,7 @@ class Login extends React.Component {
 
         const { username, password } = this.state;
         const matchUsers = this.state.users.filter(u => u.username === username);
-        
+
         if (matchUsers.length === 0) {
             alert('Username does not exist')
         } else {
@@ -61,7 +61,7 @@ class Login extends React.Component {
               <h1>UTeamUp!</h1>
               <form className="login" method="post" onSubmit={this.handleSubmit}>
 
-              <label htmlFor="username">USERNAME</label>
+              <label className="login__label">Username</label>
               <br />
               <input
                   className="login__input"
@@ -72,7 +72,7 @@ class Login extends React.Component {
               />
               <br /><br />
 
-              <label htmlFor="password">PASSWORD</label>
+              <label className="login__label">Password</label>
               <br />
               <input
                   className="login__input"

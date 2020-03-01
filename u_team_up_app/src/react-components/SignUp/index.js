@@ -37,13 +37,11 @@ class Signup extends React.Component {
     render() {
         return (
             <div>
-            <title>Signup</title>
-
                 <div className="signup__content">
                   <h1>Create an account</h1>
 
                   <form className="signup" action="./../SearchTeam" method="post" onSubmit={this.handleSubmit}>
-                    <label htmlFor="username">USERNAME</label>
+                    <label className="signup__label">Username</label>
                     <br />
                     <input
                         className="signup__input"
@@ -54,7 +52,7 @@ class Signup extends React.Component {
                     />
                     <br /><br />
 
-                    <label htmlFor="uni">UNIVERSITY</label>
+                    <label className="signup__label">University</label>
                     <br />
                     <input
                         className="signup__input"
@@ -65,7 +63,7 @@ class Signup extends React.Component {
                     />
                     <br /><br />
 
-                    <label htmlFor="email">UNIVERSITY EMAIL</label>
+                    <label className="signup__label">University Email</label>
                     <br />
                     <input
                         className="signup__input"
@@ -76,7 +74,7 @@ class Signup extends React.Component {
                     />
                     <br /><br />
 
-                    <label htmlFor="password">PASSWORD</label>
+                    <label className="signup__label">Password</label>
                     <br />
                     <input
                         className="signup__input"
@@ -87,7 +85,7 @@ class Signup extends React.Component {
                     />
                     <br /><br />
 
-                    <label htmlFor="confirm_password">CONFIRM PASSWORD</label>
+                    <label className="signup__label">Confirm Password</label>
                     <br />
                     <input
                         className="signup__input"

@@ -20,16 +20,20 @@
 }
 
 
-lable {
+.login__label {
     letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 .login__button {
-    border-radius: 50px;
+    border-radius: 4px;
     color: #f1574b;
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
     line-height: 1;
-    padding: 15px 15px;
+    padding: 13px 15px;
+    background-color: #f1f1f1;
+    border: none;
+    outline: none;
 }
