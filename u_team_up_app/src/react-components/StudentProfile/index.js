@@ -7,9 +7,9 @@ class StudentProfile extends React.Component {
         username: "",
         imageUrl: alice,
         name: "Alice Alison",
-        university: "",
-        yearOfStudy: "",
-        majorOfStudy: "",
+        university: "University of Toronto, St. George Campus",
+        yearOfStudy: 3,
+        majorOfStudy: "Computer Science",
         coursesTakenTags: ['CSC207', 'CSC209'],
         currentCoursesTags: ['CSC309', 'CSC363', 'CSC401'],
         currentTeams: ['CSC309 Team 1'],
@@ -26,21 +26,14 @@ class StudentProfile extends React.Component {
         isInEditMode: false,
     }
 
-    renderTags() {
-        if (this.state.coursesTakenTags.length === 0) {
-            return null
-        } else {
-            return <ul>
-                    {this.state.coursesTakenTags.map(coursesTaken =>
-                    <li key={coursesTaken}>{ coursesTaken }</li>)}
-                    </ul>
-        }
-    }
 
     updateInfo = () => {
         this.setState({
             isInEditMode: false,
             name: this.refs.inputName.value,
+            university: this.refs.inputUniversity.value,
+            yearOfStudy: this.refs.inputyearOfStudy.value,
+            majorOfStudy: this.refs.inputmajorOfStudy.value,
             description: this.refs.inputDescription.value,
             location: this.refs.inputLocation.value,
             gpa: this.refs.inputGpa.value,
@@ -70,25 +63,59 @@ class StudentProfile extends React.Component {
                                 ref="inputName"
                                 >
                             </input>
-
                         </h2>
-                        <p>Student at the Unviersity of Toronto</p>
-                        <p>3rd year, Computer Science Specialist</p>
+
+                        <h4>University:</h4>
+                            <p>
+                                <input
+                                    className="student_profile__input"
+                                    type="text"
+                                    defaultValue={this.state.university}
+                                    ref="inputUniversity"
+                                    >
+                                </input>
+                            </p>
+
+                        <h4>Year of Study:</h4>
+                            <p>
+                                <input
+                                    className="student_profile__input"
+                                    type="text"
+                                    defaultValue={this.state.yearOfStudy}
+                                    ref="inputyearOfStudy"
+                                    >
+                                </input>
+                            </p>
+
+                        <h4>Major of Study:</h4>
+                        <p>
+                            <input
+                                className="student_profile__input"
+                                type="text"
+                                defaultValue={this.state.majorOfStudy}
+                                ref="inputmajorOfStudy"
+                                >
+                            </input>
+                        </p>
+
                     </div>
 
                     <div className="course">
                         <div className="taken inner">
                           <h4>Courses Taken:</h4>
-                          {this.renderTags()}
+                              <ul>
+                                {this.state.coursesTakenTags.map(coursesTaken =>
+                                <li key={coursesTaken}>{ coursesTaken }</li>)}
+                              </ul>
                         </div>
 
-                        <div className="taking inner">
-                          <h4>Currently Taking:</h4>
-                          <ul>
-                              {this.state.currentCoursesTags.map(currentCourses =>
-                                  <li key={currentCourses}>{ currentCourses }</li>)}
-                          </ul>
-                        </div>
+                    <div className="taking inner">
+                         <h4>Currently Taking:</h4>
+                         <ul>
+                             {this.state.currentCoursesTags.map(currentCourses =>
+                                <li key={currentCourses}>{ currentCourses }</li>)}
+                         </ul>
+                    </div>
                     </div>
 
                   <div className="current-teams inner">
@@ -99,11 +126,12 @@ class StudentProfile extends React.Component {
                     </ul>
                   </div>
 
-                  <div className="reviews inner">
+                 <div className="reviews inner">
                     <h4>Reviews:</h4>
                     <p><a href="bob.html">Bob Bobson</a>: I love working with Alice!💙</p>
                   </div>
                 </div>
+
                 <div className="right-box">
                   <div className="notifications">
                     <p><a href="student_application_invitation.html">Notifications</a></p>
@@ -166,8 +194,6 @@ class StudentProfile extends React.Component {
 
                 </div>
 
-
-
                 <button
                     className="student_profile__button"
                     onClick={this.updateInfo}>Save
@@ -195,16 +221,20 @@ class StudentProfile extends React.Component {
 
                 <div className="info inner">
                     <h2>{this.state.name}</h2>
-                    <p>Student at the Unviersity of Toronto</p>
-                    <p>3rd year, Computer Science Specialist</p>
+                    <h4 className="inline_h4">University:</h4> <p>{this.state.university}</p>
+                    <h4>Year of Study:</h4> <p>{this.state.yearOfStudy}</p>
+                    <h4>Major of Study:</h4> <p>{this.state.majorOfStudy}</p>
+
                 </div>
 
                 <div className="course">
                     <div className="taken inner">
                       <h4>Courses Taken:</h4>
-                      {this.renderTags()}
+                          <ul>
+                            {this.state.coursesTakenTags.map(coursesTaken =>
+                            <li key={coursesTaken}>{ coursesTaken }</li>)}
+                          </ul>
                     </div>
-
                     <div className="taking inner">
                       <h4>Currently Taking:</h4>
                       <ul>
