@@ -53,6 +53,40 @@
     width: 600px;
 }
 
+.quiz_question{
+    margin-top:20px !important;
+}
 .quiz_button{
     color: #f1574b;
+    margin-top:20px !important;
+}
+
+.edit_team_page__buttons{
+    margin-top: 50px;
+}
+
+.edit_team_page__input{
+    height: 50px;
+    width: 500px;
+    font-size: 0.8em;
+}
+
+.edit_team_page__description{
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.edit_team_page__members{
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.edit_team_page__quiz{
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+#deletion_confirmation{
+    text-align: center;
+    margin-top: 200px;
 }
