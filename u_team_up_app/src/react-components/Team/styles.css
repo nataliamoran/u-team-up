@@ -40,3 +40,15 @@
     padding-top: 30px;
     padding-left: 30px;
 }
+
+.quiz_table td{
+    border-style: hidden !important;
+}
+
+.quiz{
+    margin-top: 100px;
+}
+
+#filled-textarea {
+    width: 600px;
+}

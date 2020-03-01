@@ -6,6 +6,11 @@ import TeamMemberPreviewList from "./../TeamMemberPreviewList";
 import Header from '../Header';
 import {Link} from "react-router-dom";
 import Button from "@material-ui/core/Button/Button";
+import TableBody from "@material-ui/core/TableBody/TableBody";
+import TableRow from "@material-ui/core/TableRow/TableRow";
+import TableCell from "@material-ui/core/TableCell/TableCell";
+import Table from "@material-ui/core/Table/Table";
+import TextField from "@material-ui/core/TextField";
 
 class Team extends React.Component {
 
@@ -100,6 +105,46 @@ class Team extends React.Component {
                     <p className="header__team_description">{team.description}</p>
 
                     <TeamMemberPreviewList members={team.members}/>
+
+                    <div className="quiz">
+                    <Table className="quiz_table">
+                        <TableBody>
+                            <TableRow>
+                                <TableCell component="td" scope="row">
+                                    <TextField
+                                        id="filled-textarea"
+                                        label="Which grade are you aiming for?"
+                                        multiline
+                                        variant="filled"
+                                    />
+                                </TableCell>
+
+                            </TableRow>
+                            <TableRow>
+                                <TableCell component="td" scope="row">
+                                    <TextField
+                                        id="filled-textarea"
+                                        label="How many hours per week are you planning to spend working on the project?"
+                                        multiline
+                                        variant="filled"
+                                    />
+                                </TableCell>
+
+                            </TableRow>
+                            <TableRow>
+                                <TableCell component="td" scope="row">
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                    >
+                                        Apply
+                                    </Button>
+                                </TableCell>
+
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+                    </div>
                 </div>
             </div>
         );
