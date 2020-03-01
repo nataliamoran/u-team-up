@@ -16,6 +16,18 @@ button.MuiButton-outlinedPrimary {
 }
 
 button.MuiButton-outlinedPrimary:hover {
-    color: #283b63;
+    color: #f1574b;
     border: 2px solid #283b63;
+}
+
+button.MuiButton-containedPrimary{
+    color: #283b63;
+    background-color: #f1574b;
+    font-weight: bold;
+}
+
+button.MuiButton-containedPrimary:hover {
+    background-color: #283b63;
+    color: #f1574b;
+    font-weight: bold;
 }

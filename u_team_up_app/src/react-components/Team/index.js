@@ -11,6 +11,8 @@ import TableRow from "@material-ui/core/TableRow/TableRow";
 import TableCell from "@material-ui/core/TableCell/TableCell";
 import Table from "@material-ui/core/Table/Table";
 import TextField from "@material-ui/core/TextField";
+import {uid} from "react-uid";
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 class Team extends React.Component {
 
@@ -20,6 +22,7 @@ class Team extends React.Component {
 
         this.state = {
             global: props.globalState,
+            quizApplication: [],
             // TODO: FETCH
             team: props.teamId === '1' ? {
                 id: "1",
@@ -41,6 +44,10 @@ class Team extends React.Component {
                         photo: "./static/alice.png",
                         profileLink: "/student-profile"
                     }
+                ],
+                quizQuestions: [
+                    "Which grade are you aiming for?",
+                    "How many hours per week are you planning to spend working on the project?"
                 ]
             } : {
                 id: "2",
@@ -55,10 +62,26 @@ class Team extends React.Component {
                         photo: "./static/boy.png",
                         profileLink: "/student-profile"
                     }
+                ],
+                quizQuestions: [
+                    "Which programming languages do you know?",
+                    "Can you do weekly team meetings?",
+                    "Do you have a GitHub account?"
                 ]
             },
         };
     }
+
+    handleApplicationInput = event => {
+        const target = event.target;
+        const value = target.value;
+        this.state.quizApplication.push(value);
+    };
+
+    submitApplication = () => {
+        //TODO: save this.state.quizApplication to the DB
+        NotificationManager.success('Your application is successfully submitted')
+    };
 
     render() {
         const team = this.state.team;
@@ -67,6 +90,7 @@ class Team extends React.Component {
         let editButton;
         let calendarButton;
         let applicationsButton;
+        let quiz;
 
         {
             // Check the user id to determine if this user is a member of the team
@@ -92,6 +116,50 @@ class Team extends React.Component {
 
         }
 
+        {
+            // Check the user id to determine if this user is a member of the team
+            // to show quiz questions to non-members only
+        }
+        if (team.members.map(member => member.uid).filter(uid => uid === global.identity.uid).length === 0) {
+            quiz =
+                <div className="quiz">
+                    <Table className="quiz_table">
+                        <TableBody>
+                            {this.state.team.quizQuestions.map(question => (
+                                <div key={uid(
+                                    question
+                                )}>
+                                    <TableRow>
+                                        <TableCell component="td" scope="row">
+                                            <TextField
+                                                id="filled-textarea"
+                                                label={question}
+                                                onChange={this.handleApplicationInput}
+                                                multiline
+                                                variant="filled"
+                                            />
+                                        </TableCell>
+                                    </TableRow>
+                                </div>
+                            ))}
+                            <TableRow>
+                                <TableCell component="td" scope="row">
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        className="quiz_button"
+                                        onClick={this.submitApplication}
+                                    >
+                                        Apply
+                                    </Button>
+                                    <NotificationContainer/>
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+                </div>
+        }
+
         return (
             <div className="team">
                 <Header type='main' title='team: ' data={`${team.university} ${team.course}`}>
@@ -105,46 +173,8 @@ class Team extends React.Component {
                     <p className="header__team_description">{team.description}</p>
 
                     <TeamMemberPreviewList members={team.members}/>
+                    {quiz}
 
-                    <div className="quiz">
-                    <Table className="quiz_table">
-                        <TableBody>
-                            <TableRow>
-                                <TableCell component="td" scope="row">
-                                    <TextField
-                                        id="filled-textarea"
-                                        label="Which grade are you aiming for?"
-                                        multiline
-                                        variant="filled"
-                                    />
-                                </TableCell>
-
-                            </TableRow>
-                            <TableRow>
-                                <TableCell component="td" scope="row">
-                                    <TextField
-                                        id="filled-textarea"
-                                        label="How many hours per week are you planning to spend working on the project?"
-                                        multiline
-                                        variant="filled"
-                                    />
-                                </TableCell>
-
-                            </TableRow>
-                            <TableRow>
-                                <TableCell component="td" scope="row">
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                    >
-                                        Apply
-                                    </Button>
-                                </TableCell>
-
-                            </TableRow>
-                        </TableBody>
-                    </Table>
-                    </div>
                 </div>
             </div>
         );
