@@ -92,7 +92,7 @@ class AdminDashboard extends React.Component {
                     <AddAdminForm
                         adminName1={this.state.adminName1}
                         adminEmail1={this.state.adminEmail1}
-                        handleSearch={this.handleSearchInput1}
+                        handleSearch1={this.handleSearchInput1}
                         addAdmins={() => addAdmins(this)}
                     />
                 </div>

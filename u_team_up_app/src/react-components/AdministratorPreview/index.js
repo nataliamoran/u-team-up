@@ -11,6 +11,10 @@ class AdministratorPreview extends React.Component {
 
     render() {
         const {administratorPreview} = this.props;
+        console.log(administratorPreview)
+        if (administratorPreview.adminId === "7") {
+            console.log(administratorPreview.adminName)
+        }
 
         return (
             <div id="wrapper2">

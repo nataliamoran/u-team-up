@@ -12,7 +12,7 @@ class AddAdminForm extends React.Component {
         const {
             adminName1,
             adminEmail1,
-            handleSearch,
+            handleSearch1,
             addAdmins
         } = this.props;
 
@@ -24,7 +24,7 @@ class AddAdminForm extends React.Component {
                 <Input
                     name="adminName1"
                     value={adminName1}
-                    onChange={handleSearch}
+                    onChange={handleSearch1}
                     label="Admin name"
                     className="name__input"
                 />
@@ -32,7 +32,7 @@ class AddAdminForm extends React.Component {
                 <Input
                     name="adminEmail1"
                     value={adminEmail1}
-                    onChange={handleSearch}
+                    onChange={handleSearch1}
                     label="Email"
                     className="email__input"
                 />

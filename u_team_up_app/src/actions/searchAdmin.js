@@ -27,7 +27,8 @@ export const addAdmins = search => {
         email: search.state.adminEmail1,
     };
 
-    const newlyFilteredAdmins = search.state.administrators.push({adminName: admin.name, adminId: "0", adminEmail: admin.email});
+    const newlyFilteredAdmins = search.state.administrators;
+    newlyFilteredAdmins.push({adminName: admin.name, adminId: "7", adminEmail: admin.email});
 
     search.setState({
         filteredAdmins: newlyFilteredAdmins
