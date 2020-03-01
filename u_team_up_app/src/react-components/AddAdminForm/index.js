@@ -25,7 +25,7 @@ class AddAdminForm extends React.Component {
                     name="adminName1"
                     value={adminName1}
                     onChange={handleSearch}
-                    label="Admin name1"
+                    label="Admin name"
                     className="name__input"
                 />
 
@@ -33,7 +33,7 @@ class AddAdminForm extends React.Component {
                     name="adminEmail1"
                     value={adminEmail1}
                     onChange={handleSearch}
-                    label="Email1"
+                    label="Email"
                     className="email__input"
                 />
 

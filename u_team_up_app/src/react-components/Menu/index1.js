@@ -15,18 +15,14 @@ export default function AppMenu(props) {
         setAnchorEl(null);
     };
 
-    var links = 
-                    [
-                     <Link to='/login'>
-                         <MenuItem>Log in</MenuItem>
+    if (props.loginStatus === 'admin') {
+        const links = 
+                    [<Link to={"/adminDashboard"}>
+                         <MenuItem>Admin Dashboard</MenuItem>
                      </Link>,
-                     <Link to='/signup'>
-                         <MenuItem>Sign up</MenuItem>
-                     </Link>
-                    ]
-
-    if (props.loginStatus === 'user') {
-        var links = 
+                    ];
+    } else if (props.loginStatus === 'user') {
+        const links = 
                     [<Link to='/student-profile'>
                          <MenuItem>your profile</MenuItem>
                      </Link>,
@@ -46,16 +42,7 @@ export default function AppMenu(props) {
                          <MenuItem>Log out</MenuItem>
                      </Link>,
                     ]
-    }
-
-    if (props.loginStatus === 'admin') {
-        var links = 
-                    [<Link to={"/adminDashboard"}>
-                         <MenuItem>Admin Dashboard</MenuItem>
-                     </Link>,
-                    ]
-    } 
-     /*else {
+    } else {
         const links = 
                     [
                      <Link to='/login'>
@@ -65,7 +52,7 @@ export default function AppMenu(props) {
                          <MenuItem>Sign up</MenuItem>
                      </Link>
                     ] 
-    }*/
+    }
 
     return (
             <div className="main_menu">
@@ -80,7 +67,41 @@ export default function AppMenu(props) {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    {links}
+                    {   
+                        props.loginStatus === 'admin' ?
+                            [<Link to={"/adminDashboard"}>
+                                 <MenuItem>Admin Dashboard</MenuItem>
+                             </Link>,
+                            ] :
+                        props.loginStatus === 'guest' ?
+                            [<Link to='/login'>
+                                <MenuItem>Log in</MenuItem>
+                             </Link>,
+                             <Link to='/signup'>
+                                 <MenuItem>Sign up</MenuItem>
+                             </Link>
+                            ] :
+                        props.loginStatus === 'user' ?
+                            [<Link to='/student-profile'>
+                                 <MenuItem>your profile</MenuItem>
+                             </Link>,
+                            <Link to='/inbox'>
+                                 <MenuItem>message box</MenuItem>
+                             </Link>,
+                             <Link to={"/"}>
+                                 <MenuItem>search teams</MenuItem>
+                             </Link>,
+                             <Link to={"/search-student"}>
+                                 <MenuItem>search students</MenuItem>
+                             </Link>,
+                             <Link to={"/appointments"}>
+                                 <MenuItem>your appointments</MenuItem>
+                             </Link>,
+                             <Link to='/logout'>
+                                 <MenuItem>Log out</MenuItem>
+                             </Link>,
+                            ] :
+                    }
                 </Menu>
             </div>
     );

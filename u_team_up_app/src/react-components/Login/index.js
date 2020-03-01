@@ -12,7 +12,8 @@ class Login extends React.Component {
             password: "",
             users: [ // TODO: FETCH
                 {username:"user", password:"user", uid:"1"},
-                {username: "user2", password: "user2", uid:"2"}
+                {username:"user2", password:"user2", uid:"2"},
+                {username:"admin", password:"admin", uid:"3"}
             ],
         }
 
@@ -37,18 +38,26 @@ class Login extends React.Component {
         if (matchUsers.length === 0) {
             alert('Username does not exist')
         } else {
-            if (matchUsers[0].password === password) { // TODO: UPLOAD
-                const identity = {
-                    type: 'user',
+            if (matchUsers[0].password === password) { // TODO: UPLOAD  
+                var identity = {
+                  type: 'user',
+                  username: matchUsers[0].username,
+                  uid: matchUsers[0].uid, // TODO: what will be the id?
+                };
+                  
+                if (matchUsers[0].password === "admin") {
+                  var identity = {
+                    type: 'admin',
                     username: matchUsers[0].username,
                     uid: matchUsers[0].uid, // TODO: what will be the id?
-                };
+                  };
+                }
+
                 this.loginCallback(identity);
 
                 this.props.history.goBack();
             } else {
-                alert('Wrong password')
-
+                alert('Wrong password');
             }
         }
     }
