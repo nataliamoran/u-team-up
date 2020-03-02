@@ -110,3 +110,12 @@
 .search-form__submit-button {
     height: 40px;
 }
+
+.new_team__input{
+    width: 200px;
+}
+
+.new_team_button{
+    margin-left: 50px !important;
+    margin-right: 50px !important;
+}

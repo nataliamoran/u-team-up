@@ -50,7 +50,7 @@ class Team extends React.Component {
                     "Which grade are you aiming for?",
                     "How many hours per week are you planning to spend working on the project?"
                 ]
-            } : {
+            } : props.teamId === '2' ?  {
                 id: "2",
                 university: "UofT",
                 course: "CSC207",
@@ -69,7 +69,7 @@ class Team extends React.Component {
                     "Can you do weekly team meetings?",
                     "Do you have a GitHub account?"
                 ]
-            },
+            } : null,
         };
     }
 
