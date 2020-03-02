@@ -50,6 +50,12 @@ class SearchTeam extends React.Component {
     };
 
     createTeam = () => {
+        if(this.state.newTeamUniversity === "" ||
+            this.state.newTeamCourse === "" ||
+            this.state.newTeamDescription === ""){
+            NotificationManager.error('Please complete all fields')
+            return;
+        }
         this.state.teams.push({
             university: this.state.newTeamUniversity,
             course: this.state.newTeamCourse,
