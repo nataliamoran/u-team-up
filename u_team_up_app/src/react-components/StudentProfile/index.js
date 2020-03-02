@@ -1,6 +1,7 @@
 import React from "react";
 import "./styles.css";
 import alice from "./static/alice.png"
+import {Link} from "react-router-dom";
 
 class StudentProfile extends React.Component {
     state = {
@@ -13,7 +14,7 @@ class StudentProfile extends React.Component {
         coursesTaken: "CSC207, CSC209",
         currentCourses: "CSC309, CSC363, CSC401",
         currentTeams: "CSC309 Team 1",
-        reviews: "",
+        reviews: "None",
         description: "If you love burger like I do, add me to your team.",
         location: "On campus",
         gpa: "3.5/4.0",
@@ -146,9 +147,9 @@ class StudentProfile extends React.Component {
                 </div>
 
                 <div className="right-box">
-                  <div className="notifications">
-                    <p><a href="student_application_invitation.html">Notifications</a></p>
-                  </div>
+                    <div>
+                      <p><Link className="student__application" to={"./../student-app-inv"}>My application</Link></p>
+                    </div>
 
                   <div className="description inner">
                     <h4>Description:</h4>
@@ -228,7 +229,7 @@ class StudentProfile extends React.Component {
         return (
             <div>
                 <div className="left-box">
-                <img className="profile-pic" src={this.state.imageUrl} alt="alice photo" />
+                <img className="profile-pic" src={this.state.imageUrl} alt="student photo" />
 
                 <div className="info inner">
                     <h2>{this.state.name}</h2>
@@ -260,8 +261,8 @@ class StudentProfile extends React.Component {
               </div>
             </div>
             <div className="right-box">
-              <div className="notifications">
-                <p><a href="student_application_invitation.html">Notifications</a></p>
+              <div>
+                <p><Link className="student__application" to={"./../student-app-inv"}>My application</Link></p>
               </div>
 
               <div className="description inner">
