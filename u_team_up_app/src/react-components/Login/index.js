@@ -1,5 +1,5 @@
 import React from "react";
-
+import {Link} from "react-router-dom";
 import { withRouter } from 'react-router-dom';
 import "./styles.css";
 
@@ -38,15 +38,15 @@ class Login extends React.Component {
         if (matchUsers.length === 0) {
             alert('Username does not exist')
         } else {
-            if (matchUsers[0].password === password) { // TODO: UPLOAD  
+            if (matchUsers[0].password === password) { // TODO: UPLOAD
                 var identity = {
                   type: 'user',
                   username: matchUsers[0].username,
                   uid: matchUsers[0].uid, // TODO: what will be the id?
                 };
-                  
+
                 if (matchUsers[0].password === "admin") {
-                  var identity = {
+                  identity = {
                     type: 'admin',
                     username: matchUsers[0].username,
                     uid: matchUsers[0].uid, // TODO: what will be the id?
@@ -65,7 +65,6 @@ class Login extends React.Component {
     render() {
         return (
             <div>
-            <title>UTeamUp Login</title>
             <div className="login__content">
               <h1>UTeamUp!</h1>
               <form className="login" method="post" onSubmit={this.handleSubmit}>
@@ -101,7 +100,7 @@ class Login extends React.Component {
 
               </form>
               <p>Don't have an account?</p>
-              <p>Click to <a href="./../SignUp">SignUp</a>!</p>
+              <p>Click to <Link className="signup__link" to={"./../SignUp"}>SignUp</Link>!</p>
             </div>
             </div>
     );

@@ -37,3 +37,7 @@
     border: none;
     outline: none;
 }
+
+.signup__link {
+    text-decoration: none;
+}

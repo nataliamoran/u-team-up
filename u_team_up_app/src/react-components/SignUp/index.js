@@ -1,11 +1,14 @@
 import React from "react";
 import "./styles.css";
+import { withRouter } from 'react-router-dom';
+
 
 class Signup extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            uid: "4",
             username: "",
             university: "",
             email: "",
@@ -15,6 +18,7 @@ class Signup extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.loginCallback = this.props.loginCallback;
     }
 
     handleSubmit(e) {
@@ -22,8 +26,17 @@ class Signup extends React.Component {
         if (password !== confirmedPassword) {
             alert('Passwords do not match')
         } else {
+            var identity = {
+              type: 'user',
+              username: this.state.username,
+              uid: this.state.uid,
+            };
+
             alert('Registered!');
         }
+
+        this.loginCallback(identity);
+        this.props.history.goBack();
 
         e.preventDefault();
     }
@@ -40,7 +53,7 @@ class Signup extends React.Component {
                 <div className="signup__content">
                   <h1>Create an account</h1>
 
-                  <form className="signup" action="./../SearchTeam" method="post" onSubmit={this.handleSubmit}>
+                  <form className="signup" method="post" onSubmit={this.handleSubmit}>
                     <label className="signup__label">Username</label>
                     <br />
                     <input
@@ -110,4 +123,4 @@ class Signup extends React.Component {
     }
 }
 
-export default Signup;
+export default withRouter(Signup);
