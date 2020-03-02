@@ -4,6 +4,7 @@ import alice from "./static/alice.png"
 import bob from "./static/bob.png"
 import {Link} from "react-router-dom";
 import Button from "@material-ui/core/Button/Button";
+import TextField from "@material-ui/core/TextField";
 
 const studentInfo = {
     '1': {
@@ -16,7 +17,8 @@ const studentInfo = {
         coursesTaken: "CSC207, CSC209",
         currentCourses: "CSC309, CSC363, CSC401",
         currentTeams: "CSC309 Team 1",
-        reviews: "",
+        review: "",
+        reviews: ["Bob - I love working with Alice!", "Carl - Alice is amazing"],
         description: "If you love burger like I do, add me to your team.",
         location: "On campus",
         gpa: "3.5/4.0",
@@ -29,17 +31,18 @@ const studentInfo = {
         imageUrl: bob,
         name: "Bob Bobson",
         university: "University of Toronto, St. George Campus",
-        yearOfStudy: 3,
+        yearOfStudy: 4,
         majorOfStudy: "Computer Science",
-        coursesTaken: "CSC207, CSC209",
-        currentCourses: "CSC309, CSC363, CSC401",
-        currentTeams: "CSC309 Team 1",
-        reviews: "",
-        description: "If you love burger like I do, add me to your team.",
-        location: "On campus",
-        gpa: "3.5/4.0",
-        pastProject: "Todo list",
-        experience: "Teaching Assistant @ UofT, Software Developer Intern @ IBM",
+        coursesTaken: "CSC108",
+        currentCourses: "CSC207, CSC309",
+        currentTeams: "CSC207 Team 1, CSC309 Team1",
+        review: "",
+        reviews: [],
+        description: "I heart CS & pranks",
+        location: "North York",
+        gpa: "3.0/4.0",
+        pastProject: "Secret",
+        experience: "UofT student",
         resume: "",
     },
 };
@@ -76,6 +79,22 @@ class StudentProfile extends React.Component {
             [name]: value
         });
         event.preventDefault();
+    };
+
+    handleReviewInput = event => {
+        const target = event.target;
+        const value = target.value;
+        this.setState({
+            newReview: value
+        });
+    };
+
+    addReview = () => {
+
+        this.state.reviews.push(this.state.newReview);
+        this.setState({
+            reviews: this.state.reviews
+        })
     };
 
 
@@ -145,7 +164,6 @@ class StudentProfile extends React.Component {
                                   value={this.state.coursesTaken}
                                     onChange={this.handleEditInput}
                                     name='coursesTaken'
-
                                   >
                               </textarea>
                         </div>
@@ -158,7 +176,6 @@ class StudentProfile extends React.Component {
                                  value={this.state.currentCourses}
                                 onChange={this.handleEditInput}
                                 name='currentCourses'
-
                                  >
                              </textarea>
                     </div>
@@ -172,7 +189,6 @@ class StudentProfile extends React.Component {
                             value={this.state.currentTeams}
                             onChange={this.handleEditInput}
                             name='currentTeams'
-
                             >
                         </textarea>
                   </div>
@@ -376,18 +392,30 @@ class StudentProfile extends React.Component {
 
               <div className="reviews inner">
                 <h4>Reviews:</h4>
-                <p>{this.state.reviews}</p>
+                <p>
+                    {this.state.reviews.map(review => (
+                        <div key={(review)}>
+                        {review}
+                        </div>
+                            ))}
+                    </p>
                 <p>Write your teammate a review!</p>
+                    <TextField
+                        className="reviewInput"
+                        label={"Format: your name - your review"}
+                        onChange={this.handleReviewInput}
+                        multiline
+                        variant="filled"
+                        />
+                        <div>
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                className="team_page__button"
+                                onClick={this.addReview.bind(this)}>Add
+                            </Button>
+                        </div>
 
-                    <textarea
-
-                        className="student_profile__input"
-                        type="text"
-                        value={this.state.reviews}
-                         onChange={this.handleEditInput}
-                         name='reviews'
-                        >
-                    </textarea>
               </div>
             </div>
             <div className="right-box">
