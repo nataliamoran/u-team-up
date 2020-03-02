@@ -1,0 +1,103 @@
+.team{
+    padding-left: 30px;
+}
+
+.header {
+    display: flex;
+}
+
+.header__team{
+    color: #283b63;
+    font-size: 2.2em;
+}
+
+.header__description{
+    color: #283b63;
+}
+
+.header__team_data {
+    padding-top:10px;
+    padding-left:10px;
+    font-size: 1.5em;
+    color: #F76073;
+    font-weight: bold;
+}
+
+.h2 {
+    color: #283b63;
+}
+
+.team_page__link{
+    text-decoration: none !important;
+}
+
+.team_page__button{
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+    margin-top: 10px !important;
+}
+
+.team_page__menu_buttons{
+    padding-top: 30px;
+    padding-left: 30px;
+}
+
+.quiz_table td{
+    border-style: hidden !important;
+}
+
+.quiz{
+    margin-top: 100px;
+}
+
+#filled-textarea {
+    width: 600px;
+}
+
+.quiz_question{
+    margin-top:20px !important;
+}
+.quiz_button{
+    color: #f1574b;
+    margin-top:20px !important;
+}
+
+.edit_team_page__buttons{
+    margin-top: 50px;
+}
+
+.edit_team_page__input{
+    height: 50px;
+    width: 500px;
+    font-size: 0.8em;
+}
+
+.edit_team_page__description{
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.edit_team_page__members{
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.edit_team_page__quiz{
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.team_page__new_quiz_question{
+    margin-top: 30px;
+}
+
+#deletion_confirmation{
+    text-align: center;
+    margin-top: 200px;
+}
+
+.edit_team_page__title{
+    color: #f1574b;
+    font-weight: bold;
+    font-size: 1.2em;
+}
