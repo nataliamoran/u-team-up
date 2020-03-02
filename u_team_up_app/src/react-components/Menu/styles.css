@@ -2,3 +2,24 @@
 {
     height: 30px;
 }
+
+.link {
+	text-decoration: none;
+
+}
+
+.menuText {
+	color: black;
+}
+
+.menuText:primary {
+	font: "Times New Roman", Times, serif;
+	font-size: 100px;
+	font-weight: bold;
+}
+
+.button {
+	background-color: "rgb(30, 144, 255)";
+	margin-right: 20px;
+	margin-top: 20px;
+}

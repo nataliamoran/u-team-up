@@ -3,6 +3,50 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import {Link} from "react-router-dom";
+import { withStyles } from '@material-ui/core/styles';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import DraftsIcon from '@material-ui/icons/Drafts';
+import SendIcon from '@material-ui/icons/Send';
+import "./styles.css";
+
+const StyledMenu = withStyles({
+  paper: {
+    color: 'black',
+    border: '1px solid #d3d4d5',
+  },
+})(props => (
+  <Menu
+    backgroundColor="rgb(30, 144, 255)"
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'center',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'center',
+    }}
+    {...props}
+  />
+));
+
+const StyledMenuItem = withStyles(theme => ({
+  root: {
+    '&:focus': {
+      backgroundColor: "rgb(30, 144, 255)",
+      '& .MuiListItemIcon-root': {
+        color: theme.palette.common.white,
+      },
+      '& .MuiListItemText-primary': {
+        color: theme.palette.common.white,
+        font: 'bold'
+      },
+    },
+  },
+}))(MenuItem);
 
 export default function AppMenu(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -17,41 +61,86 @@ export default function AppMenu(props) {
 
     var links = 
                     [
-                     <Link to='/login'>
-                         <MenuItem>Log in</MenuItem>
+                     <Link className="link" to='/login'>
+                        <StyledMenuItem>
+                            <ListItemIcon>
+                                <SendIcon fontSize="small" />
+                            </ListItemIcon>
+                            <ListItemText className="menuText" primary="Login" />
+                        </StyledMenuItem>
                      </Link>,
-                     <Link to='/signup'>
-                         <MenuItem>Sign up</MenuItem>
+                     <Link className="link" to='/signup'>
+                        <StyledMenuItem>
+                            <ListItemIcon>
+                                <SendIcon fontSize="small" />
+                            </ListItemIcon>
+                            <ListItemText className="menuText" primary="Sign Up" />
+                        </StyledMenuItem>
                      </Link>
                     ]
 
     if (props.loginStatus === 'user') {
         var links = 
-                    [<Link to='/student-profile'>
-                         <MenuItem>your profile</MenuItem>
+                    [<Link className="link" to='/student-profile'>
+                        <StyledMenuItem>
+                            <ListItemIcon>
+                                <SendIcon fontSize="small" />
+                            </ListItemIcon>
+                        <ListItemText className="menuText" primary="Your Profile" />
+                        </StyledMenuItem>
                      </Link>,
-                     <Link to='/inbox'>
-                         <MenuItem>message box</MenuItem>
+                     <Link className="link" to='/inbox'>
+                        <StyledMenuItem>
+                            <ListItemIcon>
+                                <SendIcon fontSize="small" />
+                            </ListItemIcon>
+                        <ListItemText className="menuText" primary="Your Inbox" />
+                        </StyledMenuItem>
                      </Link>,
-                     <Link to={"/"}>
-                         <MenuItem>search teams</MenuItem>
+                     <Link className="link" to={"/"}>
+                        <StyledMenuItem>
+                            <ListItemIcon>
+                                <SendIcon fontSize="small" />
+                            </ListItemIcon>
+                        <ListItemText className="menuText" primary="Search Teams" />
+                        </StyledMenuItem>
                      </Link>,
-                     <Link to={"/search-student"}>
-                         <MenuItem>search students</MenuItem>
+                     <Link className="link" to={"/search-student"}>
+                        <StyledMenuItem>
+                            <ListItemIcon>
+                                <SendIcon fontSize="small" />
+                            </ListItemIcon>
+                        <ListItemText className="menuText" primary="Search Students" />
+                        </StyledMenuItem>
                      </Link>,
-                     <Link to={"/appointments"}>
-                         <MenuItem>your appointments</MenuItem>
+                     <Link className="link" to={"/appointments"}>
+                        <StyledMenuItem>
+                            <ListItemIcon>
+                                <SendIcon fontSize="small" />
+                            </ListItemIcon>
+                        <ListItemText className="menuText" primary="Your Appointments" />
+                        </StyledMenuItem>
                      </Link>,
-                     <Link to='/logout'>
-                         <MenuItem>Log out</MenuItem>
+                     <Link className="link" to='/logout'>
+                        <StyledMenuItem>
+                            <ListItemIcon>
+                                <SendIcon fontSize="small" />
+                            </ListItemIcon>
+                        <ListItemText className="menuText" primary="Logout" />
+                        </StyledMenuItem>
                      </Link>,
                     ]
     }
 
     if (props.loginStatus === 'admin') {
         var links = 
-                    [<Link to={"/adminDashboard"}>
-                         <MenuItem>Admin Dashboard</MenuItem>
+                    [<Link className="link" to={"/adminDashboard"}>
+                        <StyledMenuItem>
+                            <ListItemIcon>
+                                <SendIcon fontSize="small" />
+                            </ListItemIcon>
+                        <ListItemText className="menuText" primary="Admin Dashboard" />
+                        </StyledMenuItem>
                      </Link>,
                     ]
     } 
@@ -68,12 +157,13 @@ export default function AppMenu(props) {
     }*/
 
     return (
-            <div className="main_menu">
+            /*<div className="main_menu">
                 <Button className="main_menu_button" aria-controls="simple-menu" aria-haspopup="true"
                         onClick={handleClick}>
                     menu
                 </Button>
                 <Menu
+                    id=""
                     className="main_menu_content"
                     anchorEl={anchorEl}
                     keepMounted
@@ -82,6 +172,27 @@ export default function AppMenu(props) {
                 >
                     {links}
                 </Menu>
+            </div>*/
+            <div>
+                <Button className="button"
+                    aria-controls="customized-menu"
+                    aria-haspopup="true"
+                    variant="contained"
+                    background-color="rgb(30, 144, 255)"
+                    onClick={handleClick}
+                >
+                    Open Menu
+                </Button>
+                <StyledMenu
+                    id="customized-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                    color="rgb(30, 144, 255)"
+                >
+                    {links}
+                </StyledMenu>
             </div>
     );
 }
