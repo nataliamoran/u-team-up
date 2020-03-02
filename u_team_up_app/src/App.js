@@ -58,9 +58,12 @@ class App extends React.Component {
                         <Route exact path='/signup' render={
                             () => <SignUp loginCallback={ this.setIdentity }/>
                         }/>
-                        <Route exact path='/student-profile' render={() =>
-                            (<StudentProfile state={this.state}/>)}/>
-                        <Route exact path='/search-student' render={() =>
+                    <Route exact path='/student-profile/:id' render={({match}) =>
+                            (<StudentProfile globalState={this.state} id={match.params.id}/>)}/>
+                        <Route exact path='/student-profile'
+                             render={
+                                 () => <StudentProfile globalState={this.state} />} />
+                    <Route exact path='/search-student' render={() =>
                             (<SearchStudent state={this.state}/>)}/>
                         <Route exact path='/team/:id/appointment' render={
                             ({ match }) =>
