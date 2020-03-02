@@ -32,11 +32,10 @@ class Signup extends React.Component {
               uid: this.state.uid,
             };
 
-            alert('Registered!');
+            this.loginCallback(identity);
+            this.props.history.goBack();
         }
 
-        this.loginCallback(identity);
-        this.props.history.goBack();
 
         e.preventDefault();
     }
