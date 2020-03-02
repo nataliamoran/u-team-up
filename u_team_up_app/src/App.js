@@ -55,8 +55,9 @@ class App extends React.Component {
                         <Route exact path='/login' render={
                             () => <Login loginCallback={ this.setIdentity }/>
                         }/>
-                        <Route exact path='/signup' render={() =>
-                            (<SignUp state={this.state}/>)}/>
+                        <Route exact path='/signup' render={
+                            () => <SignUp loginCallback={ this.setIdentity }/>
+                        }/>
                         <Route exact path='/student-profile' render={() =>
                             (<StudentProfile state={this.state}/>)}/>
                         <Route exact path='/search-student' render={() =>
