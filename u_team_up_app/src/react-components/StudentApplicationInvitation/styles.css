@@ -6,3 +6,7 @@
 .search_form_title {
     text-align: center;
 }
+
+.add_new__link {
+    text-decoration: none;
+}

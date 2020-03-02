@@ -15,7 +15,7 @@ class TeamMemberPreview extends React.Component {
         const {teamMemberPreview} = this.props;
 
         return (
-            <Link className="team_page__link" to={teamMemberPreview.profileLink}>
+            <Link className="team_page__link" to={'/student-profile/' + teamMemberPreview.uid}>
                 <div className="team-member-preview__bg-image">
                     <Table className="team-member-preview">
                         <TableBody>

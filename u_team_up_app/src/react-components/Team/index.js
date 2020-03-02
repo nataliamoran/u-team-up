@@ -36,7 +36,7 @@ class Team extends React.Component {
                         name: "Bob Bobson",
                         university: "UofT",
                         photo: "./static/bob2.png",
-                        profileLink: "/student-profile"
+                        profileLink: "/student-profile/2"
                     },
                     {
                         uid: "1",
@@ -263,7 +263,7 @@ class Team extends React.Component {
 
     render() {
         const team = this.state.team;
-        const global = this.state.global;
+        const global = this.props.globalState;
 
         let editButton;
         let calendarButton;

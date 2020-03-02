@@ -1,10 +1,12 @@
 import React from "react";
 import "./styles.css";
 import alice from "./static/alice.png"
+import bob from "./static/bob.png"
 import {Link} from "react-router-dom";
+import Button from "@material-ui/core/Button/Button";
 
-class StudentProfile extends React.Component {
-    state = {
+const studentInfo = {
+    '1': {
         username: "",
         imageUrl: alice,
         name: "Alice Alison",
@@ -14,35 +16,48 @@ class StudentProfile extends React.Component {
         coursesTaken: "CSC207, CSC209",
         currentCourses: "CSC309, CSC363, CSC401",
         currentTeams: "CSC309 Team 1",
-        reviews: "None",
+        reviews: "",
         description: "If you love burger like I do, add me to your team.",
         location: "On campus",
         gpa: "3.5/4.0",
         pastProject: "Todo list",
         experience: "Teaching Assistant @ UofT, Software Developer Intern @ IBM",
         resume: "",
-        students: [ // TODO: FETCH
+    },
+    '2': {
+        username: "",
+        imageUrl: bob,
+        name: "Bob Bobson",
+        university: "University of Toronto, St. George Campus",
+        yearOfStudy: 3,
+        majorOfStudy: "Computer Science",
+        coursesTaken: "CSC207, CSC209",
+        currentCourses: "CSC309, CSC363, CSC401",
+        currentTeams: "CSC309 Team 1",
+        reviews: "",
+        description: "If you love burger like I do, add me to your team.",
+        location: "On campus",
+        gpa: "3.5/4.0",
+        pastProject: "Todo list",
+        experience: "Teaching Assistant @ UofT, Software Developer Intern @ IBM",
+        resume: "",
+    },
+};
 
-        ],
-        isInEditMode: false,
+class StudentProfile extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            ...studentInfo[this.props.id
+                || this.props.globalState.identity.uid], // TODO: FETCH
+            isInEditMode: false,
+        };
     }
-
 
     updateInfo = () => {
         this.setState({
             isInEditMode: false,
-            name: this.refs.inputName.value,
-            university: this.refs.inputUniversity.value,
-            yearOfStudy: this.refs.inputyearOfStudy.value,
-            majorOfStudy: this.refs.inputmajorOfStudy.value,
-            coursesTaken: this.refs.inputcoursesTaken.value,
-            currentCourses: this.refs.inputCurrentCourses.value,
-            currentTeams: this.refs.inputCurrentTeams.value,
-            description: this.refs.inputDescription.value,
-            location: this.refs.inputLocation.value,
-            gpa: this.refs.inputGpa.value,
-            pastProject: this.refs.inputPastProject.value,
-            experience: this.refs.inputExperience.value
         })
     }
 
@@ -52,7 +67,19 @@ class StudentProfile extends React.Component {
         })
     }
 
-    renderEditView = () => {
+    handleEditInput = event => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+        event.preventDefault();
+    };
+
+
+    renderSelfEditView = () => {
         return (
             <div>
                 <div>
@@ -64,10 +91,10 @@ class StudentProfile extends React.Component {
                             <input
                                 className="student_profile__input"
                                 type="text"
-                                defaultValue={this.state.name}
-                                ref="inputName"
-                                >
-                            </input>
+                                value={this.state.name}
+                                onChange={this.handleEditInput}
+                                name='name'
+                                />
                         </h2>
 
                         <h4>University:</h4>
@@ -75,8 +102,9 @@ class StudentProfile extends React.Component {
                                 <input
                                     className="student_profile__input"
                                     type="text"
-                                    defaultValue={this.state.university}
-                                    ref="inputUniversity"
+                                    value={this.state.university}
+                                    onChange={this.handleEditInput}
+                                    name='university'
                                     >
                                 </input>
                             </p>
@@ -86,8 +114,9 @@ class StudentProfile extends React.Component {
                                 <input
                                     className="student_profile__input"
                                     type="text"
-                                    defaultValue={this.state.yearOfStudy}
-                                    ref="inputyearOfStudy"
+                                    value={this.state.yearOfStudy}
+                                    onChange={this.handleEditInput}
+                                    name='yearOfStudy'
                                     >
                                 </input>
                             </p>
@@ -97,8 +126,10 @@ class StudentProfile extends React.Component {
                             <input
                                 className="student_profile__input"
                                 type="text"
-                                defaultValue={this.state.majorOfStudy}
-                                ref="inputmajorOfStudy"
+                                value={this.state.majorOfStudy}
+                                onChange={this.handleEditInput}
+                                name='majorOfStudy'
+
                                 >
                             </input>
                         </p>
@@ -111,8 +142,10 @@ class StudentProfile extends React.Component {
                               <textarea
                                   className="student_profile__input"
                                   type="text"
-                                  defaultValue={this.state.coursesTaken}
-                                  ref="inputcoursesTaken"
+                                  value={this.state.coursesTaken}
+                                    onChange={this.handleEditInput}
+                                    name='coursesTaken'
+
                                   >
                               </textarea>
                         </div>
@@ -122,8 +155,10 @@ class StudentProfile extends React.Component {
                              <textarea
                                  className="student_profile__input"
                                  type="text"
-                                 defaultValue={this.state.currentCourses}
-                                 ref="inputCurrentCourses"
+                                 value={this.state.currentCourses}
+                                onChange={this.handleEditInput}
+                                name='currentCourses'
+
                                  >
                              </textarea>
                     </div>
@@ -134,15 +169,17 @@ class StudentProfile extends React.Component {
                         <textarea
                             className="student_profile__input"
                             type="text"
-                            defaultValue={this.state.currentTeams}
-                            ref="inputCurrentTeams"
+                            value={this.state.currentTeams}
+                            onChange={this.handleEditInput}
+                            name='currentTeams'
+
                             >
                         </textarea>
                   </div>
 
                  <div className="reviews inner">
                     <h4>Reviews:</h4>
-                    <p><a href="bob.html">Bob Bobson</a>: I love working with Alice!💙</p>
+                    {this.state.reviews}
                   </div>
                 </div>
 
@@ -157,8 +194,10 @@ class StudentProfile extends React.Component {
                         <textarea
                             className="student_profile__input"
                             type="text"
-                            defaultValue={this.state.description}
-                            ref="inputDescription"
+                            value={this.state.description}
+                            onChange={this.handleEditInput}
+                            name='description'
+
                             >
                         </textarea>
 
@@ -170,8 +209,10 @@ class StudentProfile extends React.Component {
                         <input
                             className="student_profile__input"
                             type="text"
-                            defaultValue={this.state.location}
-                            ref="inputLocation"
+                            value={this.state.location}
+                            onChange={this.handleEditInput}
+                            name='location'
+
                             >
                         </input>
 
@@ -179,8 +220,10 @@ class StudentProfile extends React.Component {
                         <input
                             className="student_profile__input"
                             type="text"
-                            defaultValue={this.state.gpa}
-                            ref="inputGpa"
+                            value={this.state.gpa}
+                            onChange={this.handleEditInput}
+                            name='gpa'
+
                             >
                         </input>
 
@@ -188,8 +231,10 @@ class StudentProfile extends React.Component {
                         <textarea
                             className="student_profile__input"
                             type="text"
-                            defaultValue={this.state.pastProject}
-                            ref="inputPastProject"
+                            value={this.state.pastProject}
+                            onChange={this.handleEditInput}
+                            name='pastProject'
+
                             >
                         </textarea>
 
@@ -200,8 +245,10 @@ class StudentProfile extends React.Component {
                         <textarea
                             className="student_profile__input"
                             type="text"
-                            defaultValue={this.state.experience}
-                            ref="inputExperience"
+                            value={this.state.experience}
+                            onChange={this.handleEditInput}
+                            name='experience'
+
                             >
                         </textarea>
                     <h4>Resume: Link</h4>
@@ -257,7 +304,7 @@ class StudentProfile extends React.Component {
 
               <div className="reviews inner">
                 <h4>Reviews:</h4>
-                <p><a href="bob.html">Bob Bobson</a>: I love working with Alice!💙</p>
+                {this.state.reviews}
               </div>
             </div>
             <div className="right-box">
@@ -297,7 +344,7 @@ class StudentProfile extends React.Component {
         )
     }
 
-    renderOthersView = () => {
+    renderOthersEditView = () => {
         return(
             <div>
                 <div className="left-box">
@@ -329,7 +376,18 @@ class StudentProfile extends React.Component {
 
               <div className="reviews inner">
                 <h4>Reviews:</h4>
-                <p><a href="bob.html">Bob Bobson</a>: I love working with Alice!💙</p>
+                <p>{this.state.reviews}</p>
+                <p>Write your teammate a review!</p>
+
+                    <textarea
+
+                        className="student_profile__input"
+                        type="text"
+                        value={this.state.reviews}
+                         onChange={this.handleEditInput}
+                         name='reviews'
+                        >
+                    </textarea>
               </div>
             </div>
             <div className="right-box">
@@ -357,12 +415,30 @@ class StudentProfile extends React.Component {
         )
     }
 
+
     render() {
-        return (
-            this.state.isInEditMode ?
-            this.renderEditView()
-             : this.renderSelfView()
-        )
+        if ((this.props.id
+            || this.props.globalState.identity.uid) ===
+            this.props.globalState.identity.uid) {
+                if (this.state.isInEditMode) {
+                    return this.renderSelfEditView()
+                } else {
+                    return this.renderSelfView()
+                }
+            } else {
+                return this.renderOthersEditView()
+            }
+
+
+        {/*if (this.state.isInEditMode) {
+            return this.renderOthersEditView();
+        } else if ((this.props.id
+            || this.props.globalState.identity.uid) === this.props.globalState.identity.uid) {
+            return this.renderSelfView()
+        } else {
+            return this.renderOthersView()
+        }*/}
+
     }
 }
 
