@@ -82,9 +82,9 @@ class StudentProfile extends React.Component {
         super(props);
 
         this.state = {
-            ...studentInfo[
+            ...(studentInfo[
                 this.props.id || this.props.globalState.identity.uid
-            ], // TODO: FETCH
+            ] || { reviews: [] }), // TODO: FETCH
             isInEditMode: false
         };
     }
