@@ -85,6 +85,7 @@ class StudentApplicationInvitation extends React.Component {
                                     " " +
                                     appliedTeam.applicationStatus +
                                     " "}
+                                {appliedTeam.applicationStatus === "Pending" &&
                                 <button
                                     onClick={this.withdrawTeam.bind(
                                         this,
@@ -92,7 +93,7 @@ class StudentApplicationInvitation extends React.Component {
                                     )}
                                 >
                                     Withdraw
-                                </button>
+                                </button>}
                             </div>
                         ))}
                         <br />
