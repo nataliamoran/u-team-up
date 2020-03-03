@@ -5,7 +5,6 @@
     margin: 0 auto;
 }
 
-
 .signup__input {
     border: 3px solid #f5f1ed;
     border-radius: 10px;
@@ -17,9 +16,8 @@
 }
 
 .signup__input:focus {
-  border: 3px solid #fde8d4;
+    border: 3px solid #fde8d4;
 }
-
 
 .signup__label {
     letter-spacing: 2px;

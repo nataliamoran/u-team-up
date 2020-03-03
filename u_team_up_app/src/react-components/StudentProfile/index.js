@@ -1,13 +1,13 @@
 import React from "react";
 import "./styles.css";
-import alice from "./static/alice.png"
-import bob from "./static/bob.png"
-import {Link} from "react-router-dom";
+import alice from "./static/alice.png";
+import bob from "./static/bob.png";
+import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button/Button";
 import TextField from "@material-ui/core/TextField";
 
 const studentInfo = {
-    '1': {
+    "1": {
         username: "",
         imageUrl: alice,
         name: "Alice Alison",
@@ -18,15 +18,19 @@ const studentInfo = {
         currentCourses: "CSC309, CSC363, CSC401",
         currentTeams: "CSC309 Team 1",
         review: "",
-        reviews: ["Bob - I love working with Alice!", "Carl - Alice is amazing"],
+        reviews: [
+            "Bob - I love working with Alice!",
+            "Carl - Alice is amazing"
+        ],
         description: "If you love burger like I do, add me to your team.",
         location: "On campus",
         gpa: "3.5/4.0",
         pastProject: "Todo list",
-        experience: "Teaching Assistant @ UofT, Software Developer Intern @ IBM",
-        resume: "",
+        experience:
+            "Teaching Assistant @ UofT, Software Developer Intern @ IBM",
+        resume: ""
     },
-    '2': {
+    "2": {
         username: "",
         imageUrl: bob,
         name: "Bob Bobson",
@@ -43,8 +47,8 @@ const studentInfo = {
         gpa: "3.0/4.0",
         pastProject: "Secret",
         experience: "UofT student",
-        resume: "",
-    },
+        resume: ""
+    }
 };
 
 class StudentProfile extends React.Component {
@@ -52,23 +56,24 @@ class StudentProfile extends React.Component {
         super(props);
 
         this.state = {
-            ...studentInfo[this.props.id
-                || this.props.globalState.identity.uid], // TODO: FETCH
-            isInEditMode: false,
+            ...studentInfo[
+                this.props.id || this.props.globalState.identity.uid
+            ], // TODO: FETCH
+            isInEditMode: false
         };
     }
 
     updateInfo = () => {
         this.setState({
-            isInEditMode: false,
-        })
-    }
+            isInEditMode: false
+        });
+    };
 
     changeEditMode = () => {
         this.setState({
             isInEditMode: !this.state.isInEditMode
-        })
-    }
+        });
+    };
 
     handleEditInput = event => {
         const target = event.target;
@@ -90,382 +95,382 @@ class StudentProfile extends React.Component {
     };
 
     addReview = () => {
-
         this.state.reviews.push(this.state.newReview);
         this.setState({
             reviews: this.state.reviews
-        })
+        });
     };
-
 
     renderSelfEditView = () => {
         return (
             <div>
                 <div>
                     <div className="left-box">
-                    <img className="profile-pic" src={this.state.imageUrl} alt="alice photo" />
+                        <img
+                            className="profile-pic"
+                            src={this.state.imageUrl}
+                            alt="alice photo"
+                        />
 
-                    <div className="info inner">
-                        <h2>
-                            <input
-                                className="student_profile__input"
-                                type="text"
-                                value={this.state.name}
-                                onChange={this.handleEditInput}
-                                name='name'
+                        <div className="info inner">
+                            <h2>
+                                <input
+                                    className="student_profile__input"
+                                    type="text"
+                                    value={this.state.name}
+                                    onChange={this.handleEditInput}
+                                    name="name"
                                 />
-                        </h2>
+                            </h2>
 
-                        <h4>University:</h4>
+                            <h4>University:</h4>
                             <p>
                                 <input
                                     className="student_profile__input"
                                     type="text"
                                     value={this.state.university}
                                     onChange={this.handleEditInput}
-                                    name='university'
-                                    >
-                                </input>
+                                    name="university"
+                                ></input>
                             </p>
 
-                        <h4>Year of Study:</h4>
+                            <h4>Year of Study:</h4>
                             <p>
                                 <input
                                     className="student_profile__input"
                                     type="text"
                                     value={this.state.yearOfStudy}
                                     onChange={this.handleEditInput}
-                                    name='yearOfStudy'
-                                    >
-                                </input>
+                                    name="yearOfStudy"
+                                ></input>
                             </p>
 
-                        <h4>Major of Study:</h4>
-                        <p>
+                            <h4>Major of Study:</h4>
+                            <p>
+                                <input
+                                    className="student_profile__input"
+                                    type="text"
+                                    value={this.state.majorOfStudy}
+                                    onChange={this.handleEditInput}
+                                    name="majorOfStudy"
+                                ></input>
+                            </p>
+                        </div>
+
+                        <div className="course">
+                            <div className="taken inner">
+                                <h4>Courses Taken:</h4>
+                                <textarea
+                                    className="student_profile__input"
+                                    type="text"
+                                    value={this.state.coursesTaken}
+                                    onChange={this.handleEditInput}
+                                    name="coursesTaken"
+                                ></textarea>
+                            </div>
+
+                            <div className="taking inner">
+                                <h4>Currently Taking:</h4>
+                                <textarea
+                                    className="student_profile__input"
+                                    type="text"
+                                    value={this.state.currentCourses}
+                                    onChange={this.handleEditInput}
+                                    name="currentCourses"
+                                ></textarea>
+                            </div>
+                        </div>
+
+                        <div className="current-teams inner">
+                            <h4>Current Teams:</h4>
+                            <textarea
+                                className="student_profile__input"
+                                type="text"
+                                value={this.state.currentTeams}
+                                onChange={this.handleEditInput}
+                                name="currentTeams"
+                            ></textarea>
+                        </div>
+
+                        <div className="reviews inner">
+                            <h4>Reviews:</h4>
+                            {this.state.reviews}
+                        </div>
+                    </div>
+
+                    <div className="right-box">
+                        <div>
+                            <p>
+                                <Link
+                                    className="student__application"
+                                    to={"./../student-app-inv"}
+                                >
+                                    My application
+                                </Link>
+                            </p>
+                        </div>
+
+                        <div className="description inner">
+                            <h4>Description:</h4>
+                            <p>
+                                <textarea
+                                    className="student_profile__input"
+                                    type="text"
+                                    value={this.state.description}
+                                    onChange={this.handleEditInput}
+                                    name="description"
+                                ></textarea>
+                            </p>
+                        </div>
+
+                        <div className="more-info inner">
+                            <h4>Location:</h4>
                             <input
                                 className="student_profile__input"
                                 type="text"
-                                value={this.state.majorOfStudy}
+                                value={this.state.location}
                                 onChange={this.handleEditInput}
-                                name='majorOfStudy'
+                                name="location"
+                            ></input>
 
-                                >
-                            </input>
-                        </p>
+                            <h4>GPA:</h4>
+                            <input
+                                className="student_profile__input"
+                                type="text"
+                                value={this.state.gpa}
+                                onChange={this.handleEditInput}
+                                name="gpa"
+                            ></input>
 
-                    </div>
-
-                    <div className="course">
-                        <div className="taken inner">
-                          <h4>Courses Taken:</h4>
-                              <textarea
-                                  className="student_profile__input"
-                                  type="text"
-                                  value={this.state.coursesTaken}
-                                    onChange={this.handleEditInput}
-                                    name='coursesTaken'
-                                  >
-                              </textarea>
+                            <h4>Past Project:</h4>
+                            <textarea
+                                className="student_profile__input"
+                                type="text"
+                                value={this.state.pastProject}
+                                onChange={this.handleEditInput}
+                                name="pastProject"
+                            ></textarea>
                         </div>
 
-                    <div className="taking inner">
-                         <h4>Currently Taking:</h4>
-                             <textarea
-                                 className="student_profile__input"
-                                 type="text"
-                                 value={this.state.currentCourses}
+                        <div className="experience inner">
+                            <h4>Experience:</h4>
+                            <textarea
+                                className="student_profile__input"
+                                type="text"
+                                value={this.state.experience}
                                 onChange={this.handleEditInput}
-                                name='currentCourses'
-                                 >
-                             </textarea>
-                    </div>
-                    </div>
-
-                  <div className="current-teams inner">
-                    <h4>Current Teams:</h4>
-                        <textarea
-                            className="student_profile__input"
-                            type="text"
-                            value={this.state.currentTeams}
-                            onChange={this.handleEditInput}
-                            name='currentTeams'
-                            >
-                        </textarea>
-                  </div>
-
-                 <div className="reviews inner">
-                    <h4>Reviews:</h4>
-                    {this.state.reviews}
-                  </div>
-                </div>
-
-                <div className="right-box">
-                    <div>
-                      <p><Link className="student__application" to={"./../student-app-inv"}>My application</Link></p>
+                                name="experience"
+                            ></textarea>
+                            <h4>Resume: Link</h4>
+                        </div>
                     </div>
 
-                  <div className="description inner">
-                    <h4>Description:</h4>
-                    <p>
-                        <textarea
-                            className="student_profile__input"
-                            type="text"
-                            value={this.state.description}
-                            onChange={this.handleEditInput}
-                            name='description'
+                    <button
+                        className="student_profile__button"
+                        onClick={this.updateInfo}
+                    >
+                        Save
+                    </button>
 
-                            >
-                        </textarea>
-
-                    </p>
-                  </div>
-
-                  <div className="more-info inner">
-                    <h4>Location:</h4>
-                        <input
-                            className="student_profile__input"
-                            type="text"
-                            value={this.state.location}
-                            onChange={this.handleEditInput}
-                            name='location'
-
-                            >
-                        </input>
-
-                    <h4>GPA:</h4>
-                        <input
-                            className="student_profile__input"
-                            type="text"
-                            value={this.state.gpa}
-                            onChange={this.handleEditInput}
-                            name='gpa'
-
-                            >
-                        </input>
-
-                    <h4>Past Project:</h4>
-                        <textarea
-                            className="student_profile__input"
-                            type="text"
-                            value={this.state.pastProject}
-                            onChange={this.handleEditInput}
-                            name='pastProject'
-
-                            >
-                        </textarea>
-
-                  </div>
-
-                  <div className="experience inner">
-                    <h4>Experience:</h4>
-                        <textarea
-                            className="student_profile__input"
-                            type="text"
-                            value={this.state.experience}
-                            onChange={this.handleEditInput}
-                            name='experience'
-
-                            >
-                        </textarea>
-                    <h4>Resume: Link</h4>
-                  </div>
-
-
-                </div>
-
-                <button
-                    className="student_profile__button"
-                    onClick={this.updateInfo}>Save
-                </button>
-
-                {/* Click the cancle button to go back to default mode*/}
-                <button
-                    className="student_profile__button"
-                    onClick={this.changeEditMode}>Cancel</button>
+                    {/* Click the cancle button to go back to default mode*/}
+                    <button
+                        className="student_profile__button"
+                        onClick={this.changeEditMode}
+                    >
+                        Cancel
+                    </button>
                 </div>
             </div>
-
-        )
-    }
+        );
+    };
 
     renderSelfView = () => {
         return (
             <div>
                 <div className="left-box">
-                <img className="profile-pic" src={this.state.imageUrl} alt="student photo" />
+                    <img
+                        className="profile-pic"
+                        src={this.state.imageUrl}
+                        alt="student photo"
+                    />
 
-                <div className="info inner">
-                    <h2>{this.state.name}</h2>
-                    <h4 className="inline_h4">University:</h4> <p>{this.state.university}</p>
-                    <h4>Year of Study:</h4> <p>{this.state.yearOfStudy}</p>
-                    <h4>Major of Study:</h4> <p>{this.state.majorOfStudy}</p>
-
-                </div>
-
-                <div className="course">
-                    <div className="taken inner">
-                      <h4>Courses Taken:</h4>
-                          {this.state.coursesTaken}
+                    <div className="info inner">
+                        <h2>{this.state.name}</h2>
+                        <h4 className="inline_h4">University:</h4>{" "}
+                        <p>{this.state.university}</p>
+                        <h4>Year of Study:</h4> <p>{this.state.yearOfStudy}</p>
+                        <h4>Major of Study:</h4>{" "}
+                        <p>{this.state.majorOfStudy}</p>
                     </div>
-                    <div className="taking inner">
-                      <h4>Currently Taking:</h4>
-                      {this.state.currentCourses}
+
+                    <div className="course">
+                        <div className="taken inner">
+                            <h4>Courses Taken:</h4>
+                            {this.state.coursesTaken}
+                        </div>
+                        <div className="taking inner">
+                            <h4>Currently Taking:</h4>
+                            {this.state.currentCourses}
+                        </div>
+                    </div>
+
+                    <div className="current-teams inner">
+                        <h4>Current Teams:</h4>
+                        {this.state.currentTeams}
+                    </div>
+
+                    <div className="reviews inner">
+                        <h4>Reviews:</h4>
+                        {this.state.reviews}
                     </div>
                 </div>
+                <div className="right-box">
+                    <div>
+                        <p>
+                            <Link
+                                className="student__application"
+                                to={"./../student-app-inv"}
+                            >
+                                My application
+                            </Link>
+                        </p>
+                    </div>
 
-              <div className="current-teams inner">
-                <h4>Current Teams:</h4>
-                {this.state.currentTeams}
-              </div>
+                    <div className="description inner">
+                        <h4>Description:</h4>
+                        <p>{this.state.description}</p>
+                    </div>
 
-              <div className="reviews inner">
-                <h4>Reviews:</h4>
-                {this.state.reviews}
-              </div>
+                    <div className="more-info inner">
+                        <h4>Location:</h4> {this.state.location}
+                        <h4>GPA:</h4> {this.state.gpa}
+                        <h4>Past Project:</h4> {this.state.pastProject}
+                    </div>
+
+                    <div className="experience inner">
+                        <h4>Experience:</h4>
+                        {this.state.experience}
+
+                        <h4>Resume: Link</h4>
+                    </div>
+
+                    <div className="edit inner" onClick={this.changeEditMode}>
+                        <p>
+                            Click
+                            <button
+                                className="student_profile__button"
+                                type="button"
+                                name="edit"
+                            >
+                                {" "}
+                                here
+                            </button>
+                            to edit your profile
+                        </p>
+                    </div>
+                </div>
             </div>
-            <div className="right-box">
-              <div>
-                <p><Link className="student__application" to={"./../student-app-inv"}>My application</Link></p>
-              </div>
-
-              <div className="description inner">
-                <h4>Description:</h4>
-                <p>{this.state.description}</p>
-              </div>
-
-              <div className="more-info inner">
-                <h4>Location:</h4> {this.state.location}
-                <h4>GPA:</h4> {this.state.gpa}
-                <h4>Past Project:</h4> {this.state.pastProject}
-              </div>
-
-              <div className="experience inner">
-                <h4>Experience:</h4>
-                {this.state.experience}
-
-                <h4>Resume: Link</h4>
-              </div>
-
-              <div className="edit inner" onClick={this.changeEditMode}>
-                <p>Click
-                    <button
-                        className="student_profile__button"
-                        type="button"
-                        name="edit"> here
-                    </button>
-                        to edit your profile</p>
-              </div>
-            </div>
-          </div>
-        )
-    }
+        );
+    };
 
     renderOthersEditView = () => {
-        return(
+        return (
             <div>
                 <div className="left-box">
-                <img className="profile-pic" src={this.state.imageUrl} alt="alice photo" />
+                    <img
+                        className="profile-pic"
+                        src={this.state.imageUrl}
+                        alt="alice photo"
+                    />
 
-                <div className="info inner">
-                    <h2>{this.state.name}</h2>
-                    <h4 className="inline_h4">University:</h4> <p>{this.state.university}</p>
-                    <h4>Year of Study:</h4> <p>{this.state.yearOfStudy}</p>
-                    <h4>Major of Study:</h4> <p>{this.state.majorOfStudy}</p>
-
-                </div>
-
-                <div className="course">
-                    <div className="taken inner">
-                      <h4>Courses Taken:</h4>
-                          {this.state.coursesTaken}
+                    <div className="info inner">
+                        <h2>{this.state.name}</h2>
+                        <h4 className="inline_h4">University:</h4>{" "}
+                        <p>{this.state.university}</p>
+                        <h4>Year of Study:</h4> <p>{this.state.yearOfStudy}</p>
+                        <h4>Major of Study:</h4>{" "}
+                        <p>{this.state.majorOfStudy}</p>
                     </div>
-                    <div className="taking inner">
-                      <h4>Currently Taking:</h4>
-                      {this.state.currentCourses}
-                    </div>
-                </div>
 
-              <div className="current-teams inner">
-                <h4>Current Teams:</h4>
-                {this.state.currentTeams}
-              </div>
-
-              <div className="reviews inner">
-                <h4>Reviews:</h4>
-                <p>
-                    {this.state.reviews.map(review => (
-                        <div key={(review)}>
-                        {review}
+                    <div className="course">
+                        <div className="taken inner">
+                            <h4>Courses Taken:</h4>
+                            {this.state.coursesTaken}
                         </div>
+                        <div className="taking inner">
+                            <h4>Currently Taking:</h4>
+                            {this.state.currentCourses}
+                        </div>
+                    </div>
+
+                    <div className="current-teams inner">
+                        <h4>Current Teams:</h4>
+                        {this.state.currentTeams}
+                    </div>
+
+                    <div className="reviews inner">
+                        <h4>Reviews:</h4>
+                        <p>
+                            {this.state.reviews.map(review => (
+                                <div key={review}>{review}</div>
                             ))}
-                    </p>
-                <p>Write your teammate a review!</p>
-                    <TextField
-                        className="reviewInput"
-                        label={"Format: your name - your review"}
-                        onChange={this.handleReviewInput}
-                        multiline
-                        variant="filled"
+                        </p>
+                        <p>Write your teammate a review!</p>
+                        <TextField
+                            className="reviewInput"
+                            label={"Format: your name - your review"}
+                            onChange={this.handleReviewInput}
+                            multiline
+                            variant="filled"
                         />
                         <div>
                             <Button
                                 variant="outlined"
                                 color="primary"
                                 className="team_page__button"
-                                onClick={this.addReview.bind(this)}>Add
+                                onClick={this.addReview.bind(this)}
+                            >
+                                Add
                             </Button>
                         </div>
+                    </div>
+                </div>
+                <div className="right-box">
+                    <div className="description inner">
+                        <h4>Description:</h4>
+                        <p>{this.state.description}</p>
+                    </div>
 
-              </div>
+                    <div className="more-info inner">
+                        <h4>Location:</h4> {this.state.location}
+                        <h4>GPA:</h4> {this.state.gpa}
+                        <h4>Past Project:</h4> {this.state.pastProject}
+                    </div>
+
+                    <div className="experience inner">
+                        <h4>Experience:</h4>
+                        {this.state.experience}
+
+                        <h4>Resume: Link</h4>
+                    </div>
+                </div>
             </div>
-            <div className="right-box">
-
-
-              <div className="description inner">
-                <h4>Description:</h4>
-                <p>{this.state.description}</p>
-              </div>
-
-              <div className="more-info inner">
-                <h4>Location:</h4> {this.state.location}
-                <h4>GPA:</h4> {this.state.gpa}
-                <h4>Past Project:</h4> {this.state.pastProject}
-              </div>
-
-              <div className="experience inner">
-                <h4>Experience:</h4>
-                {this.state.experience}
-
-                <h4>Resume: Link</h4>
-              </div>
-            </div>
-          </div>
-        )
-    }
-
+        );
+    };
 
     render() {
-        if ((this.props.id
-            || this.props.globalState.identity.uid) ===
-            this.props.globalState.identity.uid) {
-                if (this.state.isInEditMode) {
-                    return this.renderSelfEditView()
-                } else {
-                    return this.renderSelfView()
-                }
+        if (
+            (this.props.id || this.props.globalState.identity.uid) ===
+            this.props.globalState.identity.uid
+        ) {
+            if (this.state.isInEditMode) {
+                return this.renderSelfEditView();
             } else {
-                return this.renderOthersEditView()
+                return this.renderSelfView();
             }
-
-
-        {/*if (this.state.isInEditMode) {
-            return this.renderOthersEditView();
-        } else if ((this.props.id
-            || this.props.globalState.identity.uid) === this.props.globalState.identity.uid) {
-            return this.renderSelfView()
         } else {
-            return this.renderOthersView()
-        }*/}
+            return this.renderOthersEditView();
+        }
 
     }
 }
