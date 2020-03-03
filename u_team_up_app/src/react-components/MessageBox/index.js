@@ -34,17 +34,19 @@ class MessageBox extends React.Component {
     render() {
         // TODO: FETCH
         const authorized = this.props.globalState.loginStatus === 'user';
-        
+
         const generateMessageView = msg => (
-            <div key={ msg.id } className='message_box__message'>
+            <div key={ msg.id }
+                 className={ 'message_box__message'
+                             + (msg.read ? '' : ' message_box_message_unread') }>
                 <Header type='secondary'
                         title={ `${ msg.read ? '' : '[*] ' }${msg.type} from "${msg.sender}":` }
-                        value={ msg.title } />
+                        data={ msg.title } />
                 <div className='message_box__message_content'>
                     { msg.content }
                 </div>
             </div>);
-        
+
         return (
             <div className='message_box'>
                 <Header type='main' title='Your messages'/>

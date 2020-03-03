@@ -6,5 +6,10 @@
 .message_box__message
 {
     margin-left: 10px;
-    border-bottom: solid 1px #958798;
+    margin-bottom: 10px;
+}
+
+.message_box_message_unread
+{
+    background-color: #FDE8D4;
 }
