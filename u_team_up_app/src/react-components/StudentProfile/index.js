@@ -51,6 +51,32 @@ const studentInfo = {
     }
 };
 
+/** @param props: {
+ *      editing: boolean,
+ *      multiline: boolean,
+ *      value: string,
+ *      onChange: function,
+ *      className: string,
+ *      name: string,
+ * }
+ */
+function ViewOrEdit(props) {
+    const { editing, multiline, value,
+            onChange, className, name } = props;
+
+    const classToAdd = className ? ' ' + className : '';
+
+    return (editing ? React.createElement(
+        (multiline ? 'textarea' : 'input'),
+        { className: "student_profile__input" + classToAdd,
+          type: "text",
+          value,
+          onChange,
+          name,
+        }
+    ) : <p>{ value }</p>);
+}
+
 class StudentProfile extends React.Component {
     constructor(props) {
         super(props);
@@ -101,7 +127,39 @@ class StudentProfile extends React.Component {
         });
     };
 
-    renderSelfEditView = () => {
+    render() {
+        const loggedIn = this.props.globalState.identity.type !== 'guest';
+        const isMe =
+              loggedIn &&
+              (this.props.id
+               || this.props.globalState.identity.uid) ===
+              this.props.globalState.identity.uid;
+
+        const editingInfo = isMe && this.state.isInEditMode;
+        const canAddReview = loggedIn && !isMe;
+
+        const addReview = canAddReview ?
+              [
+                  <p>Write your teammate a review!</p>,
+                  <TextField
+                      className="reviewInput"
+                      label={"Format: your name - your review"}
+                      onChange={this.handleReviewInput}
+                      multiline
+                      variant="filled"
+                  />,
+                  <div>
+                      <Button
+                          variant="outlined"
+                          color="primary"
+                          className="team_page__button"
+                          onClick={this.addReview.bind(this)}
+                      >
+                          Add
+                      </Button>
+                  </div>
+              ] : [];
+
         return (
             <div>
                 <div>
@@ -114,7 +172,8 @@ class StudentProfile extends React.Component {
 
                         <div className="info inner">
                             <h2>
-                                <input
+                                <ViewOrEdit
+                                    editing={editingInfo}
                                     className="student_profile__input"
                                     type="text"
                                     value={this.state.name}
@@ -124,77 +183,76 @@ class StudentProfile extends React.Component {
                             </h2>
 
                             <h4>University:</h4>
-                            <p>
-                                <input
-                                    className="student_profile__input"
-                                    type="text"
-                                    value={this.state.university}
-                                    onChange={this.handleEditInput}
-                                    name="university"
-                                ></input>
-                            </p>
+                            <ViewOrEdit
+                                editing={editingInfo}
+                                className="student_profile__input"
+                                type="text"
+                                value={this.state.university}
+                                onChange={this.handleEditInput}
+                                name="university"
+                            />
 
                             <h4>Year of Study:</h4>
-                            <p>
-                                <input
-                                    className="student_profile__input"
-                                    type="text"
-                                    value={this.state.yearOfStudy}
-                                    onChange={this.handleEditInput}
-                                    name="yearOfStudy"
-                                ></input>
-                            </p>
+                            <ViewOrEdit
+                                editing={editingInfo}
+                                className="student_profile__input"
+                                type="text"
+                                value={this.state.yearOfStudy}
+                                onChange={this.handleEditInput}
+                                name="yearOfStudy"
+                            />
 
                             <h4>Major of Study:</h4>
-                            <p>
-                                <input
-                                    className="student_profile__input"
-                                    type="text"
-                                    value={this.state.majorOfStudy}
-                                    onChange={this.handleEditInput}
-                                    name="majorOfStudy"
-                                ></input>
-                            </p>
+                            <ViewOrEdit
+                                editing={editingInfo}
+                                className="student_profile__input"
+                                type="text"
+                                value={this.state.majorOfStudy}
+                                onChange={this.handleEditInput}
+                                name="majorOfStudy"
+                            />
                         </div>
 
-                        <div className="course">
-                            <div className="taken inner">
-                                <h4>Courses Taken:</h4>
-                                <textarea
-                                    className="student_profile__input"
-                                    type="text"
-                                    value={this.state.coursesTaken}
-                                    onChange={this.handleEditInput}
-                                    name="coursesTaken"
-                                ></textarea>
-                            </div>
+                        <div className="taken inner">
+                            <h4>Courses Taken:</h4>
+                            <ViewOrEdit
+                                editing={editingInfo}
+                                className="student_profile__input"
+                                type="text"
+                                value={this.state.coursesTaken}
+                                onChange={this.handleEditInput}
+                                name="coursesTaken"
+                            />
+                        </div>
 
-                            <div className="taking inner">
-                                <h4>Currently Taking:</h4>
-                                <textarea
-                                    className="student_profile__input"
-                                    type="text"
-                                    value={this.state.currentCourses}
-                                    onChange={this.handleEditInput}
-                                    name="currentCourses"
-                                ></textarea>
-                            </div>
+                        <div className="taking inner">
+                            <h4>Currently Taking:</h4>
+                            <ViewOrEdit
+                                editing={editingInfo}
+                                className="student_profile__input"
+                                type="text"
+                                value={this.state.currentCourses}
+                                onChange={this.handleEditInput}
+                                name="currentCourses"
+                            />
                         </div>
 
                         <div className="current-teams inner">
                             <h4>Current Teams:</h4>
-                            <textarea
-                                className="student_profile__input"
-                                type="text"
-                                value={this.state.currentTeams}
-                                onChange={this.handleEditInput}
-                                name="currentTeams"
-                            ></textarea>
+                            <p>
+                                {this.state.currentTeams}
+                            </p>
                         </div>
 
                         <div className="reviews inner">
                             <h4>Reviews:</h4>
-                            {this.state.reviews}
+                            <p>
+                                { this.state.reviews
+                                  .map(review =>
+                                       <div key={review}>{review}</div>)
+                                }
+                            </p>
+                            { addReview }
                         </div>
                     </div>
 
@@ -212,266 +270,94 @@ class StudentProfile extends React.Component {
 
                         <div className="description inner">
                             <h4>Description:</h4>
-                            <p>
-                                <textarea
-                                    className="student_profile__input"
-                                    type="text"
-                                    value={this.state.description}
-                                    onChange={this.handleEditInput}
-                                    name="description"
-                                ></textarea>
-                            </p>
+                            <ViewOrEdit
+                                editing={editingInfo}
+                                className="student_profile__input"
+                                type="text"
+                                value={this.state.description}
+                                onChange={this.handleEditInput}
+                                name="description"
+                            />
                         </div>
 
                         <div className="more-info inner">
                             <h4>Location:</h4>
-                            <input
+                            <ViewOrEdit
+                                editing={editingInfo}
                                 className="student_profile__input"
                                 type="text"
                                 value={this.state.location}
                                 onChange={this.handleEditInput}
                                 name="location"
-                            ></input>
+                            />
 
                             <h4>GPA:</h4>
-                            <input
+                            <ViewOrEdit
+                                editing={editingInfo}
                                 className="student_profile__input"
                                 type="text"
                                 value={this.state.gpa}
                                 onChange={this.handleEditInput}
                                 name="gpa"
-                            ></input>
+                            />
 
                             <h4>Past Project:</h4>
-                            <textarea
+                            <ViewOrEdit
+                                multiline={true}
+                                editing={editingInfo}
                                 className="student_profile__input"
                                 type="text"
                                 value={this.state.pastProject}
                                 onChange={this.handleEditInput}
                                 name="pastProject"
-                            ></textarea>
+                            />
                         </div>
 
                         <div className="experience inner">
                             <h4>Experience:</h4>
-                            <textarea
+                            <ViewOrEdit
+                                multiline={true}
+                                editing={editingInfo}
                                 className="student_profile__input"
                                 type="text"
                                 value={this.state.experience}
                                 onChange={this.handleEditInput}
                                 name="experience"
-                            ></textarea>
+                            />
                             <h4>Resume: Link</h4>
                         </div>
-                    </div>
 
-                    <button
-                        className="student_profile__button"
-                        onClick={this.updateInfo}
-                    >
-                        Save
-                    </button>
-
-                    {/* Click the cancle button to go back to default mode*/}
-                    <button
-                        className="student_profile__button"
-                        onClick={this.changeEditMode}
-                    >
-                        Cancel
-                    </button>
-                </div>
-            </div>
-        );
-    };
-
-    renderSelfView = () => {
-        return (
-            <div>
-                <div className="left-box">
-                    <img
-                        className="profile-pic"
-                        src={this.state.imageUrl}
-                        alt="student photo"
-                    />
-
-                    <div className="info inner">
-                        <h2>{this.state.name}</h2>
-                        <h4 className="inline_h4">University:</h4>{" "}
-                        <p>{this.state.university}</p>
-                        <h4>Year of Study:</h4> <p>{this.state.yearOfStudy}</p>
-                        <h4>Major of Study:</h4>{" "}
-                        <p>{this.state.majorOfStudy}</p>
-                    </div>
-
-                    <div className="course">
-                        <div className="taken inner">
-                            <h4>Courses Taken:</h4>
-                            {this.state.coursesTaken}
-                        </div>
-                        <div className="taking inner">
-                            <h4>Currently Taking:</h4>
-                            {this.state.currentCourses}
-                        </div>
-                    </div>
-
-                    <div className="current-teams inner">
-                        <h4>Current Teams:</h4>
-                        {this.state.currentTeams}
-                    </div>
-
-                    <div className="reviews inner">
-                        <h4>Reviews:</h4>
-                        {this.state.reviews}
-                    </div>
-                </div>
-                <div className="right-box">
-                    <div>
-                        <p>
-                            <Link
-                                className="student__application"
-                                to={"./../student-app-inv"}
-                            >
-                                My application
-                            </Link>
-                        </p>
-                    </div>
-
-                    <div className="description inner">
-                        <h4>Description:</h4>
-                        <p>{this.state.description}</p>
-                    </div>
-
-                    <div className="more-info inner">
-                        <h4>Location:</h4> {this.state.location}
-                        <h4>GPA:</h4> {this.state.gpa}
-                        <h4>Past Project:</h4> {this.state.pastProject}
-                    </div>
-
-                    <div className="experience inner">
-                        <h4>Experience:</h4>
-                        {this.state.experience}
-
-                        <h4>Resume: Link</h4>
-                    </div>
-
-                    <div className="edit inner" onClick={this.changeEditMode}>
-                        <p>
-                            Click
-                            <button
-                                className="student_profile__button"
-                                type="button"
-                                name="edit"
-                            >
-                                {" "}
-                                here
-                            </button>
-                            to edit your profile
-                        </p>
+                        { isMe &&
+                          <div className="edit inner">
+                              { editingInfo ?
+                                [
+                                    <button
+                                        className="student_profile__button"
+                                        onClick={this.updateInfo}
+                                    >
+                                        Save
+                                    </button>,
+                                    /* Click the cancle button to go back to default mode*/
+                                    <button
+                                        className="student_profile__button"
+                                        onClick={this.changeEditMode}
+                                    >
+                                        Cancel
+                                    </button>] :
+                                <button
+                                    className="student_profile__button"
+                                    type="button"
+                                    name="edit"
+                                    onClick={this.changeEditMode}
+                                >
+                                    edit your profile
+                                </button>
+                              }
+                          </div> }
                     </div>
                 </div>
             </div>
         );
-    };
-
-    renderOthersEditView = () => {
-        return (
-            <div>
-                <div className="left-box">
-                    <img
-                        className="profile-pic"
-                        src={this.state.imageUrl}
-                        alt="alice photo"
-                    />
-
-                    <div className="info inner">
-                        <h2>{this.state.name}</h2>
-                        <h4 className="inline_h4">University:</h4>{" "}
-                        <p>{this.state.university}</p>
-                        <h4>Year of Study:</h4> <p>{this.state.yearOfStudy}</p>
-                        <h4>Major of Study:</h4>{" "}
-                        <p>{this.state.majorOfStudy}</p>
-                    </div>
-
-                    <div className="course">
-                        <div className="taken inner">
-                            <h4>Courses Taken:</h4>
-                            {this.state.coursesTaken}
-                        </div>
-                        <div className="taking inner">
-                            <h4>Currently Taking:</h4>
-                            {this.state.currentCourses}
-                        </div>
-                    </div>
-
-                    <div className="current-teams inner">
-                        <h4>Current Teams:</h4>
-                        {this.state.currentTeams}
-                    </div>
-
-                    <div className="reviews inner">
-                        <h4>Reviews:</h4>
-                        <p>
-                            {this.state.reviews.map(review => (
-                                <div key={review}>{review}</div>
-                            ))}
-                        </p>
-                        <p>Write your teammate a review!</p>
-                        <TextField
-                            className="reviewInput"
-                            label={"Format: your name - your review"}
-                            onChange={this.handleReviewInput}
-                            multiline
-                            variant="filled"
-                        />
-                        <div>
-                            <Button
-                                variant="outlined"
-                                color="primary"
-                                className="team_page__button"
-                                onClick={this.addReview.bind(this)}
-                            >
-                                Add
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-                <div className="right-box">
-                    <div className="description inner">
-                        <h4>Description:</h4>
-                        <p>{this.state.description}</p>
-                    </div>
-
-                    <div className="more-info inner">
-                        <h4>Location:</h4> {this.state.location}
-                        <h4>GPA:</h4> {this.state.gpa}
-                        <h4>Past Project:</h4> {this.state.pastProject}
-                    </div>
-
-                    <div className="experience inner">
-                        <h4>Experience:</h4>
-                        {this.state.experience}
-
-                        <h4>Resume: Link</h4>
-                    </div>
-                </div>
-            </div>
-        );
-    };
-
-    render() {
-        if (
-            (this.props.id || this.props.globalState.identity.uid) ===
-            this.props.globalState.identity.uid
-        ) {
-            if (this.state.isInEditMode) {
-                return this.renderSelfEditView();
-            } else {
-                return this.renderSelfView();
-            }
-        } else {
-            return this.renderOthersEditView();
-        }
-
     }
 }
 
