@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button/Button";
 import TextField from "@material-ui/core/TextField";
 import {uid} from "react-uid";
 import Grid from "@material-ui/core/Grid";
+import Checkbox from "@material-ui/core/Checkbox";
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 class Team extends React.Component {
@@ -21,6 +22,7 @@ class Team extends React.Component {
             global: props.globalState,
             quizApplication: [],
             isInEditMode: false,
+            acceptNewApplications: true,
             teamExists: true,
             teamDescription: "",
             newQuizQuestion: "",
@@ -95,6 +97,12 @@ class Team extends React.Component {
     changeEditMode = () => {
         this.setState({
             isInEditMode: !this.state.isInEditMode
+        })
+    };
+
+    handleAcceptApplicationsChange = () => {
+        this.setState({
+            acceptNewApplications: !this.state.acceptNewApplications
         })
     };
 
@@ -237,6 +245,13 @@ class Team extends React.Component {
                                     </Button>
                                 </div>
                             </div>
+                            <h4 className="edit_team_page__title">Stop accepting new applications</h4>
+                            <Checkbox
+                                checked={!this.state.acceptNewApplications}
+                                onChange={this.handleAcceptApplicationsChange}
+                                value="primary"
+                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                            />
                         </Grid>
 
                     </div>
@@ -297,6 +312,7 @@ class Team extends React.Component {
             // to show quiz questions to non-members only
         }
         if ((global.identity.uid != "") &&
+            (this.state.acceptNewApplications === true) &&
             (team.members.map(member => member.uid).filter(uid => uid === global.identity.uid).length === 0)) {
             quizButton =
                 <div>
@@ -310,6 +326,8 @@ class Team extends React.Component {
                     </Button>
                     <NotificationContainer/>
                 </div>;
+        } else if (this.state.acceptNewApplications === false) {
+            quizButton = <div><p className="applications_not_accepted">Sorry, currently we do not accept new applications</p></div>
         }
 
         return (
