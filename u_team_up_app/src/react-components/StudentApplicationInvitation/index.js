@@ -1,8 +1,10 @@
 import React from "react";
 import "./styles.css";
-import ApplicationPreviewList from "./../ApplicationPreviewList";
-import InvitationPreviewList from "./../InvitationPreviewList";
-import Button from "@material-ui/core/Button";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 import {Link} from "react-router-dom";
 
 class StudentApplicationInvitation extends React.Component {
@@ -12,56 +14,114 @@ class StudentApplicationInvitation extends React.Component {
 
         this.state = {
         	teamId: "",
-            studentName: "",
+            teamName: "",
 	        applicationStatus: "",
 	        invitationStatus: "",
 	        applications: [ // TODO: FETCH
-                { studentName: "UofT CSC309 team1", studentId: "1", applicationStatus: "Accepted" },
-                { studentName: "UofT CSC373 team1", studentId: "2", applicationStatus: "Rejected" },
-                { studentName: "UofT CSC401 team1", studentId: "3", applicationStatus: "Pending" }
+                { teamName: "UofT CSC309 team1",
+                  teamId: "1",
+                  applicationStatus: "Accepted"
+                },
+                { teamName: "UofT CSC309 team2",
+                  teamId: "2",
+                  applicationStatus: "Rejected"
+                },
+                { teamName: "UofT CSC401 team1",
+                  teamId: "3",
+                  applicationStatus: "Pending"
+                }
             ],
 	        invitations: [ //TODO FETCH
-            	{ studentName: "UofT CSC309 team2", studentId: "2", invitationStatus: "Pending" },
-            	{ studentName: "UofT CSC309 team3", studentId: "3", invitationStatus: "Pending" },
-            	{ studentName: "UofT CSC309 team4", studentId: "4", invitationStatus: "Accepted" }
+            	{ teamName: "UofT CSC308 team2",
+                  teamId: "2"
+                },
+            	{ teamName: "UofT CSC308 team3",
+                  teamId: "4"
+                },
+            	{ teamName: "UofT CSC308 team4",
+                  teamId: "5"
+                }
             ]
         }
-
-        this.state.filteredApplications = Array.from(this.state.applications);
-        this.state.filteredInvitations = Array.from(this.state.invitations);
     }
 
+    acceptTeam = (TeamInvitation) => {
+        this.state.invitations = this.state.invitations.filter(team => team != TeamInvitation);
+        this.setState({
+            invitations: this.state.invitations
+        })
+    };
+
+    rejectTeam = (TeamInvitation) => {
+        this.state.invitations = this.state.invitations.filter(team => team != TeamInvitation);
+        this.setState({
+            invitations: this.state.invitations
+        })
+    };
+
+    withdrawTeam = (appliedTeam) => {
+        this.state.applications = this.state.applications.filter(team => team != appliedTeam);
+        this.setState({
+            applications: this.state.applications
+        })
+    };
 
     render() {
         return (
+            <div>
+                <div className="app_inv__left_div">
+                      <h2>Your Applications and Invitations</h2>
+                      <div className="application">
+                        <br />
+                        <h2>Current Applications</h2>
+                        <Link to="/">
+                            <button className="app_inv__button">+ NEW</button>
+                        </Link>
+                        {this.state.applications.map(appliedTeam => (
+                            <div className="student_application_div" key={appliedTeam}>
+                                {appliedTeam.teamName + " " + appliedTeam.applicationStatus + " "}
+                                    <button
+                                        onClick={this.withdrawTeam.bind(this, appliedTeam)}>
+                                        Withdraw</button>
+                            </div>
+                        ))}
+                        <br />
 
-            <div className="application_invitation_view">
-                <h1 className="search_form_title">Current Applications</h1>
-                <Link className="add_new__link" to={`/`}>
-                    <Button variant="outlined" color="primary"
-                            className="add_new__button">+NEW</Button>
-                </Link>
+                        <h2>Current Invitations</h2>
+                            {this.state.invitations.map(TeamInvitation => (
+                                <div key={TeamInvitation}>
+                                    {TeamInvitation.teamName}
+                                    <button
+                                        className="accept-button"
+                                        onClick={this.acceptTeam.bind(this, TeamInvitation)}>Accept</button>
+                                    <button
+                                        className="reject-button"
+                                        onClick={this.rejectTeam.bind(this, TeamInvitation)}>Reject</button>
+                                </div>
+                            ))}
 
-                <table className="headers">
-                    <tr>
-                        <td className="name">
-                            <h2>Name</h2>
-                        </td>
-                        <td className="status">
-                            <h2>Status</h2>
-                        </td>
-                    </tr>
-                </table>
+                        </div>
+                      </div>
 
-                <InvitationPreviewList invitations={this.state.filteredInvitations} />
-
-                <h1 className="search_form_title">Current Invitations</h1>
-                <ApplicationPreviewList applications={this.state.filteredApplications} />
+                      <br />
 
 
 
-            </div>
-        );
+                    <div className="app_inv__right_div">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td><Link to="/">Main</Link></td>
+                          </tr>
+                          <tr>
+                            <td><Link to="./../student-profile">Your Profile</Link></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    </div>
+
+              );
     }
 }
 
