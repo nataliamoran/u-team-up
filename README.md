@@ -29,6 +29,51 @@ and "user2", respectively. To Login as admin, the username and password
 are "admin" and "admin", respectively. Once logged in, you can view user 
 and admin functionality by browsing the menu.
 
+## End-user instructions for User (post-Login)
+
+You start at the team-search page, the core functionality of the webapp.
+You are a student at a university, and would like to search for team advertisements
+and join a team. Once you click join, you can view the team profile, answer the quiz 
+questions and click apply to submit you application to the team. 
+
+If you'd like to create your own team, enter University, Course
+and Team Description into the input fields and click CREATE. 
+
+If you'd like to view Your Profile, Your Inbox or Your Appointments, click
+on the menu, and then click on the respective button. In your Profile, you can also view your
+applications (teams you've applied to) and invitations (teams that have invited you). 
+
+If you'd like to search for a fellow student/user (perhaps a friend from class),
+open menu and click on Search Students, where you can enter the student's information
+and then click Search.  
+
+Once you've made it into a team, you can edit the team profile by clicking on Edit Profile
+on the team profile page (which you visited earlier), and edit team information. To see team 
+appointments, click Team Calendar. To see team applications, click on Team Applications. 
+Here you can also view applications (students who've applied to your team) and invitations 
+(students your team has invited). 
+
+If you'd like to Logout, go to Menu and click Logout. 
+
+## End-user instructions for Admin (post-Login)
+
+You start at the team-search page, the core functionality of the webapp.
+You are an admin of the webapp, and would like to search for team advertisements
+and view team profiles. Once you click join, you can view the team profile and see 
+their calendar. 
+
+If you'd like to create a new team, enter University, Course and Team Description 
+into the input fields and click CREATE. 
+
+If you'd like to search for students/users, open menu and click on Search Students, where you 
+can enter the student's information and then click Search. You can edit the team profile by clicking 
+on Edit Profile on the team profile page (which you visited earlier), and edit team information.
+
+If you'd like to see the admin dashboard, to view its various functionalities, go to Menu and click
+Admin Dashboard. Here, you can view, add and remove Administrators. You can create a student profile. 
+You can view, add and remove universities. You can view, add and remove courses. All of this you can do, 
+by clicking the respective links at the top of the page.
+
 # Frontend Functionality
 
 ## Page structure
@@ -88,3 +133,23 @@ This view only allows users to access.
 In this view, there is a list of messages you have received. The
 type, sender, title and content of each message will be displayed.
 Unread messages will be marked with a light background.
+
+### Team Applications and Invitations
+
+### Admin Dashboard
+
+### Student Applications and Invitations 
+
+### Student Profile
+
+### Search Teams
+
+### Search Students 
+
+### Your Profile
+
+### Your Inbox
+
+### Your Appointments 
+
+
