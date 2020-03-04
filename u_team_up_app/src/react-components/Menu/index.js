@@ -142,22 +142,6 @@ export default function AppMenu(props) {
                         <ListItemText className="menuText" primary="Admin Dashboard" />
                         </StyledMenuItem>
                      </Link>,
-                     <Link className="link" to='/student-profile'>
-                        <StyledMenuItem>
-                            <ListItemIcon>
-                                <SendIcon fontSize="small" />
-                            </ListItemIcon>
-                        <ListItemText className="menuText" primary="Your Profile" />
-                        </StyledMenuItem>
-                     </Link>,
-                     <Link className="link" to='/inbox'>
-                        <StyledMenuItem>
-                            <ListItemIcon>
-                                <SendIcon fontSize="small" />
-                            </ListItemIcon>
-                        <ListItemText className="menuText" primary="Your Inbox" />
-                        </StyledMenuItem>
-                     </Link>,
                      <Link className="link" to={"/"}>
                         <StyledMenuItem>
                             <ListItemIcon>
@@ -172,14 +156,6 @@ export default function AppMenu(props) {
                                 <SendIcon fontSize="small" />
                             </ListItemIcon>
                         <ListItemText className="menuText" primary="Search Students" />
-                        </StyledMenuItem>
-                     </Link>,
-                     <Link className="link" to={"/appointments"}>
-                        <StyledMenuItem>
-                            <ListItemIcon>
-                                <SendIcon fontSize="small" />
-                            </ListItemIcon>
-                        <ListItemText className="menuText" primary="Your Appointments" />
                         </StyledMenuItem>
                      </Link>,
                      <Link className="link" to='/logout'>
