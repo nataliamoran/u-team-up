@@ -41,11 +41,12 @@ and Team Description into the input fields and click CREATE.
 
 If you'd like to view Your Profile, Your Inbox or Your Appointments, click
 on the menu, and then click on the respective button. In your Profile, you can also view your
-applications (teams you've applied to) and invitations (teams that have invited you). 
+applications (teams you've applied to) and invitations (teams that have invited you). You can
+edit your information by clicking on edit profile. 
 
 If you'd like to search for a fellow student/user (perhaps a friend from class),
 open menu and click on Search Students, where you can enter the student's information
-and then click Search.  
+and then click Search. And you can view student profile, by clicking on the student.  
 
 Once you've made it into a team, you can edit the team profile by clicking on Edit Profile
 on the team profile page (which you visited earlier), and edit team information. To see team 
@@ -66,8 +67,11 @@ If you'd like to create a new team, enter University, Course and Team Descriptio
 into the input fields and click CREATE. 
 
 If you'd like to search for students/users, open menu and click on Search Students, where you 
-can enter the student's information and then click Search. You can edit the team profile by clicking 
-on Edit Profile on the team profile page (which you visited earlier), and edit team information.
+can enter the student's information and then click Search. And you can view student profile, 
+by clicking on the student.  
+
+You can edit the team profile by clicking on Edit Profile on the team profile page 
+(which you visited earlier), and edit team information.
 
 If you'd like to see the admin dashboard, to view its various functionalities, go to Menu and click
 Admin Dashboard. Here, you can view, add and remove Administrators. You can create a student profile. 
@@ -136,20 +140,49 @@ Unread messages will be marked with a light background.
 
 ### Team Applications and Invitations
 
+Here you can view applications (students who've applied to your team) and invitations 
+(students your team has invited). 
+
 ### Admin Dashboard
+
+Here, you can view, add and remove Administrators. You can create a student profile. 
+You can view, add and remove universities. You can view, add and remove courses. All of this you can do, 
+by clicking the respective links at the top of the page.
 
 ### Student Applications and Invitations 
 
-### Student Profile
-
-### Search Teams
-
-### Search Students 
+Here, you can view your applications (teams you've applied to) and 
+invitations (teams that have invited you). 
 
 ### Your Profile
 
+You can view your own information, and edit them by clicking on edit profile. 
+In your Profile, you can also view your applications (teams you've applied to) 
+and invitations (teams that have invited you). 
+
+### Team Profile
+
+Here, you can view the team name, description, and their quiz questions for application. 
+If part of the team, you can edit the team information by clicking of Edit Team Profile. 
+You can view Team Calendar and Team Applications, by clicking on the respective button.
+
+### Search Teams
+
+You can search for teams existing on the app, by entering team info. Clicking join on the search
+results will take you to the team profile page. 
+
+### Search Students 
+
+You can search for students existing on the app, by entering student info. 
+
+### Student Profile
+
+Similar to Your Profile, but of another student. You cannot view their applications or
+do other private operations like editing profile.
+
 ### Your Inbox
 
-### Your Appointments 
+Your messages. 
+
 
 
