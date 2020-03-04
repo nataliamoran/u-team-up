@@ -1,6 +1,7 @@
 .search_form_title {
     color: #283b63;
     font-size: 2.2em;
+    text-align: center;
 }
 
 .headers {
@@ -19,3 +20,23 @@
 	color: gray;
 }
 
+.headers1 {
+	border-top: 1px solid;
+	border-bottom: 1px solid;
+	border-left: 1px solid;
+	border-right: 1px solid;
+	margin-left: 10px;
+	width: 700px;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+
+}
+
+.headers1 tr td {
+	text-align: center;
+	color: gray;
+}
+
+.welcome_back {
+	text-align: center;
+	color: #283b63;
+}
