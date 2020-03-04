@@ -8,9 +8,10 @@ import ApplicationPreviewList from "./../ApplicationPreviewList";
 import InvitationPreviewList from "./../InvitationPreviewList";
 
 import SearchStudentForm from "./../SearchStudentForm";
+import InviteStudentForm from "./../InviteStudentForm";
 import Menu from "./../Menu";
 
-import { filterStudents } from "../../actions/searchStudent";
+import { addInvitations } from "../../actions/addInvitation";
 
 class TeamApplicationInvitation extends React.Component {
 
@@ -33,7 +34,7 @@ class TeamApplicationInvitation extends React.Component {
 	        invitations: [ //TODO FETCH
             	{ studentName: "Rosalia Tobella", studentId: "1", invitationStatus: "Pending" }, 
             	{ studentName: "Tyler Okonma", studentId: "2", invitationStatus: "Pending" },
-            	{ studentName: "Kanye West", studentId: "3", invitationStatus: "Invite" }
+            	{ studentName: "Kanye West", studentId: "3", invitationStatus: "Pending" }
             ]
         }
 
@@ -61,10 +62,10 @@ class TeamApplicationInvitation extends React.Component {
 
                 <h1 className="search_form_title">Team Invitations</h1>
                 <div className="search_student_form">       
-                <SearchStudentForm
+                <InviteStudentForm
                     studentName={this.state.studentName}
                     handleSearch={this.handleSearchInput}
-                    filterStudents={() => filterStudents(this)}
+                    addInvitations={() => addInvitations(this)}
                 />
                 </div>
                 <table className="headers">
