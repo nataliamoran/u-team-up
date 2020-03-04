@@ -35,7 +35,7 @@ or normal user).
 
 ### Team Appointments and User Appointments
 
-These views only allows logged-in visitors to access.
+These views only allows users to access.
 
 In each view, there would be a calendar. The buttons on the top of
 the calendar can be used to switch to different months. Below it
@@ -51,3 +51,11 @@ in, a preview will display on the calendar. The date for the new
 event is set to the selected date, and you can select other days in
 the calendar if you need to change. Clicking "Add Event" button will
 put the event in the calendar formally.
+
+### Message Box
+
+This view only allows users to access.
+
+In this view, there is a list of messages you have received. The
+type, sender, title and content of each message will be displayed.
+Unread messages will be marked with a light background.
