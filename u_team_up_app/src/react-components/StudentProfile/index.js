@@ -167,7 +167,7 @@ class StudentProfile extends React.Component {
                         <img
                             className="profile-pic"
                             src={this.state.imageUrl}
-                            alt="alice photo"
+                            alt="profile picture"
                         />
 
                         <div className="info inner">
