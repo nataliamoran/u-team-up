@@ -245,8 +245,12 @@ Student user can also edit the "Reviews" section of other users by going to othe
 
 ### Student Applications and Invitations 
 
-Here, you can view your applications (teams you've applied to) and 
-invitations (teams that have invited you). 
+Under "Current Appliations" section, you can:
+  1) Apply to and search for new team by clicking on the "+NEW" button, this will redirect you to the team search pageU
+  2) View your current applications (teams you've applied to) and the application status. You can withdraw your applications to teams that are in "Pending" status by clicking on the "Withdraw" button.
+  
+ Under "Current Invitation" section, you can:
+  1) View you current invitations (teams that have invited you). You can accept the invitation by clicking on the "Accept" button, or reject the team invitation by clicking on the "Reject" button.
 
 ### Your Profile
 
