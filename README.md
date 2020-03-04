@@ -62,6 +62,92 @@ or normal user).
 
 ## Views
 
+### Team Search
+**Team Search View** has 2 modes:
+ - Unregistered User 
+ - Registered User: Student / Admin
+ 
+ 
+  - Unregistered User can see only the 'Search' form and can filter existing teams
+  using 'University' and 'Course' filter parameters.
+  Clicking on each team's button 'Join', shown in the search results, will lead the
+   user to this team profile.
+  
+  
+  - Registered User: Student / Admin
+  
+  Registered User mode includes the search form described above. Also this mode has 'Create a New Team'
+  form at the top of the view. To create a new team the user needs to provide 'University',
+  'Course' and 'Description' information and click on the button 'Create'. A new team
+  will immediately appear at the **Team Search View**.
+  
+  **IMPORTANT:** new teams do not have a **Team View** (because their data is not hardcoded
+  in the **Team View**), clicking on the button 'Join' for the newly created teams will
+  result in an error (when the backend is implemented, this error wouldn't exist because 
+  the new team data will be pulled from the database).
+
+### Team 
+**Team View** has 5 modes:
+ - Unregistered User
+ - Registered User: Student - VIEW Mode
+ - Registered User: Student - EDIT Mode
+ - Registered User: Admin - VIEW Mode
+ - Registered User: Admin - EDIT Mode
+ 
+ 
+ - Unregistered User can only view team information: team description, team members and quiz.
+ 
+ 
+ - Registered User: Student - VIEW Mode: 
+ 
+ If a student is the team member 
+ then she/he can see and use 'Edit Team Profile', 'Team Calendar' and 'Applications'
+ buttons in the top right corner of the view.
+ Team members can see the quiz, but without the 'Apply' button.
+ 
+ If a student is not a team member then she/he will not see the team configuration buttons.
+ Non-member can answer quiz questions and submit application to join the team,
+ using the button 'Apply'.
+ 
+ 
+ 
+ - Registered User: Student - EDIT Mode:
+ 
+ Button 'Edit Team Profile' switches the view to the EDIT mode. Team member can 
+ edit the team description, remove team members, add/remove quiz questions,
+ close the team for new applications or delete the team.
+ 
+ 
+ - Registered User: Admin - VIEW Mode:
+ 
+ Admin can see the team description, team members and quiz (without 'Apply' button).
+ 'Edit Team Profile' button in the right top corner of the view switches the view to
+ the admin EDIT mode.
+ 
+ 
+ - Registered User: Admin - EDIT Mode
+ Admin can add and remove team members or delete the team.
+
+### Student Search
+**Student Search View** has 2 modes:
+ - Unregistered User / Registered User: Student
+ - Registered User: Admin
+ 
+ 
+ - Unregistered users and registered student users can use the search form to search 
+ for a student, using 'name', 'university' and 'course' filter options. Each student has 
+ multiple courses; in the hardcoded data, both students (uid#1 and uid#2) have 'CSC309' 
+ course. Student #1 (Alice Alison) is also registered to 'CSC207' and Student #2 (Bob Bobson) is registered
+ to 'CSC369'. Both students have 'UofT' as their university.
+ Clicking on a student profile picture, shown in the search results, will lead the
+ user to this student profile.
+ 
+ 
+ - Admin mode includes the search form described above as well as the functionality 
+ to create and remove students. To create a new student the admin needs to provide 
+ the student's name and university in the 'Create a New Student' form at the top of the view.
+ To remove a student the admin can press the 'Remove' button located near each student.
+
 ### Team Appointments and User Appointments
 
 These views only allows users to access.
