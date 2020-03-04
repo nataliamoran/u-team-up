@@ -254,21 +254,6 @@ You can view your own information, and edit them by clicking on edit profile.
 In your Profile, you can also view your applications (teams you've applied to) 
 and invitations (teams that have invited you). 
 
-### Team Profile
-
-Here, you can view the team name, description, and their quiz questions for application. 
-If part of the team, you can edit the team information by clicking of Edit Team Profile. 
-You can view Team Calendar and Team Applications, by clicking on the respective button.
-
-### Search Teams
-
-You can search for teams existing on the app, by entering team info. Clicking join on the search
-results will take you to the team profile page. 
-
-### Search Students 
-
-You can search for students existing on the app, by entering student info. 
-
 ### Your Inbox
 
 Your messages. 
