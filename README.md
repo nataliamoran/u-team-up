@@ -196,6 +196,12 @@ or normal user).
  to create and remove students. To create a new student the admin needs to provide 
  the student's name and university in the 'Create a New Student' form at the top of the view.
  To remove a student the admin can press the 'Remove' button located near each student.
+ To open the student profile view the admin can click on the student name.
+ 
+  **IMPORTANT:** new students do not have a **Student View** (because their data is not hardcoded
+   in the **Student View**), clicking on the newly created student's name will
+   result in an error (when the backend is implemented, this error wouldn't exist because 
+   the new student data will be pulled from the database).
 
 ### Team Appointments and User Appointments
 

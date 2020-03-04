@@ -10,6 +10,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import Input from "../Input";
 import Button from "@material-ui/core/Button/Button";
 import {NotificationContainer, NotificationManager} from "react-notifications";
+import {Link} from "react-router-dom";
 
 class SearchStudent extends React.Component {
 
@@ -153,7 +154,9 @@ class SearchStudent extends React.Component {
                         <div key={uid(
                             student
                         )}>
+                            <Link className="team_page__link" to={'/student-profile/' + student.uid}>
                             {student.name}
+                            </Link>
                             <button
                                 className="team_page__button"
                                 onClick={this.removeStudent.bind(this, student)}>remove
