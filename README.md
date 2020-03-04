@@ -1,5 +1,34 @@
 # team17
 
+# Instructions 
+
+## Installation
+
+To install on your computer:
+
+1. Go into u_team_up_app folder on terminal.
+2. Type "npm install".
+3. Type "npm start" or click on index.html to view the website.
+
+## Pre-login Functionality
+
+There are some features of the website, that a guest user
+(non-logged-in user), can access. We can search current teams, and can 
+view them. If we click on the menu, we see "Login" and "Sign Up". 
+
+## How to Sign Up
+
+Click on Sign Up on the menu, and this will take you to the sign up
+page. Here, you can enter your information to sign up. 
+
+## How to Login
+
+To Login as user 1, the username and password are "user" and "user", 
+respectively. To Login as user 2, the username and password are "user2" 
+and "user2", respectively. To Login as admin, the username and password 
+are "admin" and "admin", respectively. Once logged in, you can view user 
+and admin functionality by browsing the menu.
+
 # Frontend Functionality
 
 ## Page structure

@@ -149,8 +149,6 @@ class AdminDashboard extends React.Component {
                     <ul>
                         <li><a href="/adminDashboard#admin_list">View, Add, or Remove administrators</a></li>
                         <li><a href="/signup">Create a Student Profile</a></li>
-                        <li><a href="/search-student">Search, View or Delete Student Profiles</a></li>
-                        <li><a href="/">Search, View or Delete Team Profiles and their Appointments</a></li>
                         <li><a href="/adminDashboard#university_list">View, Add, or Remove universities</a></li>
                         <li><a href="/adminDashboard#course_list">View, Add, or Remove courses</a></li>
                     </ul>
