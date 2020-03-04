@@ -258,15 +258,3 @@ Here, you can view, add and remove Administrators. You can create a student prof
 You can view, add and remove universities. You can view, add and remove courses. All of this you can do, 
 by clicking the respective links at the top of the page.
 
-### Your Profile
-
-You can view your own information, and edit them by clicking on edit profile. 
-In your Profile, you can also view your applications (teams you've applied to) 
-and invitations (teams that have invited you). 
-
-### Your Inbox
-
-Your messages. 
-
-
-
