@@ -149,6 +149,14 @@ Here, you can view, add and remove Administrators. You can create a student prof
 You can view, add and remove universities. You can view, add and remove courses. All of this you can do, 
 by clicking the respective links at the top of the page.
 
+### Student Profile
+
+Each student user will have a profile page. After logged in, the user will be able to edit his/her own profile information including name, university, year and major of study, courses taken, currrent courses, description, location, GPA, past project, past experience by clicking the "edit your profile" button on the bottom right of the page.
+
+To see his/her current applications and team invitations, click on "My application" link above the "description" section on the top right of the page.
+
+Student user can also edit the "Reviews" section of other users by going to other user's profile page and typing a review then clicking on the "ADD" button, then a review will be added to that user's profile page.
+
 ### Student Applications and Invitations 
 
 Here, you can view your applications (teams you've applied to) and 
@@ -174,11 +182,6 @@ results will take you to the team profile page.
 ### Search Students 
 
 You can search for students existing on the app, by entering student info. 
-
-### Student Profile
-
-Similar to Your Profile, but of another student. You cannot view their applications or
-do other private operations like editing profile.
 
 ### Your Inbox
 
