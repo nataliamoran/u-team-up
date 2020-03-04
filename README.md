@@ -177,6 +177,11 @@ or normal user).
  - Registered User: Admin - EDIT Mode
  Admin can add and remove team members or delete the team.
 
+### Team Applications and Invitations
+
+Here you can view applications (students who've applied to your team) and invitations 
+(students your team has invited). 
+
 ### Student Search
 **Student Search View** has 2 modes:
  - Unregistered User / Registered User: Student
@@ -202,6 +207,23 @@ or normal user).
    in the **Student View**), clicking on the newly created student's name will
    result in an error (when the backend is implemented, this error wouldn't exist because 
    the new student data will be pulled from the database).
+
+### Student Profile
+
+Each student user will have a profile page. After logged in, the user will be able to edit his/her own profile information including name, university, year and major of study, courses taken, currrent courses, description, location, GPA, past project, past experience by clicking the "edit your profile" button on the bottom right of the page.
+
+To see his/her current applications and team invitations, click on "My application" link above the "description" section on the top right of the page.
+
+Student user can also edit the "Reviews" section of other users by going to other user's profile page and typing a review then clicking on the "ADD" button, then a review will be added to that user's profile page.
+
+### Student Applications and Invitations 
+
+Under "Current Appliations" section, you can:
+  1) Apply to and search for new team by clicking on the "+NEW" button, this will redirect you to the team search pageU
+  2) View your current applications (teams you've applied to) and the application status. You can withdraw your applications to teams that are in "Pending" status by clicking on the "Withdraw" button.
+  
+ Under "Current Invitation" section, you can:
+  1) View you current invitations (teams that have invited you). You can accept the invitation by clicking on the "Accept" button, or reject the team invitation by clicking on the "Reject" button.
 
 ### Team Appointments and User Appointments
 
@@ -230,33 +252,11 @@ In this view, there is a list of messages you have received. The
 type, sender, title and content of each message will be displayed.
 Unread messages will be marked with a light background.
 
-### Team Applications and Invitations
-
-Here you can view applications (students who've applied to your team) and invitations 
-(students your team has invited). 
-
 ### Admin Dashboard
 
 Here, you can view, add and remove Administrators. You can create a student profile. 
 You can view, add and remove universities. You can view, add and remove courses. All of this you can do, 
 by clicking the respective links at the top of the page.
-
-### Student Profile
-
-Each student user will have a profile page. After logged in, the user will be able to edit his/her own profile information including name, university, year and major of study, courses taken, currrent courses, description, location, GPA, past project, past experience by clicking the "edit your profile" button on the bottom right of the page.
-
-To see his/her current applications and team invitations, click on "My application" link above the "description" section on the top right of the page.
-
-Student user can also edit the "Reviews" section of other users by going to other user's profile page and typing a review then clicking on the "ADD" button, then a review will be added to that user's profile page.
-
-### Student Applications and Invitations 
-
-Under "Current Appliations" section, you can:
-  1) Apply to and search for new team by clicking on the "+NEW" button, this will redirect you to the team search pageU
-  2) View your current applications (teams you've applied to) and the application status. You can withdraw your applications to teams that are in "Pending" status by clicking on the "Withdraw" button.
-  
- Under "Current Invitation" section, you can:
-  1) View you current invitations (teams that have invited you). You can accept the invitation by clicking on the "Accept" button, or reject the team invitation by clicking on the "Reject" button.
 
 ### Your Profile
 
