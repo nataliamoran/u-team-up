@@ -11,6 +11,8 @@ import {uid} from "react-uid";
 import Grid from "@material-ui/core/Grid";
 import Checkbox from "@material-ui/core/Checkbox";
 import {NotificationContainer, NotificationManager} from 'react-notifications';
+import SearchStudentForm from "../SearchStudentForm";
+import {filterUnits} from "../../actions/filterUnits";
 
 class Team extends React.Component {
 
@@ -22,10 +24,14 @@ class Team extends React.Component {
             global: props.globalState,
             quizApplication: [],
             isInEditMode: false,
+            isInAdminEditMode: false,
             acceptNewApplications: true,
             teamExists: true,
             teamDescription: "",
             newQuizQuestion: "",
+            studentName: "",
+            studentUniversity: "",
+            studentCourse: "",
             // TODO: FETCH
             team: props.teamId === '1' ? {
                 id: "1",
@@ -52,7 +58,7 @@ class Team extends React.Component {
                     "Which grade are you aiming for?",
                     "How many hours per week are you planning to spend working on the project?"
                 ]
-            } : props.teamId === '2' ?  {
+            } : props.teamId === '2' ? {
                 id: "2",
                 university: "UofT",
                 course: "CSC207",
@@ -72,6 +78,25 @@ class Team extends React.Component {
                     "Do you have a GitHub account?"
                 ]
             } : null,
+            students: [
+                {
+                    name: "Bob Bobson",
+                    university: "UofT",
+                    course: ["CSC309", "CSC369"],
+                    uid: "2",
+                    photo: "./static/bob2.png",
+                    profileLink: "/student-profile/2"
+                },
+                {
+                    name: "Alice Alison",
+                    university: "UofT",
+                    course: ["CSC309", "CSC207"],
+                    uid: "1",
+                    photo: "./static/alice.png",
+                    profileLink: "/student-profile"
+                }
+            ],
+            filteredStudents: []
         };
     }
 
@@ -97,6 +122,12 @@ class Team extends React.Component {
     changeEditMode = () => {
         this.setState({
             isInEditMode: !this.state.isInEditMode
+        })
+    };
+
+    changeAdminEditMode = () => {
+        this.setState({
+            isInAdminEditMode: !this.state.isInAdminEditMode
         })
     };
 
@@ -144,6 +175,13 @@ class Team extends React.Component {
         })
     };
 
+    addMember = (student) => {
+        this.state.team.members.push(student);
+        this.setState({
+            team: this.state.team
+        })
+    };
+
     removeQuizQuestion = (question) => {
         this.state.team.quizQuestions = this.state.team.quizQuestions.filter(q => q != question);
         this.setState({
@@ -158,9 +196,21 @@ class Team extends React.Component {
         })
     };
 
+
+    /* Method to handle the Student Search Form input */
+    handleSearchInput = event => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+    };
+
     renderDeletionConfirmation = () => {
         return (
-            <h2 id="deletion_confirmation">Your team is successfully deleted</h2>
+            <h2 id="deletion_confirmation">Team is successfully deleted</h2>
         )
     };
 
@@ -250,7 +300,7 @@ class Team extends React.Component {
                                 checked={!this.state.acceptNewApplications}
                                 onChange={this.handleAcceptApplicationsChange}
                                 value="primary"
-                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                inputProps={{'aria-label': 'primary checkbox'}}
                             />
                         </Grid>
 
@@ -276,11 +326,94 @@ class Team extends React.Component {
         )
     };
 
+    renderTeamAdminEditView = () => {
+
+        const showStudent = (student) => {
+            return true;
+        };
+
+        return (
+            <div>
+
+                <div>
+                    <div>
+                        <Grid className="edit_team_page__members">
+                            <h4 className="edit_team_page__title">Team Members</h4>
+                            {this.state.team.members.map(member => (
+                                <div key={uid(
+                                    member
+                                )}>
+
+                                    {member.name}
+                                    <button
+                                        className="team_page__button"
+                                        onClick={this.removeMember.bind(this, member.uid)}>Remove
+                                    </button>
+
+
+                                </div>
+                            ))}
+
+                            {/* Students Search Form */}
+                            <div className="search-form">
+                                <SearchStudentForm
+                                    studentName={this.state.studentName}
+                                    studentUniversity={this.state.studentUniversity}
+                                    studentCourse={this.state.studentCourse}
+                                    handleSearch={this.handleSearchInput}
+                                    filterStudents={() => this.setState({
+                                        filteredStudents: filterUnits({
+                                                name: this.state.studentName,
+                                                university: this.state.studentUniversity,
+                                                course: this.state.studentCourse
+                                            },
+                                            this.state.students)
+                                    })}
+                                />
+                            </div>
+                            {this.state.filteredStudents.map(student => (
+                                <div key={uid(
+                                    student
+                                )}>
+                                    {student.name}
+                                    <button
+                                        className="team_page__button"
+                                        onClick={this.addMember.bind(this, student)}>Add
+                                    </button>
+                                </div>
+                            ))}
+
+                        </Grid>
+
+                    </div>
+                    <div className="edit_team_page__buttons">
+
+                        {/* Click the cancel button to go back to default mode*/}
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            className="team_page__button"
+                            onClick={this.changeAdminEditMode}>Back to Team</Button>
+
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            className="team_page__button"
+                            onClick={this.deleteTeam}>Delete Team</Button>
+                    </div>
+                </div>
+            </div>
+
+        )
+    };
+
+
     render() {
         const team = this.state.team;
         const global = this.props.globalState;
 
         let editButton;
+        let editAdminButton;
         let calendarButton;
         let applicationsButton;
         let quizButton;
@@ -307,11 +440,18 @@ class Team extends React.Component {
 
         }
 
+        if (global.identity.type === "admin") {
+            editAdminButton =
+                <Button variant="outlined" color="primary"
+                        className="team_page__button" onClick={this.changeAdminEditMode}>edit team profile</Button>
+
+        }
+
         {
             // Check the user id to determine if this user is a member of the team
             // to show quiz questions to non-members only
         }
-        if ((global.identity.uid != "") &&
+        if ((global.identity.type === "user") &&
             (this.state.acceptNewApplications === true) &&
             (team.members.map(member => member.uid).filter(uid => uid === global.identity.uid).length === 0)) {
             quizButton =
@@ -327,7 +467,9 @@ class Team extends React.Component {
                     <NotificationContainer/>
                 </div>;
         } else if (this.state.acceptNewApplications === false) {
-            quizButton = <div><p className="applications_not_accepted">Sorry, currently we do not accept new applications</p></div>
+            quizButton =
+                <div><p className="applications_not_accepted">Sorry, currently we do not accept new applications</p>
+                </div>
         }
 
         return (
@@ -335,42 +477,46 @@ class Team extends React.Component {
                 this.state.isInEditMode ?
                     this.renderTeamEditView()
                     :
-                    <div className="team">
-                        <Header type='main' title='team: ' data={`${team.university} ${team.course}`}>
-                            {editButton}
-                            {calendarButton}
-                            {applicationsButton}
-                        </Header>
+                    this.state.isInAdminEditMode ?
+                        this.renderTeamAdminEditView()
+                        :
+                        <div className="team">
+                            <Header type='main' title='team: ' data={`${team.university} ${team.course}`}>
+                                {editAdminButton}
+                                {editButton}
+                                {calendarButton}
+                                {applicationsButton}
+                            </Header>
 
-                        <div className="body">
-                            <h2 className="header__description">description:</h2>
-                            <p className="header__team_description">{team.description}</p>
+                            <div className="body">
+                                <h2 className="header__description">description:</h2>
+                                <p className="header__team_description">{team.description}</p>
 
-                            <TeamMemberPreviewList members={team.members}/>
-                            <div className="quiz">
-                                <Grid className="quiz_table">
-                                    {this.state.team.quizQuestions.map(question => (
-                                        <div key={uid(
-                                            question
-                                        )}>
-                                            <div className="quiz_question">
-                                                <TextField
-                                                    id="filled-textarea"
-                                                    label={question}
-                                                    onChange={this.handleApplicationInput}
-                                                    multiline
-                                                    variant="filled"
-                                                />
+                                <TeamMemberPreviewList members={team.members}/>
+                                <div className="quiz">
+                                    <Grid className="quiz_table">
+                                        {this.state.team.quizQuestions.map(question => (
+                                            <div key={uid(
+                                                question
+                                            )}>
+                                                <div className="quiz_question">
+                                                    <TextField
+                                                        id="filled-textarea"
+                                                        label={question}
+                                                        onChange={this.handleApplicationInput}
+                                                        multiline
+                                                        variant="filled"
+                                                    />
+                                                </div>
+
                                             </div>
+                                        ))}
+                                    </Grid>
+                                </div>
+                                {quizButton}
 
-                                        </div>
-                                    ))}
-                                </Grid>
                             </div>
-                            {quizButton}
-
                         </div>
-                    </div>
                 :
                 this.renderDeletionConfirmation()
         );
