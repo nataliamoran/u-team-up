@@ -32,3 +32,22 @@ whether the visitor is logged in or not, and its identity (admin
 or normal user).
 
 ## Views
+
+### Team Appointments and User Appointments
+
+These views only allows logged-in visitors to access.
+
+In each view, there would be a calendar. The buttons on the top of
+the calendar can be used to switch to different months. Below it
+there are all the days in this month, and also some days of the
+next or last month, if there is space remaining. Each day is
+clickable, and will select that day on click. Under the number for
+each day there will display events for that day. (Sample events are
+all in February.)
+
+The very bottom of the page sits the "add event" form. You can input
+the time in H:M format. Once a valid time representation is filled
+in, a preview will display on the calendar. The date for the new
+event is set to the selected date, and you can select other days in
+the calendar if you need to change. Clicking "Add Event" button will
+put the event in the calendar formally.
