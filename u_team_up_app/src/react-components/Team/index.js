@@ -328,10 +328,6 @@ class Team extends React.Component {
 
     renderTeamAdminEditView = () => {
 
-        const showStudent = (student) => {
-            return true;
-        };
-
         return (
             <div>
 
