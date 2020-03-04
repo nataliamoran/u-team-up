@@ -49,6 +49,7 @@ class SearchTeam extends React.Component {
         });
     };
 
+    /* Method to create a new team */
     createTeam = () => {
         if(this.state.newTeamUniversity === "" ||
             this.state.newTeamCourse === "" ||
@@ -68,11 +69,13 @@ class SearchTeam extends React.Component {
             filteredTeams: this.state.teams
         });
         NotificationManager.success('New team was successfully created!')
+        //TODO Push updates to the DB
     };
 
     render() {
         let createTeamForm;
 
+        {/* Show Create Team Form to registered users only*/}
         if (this.props.state.identity.uid != "") {
             createTeamForm =
                 <div>

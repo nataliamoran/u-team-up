@@ -32,7 +32,7 @@ class Team extends React.Component {
             studentName: "",
             studentUniversity: "",
             studentCourse: "",
-            // TODO: FETCH
+            // TODO: FETCH DATA FROM THE DB
             team: props.teamId === '1' ? {
                 id: "1",
                 university: "UofT",
@@ -135,6 +135,7 @@ class Team extends React.Component {
         this.setState({
             acceptNewApplications: !this.state.acceptNewApplications
         })
+        //TODO Push updates to the DB
     };
 
     handleEditInput = event => {
@@ -147,6 +148,7 @@ class Team extends React.Component {
         });
     };
 
+    /* Method to delete a team */
     deleteTeam = () => {
         // TODO: Update DB - remove the team data from the DB
         this.setState({
@@ -168,32 +170,40 @@ class Team extends React.Component {
         })
     };
 
+    /* Method to delete a member */
     removeMember = (uid) => {
         this.state.team.members = this.state.team.members.filter(member => member.uid != uid);
         this.setState({
             team: this.state.team
         })
+        //TODO Push updates to the DB
     };
 
+    /* Method to add a member */
     addMember = (student) => {
         this.state.team.members.push(student);
         this.setState({
             team: this.state.team
         })
+        //TODO Push updates to the DB
     };
 
+    /* Method to remove a quiz question */
     removeQuizQuestion = (question) => {
         this.state.team.quizQuestions = this.state.team.quizQuestions.filter(q => q != question);
         this.setState({
             team: this.state.team
         })
+        //TODO Push updates to the DB
     };
 
+    /* Method to add a quiz question */
     addQuizQuestion = () => {
         this.state.team.quizQuestions.push(this.state.newQuizQuestion);
         this.setState({
             team: this.state.team
         })
+        //TODO Push updates to the DB
     };
 
 
@@ -208,12 +218,14 @@ class Team extends React.Component {
         });
     };
 
+    /* Method to show team deletion confirmation view */
     renderDeletionConfirmation = () => {
         return (
             <h2 id="deletion_confirmation">Team is successfully deleted</h2>
         )
     };
 
+    /* Team View - User Edit Mode */
     renderTeamEditView = () => {
         return (
             <div>
@@ -326,6 +338,7 @@ class Team extends React.Component {
         )
     };
 
+    /* Team View - Admin Edit Mode */
     renderTeamAdminEditView = () => {
 
         return (
@@ -403,7 +416,7 @@ class Team extends React.Component {
         )
     };
 
-
+    /* Team View */
     render() {
         const team = this.state.team;
         const global = this.props.globalState;
@@ -436,6 +449,9 @@ class Team extends React.Component {
 
         }
 
+        {
+            // Show Admin Mode Edit button to the admin
+        }
         if (global.identity.type === "admin") {
             editAdminButton =
                 <Button variant="outlined" color="primary"

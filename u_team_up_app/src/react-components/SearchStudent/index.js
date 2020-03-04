@@ -8,7 +8,6 @@ import TeamMemberPreviewList from "../TeamMemberPreviewList";
 import {uid} from "react-uid";
 import Grid from "@material-ui/core/Grid/Grid";
 import Input from "../Input";
-import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/Button/Button";
 import {NotificationContainer, NotificationManager} from "react-notifications";
 
@@ -57,14 +56,17 @@ class SearchStudent extends React.Component {
         });
     };
 
+    /* Method to remove a student */
     removeStudent = (student) => {
         this.state.students = this.state.students.filter(s => s != student);
         this.setState({
             students: this.state.students
         });
         this.state.filteredStudents = Array.from(this.state.students);
+        //TODO Push updates to the DB
     };
 
+    /* Method to create a student */
     createStudent = () => {
         if(this.state.newStudentName === "" ||
             this.state.newStudentUniversity === ""){
@@ -85,8 +87,10 @@ class SearchStudent extends React.Component {
         });
         this.state.filteredStudents = Array.from(this.state.students);
         NotificationManager.success('New student was successfully created!')
+        //TODO Push updates to the DB
     };
 
+    /* Student Search View - Admin Mode */
     renderAdminModeView = () => {
 
         return (
@@ -162,6 +166,7 @@ class SearchStudent extends React.Component {
         )
     };
 
+    /* Student Search View - Student Mode */
     render() {
 
         const global = this.props.state;
