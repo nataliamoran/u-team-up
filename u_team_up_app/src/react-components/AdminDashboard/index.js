@@ -1,6 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { Container, Header, List } from "semantic-ui-react";
 
 import "./styles.css";
 
@@ -8,15 +6,12 @@ import AdministratorPreviewList from "./../AdministratorPreviewList";
 import UniversityPreviewList from "./../UniversityPreviewList";
 import CoursePreviewList from "./../CoursePreviewList";
 
-
 import SearchAdminForm from "./../SearchAdminForm";
 import AddAdminForm from "./../AddAdminForm";
 import SearchUniversityForm from "./../SearchUniversityForm";
 import AddUniversityForm from "./../AddUniversityForm";
 import SearchCourseForm from "./../SearchCourseForm";
 import AddCourseForm from "./../AddCourseForm";
-
-import Menu from "./../Menu";
 
 import { addAdmins } from "../../actions/searchAdmin";
 import { filterAdmins } from "../../actions/searchAdmin";
@@ -26,52 +21,109 @@ import { addCourses } from "../../actions/searchCourse";
 import { filterCourses } from "../../actions/searchCourse";
 
 class AdminDashboard extends React.Component {
-
     constructor(props) {
         super(props);
-        
+
         this.state = {
-        	adminId: "",
+            adminId: "",
             adminName: "",
-	        adminEmail: "",
+            adminEmail: "",
             adminId1: "",
             adminName1: "",
             adminEmail1: "",
-	        administrators: [ // TODO: FETCH
-                { adminName: "Paul McCartney", adminId: "1", adminEmail: "paul@gmail.com" },
-                { adminName: "George Harrison", adminId: "2", adminEmail: "george@gmail.com" },
-                { adminName: "Ringo Starr", adminId: "3", adminEmail: "ringo@gmail.com" },
-            	{ adminName: "John Lennon", adminId: "4", adminEmail: "john@gmail.com" }, 
-            	{ adminName: "David Bowie", adminId: "5", adminEmail: "david@gmail.com" },
-            	{ adminName: "Bob Dylan", adminId: "6", adminEmail: "bob@gmail.com" }
-            ], 
+            administrators: [
+                // TODO: FETCH
+                {
+                    adminName: "Paul McCartney",
+                    adminId: "1",
+                    adminEmail: "paul@gmail.com"
+                },
+                {
+                    adminName: "George Harrison",
+                    adminId: "2",
+                    adminEmail: "george@gmail.com"
+                },
+                {
+                    adminName: "Ringo Starr",
+                    adminId: "3",
+                    adminEmail: "ringo@gmail.com"
+                },
+                {
+                    adminName: "John Lennon",
+                    adminId: "4",
+                    adminEmail: "john@gmail.com"
+                },
+                {
+                    adminName: "David Bowie",
+                    adminId: "5",
+                    adminEmail: "david@gmail.com"
+                },
+                {
+                    adminName: "Bob Dylan",
+                    adminId: "6",
+                    adminEmail: "bob@gmail.com"
+                }
+            ],
             universityId: "",
             universityName: "",
             universityId1: "",
             universityName1: "",
-            universities: [ // TODO: FETCH
-                { universityName: "University of Toronto", universityId: "1"},
-                { universityName: "University of Waterloo", universityId: "2"},
-                { universityName: "New York University", universityId: "3"},
-                { universityName: "University of Cambridge", universityId: "4"},
-                { universityName: "University of Oxford", universityId: "5"}
+            universities: [
+                // TODO: FETCH
+                { universityName: "University of Toronto", universityId: "1" },
+                { universityName: "University of Waterloo", universityId: "2" },
+                { universityName: "New York University", universityId: "3" },
+                {
+                    universityName: "University of Cambridge",
+                    universityId: "4"
+                },
+                { universityName: "University of Oxford", universityId: "5" }
             ],
             courseId: "",
-            courseName: "", 
+            courseName: "",
             courseUniversity: "",
             courseId1: "",
-            courseName1: "", 
+            courseName1: "",
             courseUniversity1: "",
-            courses: [ // TODO: FETCH
-                {courseName: "CSC207", courseId: "1", courseUniversity: "University of Toronto"},
-                {courseName: "CSC309", courseId: "2", courseUniversity: "University of Toronto"},
-                {courseName: "CSC369", courseId: "3", courseUniversity: "University of Toronto"},
-                {courseName: "CSC208", courseId: "1", courseUniversity: "University of Waterloo"},
-                {courseName: "CSC209", courseId: "1", courseUniversity: "New York University"},
-                {courseName: "CSC210", courseId: "1", courseUniversity: "University of Cambridge"},
-                {courseName: "CSC211", courseId: "1", courseUniversity: "University of Oxford"}
+            courses: [
+                // TODO: FETCH
+                {
+                    courseName: "CSC207",
+                    courseId: "1",
+                    courseUniversity: "University of Toronto"
+                },
+                {
+                    courseName: "CSC309",
+                    courseId: "2",
+                    courseUniversity: "University of Toronto"
+                },
+                {
+                    courseName: "CSC369",
+                    courseId: "3",
+                    courseUniversity: "University of Toronto"
+                },
+                {
+                    courseName: "CSC208",
+                    courseId: "1",
+                    courseUniversity: "University of Waterloo"
+                },
+                {
+                    courseName: "CSC209",
+                    courseId: "1",
+                    courseUniversity: "New York University"
+                },
+                {
+                    courseName: "CSC210",
+                    courseId: "1",
+                    courseUniversity: "University of Cambridge"
+                },
+                {
+                    courseName: "CSC211",
+                    courseId: "1",
+                    courseUniversity: "University of Oxford"
+                }
             ]
-        }
+        };
 
         this.state.filteredAdmins = Array.from(this.state.administrators);
         this.state.filteredUniversities = Array.from(this.state.universities);
@@ -139,34 +191,50 @@ class AdminDashboard extends React.Component {
     };
 
     render() {
-        const {adminId} = this.props;
+        const { adminId } = this.props;
 
         return (
             <div className="admin_dashboard_view">
                 <div className="admin_options">
-                    <h1 className="welcome_back">Welcome Back, admin!</h1> 
-                    <h2>What would you like to do?</h2> 
+                    <h1 className="welcome_back">Welcome Back, admin!</h1>
+                    <h2>What would you like to do?</h2>
                     <ul>
-                        <li><a href="/adminDashboard#admin_list">View, Add, or Remove administrators</a></li>
-                        <li><a href="/signup">Create a Student Profile</a></li>
-                        <li><a href="/adminDashboard#university_list">View, Add, or Remove universities</a></li>
-                        <li><a href="/adminDashboard#course_list">View, Add, or Remove courses</a></li>
+                        <li>
+                            <a href="/adminDashboard#admin_list">
+                                View, Add, or Remove administrators
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/signup">Create a Student Profile</a>
+                        </li>
+                        <li>
+                            <a href="/adminDashboard#university_list">
+                                View, Add, or Remove universities
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/adminDashboard#course_list">
+                                View, Add, or Remove courses
+                            </a>
+                        </li>
                     </ul>
-                </div> 
-                <div id="admin_list"> 
+                </div>
+                <div id="admin_list">
                     <h1 className="search_form_title">Administrators: </h1>
                     <table className="headers">
-                        <tr> 
+                        <tr>
                             <td className="name">
-                                <h3>Name</h3> 
+                                <h3>Name</h3>
                             </td>
                             <td className="email">
-                                <h3>Email</h3> 
+                                <h3>Email</h3>
                             </td>
-                        </tr> 
+                        </tr>
                     </table>
-                    
-                    <AdministratorPreviewList administrators={this.state.filteredAdmins} /> 
+
+                    <AdministratorPreviewList
+                        administrators={this.state.filteredAdmins}
+                    />
                 </div>
                 <div id="remove_admin">
                     <h1 className="remove_admin_header">Remove Admin</h1>
@@ -177,7 +245,7 @@ class AdminDashboard extends React.Component {
                         filterAdmins={() => filterAdmins(this)}
                     />
                 </div>
-                
+
                 <div id="add_admin">
                     <h1 className="add_admin_header">Add Admin</h1>
                     <AddAdminForm
@@ -187,23 +255,27 @@ class AdminDashboard extends React.Component {
                         addAdmins={() => addAdmins(this)}
                     />
                 </div>
-                <div id="university_list"> 
+                <div id="university_list">
                     <h1 className="search_form_title">Universities: </h1>
                     <table className="headers1">
-                        <tr> 
+                        <tr>
                             <td className="name">
-                                <h3>Name</h3> 
+                                <h3>Name</h3>
                             </td>
                             <td className="id">
-                                <h3>Id</h3> 
+                                <h3>Id</h3>
                             </td>
-                        </tr> 
+                        </tr>
                     </table>
-                    
-                    <UniversityPreviewList universities={this.state.filteredUniversities} /> 
+
+                    <UniversityPreviewList
+                        universities={this.state.filteredUniversities}
+                    />
                 </div>
                 <div id="remove_university">
-                    <h1 className="remove_university_header">Remove University</h1>
+                    <h1 className="remove_university_header">
+                        Remove University
+                    </h1>
                     <SearchUniversityForm
                         universityName={this.state.universityName}
                         universityId={this.state.universityId}
@@ -211,7 +283,7 @@ class AdminDashboard extends React.Component {
                         filterUniversities={() => filterUniversities(this)}
                     />
                 </div>
-                
+
                 <div id="add_admin">
                     <h1 className="add_admin_header">Add University</h1>
                     <AddUniversityForm
@@ -221,20 +293,20 @@ class AdminDashboard extends React.Component {
                         addUniversities={() => addUniversities(this)}
                     />
                 </div>
-                <div id="course_list"> 
+                <div id="course_list">
                     <h1 className="search_form_title">Courses: </h1>
                     <table className="headers1">
-                        <tr> 
+                        <tr>
                             <td className="name">
-                                <h3>Name</h3> 
+                                <h3>Name</h3>
                             </td>
                             <td className="course_university">
-                                <h3>Id</h3> 
+                                <h3>Id</h3>
                             </td>
-                        </tr> 
+                        </tr>
                     </table>
-                    
-                    <CoursePreviewList courses={this.state.filteredCourses} /> 
+
+                    <CoursePreviewList courses={this.state.filteredCourses} />
                 </div>
                 <div id="remove_university">
                     <h1 className="remove_university_header">Remove Course</h1>
@@ -245,7 +317,7 @@ class AdminDashboard extends React.Component {
                         filterCourses={() => filterCourses(this)}
                     />
                 </div>
-                
+
                 <div id="add_admin">
                     <h1 className="add_admin_header">Add Course</h1>
                     <AddCourseForm
