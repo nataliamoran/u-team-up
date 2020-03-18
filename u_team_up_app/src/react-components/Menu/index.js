@@ -6,8 +6,6 @@ import {Link} from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
 import SendIcon from '@material-ui/icons/Send';
 import "./styles.css";
 
@@ -59,7 +57,7 @@ export default function AppMenu(props) {
         setAnchorEl(null);
     };
 
-    var links = 
+    var links =
                     [
                      <Link className="link" to='/login'>
                         <StyledMenuItem>
@@ -80,7 +78,7 @@ export default function AppMenu(props) {
                     ]
 
     if (props.loginStatus === 'user') {
-        var links = 
+        var links =
                     [<Link className="link" to='/student-profile'>
                         <StyledMenuItem>
                             <ListItemIcon>
@@ -133,7 +131,7 @@ export default function AppMenu(props) {
     }
 
     if (props.loginStatus === 'admin') {
-        var links = 
+        var links =
                     [<Link className="link" to={"/adminDashboard"}>
                         <StyledMenuItem>
                             <ListItemIcon>
@@ -167,9 +165,9 @@ export default function AppMenu(props) {
                         </StyledMenuItem>
                      </Link>
                     ]
-    } 
+    }
      /*else {
-        const links = 
+        const links =
                     [
                      <Link to='/login'>
                          <MenuItem>Log in</MenuItem>
@@ -177,7 +175,7 @@ export default function AppMenu(props) {
                      <Link to='/signup'>
                          <MenuItem>Sign up</MenuItem>
                      </Link>
-                    ] 
+                    ]
     }*/
 
     return (
