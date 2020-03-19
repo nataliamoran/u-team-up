@@ -7,6 +7,8 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
+app.use(require('./middleware/auth'));
+
 app.get('/', (req, res) => {
     res.send('It works!');
 });
