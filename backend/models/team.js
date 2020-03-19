@@ -1,13 +1,7 @@
-const {mongoose} = require('../db/global.uTeamUpMongooseHelper.mongoose')
+const {mongoose} = require('../db/mongoose')
 const { ObjectID } = require('mongodb')
 
 const Team = mongoose.model('Team', {
-    _id: {
-        type: String,
-        required: true,
-        minlegth: 1,
-        trim: true
-    },
     university: {
         type: String,
         required: true,
@@ -35,7 +29,6 @@ const createTeamCrud = function (app) {
     app.post('/teams', (req, res) => {
 
         const team = new Team({
-            _id: req.body._id,
             university: req.body.university,
             course: req.body.course,
             description: req.body.description
