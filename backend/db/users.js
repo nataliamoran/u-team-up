@@ -12,9 +12,11 @@ module.exports = (mongoose) => {
         username: {
             type: String,
             unique: true,
+            minlength: 1,
         },
         password: {
             type: String,
+            minlength: 1,
         }
     });
 

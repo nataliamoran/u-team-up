@@ -7,6 +7,9 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
+// combine params, query and/or body into args
+app.use(require('./middleware/args'));
+
 app.use(require('./middleware/auth'));
 
 app.get('/', (req, res) => {
