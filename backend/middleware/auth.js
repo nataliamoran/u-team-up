@@ -29,7 +29,7 @@ async function authMiddleware(req, res, next) {
 async function signup(req, res) {
     const { username, password } = req.args;
     try {
-        const user = new User({ username, password });
+        const user = new User({ username, password, type: 'user' });
         await user.save();
         res.send(user);
     } catch (e) {
@@ -69,14 +69,17 @@ async function injectIdentity(req, res) {
     const { token } = req.args;
 
     if (token) {
-        const user = await Auth.findOne({ token });
-        if (user) {
-            req.identity = {
-                type: user.type,
-                username: user.username,
-                uid: user._id,
-            };
-            return;
+        const auth = await Auth.findOne({ token });
+        if (auth) {
+            const user = await User.findOne({ username: auth.username });
+            if (user) {
+                req.identity = {
+                    type: user.type,
+                    username: user.username,
+                    uid: user._id,
+                };
+                return;
+            }
         }
     }
     req.identity = {
