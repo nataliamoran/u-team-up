@@ -17,7 +17,10 @@ module.exports = (mongoose) => {
         password: {
             type: String,
             minlength: 1,
-        }
+        },
+        type: { // user/admin
+            type: String,
+        },
     });
 
     UserSchema.pre('save', async function () {

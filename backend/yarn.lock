@@ -391,6 +391,11 @@ qs@6.7.0:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
+random-token@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/random-token/-/random-token-0.0.8.tgz#1cf845af3fb31e57f7caa4b9a173478c46483b61"
+  integrity sha1-HPhFrz+zHlf3yqS5oXNHjEZIO2E=
+
 range-parser@~1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
