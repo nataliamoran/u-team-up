@@ -431,7 +431,8 @@ class Team extends React.Component {
             // Check the user id to determine if this user is a member of the team
             // to show team config buttons to team members only
         }
-        if (!(team.members.map(member => member.uid).filter(uid => uid === global.identity.uid).length === 0)) {
+        if (team != null
+            && !(team.members.map(member => member.uid).filter(uid => uid === global.identity.uid).length === 0)) {
             editButton =
                 <Button variant="outlined" color="primary"
                         className="team_page__button" onClick={this.changeEditMode}>edit team profile</Button>
@@ -465,6 +466,7 @@ class Team extends React.Component {
         }
         if ((global.identity.type === "user") &&
             (this.state.acceptNewApplications === true) &&
+            team != null &&
             (team.members.map(member => member.uid).filter(uid => uid === global.identity.uid).length === 0)) {
             quizButton =
                 <div>
@@ -493,7 +495,8 @@ class Team extends React.Component {
                         this.renderTeamAdminEditView()
                         :
                         <div className="team">
-                            <Header type='main' title='team: ' data={`${team.university} ${team.course}`}>
+                            <Header type='main' title='team: '
+                                    data={team ? `${team.university} ${team.course}` : ""}>
                                 {editAdminButton}
                                 {editButton}
                                 {calendarButton}
@@ -502,12 +505,11 @@ class Team extends React.Component {
 
                             <div className="body">
                                 <h2 className="header__description">description:</h2>
-                                <p className="header__team_description">{team.description}</p>
-
-                                <TeamMemberPreviewList members={team.members}/>
+                                <p className="header__team_description">{team ? team.description : ""}</p>
+                                {team ? <TeamMemberPreviewList members={team.members}/> : null}
                                 <div className="quiz">
                                     <Grid className="quiz_table">
-                                        {this.state.team.quizQuestions.map(question => (
+                                        {team ? this.state.team.quizQuestions.map(question => (
                                             <div key={uid(
                                                 question
                                             )}>
@@ -522,7 +524,7 @@ class Team extends React.Component {
                                                 </div>
 
                                             </div>
-                                        ))}
+                                        )) : null}
                                     </Grid>
                                 </div>
                                 {quizButton}

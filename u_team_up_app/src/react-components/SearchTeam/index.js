@@ -3,7 +3,10 @@ import React from "react";
 import "./styles.css";
 import {uid} from "react-uid";
 
+
 import {filterUnits} from "../../actions/filterUnits";
+import {TEAMS_BACKEND} from "../../config";
+
 
 import Table from "@material-ui/core/Table/Table";
 import TableBody from "@material-ui/core/TableBody/TableBody";
@@ -30,12 +33,38 @@ class SearchTeam extends React.Component {
             teamUniversity: "",
             teamCourse: "",
             teams: [ // TODO: FETCH DATA FROM DB
-                {university: "UofT", course: "CSC309", id: "1", description: "A+ group looking for a JS Jedi"},
-                {university: "UofT", course: "CSC207", id: "2", description: "Let's crash this course together!"}
+                // {university: "UofT", course: "CSC309", id: "1", description: "A+ group looking for a JS Jedi"},
+                // {university: "UofT", course: "CSC207", id: "2", description: "Let's crash this course together!"}
             ],
         };
 
         this.state.filteredTeams = Array.from(this.state.teams);
+        console.log('starting SearchTeam')
+
+    }
+
+    componentDidMount() {
+        const url = TEAMS_BACKEND;
+        fetch(url)
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json);
+                // this.setState({teams: json.teams});
+                // this.state.filteredTeams = Array.from(this.state.teams);
+                this.setState({
+                    teams: json.teams,
+                    filteredTeams:json.teams
+                });
+                console.log(this.state);
+            }).catch((error) => {
+            console.error(error)
+        });
+        this.timer = setInterval(() => fetch(url), 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timer);
+        this.timer = null;
     }
 
     /* Method to handle the Team Search Form input */
@@ -57,23 +86,69 @@ class SearchTeam extends React.Component {
             NotificationManager.error('Please complete all fields')
             return;
         }
-        this.state.teams.push({
+        // this.state.teams.push({
+        //     university: this.state.newTeamUniversity,
+        //     course: this.state.newTeamCourse,
+        //     id: this.state.uid,
+        //     description: this.state.newTeamDescription
+        // });
+        // this.state.uid += 1;
+        // this.setState({
+        //     teams: this.state.teams,
+        //     filteredTeams: this.state.teams
+        // });
+
+        //TODO Push updates to the DB
+        const url = TEAMS_BACKEND;
+
+        let data = {
             university: this.state.newTeamUniversity,
             course: this.state.newTeamCourse,
-            id: this.state.uid,
             description: this.state.newTeamDescription
+        };
+        const request = new Request(url, {
+            method: 'post',
+            body: JSON.stringify(data),
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
         });
-        this.state.uid += 1;
-        this.setState({
-            teams: this.state.teams,
-            filteredTeams: this.state.teams
+
+        fetch(request)
+            .then(function(res) {
+                if (res.status === 200) {
+                    console.log('Added team')
+                    NotificationManager.success('New team was successfully created!')
+
+                } else {
+                    console.log('Could not add team')
+
+                }
+                console.log(res)
+            }).catch((error) => {
+            console.log(error)
         });
-        NotificationManager.success('New team was successfully created!')
-        //TODO Push updates to the DB
+
+        fetch(url)
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json);
+                // this.setState({teams: json.teams});
+                // this.state.filteredTeams = Array.from(this.state.teams);
+                this.setState({
+                    teams: json.teams,
+                    filteredTeams:json.teams
+                });
+                console.log(this.state);
+            }).catch((error) => {
+            console.error(error)
+        });
     };
 
     render() {
         let createTeamForm;
+        console.log("redering");
 
         {/* Show Create Team Form to registered users only*/}
         if (this.props.state.identity.uid != "") {
@@ -193,7 +268,7 @@ class SearchTeam extends React.Component {
                                             <TableRow>
                                                 <TableCell component="td" scope="row" className="button_cell">
 
-                                                    <Link className="join__link" to={`/team/${teamPreview.id}`}>
+                                                    <Link className="join__link" to={`/team/${teamPreview._id}`}>
                                                         <Button variant="outlined" color="primary"
                                                                 className="join__button">Join</Button>
                                                     </Link>
