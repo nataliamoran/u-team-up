@@ -13,9 +13,16 @@ if (!global.uTeamUpMongooseHelper) {
     mongoose.connect(mongoURI,
 	                 { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
 
-    global.uTeamUpMongooseHelper = {
-        get: () => mongoose,
-    };
+
+    const helper = { mongoose };
+
+    global.uTeamUpMongooseHelper = helper;
+
+    helper.Auth = require('./auth')(mongoose);
+    helper.User = require('./users')(mongoose);
 }
 
-module.exports = { mongoose: global.uTeamUpMongooseHelper.get() };  // Export the active connection.
+module.exports = {
+    default: global.uTeamUpMongooseHelper.mongoose,
+    ...global.uTeamUpMongooseHelper,
+};  // Export the active connection.
