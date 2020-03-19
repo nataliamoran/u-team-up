@@ -1,5 +1,7 @@
 'use strict';
 
+// const teamModel = require('./models/team');
+// const {mongoose} = require('./db/global.uTeamUpMongooseHelper.mongoose');
 const express = require('express');
 
 const app = express();
@@ -19,7 +21,15 @@ app.use(require('./middleware/auth'));
 
 const wrap = require('./helper/response-wrapper');
 
+// cors middleware
+const cors = require('cors');
+app.use(cors());
+
+// create CRUD for Team
+// teamModel.createTeamCrud(app);
+
 app.get('/', wrap((req, res) => 'It works!'));
+
 
 app.use(wrap(async () => { throw 404; }));
 
