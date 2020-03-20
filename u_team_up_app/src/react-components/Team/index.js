@@ -471,9 +471,9 @@ class Team extends React.Component {
         // Check the user id to determine if this user is a member of the team
         // to show quiz questions to non-members only
         if ((global.identity.type === "user") &&
-            (this.state.acceptNewApplications === true) &&
-            team != null &&
-            (team.members.map(member => member.uid).filter(uid => uid === global.identity.uid).length === 0)) {
+            (this.state.acceptNewApplications === true)
+            && team
+            && (team.members.map(member => member.uid).filter(uid => uid === global.identity.uid).length === 0)) {
             quizButton =
                 <div>
                     <Button
