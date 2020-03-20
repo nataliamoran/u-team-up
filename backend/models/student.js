@@ -4,7 +4,6 @@ const { ObjectID } = require("mongodb");
 const Student = mongoose.model("Student", {
     name: {
         type: String,
-        required: false,
         minlength: 1,
         trim: true
     },
@@ -17,9 +16,14 @@ const Student = mongoose.model("Student", {
     email: {
         type: String,
         required: true,
+        unique: true,
         minlegth: 1,
-        trim: true
     },
+    password: {
+        type: String,
+        required: true,
+        minlength: 1
+    }
     university: {
         type: String,
         required: true,
@@ -37,7 +41,8 @@ const studentCrud = function(app) {
         const student = new Student({
             username: req.body.username,
             email: req.body.email,
-            university: req.body.university
+            university: req.body.university,
+            password: req.body.password
         });
 
         student.save().then(
@@ -110,8 +115,8 @@ const studentCrud = function(app) {
             const id = req.params.id;
 
             // get updated name, email, university
-            const { name, email, university } = req.body;
-            const body = { name, email, university };
+            const { name, email, university, password } = req.body;
+            const body = { name, email, university, password };
 
             if (!ObjectID.isValid(id)) {
                 res.status(404).send();
