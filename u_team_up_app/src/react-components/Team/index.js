@@ -255,7 +255,7 @@ class Team extends React.Component {
 
                         <Grid className="edit_team_page__members">
                             <h4 className="edit_team_page__title">Team Members</h4>
-                            <div>
+                            <div className="team_members">
                                 {this.state.team.members.map(member => (
                                     <div key={uid(
                                         member
