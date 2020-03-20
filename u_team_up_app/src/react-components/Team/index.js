@@ -231,7 +231,7 @@ class Team extends React.Component {
             <div>
 
                 <div>
-                    <div>
+                    <div className="edit_team">
                         <div className="edit_team_page__description">
                             <h4 className="edit_team_page__title">Team Description</h4>
                             <textarea
@@ -241,8 +241,8 @@ class Team extends React.Component {
                                 value={this.teamDescription}
                                 onChange={this.handleEditInput}
                             >
-                        </textarea>
-                            <div>
+                            </textarea>
+                            <div className="team_description_save_button">
                                 <Button
                                     variant="outlined"
                                     color="primary"
@@ -251,24 +251,27 @@ class Team extends React.Component {
                                 </Button>
                             </div>
                         </div>
+                        <hr className="team_hr"/>
 
                         <Grid className="edit_team_page__members">
                             <h4 className="edit_team_page__title">Team Members</h4>
-                            {this.state.team.members.map(member => (
-                                <div key={uid(
-                                    member
-                                )}>
+                            <div>
+                                {this.state.team.members.map(member => (
+                                    <div key={uid(
+                                        member
+                                    )}>
 
-                                    {member.name}
-                                    <button
-                                        className="team_page__button"
-                                        onClick={this.removeMember.bind(this, member.uid)}>Remove
-                                    </button>
+                                        {member.name}
+                                        <button
+                                            className="team_page__button"
+                                            onClick={this.removeMember.bind(this, member.uid)}>Remove
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
 
-
-                                </div>
-                            ))}
                         </Grid>
+                        <hr className="team_hr"/>
 
                         <Grid className="edit_team_page__quiz">
                             <h4 className="edit_team_page__title">Quiz Questions</h4>
@@ -282,11 +285,10 @@ class Team extends React.Component {
                                         className="team_page__button"
                                         onClick={this.removeQuizQuestion.bind(this, question)}>Remove
                                     </button>
-
-
                                 </div>
                             ))}
                         </Grid>
+                        <hr className="team_hr"/>
 
                         <Grid className="edit_team_page__quiz">
                             <h4 className="edit_team_page__title">New Quiz Questions</h4>
@@ -307,7 +309,9 @@ class Team extends React.Component {
                                     </Button>
                                 </div>
                             </div>
-                            <h4 className="edit_team_page__title">Stop accepting new applications</h4>
+                            <hr className="team_hr"/>
+
+                            <p>Stop accepting new applications</p>
                             <Checkbox
                                 checked={!this.state.acceptNewApplications}
                                 onChange={this.handleAcceptApplicationsChange}
@@ -315,22 +319,22 @@ class Team extends React.Component {
                                 inputProps={{'aria-label': 'primary checkbox'}}
                             />
                         </Grid>
+                        <div className="edit_team_page__buttons">
 
-                    </div>
-                    <div className="edit_team_page__buttons">
+                            {/* Click the cancel button to go back to default mode*/}
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                className="team_page__button"
+                                onClick={this.changeEditMode}>Back to Team</Button>
 
-                        {/* Click the cancel button to go back to default mode*/}
-                        <Button
-                            variant="outlined"
-                            color="primary"
-                            className="team_page__button"
-                            onClick={this.changeEditMode}>Back to Team</Button>
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                className="team_page__button"
+                                onClick={this.deleteTeam}>Delete Team</Button>
+                        </div>
 
-                        <Button
-                            variant="outlined"
-                            color="primary"
-                            className="team_page__button"
-                            onClick={this.deleteTeam}>Delete Team</Button>
                     </div>
                 </div>
             </div>
@@ -427,10 +431,10 @@ class Team extends React.Component {
         let applicationsButton;
         let quizButton;
 
-        {
-            // Check the user id to determine if this user is a member of the team
-            // to show team config buttons to team members only
-        }
+
+        // Check the user id to determine if this user is a member of the team
+        // to show team config buttons to team members only
+
         if (team != null
             && !(team.members.map(member => member.uid).filter(uid => uid === global.identity.uid).length === 0)) {
             editButton =
@@ -450,9 +454,8 @@ class Team extends React.Component {
 
         }
 
-        {
-            // Show Admin Mode Edit button to the admin
-        }
+
+        // Show Admin Mode Edit button to the admin
         if (global.identity.type === "admin") {
             editAdminButton =
                 <Button variant="outlined" color="primary"
@@ -460,10 +463,9 @@ class Team extends React.Component {
 
         }
 
-        {
-            // Check the user id to determine if this user is a member of the team
-            // to show quiz questions to non-members only
-        }
+
+        // Check the user id to determine if this user is a member of the team
+        // to show quiz questions to non-members only
         if ((global.identity.type === "user") &&
             (this.state.acceptNewApplications === true) &&
             team != null &&
@@ -495,7 +497,7 @@ class Team extends React.Component {
                         this.renderTeamAdminEditView()
                         :
                         <div className="team">
-                            <Header type='main' title='team: '
+                            <Header className="team_name" type='main' title='team: '
                                     data={team ? `${team.university} ${team.course}` : ""}>
                                 {editAdminButton}
                                 {editButton}
@@ -503,7 +505,7 @@ class Team extends React.Component {
                                 {applicationsButton}
                             </Header>
 
-                            <div className="body">
+                            <div className="team_body">
                                 <h2 className="header__description">description:</h2>
                                 <p className="header__team_description">{team ? team.description : ""}</p>
                                 {team ? <TeamMemberPreviewList members={team.members}/> : null}

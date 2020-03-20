@@ -1,4 +1,4 @@
-.team{
+.team {
     padding-left: 30px;
 }
 
@@ -6,47 +6,96 @@
     display: flex;
 }
 
-.header__team{
+.header__team {
     color: #283b63;
     font-size: 2.2em;
 }
 
-.header__description{
+.header__description {
     color: #283b63;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
 }
 
 .header__team_data {
-    padding-top:10px;
-    padding-left:10px;
+    padding-top: 10px;
+    padding-left: 10px;
     font-size: 1.5em;
-    color: #F76073;
+    color: #f76073;
     font-weight: bold;
+}
+
+.team_body {
+    padding-left: 350px;
+}
+
+.team_name {
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding-left: 500px;
+}
+
+.edit_team {
+    margin: auto;
+    width: 50%;
+    padding-bottom: 50px;
+}
+
+.team_hr {
+    height: 6px;
+    width: 60px;
+    border-color: #fde8d4;
+    border-style: dotted;
+    border-width: thick;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.team_description_save_button {
+    padding-left: 310px;
 }
 
 .h2 {
     color: #283b63;
 }
 
-.team_page__link{
+.team_page__link {
     text-decoration: none !important;
 }
 
-.team_page__button{
+.team_page__button {
     margin-left: 10px !important;
     margin-right: 10px !important;
     margin-top: 10px !important;
+    border-radius: 20px;
+    color: #f1574b;
+    line-height: 0.5;
+    background-color: #f1f1f1;
+    padding: 13px 15px;
+    text-align: center;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
 }
 
-.team_page__menu_buttons{
+.team_page__menu_buttons {
     padding-top: 30px;
     padding-left: 30px;
 }
 
-.quiz_table td{
+.quiz_table td {
     border-style: hidden !important;
 }
 
-.quiz{
+.quiz {
     margin-top: 100px;
 }
 
@@ -54,55 +103,66 @@
     width: 600px;
 }
 
-.quiz_question{
-    margin-top:20px !important;
-}
-.quiz_button{
-    color: #f1574b;
-    margin-top:20px !important;
+.quiz_question {
+    margin-top: 20px !important;
 }
 
-.edit_team_page__buttons{
+.quiz_button {
+    color: #f1574b;
+    margin-top: 20px !important;
+}
+
+.edit_team_page__buttons {
     margin-top: 50px;
 }
 
-.edit_team_page__input{
+.edit_team_page__input {
     height: 50px;
-    width: 500px;
-    font-size: 0.8em;
+    border: 3px solid #fde8d4;
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 15px;
+    width: 80%;
+    outline: none;
+    margin-left: 70px;
 }
 
-.edit_team_page__description{
+.edit_team_page__description {
     margin-top: 30px;
     margin-left: 10px;
 }
 
-.edit_team_page__members{
+.edit_team_page__members {
     margin-top: 30px;
     margin-left: 10px;
 }
 
-.edit_team_page__quiz{
+.edit_team_page__quiz {
     margin-top: 30px;
     margin-left: 10px;
 }
 
-.team_page__new_quiz_question{
+.team_page__new_quiz_question {
     margin-top: 30px;
 }
 
-#deletion_confirmation{
+#deletion_confirmation {
     text-align: center;
     margin-top: 200px;
 }
 
-.edit_team_page__title{
-    color: #f1574b;
+.edit_team_page__title {
+    color: #283b63;
     font-weight: bold;
     font-size: 1.2em;
+    margin: auto;
+    width: 50%;
+    padding-left: 200px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
-.applications_not_accepted{
+.applications_not_accepted {
     color: #f1574b;
     font-weight: bold;
     font-size: 1.2em;
