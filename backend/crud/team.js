@@ -1,26 +1,28 @@
-const {mongoose} = require('../db/mongoose')
-const { ObjectID } = require('mongodb')
+// const {mongoose} = require('../db/mongoose')
+const { ObjectID } = require('mongodb');
+// const { Team } = require('../db/teamSchema')
+const { Team } = require('../db/mongoose');
 
-const Team = mongoose.model('Team', {
-    university: {
-        type: String,
-        required: true,
-        minlegth: 1,
-        trim: true
-    },
-    course: {
-        type: String,
-        required: true,
-        minlegth: 1,
-        trim: true
-    },
-    description: {
-        type: String,
-        required: true,
-        minlegth: 1,
-        trim: true
-    },
-});
+// const Team = mongoose.model('Team', {
+//     university: {
+//         type: String,
+//         required: true,
+//         minlegth: 1,
+//         trim: true
+//     },
+//     course: {
+//         type: String,
+//         required: true,
+//         minlegth: 1,
+//         trim: true
+//     },
+//     description: {
+//         type: String,
+//         required: true,
+//         minlegth: 1,
+//         trim: true
+//     },
+// });
 
 const createTeamCrud = function (app) {
 
@@ -31,7 +33,8 @@ const createTeamCrud = function (app) {
         const team = new Team({
             university: req.body.university,
             course: req.body.course,
-            description: req.body.description
+            description: req.body.description,
+            members: req.body.members
         });
 
         team.save().then((result) => {
@@ -113,4 +116,4 @@ const createTeamCrud = function (app) {
     })
 };
 
-module.exports = {Team, createTeamCrud};
+module.exports = {createTeamCrud};

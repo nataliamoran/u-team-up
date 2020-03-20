@@ -26,6 +26,7 @@ class SearchTeam extends React.Component {
 
         this.state = {
             global: props.state,
+            studentUid: null,
             uid: 3,
             newTeamCourse: "",
             newTeamDescription: "",
@@ -39,7 +40,13 @@ class SearchTeam extends React.Component {
         };
 
         this.state.filteredTeams = Array.from(this.state.teams);
-        console.log('starting SearchTeam')
+        if(props.state.identity.type === "user"){
+            this.state.studentUid = props.state.identity.uid;
+        }
+        console.log('starting SearchTeam');
+        console.log(this.state);
+        console.log("Teams Search: props state identity");
+        console.log(props.state.identity);
 
     }
 
@@ -85,7 +92,8 @@ class SearchTeam extends React.Component {
             let data = {
                 university: this.state.newTeamUniversity,
                 course: this.state.newTeamCourse,
-                description: this.state.newTeamDescription
+                description: this.state.newTeamDescription,
+                members: this.state.studentUid ? [this.state.studentUid ] : []
             };
             const request = new Request(url, {
                 method: 'post',
