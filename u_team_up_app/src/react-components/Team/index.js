@@ -22,10 +22,9 @@ class Team extends React.Component {
 
         this.state = {
             global: props.globalState,
-            quizApplication: [],
+            quizApplication: {},
             isInEditMode: false,
             isInAdminEditMode: false,
-            acceptNewApplications: true,
             teamExists: true,
             teamDescription: "",
             newQuizQuestion: "",
@@ -34,10 +33,11 @@ class Team extends React.Component {
             studentCourse: "",
             // TODO: FETCH DATA FROM THE DB
             team: props.teamId === '1' ? {
-                id: "1",
+                _id: "1",
                 university: "UofT",
                 course: "CSC309",
                 description: "A+ group looking for a JS Jedi",
+                acceptNewApplications: true,
                 members: [
                     {
                         uid: "2",
@@ -57,12 +57,14 @@ class Team extends React.Component {
                 quizQuestions: [
                     "Which grade are you aiming for?",
                     "How many hours per week are you planning to spend working on the project?"
-                ]
+                ],
+                applications: []
             } : props.teamId === '2' ? {
-                id: "2",
+                _id: "2",
                 university: "UofT",
                 course: "CSC207",
                 description: "Let's crash this course together!",
+                acceptNewApplications: true,
                 members: [
                     {
                         uid: "2",
@@ -76,7 +78,8 @@ class Team extends React.Component {
                     "Which programming languages do you know?",
                     "Can you do weekly team meetings?",
                     "Do you have a GitHub account?"
-                ]
+                ],
+                applications: []
             } : null,
             students: [
                 {
@@ -103,7 +106,8 @@ class Team extends React.Component {
     handleApplicationInput = event => {
         const target = event.target;
         const value = target.value;
-        this.state.quizApplication.push(value);
+        const name = target.name;
+        this.state.quizApplication[[name]] = value;
     };
 
     handleNewQuestionInput = event => {
@@ -116,7 +120,14 @@ class Team extends React.Component {
 
     submitApplication = () => {
         //TODO: save this.state.quizApplication to the DB
+        this.state.team.applications.push(
+            {
+                studentId: this.props.globalState.identity.uid,
+                application: this.state.quizApplication
+            });
         NotificationManager.success('Your application is successfully submitted')
+        console.log("team state");
+        console.log(this.state.team);
     };
 
     changeEditMode = () => {
@@ -133,9 +144,20 @@ class Team extends React.Component {
 
     handleAcceptApplicationsChange = () => {
         this.setState({
-            acceptNewApplications: !this.state.acceptNewApplications
+            isInEditMode: false,
+            team: {
+                _id: this.state.team._id,
+                university: this.state.team.university,
+                course: this.state.team.course,
+                description: this.state.teamDescription,
+                acceptNewApplications: !this.state.team.acceptNewApplications,
+                members: this.state.team.members,
+                quizQuestions: this.state.team.quizQuestions
+            }
         })
         //TODO Push updates to the DB
+        console.log("Accept Applications Change");
+        console.log(this.state.team);
     };
 
     handleEditInput = event => {
@@ -160,10 +182,11 @@ class Team extends React.Component {
         this.setState({
             isInEditMode: false,
             team: {
-                id: this.state.team.id,
+                _id: this.state.team._id,
                 university: this.state.team.university,
                 course: this.state.team.course,
                 description: this.state.teamDescription === "" ? this.state.team.description : this.state.teamDescription,
+                acceptNewApplications: this.state.team.acceptNewApplications,
                 members: this.state.team.members,
                 quizQuestions: this.state.team.quizQuestions
             }
@@ -317,7 +340,7 @@ class Team extends React.Component {
                             <p className="team_stop_accept_inv">Stop accepting new applications</p>
                             <Checkbox
                                 className="team_stop_accept_inv_checkbox"
-                                checked={!this.state.acceptNewApplications}
+                                checked={!this.state.team.acceptNewApplications}
                                 onChange={this.handleAcceptApplicationsChange}
                                 value="primary"
                                 inputProps={{'aria-label': 'primary checkbox'}}
@@ -470,9 +493,9 @@ class Team extends React.Component {
 
         // Check the user id to determine if this user is a member of the team
         // to show quiz questions to non-members only
-        if ((global.identity.type === "user") &&
-            (this.state.acceptNewApplications === true)
+        if ((global.identity.type === "user")
             && team
+            && team.acceptNewApplications === true
             && (team.members.map(member => member.uid).filter(uid => uid === global.identity.uid).length === 0)) {
             quizButton =
                 <div>
@@ -486,7 +509,7 @@ class Team extends React.Component {
                     </Button>
                     <NotificationContainer/>
                 </div>;
-        } else if (this.state.acceptNewApplications === false) {
+        } else if (team && team.acceptNewApplications === false) {
             quizButton =
                 <div><p className="applications_not_accepted">Sorry, currently we do not accept new applications</p>
                 </div>
@@ -522,6 +545,7 @@ class Team extends React.Component {
                                                 <div className="quiz_question">
                                                     <TextField
                                                         id="filled-textarea"
+                                                        name={question}
                                                         label={question}
                                                         onChange={this.handleApplicationInput}
                                                         multiline
