@@ -58,6 +58,19 @@
     padding-left: 310px;
 }
 
+.team_quiz {
+    margin: auto;
+    width: 70%;
+}
+
+.team_stop_accept_inv {
+    padding-left: 200px;
+}
+
+.team_stop_accept_inv_checkbox {
+    display: inline;
+}
+
 .h2 {
     color: #283b63;
 }
@@ -118,6 +131,7 @@
 
 .edit_team_page__buttons {
     margin-top: 50px;
+    padding-left: 200px;
 }
 
 .edit_team_page__input {
@@ -148,6 +162,7 @@
 
 .team_page__new_quiz_question {
     margin-top: 30px;
+    padding-left: 70px;
 }
 
 #deletion_confirmation {

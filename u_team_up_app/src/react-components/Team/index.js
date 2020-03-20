@@ -275,18 +275,21 @@ class Team extends React.Component {
 
                         <Grid className="edit_team_page__quiz">
                             <h4 className="edit_team_page__title">Quiz Questions</h4>
-                            {this.state.team.quizQuestions.map(question => (
-                                <div key={uid(
-                                    question
-                                )}>
+                            <div className="team_quiz">
+                                {this.state.team.quizQuestions.map(question => (
+                                    <div key={uid(
+                                        question
+                                    )}>
 
-                                    {question}
-                                    <button
-                                        className="team_page__button"
-                                        onClick={this.removeQuizQuestion.bind(this, question)}>Remove
-                                    </button>
-                                </div>
-                            ))}
+                                        {question}
+                                        <button
+                                            className="team_page__button"
+                                            onClick={this.removeQuizQuestion.bind(this, question)}>Remove
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+
                         </Grid>
                         <hr className="team_hr"/>
 
@@ -311,8 +314,9 @@ class Team extends React.Component {
                             </div>
                             <hr className="team_hr"/>
 
-                            <p>Stop accepting new applications</p>
+                            <p className="team_stop_accept_inv">Stop accepting new applications</p>
                             <Checkbox
+                                className="team_stop_accept_inv_checkbox"
                                 checked={!this.state.acceptNewApplications}
                                 onChange={this.handleAcceptApplicationsChange}
                                 value="primary"
