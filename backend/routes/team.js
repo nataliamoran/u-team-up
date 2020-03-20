@@ -38,7 +38,8 @@ const createTeamCrud = function (app) {
             members: req.body.members,
             quizQuestions: [],
             applications: [],
-            invitations: []
+            invitations: [],
+            events: []
         });
 
         team.save().then((result) => {

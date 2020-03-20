@@ -38,6 +38,10 @@ module.exports = (mongoose) => {
         invitations:{
             type: Array,
             required: true
+        },
+        events:{
+            type: Array,
+            required: true
         }
     });
 
