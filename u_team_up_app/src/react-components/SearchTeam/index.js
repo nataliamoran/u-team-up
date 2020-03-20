@@ -53,19 +53,19 @@ class SearchTeam extends React.Component {
                 // this.state.filteredTeams = Array.from(this.state.teams);
                 this.setState({
                     teams: json.teams,
-                    filteredTeams:json.teams
+                    filteredTeams: json.teams
                 });
                 console.log(this.state);
             }).catch((error) => {
             console.error(error)
         });
-        this.timer = setInterval(() => fetch(url), 1000);
+        // this.timer = setInterval(() => fetch(url), 1000);
     }
 
-    componentWillUnmount() {
-        clearInterval(this.timer);
-        this.timer = null;
-    }
+    // componentWillUnmount() {
+    //     clearInterval(this.timer);
+    //     this.timer = null;
+    // }
 
     /* Method to handle the Team Search Form input */
     handleFormInput = event => {
@@ -78,11 +78,66 @@ class SearchTeam extends React.Component {
         });
     };
 
+    addTeamToDB = () => {
+        return new Promise((resolve, reject) => {
+            const url = TEAMS_BACKEND;
+
+            let data = {
+                university: this.state.newTeamUniversity,
+                course: this.state.newTeamCourse,
+                description: this.state.newTeamDescription
+            };
+            const request = new Request(url, {
+                method: 'post',
+                body: JSON.stringify(data),
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+            });
+            fetch(request)
+                .then(function (res) {
+                    if (res.status === 200) {
+                        console.log('Added team')
+                        NotificationManager.success('New team was successfully created!');
+                        resolve();
+
+                    } else {
+                        console.log('Could not add team')
+                        reject();
+
+                    }
+                    console.log(res)
+                }).catch((error) => {
+                console.log(error)
+            });
+        });
+    };
+
+    getAllTeamsFromDB = () => {
+        const url = TEAMS_BACKEND;
+        fetch(url)
+            .then((response) => response.json())
+            .then((json) => {
+                console.log("fetching after saving a new team");
+                console.log(json);
+                this.setState({
+                    teams: json.teams,
+                    filteredTeams: json.teams
+                });
+                this.forceUpdate();
+                console.log("new state after saving a new team");
+                console.log(this.state);
+            }).catch((error) => {
+            console.error(error)
+        });
+    };
+
     /* Method to create a new team */
     createTeam = () => {
-        if(this.state.newTeamUniversity === "" ||
+        if (this.state.newTeamUniversity === "" ||
             this.state.newTeamCourse === "" ||
-            this.state.newTeamDescription === ""){
+            this.state.newTeamDescription === "") {
             NotificationManager.error('Please complete all fields')
             return;
         }
@@ -99,49 +154,9 @@ class SearchTeam extends React.Component {
         // });
 
         //TODO Push updates to the DB
-        const url = TEAMS_BACKEND;
 
-        let data = {
-            university: this.state.newTeamUniversity,
-            course: this.state.newTeamCourse,
-            description: this.state.newTeamDescription
-        };
-        const request = new Request(url, {
-            method: 'post',
-            body: JSON.stringify(data),
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-        });
-
-        fetch(request)
-            .then(function(res) {
-                if (res.status === 200) {
-                    console.log('Added team')
-                    NotificationManager.success('New team was successfully created!')
-
-                } else {
-                    console.log('Could not add team')
-
-                }
-                console.log(res)
-            }).catch((error) => {
-            console.log(error)
-        });
-
-        fetch(url)
-            .then((response) => response.json())
-            .then((json) => {
-                console.log(json);
-                // this.setState({teams: json.teams});
-                // this.state.filteredTeams = Array.from(this.state.teams);
-                this.setState({
-                    teams: json.teams,
-                    filteredTeams:json.teams
-                });
-                console.log(this.state);
-            }).catch((error) => {
+        this.addTeamToDB()
+            .then(() => this.getAllTeamsFromDB()).catch((error) => {
             console.error(error)
         });
     };
@@ -150,49 +165,50 @@ class SearchTeam extends React.Component {
         let createTeamForm;
         console.log("redering");
 
-        {/* Show Create Team Form to registered users only*/}
+        {/* Show Create Team Form to registered users only*/
+        }
         if (this.props.state.identity.uid != "") {
             createTeamForm =
                 <div>
                     <h1 className="search_form_title">create new team</h1>
-                <Grid container direction="row" justify="center" alignItems="center">
-                    <Input
-                        className="new_team__input"
-                        name="newTeamUniversity"
-                        value={this.state.newTeamUniversity}
-                        id="filled-textarea"
-                        label={"University"}
-                        onChange={this.handleFormInput}
-                        multiline
-                    />
-                    <Input
-                        className="new_team__input"
-                        name="newTeamCourse"
-                        value={this.state.newTeamCourse}
-                        id="filled-textarea"
-                        label={"Course"}
-                        onChange={this.handleFormInput}
-                        multiline
-                    />
-                    <TextField
-                        className="new_team__input"
-                        name="newTeamDescription"
-                        value={this.state.newTeamDescription}
-                        id="filled-textarea"
-                        label={"Description"}
-                        onChange={this.handleFormInput}
-                        multiline
-                    />
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        className="new_team_button"
-                        onClick={this.createTeam}
-                    >
-                        Create
-                    </Button>
-                    <NotificationContainer/>
-                </Grid>
+                    <Grid container direction="row" justify="center" alignItems="center">
+                        <Input
+                            className="new_team__input"
+                            name="newTeamUniversity"
+                            value={this.state.newTeamUniversity}
+                            id="filled-textarea"
+                            label={"University"}
+                            onChange={this.handleFormInput}
+                            multiline
+                        />
+                        <Input
+                            className="new_team__input"
+                            name="newTeamCourse"
+                            value={this.state.newTeamCourse}
+                            id="filled-textarea"
+                            label={"Course"}
+                            onChange={this.handleFormInput}
+                            multiline
+                        />
+                        <TextField
+                            className="new_team__input"
+                            name="newTeamDescription"
+                            value={this.state.newTeamDescription}
+                            id="filled-textarea"
+                            label={"Description"}
+                            onChange={this.handleFormInput}
+                            multiline
+                        />
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            className="new_team_button"
+                            onClick={this.createTeam}
+                        >
+                            Create
+                        </Button>
+                        <NotificationContainer/>
+                    </Grid>
                 </div>
         }
 
