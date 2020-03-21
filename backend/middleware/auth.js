@@ -69,6 +69,7 @@ async function injectIdentity(req, res) {
     const { token } = req.args;
 
     if (token) {
+        delete req.args.token;
         const auth = await Auth.findOne({ token });
         if (auth) {
             const user = await User.findOne({ username: auth.username });
@@ -76,7 +77,7 @@ async function injectIdentity(req, res) {
                 req.identity = {
                     type: user.type,
                     username: user.username,
-                    uid: user._id,
+                    uid: user._id.toString(),
                 };
                 return;
             }

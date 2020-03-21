@@ -8,15 +8,18 @@ const wrap = (func) => ((req, res) => {
         .then(r => {
             if (typeof r === 'object'
                 && r !== null
-                && r._code) {
-                res.status(r._code);
-                delete r._code;
+                && !Array.isArray(r)) {
+                if (r._code) {
+                    res.status(r._code);
+                    delete r._code;
+                }
                 res.send(r);
             } else {
                 res.send({ result: r });
             }
         })
         .catch(r => {
+            console.log('Error:', r);
             if (typeof r === 'object'
                 && r !== null
                 && r._code) {

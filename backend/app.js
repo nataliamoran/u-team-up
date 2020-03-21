@@ -20,6 +20,7 @@ app.use(require('./middleware/args'));
 
 app.use(require('./middleware/auth'));
 
+const rh = require('./helper/route-helper');
 const wrap = require('./helper/response-wrapper');
 
 // cors middleware
@@ -31,6 +32,7 @@ team.createTeamCrud(app);
 
 app.get('/', wrap((req, res) => 'It works!'));
 
+rh(app, require('./routes/users'));
 
 app.use(wrap(async () => { throw 404; }));
 

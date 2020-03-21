@@ -21,6 +21,7 @@ if (!global.uTeamUpMongooseHelper) {
     helper.Auth = require('./auth')(mongoose);
     helper.User = require('./users')(mongoose);
     helper.Team = require('./teamSchema')(mongoose);
+    helper.Profile = require('./profile')(mongoose);
 }
 
 module.exports = {
