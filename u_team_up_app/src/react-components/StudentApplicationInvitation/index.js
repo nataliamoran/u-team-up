@@ -40,7 +40,7 @@ class StudentApplicationInvitation extends React.Component {
 
     acceptTeam = TeamInvitation => {
         this.state.invitations = this.state.invitations.filter(
-            team => team != TeamInvitation
+            team => team !== TeamInvitation
         );
         this.setState({
             invitations: this.state.invitations
@@ -49,7 +49,7 @@ class StudentApplicationInvitation extends React.Component {
 
     rejectTeam = TeamInvitation => {
         this.state.invitations = this.state.invitations.filter(
-            team => team != TeamInvitation
+            team => team !== TeamInvitation
         );
         this.setState({
             invitations: this.state.invitations
@@ -58,7 +58,7 @@ class StudentApplicationInvitation extends React.Component {
 
     withdrawTeam = appliedTeam => {
         this.state.applications = this.state.applications.filter(
-            team => team != appliedTeam
+            team => team !== appliedTeam
         );
         this.setState({
             applications: this.state.applications

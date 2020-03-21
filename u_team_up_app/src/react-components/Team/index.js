@@ -242,7 +242,7 @@ class Team extends React.Component {
 
     /* Method to delete a member */
     removeMember = (uid) => {
-        this.state.team.members = this.state.team.members.filter(member => member.uid != uid);
+        this.state.team.members = this.state.team.members.filter(member => member.uid !== uid);
         this.setState({
             team: this.state.team
         })
@@ -260,7 +260,7 @@ class Team extends React.Component {
 
     /* Method to remove a quiz question */
     removeQuizQuestion = (question) => {
-        this.state.team.quizQuestions = this.state.team.quizQuestions.filter(q => q != question);
+        this.state.team.quizQuestions = this.state.team.quizQuestions.filter(q => q !== question);
         this.setState({
             team: this.state.team
         })
@@ -543,7 +543,7 @@ class Team extends React.Component {
         if ((global.identity.type === "user")
             && team
             && team.acceptNewApplications === true
-            && team.quizQuestions.length != 0
+            && team.quizQuestions.length !== 0
             && (team.members.filter(uid => uid === global.identity.uid).length === 0)) {
             quizButton =
                 <div>

@@ -59,7 +59,7 @@ class SearchStudent extends React.Component {
 
     /* Method to remove a student */
     removeStudent = (student) => {
-        this.state.students = this.state.students.filter(s => s != student);
+        this.state.students = this.state.students.filter(s => s !== student);
         this.setState({
             students: this.state.students
         });

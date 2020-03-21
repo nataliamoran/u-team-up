@@ -56,8 +56,6 @@ class SearchTeam extends React.Component {
             .then((response) => response.json())
             .then((json) => {
                 console.log(json);
-                // this.setState({teams: json.teams});
-                // this.state.filteredTeams = Array.from(this.state.teams);
                 this.setState({
                     teams: json.teams,
                     filteredTeams: json.teams
@@ -66,13 +64,7 @@ class SearchTeam extends React.Component {
             }).catch((error) => {
             console.error(error)
         });
-        // this.timer = setInterval(() => fetch(url), 1000);
     }
-
-    // componentWillUnmount() {
-    //     clearInterval(this.timer);
-    //     this.timer = null;
-    // }
 
     /* Method to handle the Team Search Form input */
     handleFormInput = event => {
@@ -173,9 +165,9 @@ class SearchTeam extends React.Component {
         let createTeamForm;
         console.log("redering");
 
-        {/* Show Create Team Form to registered users only*/
-        }
-        if (this.props.state.identity.uid != "") {
+        /* Show Create Team Form to registered users only*/
+
+        if (this.props.state.identity.uid !== "") {
             createTeamForm =
                 <div>
                     <h1 className="search_form_title">create new team</h1>
