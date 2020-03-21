@@ -3,27 +3,6 @@ const { ObjectID } = require('mongodb');
 // const { Team } = require('../db/teamSchema')
 const { Team } = require('../db/mongoose');
 
-// const Team = mongoose.model('Team', {
-//     university: {
-//         type: String,
-//         required: true,
-//         minlegth: 1,
-//         trim: true
-//     },
-//     course: {
-//         type: String,
-//         required: true,
-//         minlegth: 1,
-//         trim: true
-//     },
-//     description: {
-//         type: String,
-//         required: true,
-//         minlegth: 1,
-//         trim: true
-//     },
-// });
-
 const createTeamCrud = function (app) {
 
     /** Team resource routes **/

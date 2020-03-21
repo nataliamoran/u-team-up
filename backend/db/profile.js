@@ -22,6 +22,7 @@ module.exports = (mongoose) => {
         image: ObjectId,
         location: String,
         pastProject: [String],
+        email: String,
     });
 
     return mongoose.model('Profile', ProfileSchema);

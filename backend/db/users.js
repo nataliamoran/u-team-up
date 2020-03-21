@@ -18,6 +18,10 @@ module.exports = (mongoose) => {
             type: String,
             minlength: 1,
         },
+        email: {
+            type: String,
+            minlength: 1,
+        }
         type: { // user/admin
             type: String,
         },
