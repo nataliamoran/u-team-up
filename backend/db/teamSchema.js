@@ -19,7 +19,27 @@ module.exports = (mongoose) => {
             minlegth: 1,
             trim: true
         },
+        acceptNewApplications: {
+            type: Boolean,
+            required: true
+        },
         members:{
+            type: Array,
+            required: true
+        },
+        quizQuestions:{
+            type: Array,
+            required: true
+        },
+        applications:{
+            type: Array,
+            required: true
+        },
+        invitations:{
+            type: Array,
+            required: true
+        },
+        events:{
             type: Array,
             required: true
         }

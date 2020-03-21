@@ -34,7 +34,12 @@ const createTeamCrud = function (app) {
             university: req.body.university,
             course: req.body.course,
             description: req.body.description,
-            members: req.body.members
+            acceptNewApplications: true,
+            members: req.body.members,
+            quizQuestions: [],
+            applications: [],
+            invitations: [],
+            events: []
         });
 
         team.save().then((result) => {

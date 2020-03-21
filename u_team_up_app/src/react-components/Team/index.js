@@ -2,6 +2,7 @@ import React from "react";
 
 
 import "./styles.css";
+import {USERS_BACKEND} from "../../config";
 import TeamMemberPreviewList from "./../TeamMemberPreviewList";
 import Header from '../Header';
 import {Link} from "react-router-dom";
@@ -13,6 +14,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import SearchStudentForm from "../SearchStudentForm";
 import {filterUnits} from "../../actions/filterUnits";
+import {TEAMS_BACKEND} from "../../config";
 
 class Team extends React.Component {
 
@@ -22,10 +24,9 @@ class Team extends React.Component {
 
         this.state = {
             global: props.globalState,
-            quizApplication: [],
+            quizApplication: {},
             isInEditMode: false,
             isInAdminEditMode: false,
-            acceptNewApplications: true,
             teamExists: true,
             teamDescription: "",
             newQuizQuestion: "",
@@ -33,51 +34,56 @@ class Team extends React.Component {
             studentUniversity: "",
             studentCourse: "",
             // TODO: FETCH DATA FROM THE DB
-            team: props.teamId === '1' ? {
-                id: "1",
-                university: "UofT",
-                course: "CSC309",
-                description: "A+ group looking for a JS Jedi",
-                members: [
-                    {
-                        uid: "2",
-                        name: "Bob Bobson",
-                        university: "UofT",
-                        photo: "./static/bob2.png",
-                        profileLink: "/student-profile/2"
-                    },
-                    {
-                        uid: "1",
-                        name: "Alice Alison",
-                        university: "UofT",
-                        photo: "./static/alice.png",
-                        profileLink: "/student-profile"
-                    }
-                ],
-                quizQuestions: [
-                    "Which grade are you aiming for?",
-                    "How many hours per week are you planning to spend working on the project?"
-                ]
-            } : props.teamId === '2' ? {
-                id: "2",
-                university: "UofT",
-                course: "CSC207",
-                description: "Let's crash this course together!",
-                members: [
-                    {
-                        uid: "2",
-                        name: "Bob Bobson",
-                        university: "UofT",
-                        photo: "./static/bob2.png",
-                        profileLink: "/student-profile"
-                    }
-                ],
-                quizQuestions: [
-                    "Which programming languages do you know?",
-                    "Can you do weekly team meetings?",
-                    "Do you have a GitHub account?"
-                ]
-            } : null,
+            team: null,
+            // team: props.teamId === '1' ? {
+            //     _id: "1",
+            //     university: "UofT",
+            //     course: "CSC309",
+            //     description: "A+ group looking for a JS Jedi",
+            //     acceptNewApplications: true,
+            //     members: [
+            //         {
+            //             uid: "2",
+            //             name: "Bob Bobson",
+            //             university: "UofT",
+            //             photo: "./static/bob2.png",
+            //             profileLink: "/student-profile/2"
+            //         },
+            //         {
+            //             uid: "1",
+            //             name: "Alice Alison",
+            //             university: "UofT",
+            //             photo: "./static/alice.png",
+            //             profileLink: "/student-profile"
+            //         }
+            //     ],
+            //     quizQuestions: [
+            //         "Which grade are you aiming for?",
+            //         "How many hours per week are you planning to spend working on the project?"
+            //     ],
+            //     applications: []
+            // } : props.teamId === '2' ? {
+            //     _id: "2",
+            //     university: "UofT",
+            //     course: "CSC207",
+            //     description: "Let's crash this course together!",
+            //     acceptNewApplications: true,
+            //     members: [
+            //         {
+            //             uid: "2",
+            //             name: "Bob Bobson",
+            //             university: "UofT",
+            //             photo: "./static/bob2.png",
+            //             profileLink: "/student-profile"
+            //         }
+            //     ],
+            //     quizQuestions: [
+            //         "Which programming languages do you know?",
+            //         "Can you do weekly team meetings?",
+            //         "Do you have a GitHub account?"
+            //     ],
+            //     applications: []
+            // } : null,
             students: [
                 {
                     name: "Bob Bobson",
@@ -100,10 +106,28 @@ class Team extends React.Component {
         };
     }
 
+    componentDidMount() {
+        const url = TEAMS_BACKEND + "/" + this.props.teamId;
+
+        fetch(url)
+            .then((response) => response.json())
+            .then((json) => {
+                console.log("Team JSON");
+                console.log(json);
+                this.setState({
+                    team: json
+                });
+                console.log(this.state);
+            }).catch((error) => {
+            console.error(error)
+        });
+    }
+
     handleApplicationInput = event => {
         const target = event.target;
         const value = target.value;
-        this.state.quizApplication.push(value);
+        const name = target.name;
+        this.state.quizApplication[[name]] = value;
     };
 
     handleNewQuestionInput = event => {
@@ -116,7 +140,14 @@ class Team extends React.Component {
 
     submitApplication = () => {
         //TODO: save this.state.quizApplication to the DB
+        this.state.team.applications.push(
+            {
+                studentId: this.props.globalState.identity.uid,
+                application: this.state.quizApplication
+            });
         NotificationManager.success('Your application is successfully submitted')
+        console.log("team state");
+        console.log(this.state.team);
     };
 
     changeEditMode = () => {
@@ -133,9 +164,20 @@ class Team extends React.Component {
 
     handleAcceptApplicationsChange = () => {
         this.setState({
-            acceptNewApplications: !this.state.acceptNewApplications
+            isInEditMode: false,
+            team: {
+                _id: this.state.team._id,
+                university: this.state.team.university,
+                course: this.state.team.course,
+                description: this.state.teamDescription,
+                acceptNewApplications: !this.state.team.acceptNewApplications,
+                members: this.state.team.members,
+                quizQuestions: this.state.team.quizQuestions
+            }
         })
         //TODO Push updates to the DB
+        console.log("Accept Applications Change");
+        console.log(this.state.team);
     };
 
     handleEditInput = event => {
@@ -160,14 +202,42 @@ class Team extends React.Component {
         this.setState({
             isInEditMode: false,
             team: {
-                id: this.state.team.id,
+                _id: this.state.team._id,
                 university: this.state.team.university,
                 course: this.state.team.course,
                 description: this.state.teamDescription === "" ? this.state.team.description : this.state.teamDescription,
+                acceptNewApplications: this.state.team.acceptNewApplications,
                 members: this.state.team.members,
                 quizQuestions: this.state.team.quizQuestions
             }
         })
+    };
+
+    getTeamMembers = (membersIds) => {
+        let url;
+        const teamMembers = [];
+
+        membersIds.map( memberId => (
+            <div key={uid(
+                memberId
+            )}>
+                {url = USERS_BACKEND + "/" + memberId}
+                {
+                    fetch(url)
+                        .then((response) => response.json())
+                        .then((json) => {
+                            console.log("Team JSON");
+                            console.log(json);
+                            teamMembers.push(json);
+                            console.log(this.state);
+                        }).catch((error) => {
+                        console.error(error)
+                    })
+                }
+            </div>
+        ));
+
+        return teamMembers;
     };
 
     /* Method to delete a member */
@@ -317,7 +387,7 @@ class Team extends React.Component {
                             <p className="team_stop_accept_inv">Stop accepting new applications</p>
                             <Checkbox
                                 className="team_stop_accept_inv_checkbox"
-                                checked={!this.state.acceptNewApplications}
+                                checked={!this.state.team.acceptNewApplications}
                                 onChange={this.handleAcceptApplicationsChange}
                                 value="primary"
                                 inputProps={{'aria-label': 'primary checkbox'}}
@@ -440,7 +510,7 @@ class Team extends React.Component {
         // to show team config buttons to team members only
 
         if (team != null
-            && !(team.members.map(member => member.uid).filter(uid => uid === global.identity.uid).length === 0)) {
+            && !(team.members.filter(uid => uid === global.identity.uid).length === 0)) {
             editButton =
                 <Button variant="outlined" color="primary"
                         className="team_page__button" onClick={this.changeEditMode}>edit team profile</Button>
@@ -470,10 +540,11 @@ class Team extends React.Component {
 
         // Check the user id to determine if this user is a member of the team
         // to show quiz questions to non-members only
-        if ((global.identity.type === "user") &&
-            (this.state.acceptNewApplications === true) &&
-            team != null &&
-            (team.members.map(member => member.uid).filter(uid => uid === global.identity.uid).length === 0)) {
+        if ((global.identity.type === "user")
+            && team
+            && team.acceptNewApplications === true
+            && team.quizQuestions.length != 0
+            && (team.members.filter(uid => uid === global.identity.uid).length === 0)) {
             quizButton =
                 <div>
                     <Button
@@ -486,7 +557,7 @@ class Team extends React.Component {
                     </Button>
                     <NotificationContainer/>
                 </div>;
-        } else if (this.state.acceptNewApplications === false) {
+        } else if (team && team.acceptNewApplications === false) {
             quizButton =
                 <div><p className="applications_not_accepted">Sorry, currently we do not accept new applications</p>
                 </div>
@@ -512,7 +583,8 @@ class Team extends React.Component {
                             <div className="team_body">
                                 <h2 className="header__description">description:</h2>
                                 <p className="header__team_description">{team ? team.description : ""}</p>
-                                {team ? <TeamMemberPreviewList members={team.members}/> : null}
+
+                                {team ? <TeamMemberPreviewList members={this.getTeamMembers(team.members)}/> : null}
                                 <div className="quiz">
                                     <Grid className="quiz_table">
                                         {team ? this.state.team.quizQuestions.map(question => (
@@ -522,6 +594,7 @@ class Team extends React.Component {
                                                 <div className="quiz_question">
                                                     <TextField
                                                         id="filled-textarea"
+                                                        name={question}
                                                         label={question}
                                                         onChange={this.handleApplicationInput}
                                                         multiline

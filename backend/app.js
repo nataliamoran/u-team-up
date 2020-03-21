@@ -1,6 +1,6 @@
 'use strict';
 
-const team = require('./crud/team');
+const team = require('./routes/team');
 // const {mongoose} = require('./db/mongoose');
 // const {mongoose} = require('./db/global.uTeamUpMongooseHelper.mongoose');
 const express = require('express');
