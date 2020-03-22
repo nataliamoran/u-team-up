@@ -1,7 +1,13 @@
 .search_form_title{
     text-align: center;
+    letter-spacing: 2px;
 }
 
 .students-list__admin-view{
     text-align: center;
+}
+
+.search_student_member_view{
+    margin: auto;
+    width: 50%;
 }

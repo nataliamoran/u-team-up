@@ -201,7 +201,10 @@ class SearchStudent extends React.Component {
                     </div>
 
                     {/* Student Previews Table*/}
-                    <TeamMemberPreviewList members={this.state.filteredStudents}/>
+                    <div className="search_student_member_view">
+                        <TeamMemberPreviewList
+                            members={this.state.filteredStudents}/>
+                    </div>
                 </div>
             </div>
         );
