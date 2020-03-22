@@ -14,6 +14,9 @@ import Checkbox from "@material-ui/core/Checkbox";
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import SearchStudentForm from "../SearchStudentForm";
 import {filterUnits} from "../../actions/filterUnits";
+import {deleteTeamFromDB} from "../../actions/teamScripts";
+import {updateTeamDataInDB} from "../../actions/teamScripts";
+
 
 class Team extends React.Component {
 
@@ -34,55 +37,6 @@ class Team extends React.Component {
             studentCourse: "",
             // TODO: FETCH DATA FROM THE DB
             team: null,
-            // team: props.teamId === '1' ? {
-            //     _id: "1",
-            //     university: "UofT",
-            //     course: "CSC309",
-            //     description: "A+ group looking for a JS Jedi",
-            //     acceptNewApplications: true,
-            //     members: [
-            //         {
-            //             uid: "2",
-            //             name: "Bob Bobson",
-            //             university: "UofT",
-            //             photo: "./static/bob2.png",
-            //             profileLink: "/student-profile/2"
-            //         },
-            //         {
-            //             uid: "1",
-            //             name: "Alice Alison",
-            //             university: "UofT",
-            //             photo: "./static/alice.png",
-            //             profileLink: "/student-profile"
-            //         }
-            //     ],
-            //     quizQuestions: [
-            //         "Which grade are you aiming for?",
-            //         "How many hours per week are you planning to spend working on the project?"
-            //     ],
-            //     applications: []
-            // } : props.teamId === '2' ? {
-            //     _id: "2",
-            //     university: "UofT",
-            //     course: "CSC207",
-            //     description: "Let's crash this course together!",
-            //     acceptNewApplications: true,
-            //     members: [
-            //         {
-            //             uid: "2",
-            //             name: "Bob Bobson",
-            //             university: "UofT",
-            //             photo: "./static/bob2.png",
-            //             profileLink: "/student-profile"
-            //         }
-            //     ],
-            //     quizQuestions: [
-            //         "Which programming languages do you know?",
-            //         "Can you do weekly team meetings?",
-            //         "Do you have a GitHub account?"
-            //     ],
-            //     applications: []
-            // } : null,
             students: [
                 {
                     name: "Bob Bobson",
@@ -122,31 +76,6 @@ class Team extends React.Component {
         });
     }
 
-    updateTeamDataInDB = (data) => {
-        const url = TEAMS_BACKEND + '/' + this.state.team._id;
-
-        const request = new Request(url, {
-            method: 'PATCH',
-            body: JSON.stringify(data),
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-        });
-
-        fetch(request)
-            .then(function(res) {
-                if (res.status === 200) {
-                    console.log('Team data is updated in the DB')
-                } else {
-                    console.log('Could not update the team data in the DB');
-                }
-                console.log(res)
-            }).catch((error) => {
-            console.log(error)
-        });
-    };
-
     handleApplicationInput = event => {
         const target = event.target;
         const value = target.value;
@@ -177,7 +106,7 @@ class Team extends React.Component {
         let data = {
             applications: this.state.team.applications,
         };
-        this.updateTeamDataInDB(data);
+        updateTeamDataInDB(data, this.state.team._id);
         NotificationManager.success('Your application is successfully submitted')
 
         console.log("team state");
@@ -207,7 +136,7 @@ class Team extends React.Component {
         let data = {
             acceptNewApplications: this.state.team.acceptNewApplications,
         };
-        this.updateTeamDataInDB(data);
+        updateTeamDataInDB(data, this.state.team._id);
         console.log("Accept Applications Change");
         console.log(this.state.team);
     };
@@ -228,27 +157,7 @@ class Team extends React.Component {
         this.setState({
             teamExists: false
         });
-        const url = TEAMS_BACKEND + '/' + this.state.team._id;
-
-        const request = new Request(url, {
-            method: 'DELETE',
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-        });
-
-        fetch(request)
-            .then(function(res) {
-                if (res.status === 200) {
-                    console.log('Team is deleted from the DB')
-                } else {
-                    console.log('Could not delete the team from the DB');
-                }
-                console.log(res)
-            }).catch((error) => {
-            console.log(error)
-        });
+        deleteTeamFromDB(this.state.team._id);
     };
 
     updateInfo = () => {
@@ -266,7 +175,7 @@ class Team extends React.Component {
         let data = {
             description: this.state.team.description,
         };
-        this.updateTeamDataInDB(data);
+        updateTeamDataInDB(data, this.state.team._id);
     };
 
     getTeamMembers = (membersIds) => {
@@ -308,7 +217,7 @@ class Team extends React.Component {
         let data = {
             members: this.state.team.members,
         };
-        this.updateTeamDataInDB(data);
+        updateTeamDataInDB(data, this.state.team._id);
     };
 
     /* Method to add a member */
@@ -321,7 +230,7 @@ class Team extends React.Component {
         let data = {
             members: this.state.team.members,
         };
-        this.updateTeamDataInDB(data);
+        updateTeamDataInDB(data, this.state.team._id);
     };
 
     /* Method to remove a quiz question */
@@ -336,7 +245,7 @@ class Team extends React.Component {
         let data = {
             quizQuestions: this.state.team.quizQuestions,
         };
-        this.updateTeamDataInDB(data);
+       updateTeamDataInDB(data, this.state.team._id);
     };
 
     /* Method to add a quiz question */
@@ -349,7 +258,7 @@ class Team extends React.Component {
         let data = {
             quizQuestions: this.state.team.quizQuestions,
         };
-        this.updateTeamDataInDB(data);
+        updateTeamDataInDB(data, this.state.team._id);
     };
 
 
@@ -591,7 +500,7 @@ class Team extends React.Component {
                 <Button variant="outlined" color="primary"
                         className="team_page__button" onClick={this.changeEditMode}>edit team profile</Button>
             calendarButton =
-                <Link className="team_page__link" to={`/team/${team.id}/appointment`}>
+                <Link className="team_page__link" to={`/team/${team._id}/appointment`}>
                     <Button variant="outlined" color="primary"
                             className="team_page__button">team calendar</Button>
                 </Link>;
