@@ -127,7 +127,11 @@ class Team extends React.Component {
         const target = event.target;
         const value = target.value;
         const name = target.name;
-        this.state.quizApplication[[name]] = value;
+        const application = this.state.quizApplication;
+        application[[name]] = value;
+        this.setState({
+            quizApplication: application
+        })
     };
 
     handleNewQuestionInput = event => {
@@ -163,18 +167,12 @@ class Team extends React.Component {
     };
 
     handleAcceptApplicationsChange = () => {
+        const updatedTeam = this.state.team;
+        updatedTeam.acceptNewApplications = !this.state.team.acceptNewApplications;
         this.setState({
             isInEditMode: false,
-            team: {
-                _id: this.state.team._id,
-                university: this.state.team.university,
-                course: this.state.team.course,
-                description: this.state.teamDescription,
-                acceptNewApplications: !this.state.team.acceptNewApplications,
-                members: this.state.team.members,
-                quizQuestions: this.state.team.quizQuestions
-            }
-        })
+            team: updatedTeam
+        });
         //TODO Push updates to the DB
         console.log("Accept Applications Change");
         console.log(this.state.team);
@@ -199,17 +197,15 @@ class Team extends React.Component {
     };
 
     updateInfo = () => {
+        const updatedDescription = this.state.teamDescription === "" ?
+            this.state.team.description
+            :
+            this.state.teamDescription;
+        const updatedTeam = this.state.team;
+        updatedTeam.description = updatedDescription;
         this.setState({
             isInEditMode: false,
-            team: {
-                _id: this.state.team._id,
-                university: this.state.team.university,
-                course: this.state.team.course,
-                description: this.state.teamDescription === "" ? this.state.team.description : this.state.teamDescription,
-                acceptNewApplications: this.state.team.acceptNewApplications,
-                members: this.state.team.members,
-                quizQuestions: this.state.team.quizQuestions
-            }
+            team: updatedTeam
         })
     };
 
@@ -242,9 +238,11 @@ class Team extends React.Component {
 
     /* Method to delete a member */
     removeMember = (uid) => {
-        this.state.team.members = this.state.team.members.filter(member => member.uid !== uid);
+        const members = this.state.team.members.filter(member => member.uid !== uid);
+        const updatedTeam = this.state.team;
+        updatedTeam.members = members;
         this.setState({
-            team: this.state.team
+            team: updatedTeam
         })
         //TODO Push updates to the DB
     };
@@ -260,9 +258,11 @@ class Team extends React.Component {
 
     /* Method to remove a quiz question */
     removeQuizQuestion = (question) => {
-        this.state.team.quizQuestions = this.state.team.quizQuestions.filter(q => q !== question);
+        const updatedQuizQuestions = this.state.team.quizQuestions.filter(q => q !== question);
+        const updatedTeam = this.state.team;
+        updatedTeam.quizQuestions = updatedQuizQuestions;
         this.setState({
-            team: this.state.team
+            team: updatedTeam
         })
         //TODO Push updates to the DB
     };
@@ -509,7 +509,7 @@ class Team extends React.Component {
         // Check the user id to determine if this user is a member of the team
         // to show team config buttons to team members only
 
-        if (team != null
+        if (team !== null
             && !(team.members.filter(uid => uid === global.identity.uid).length === 0)) {
             editButton =
                 <Button variant="outlined" color="primary"
