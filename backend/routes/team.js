@@ -1,13 +1,13 @@
 // const {mongoose} = require('../db/mongoose')
-const { ObjectID } = require('mongodb');
+const {ObjectID} = require('mongodb');
 // const { Team } = require('../db/teamSchema')
-const { Team } = require('../db/mongoose');
+const {Team} = require('../db/mongoose');
 
 const createTeamCrud = function (app) {
 
     /** Team resource routes **/
 
-    app.post('/teams', (req, res) => {
+    app.post('/api/teams', (req, res) => {
 
         const team = new Team({
             university: req.body.university,
@@ -28,7 +28,7 @@ const createTeamCrud = function (app) {
         })
     });
 
-    app.get('/teams', (req, res) => {
+    app.get('/api/teams', (req, res) => {
         Team.find().then((teams) => {
             res.send({teams})
         }, (error) => {
@@ -36,7 +36,7 @@ const createTeamCrud = function (app) {
         })
     });
 
-    app.get('/teams/:id', (req, res) => {
+    app.get('/api/teams/:id', (req, res) => {
 
         const id = req.params.id;
 
@@ -57,7 +57,7 @@ const createTeamCrud = function (app) {
 
     });
 
-    app.delete('/teams/:id', (req, res) => {
+    app.delete('/api/teams/:id', (req, res) => {
         const id = req.params.id
 
         if (!ObjectID.isValid(id)) {
@@ -76,11 +76,9 @@ const createTeamCrud = function (app) {
         })
     });
 
-    app.patch('/teams/:id', (req, res) => {
+    app.patch('/api/teams/:id', (req, res) => {
         const id = req.params.id;
-
-        const {university, course, description} = req.body;
-        const body = {university, course, description};
+        const body = req.body;
 
         if (!ObjectID.isValid(id)) {
             res.status(404).send()
