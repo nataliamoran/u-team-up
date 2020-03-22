@@ -2,7 +2,7 @@ import React from "react";
 
 
 import "./styles.css";
-import {USERS_BACKEND} from "../../config";
+import {TEAMS_BACKEND, PROFILES_BACKEND} from "../../config";
 import TeamMemberPreviewList from "./../TeamMemberPreviewList";
 import Header from '../Header';
 import {Link} from "react-router-dom";
@@ -14,7 +14,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import SearchStudentForm from "../SearchStudentForm";
 import {filterUnits} from "../../actions/filterUnits";
-import {TEAMS_BACKEND} from "../../config";
 
 class Team extends React.Component {
 
@@ -123,6 +122,31 @@ class Team extends React.Component {
         });
     }
 
+    updateTeamDataInDB = (data) => {
+        const url = TEAMS_BACKEND + '/' + this.state.team._id;
+
+        const request = new Request(url, {
+            method: 'PATCH',
+            body: JSON.stringify(data),
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+        });
+
+        fetch(request)
+            .then(function(res) {
+                if (res.status === 200) {
+                    console.log('Team data is updated in the DB')
+                } else {
+                    console.log('Could not update the team data in the DB');
+                }
+                console.log(res)
+            }).catch((error) => {
+            console.log(error)
+        });
+    };
+
     handleApplicationInput = event => {
         const target = event.target;
         const value = target.value;
@@ -149,7 +173,13 @@ class Team extends React.Component {
                 studentId: this.props.globalState.identity.uid,
                 application: this.state.quizApplication
             });
+
+        let data = {
+            applications: this.state.team.applications,
+        };
+        this.updateTeamDataInDB(data);
         NotificationManager.success('Your application is successfully submitted')
+
         console.log("team state");
         console.log(this.state.team);
     };
@@ -174,6 +204,10 @@ class Team extends React.Component {
             team: updatedTeam
         });
         //TODO Push updates to the DB
+        let data = {
+            acceptNewApplications: this.state.team.acceptNewApplications,
+        };
+        this.updateTeamDataInDB(data);
         console.log("Accept Applications Change");
         console.log(this.state.team);
     };
@@ -193,7 +227,28 @@ class Team extends React.Component {
         // TODO: Update DB - remove the team data from the DB
         this.setState({
             teamExists: false
-        })
+        });
+        const url = TEAMS_BACKEND + '/' + this.state.team._id;
+
+        const request = new Request(url, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+        });
+
+        fetch(request)
+            .then(function(res) {
+                if (res.status === 200) {
+                    console.log('Team is deleted from the DB')
+                } else {
+                    console.log('Could not delete the team from the DB');
+                }
+                console.log(res)
+            }).catch((error) => {
+            console.log(error)
+        });
     };
 
     updateInfo = () => {
@@ -206,18 +261,23 @@ class Team extends React.Component {
         this.setState({
             isInEditMode: false,
             team: updatedTeam
-        })
+        });
+        //TODO: Push updates to the DB
+        let data = {
+            description: this.state.team.description,
+        };
+        this.updateTeamDataInDB(data);
     };
 
     getTeamMembers = (membersIds) => {
         let url;
         const teamMembers = [];
 
-        membersIds.map( memberId => (
+        membersIds.map(memberId => (
             <div key={uid(
                 memberId
             )}>
-                {url = USERS_BACKEND + "/" + memberId}
+                {url = PROFILES_BACKEND + "/" + memberId}
                 {
                     fetch(url)
                         .then((response) => response.json())
@@ -245,6 +305,10 @@ class Team extends React.Component {
             team: updatedTeam
         })
         //TODO Push updates to the DB
+        let data = {
+            members: this.state.team.members,
+        };
+        this.updateTeamDataInDB(data);
     };
 
     /* Method to add a member */
@@ -254,6 +318,10 @@ class Team extends React.Component {
             team: this.state.team
         })
         //TODO Push updates to the DB
+        let data = {
+            members: this.state.team.members,
+        };
+        this.updateTeamDataInDB(data);
     };
 
     /* Method to remove a quiz question */
@@ -263,8 +331,12 @@ class Team extends React.Component {
         updatedTeam.quizQuestions = updatedQuizQuestions;
         this.setState({
             team: updatedTeam
-        })
+        });
         //TODO Push updates to the DB
+        let data = {
+            quizQuestions: this.state.team.quizQuestions,
+        };
+        this.updateTeamDataInDB(data);
     };
 
     /* Method to add a quiz question */
@@ -274,6 +346,10 @@ class Team extends React.Component {
             team: this.state.team
         })
         //TODO Push updates to the DB
+        let data = {
+            quizQuestions: this.state.team.quizQuestions,
+        };
+        this.updateTeamDataInDB(data);
     };
 
 
