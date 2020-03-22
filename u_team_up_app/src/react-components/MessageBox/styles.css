@@ -1,15 +1,19 @@
-.message_box__message_content
-{
+.message_box__message_content {
     margin-left: 30px;
 }
 
-.message_box__message
-{
-    margin-left: 10px;
-    margin-bottom: 10px;
+.message_box__message {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+.message_box__header {
+    text-align: center;
+    letter-spacing: 2px;
+    margin: 20px;
 }
 
-.message_box_message_unread
-{
-    background-color: #FDE8D4;
+.message_box_message_unread {
+    background-color: #fde8d4;
+    padding: 10px;
 }
