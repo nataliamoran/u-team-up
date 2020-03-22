@@ -1,13 +1,12 @@
-.navigator__header_line
-{
+.navigator__header_line {
     display: block;
     width: 100%;
-    border-bottom: 1px solid #958798;
+    border-bottom: 2px solid #d6d6d6;
     min-height: 3em;
     height: max-content;
+    background-color: #f1f1f1;
 }
 
-.navigator__header_left
-{
+.navigator__header_left {
     float: left;
 }
