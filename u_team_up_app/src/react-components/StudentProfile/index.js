@@ -182,7 +182,7 @@ class StudentProfile extends React.Component {
                                 />
                             </h2>
 
-                            <h4>University:</h4>
+                            <h4 className="student_profile_h4">University:</h4>
                             <ViewOrEdit
                                 editing={editingInfo}
                                 className="student_profile__input"
@@ -192,7 +192,7 @@ class StudentProfile extends React.Component {
                                 name="university"
                             />
 
-                            <h4>Year of Study:</h4>
+                            <h4 className="student_profile_h4">Year of Study:</h4>
                             <ViewOrEdit
                                 editing={editingInfo}
                                 className="student_profile__input"
@@ -202,7 +202,7 @@ class StudentProfile extends React.Component {
                                 name="yearOfStudy"
                             />
 
-                            <h4>Major of Study:</h4>
+                            <h4 className="student_profile_h4">Major of Study:</h4>
                             <ViewOrEdit
                                 editing={editingInfo}
                                 className="student_profile__input"
@@ -214,7 +214,7 @@ class StudentProfile extends React.Component {
                         </div>
 
                         <div className="taken inner">
-                            <h4>Courses Taken:</h4>
+                            <h4 className="student_profile_h4">Courses Taken:</h4>
                             <ViewOrEdit
                                 editing={editingInfo}
                                 className="student_profile__input"
@@ -226,7 +226,7 @@ class StudentProfile extends React.Component {
                         </div>
 
                         <div className="taking inner">
-                            <h4>Currently Taking:</h4>
+                            <h4 className="student_profile_h4">Currently Taking:</h4>
                             <ViewOrEdit
                                 editing={editingInfo}
                                 className="student_profile__input"
@@ -238,14 +238,14 @@ class StudentProfile extends React.Component {
                         </div>
 
                         <div className="current-teams inner">
-                            <h4>Current Teams:</h4>
+                            <h4 className="student_profile_h4">Current Teams:</h4>
                             <p>
                                 {this.state.currentTeams}
                             </p>
                         </div>
 
                         <div className="reviews inner">
-                            <h4>Reviews:</h4>
+                            <h4 className="student_profile_h4">Reviews:</h4>
                             <p>
                                 { this.state.reviews
                                   .map(review =>
@@ -269,7 +269,7 @@ class StudentProfile extends React.Component {
                         </div>
 
                         <div className="description inner">
-                            <h4>Description:</h4>
+                            <h4 className="student_profile_h4">Description:</h4>
                             <ViewOrEdit
                                 editing={editingInfo}
                                 className="student_profile__input"
@@ -281,7 +281,7 @@ class StudentProfile extends React.Component {
                         </div>
 
                         <div className="more-info inner">
-                            <h4>Location:</h4>
+                            <h4 className="student_profile_h4">Location:</h4>
                             <ViewOrEdit
                                 editing={editingInfo}
                                 className="student_profile__input"
@@ -291,7 +291,7 @@ class StudentProfile extends React.Component {
                                 name="location"
                             />
 
-                            <h4>GPA:</h4>
+                            <h4 className="student_profile_h4">GPA:</h4>
                             <ViewOrEdit
                                 editing={editingInfo}
                                 className="student_profile__input"
@@ -301,7 +301,7 @@ class StudentProfile extends React.Component {
                                 name="gpa"
                             />
 
-                            <h4>Past Project:</h4>
+                            <h4 className="student_profile_h4">Past Project:</h4>
                             <ViewOrEdit
                                 multiline={true}
                                 editing={editingInfo}
@@ -314,7 +314,7 @@ class StudentProfile extends React.Component {
                         </div>
 
                         <div className="experience inner">
-                            <h4>Experience:</h4>
+                            <h4 className="student_profile_h4">Experience:</h4>
                             <ViewOrEdit
                                 multiline={true}
                                 editing={editingInfo}
@@ -324,7 +324,7 @@ class StudentProfile extends React.Component {
                                 onChange={this.handleEditInput}
                                 name="experience"
                             />
-                            <h4>Resume: Link</h4>
+                            <h4 className="student_profile_h4">Resume: Link</h4>
                         </div>
 
                         { isMe &&

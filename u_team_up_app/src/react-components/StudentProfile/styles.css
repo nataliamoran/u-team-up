@@ -3,7 +3,7 @@
     padding-left: 250px;
     width: 40%;
     margin-top: 160px;
-    margin-bottom:40px;
+    margin-bottom: 40px;
 }
 
 .right-box {
@@ -13,29 +13,26 @@
     margin-top: 125px;
 }
 
-
 .inner {
-    border: solid #283b63 3px;
+    border: solid #958798 3px;
+    border-radius: 1%;
     margin-top: 20px;
     padding: 10px 10px;
 }
 
-
 .profile-pic {
     top: 80px;
-	left: 270px;
-	width: 170px;
-	border-radius: 50%;
-	border-style: solid;
-	border-color: white;
-	position: absolute;
+    left: 270px;
+    width: 170px;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: white;
+    position: absolute;
 }
-
 
 .notifications {
     text-align: right;
 }
-
 
 .student_profile__input {
     border: 3px solid #fde8d4;
@@ -44,15 +41,11 @@
     padding: 15px;
     width: 80%;
     outline: none;
-
-
 }
 
-
-.student_profile__input[type=text]:focus {
-  border: 3px solid #f76073;
+.student_profile__input[type="text"]:focus {
+    border: 3px solid #f76073;
 }
-
 
 .student_profile__button {
     border-radius: 50px;
@@ -60,7 +53,6 @@
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
-    /* font-family: serif; */
     line-height: 1;
     padding: 15px 15px;
 }
@@ -76,4 +68,8 @@
     padding: 15px;
     width: 80%;
     outline: none;
+}
+
+.student_profile_h4 {
+    color: #283b63;
 }
