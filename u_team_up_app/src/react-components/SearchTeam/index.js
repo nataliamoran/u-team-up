@@ -88,7 +88,7 @@ class SearchTeam extends React.Component {
                 members: this.state.studentUid ? [this.state.studentUid ] : []
             };
             const request = new Request(url, {
-                method: 'post',
+                method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
