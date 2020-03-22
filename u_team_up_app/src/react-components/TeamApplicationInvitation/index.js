@@ -79,9 +79,11 @@ class TeamApplicationInvitation extends React.Component {
         return (
             <div className="team_application_invitation_view">
                 <h1 className="search_form_title">Team Applications</h1>
-                <ApplicationPreviewList
-                    applications={this.state.filteredApplications}
-                />
+                <div className="team_application_view">
+                    <ApplicationPreviewList
+                        applications={this.state.filteredApplications}
+                    />
+                </div>
 
                 <h1 className="search_form_title">Team Invitations</h1>
                 <div className="search_student_form">
@@ -91,19 +93,23 @@ class TeamApplicationInvitation extends React.Component {
                         addInvitations={() => addInvitations(this)}
                     />
                 </div>
-                <table className="headers">
-                    <tr>
-                        <td className="name">
-                            <h2>Name</h2>
-                        </td>
-                        <td className="status">
-                            <h2>Status</h2>
-                        </td>
-                    </tr>
-                </table>
-                <InvitationPreviewList
-                    invitations={this.state.filteredInvitations}
-                />
+
+                <div className="team_invitation_view">
+                    <table className="headers">
+                        <tr>
+                            <td className="name">
+                                <h2>Name</h2>
+                            </td>
+                            <td className="status">
+                                <h2>Status</h2>
+                            </td>
+                        </tr>
+                    </table>
+                    <InvitationPreviewList
+                        invitations={this.state.filteredInvitations}
+                    />
+                </div>
+
             </div>
         );
     }

@@ -21,3 +21,14 @@
 .team_application_invitation_view {
     text-align: center;
 }
+
+.team_application_view {
+    margin: auto;
+    width: 50%;
+}
+
+.team_invitation_view {
+    margin: auto;
+    width: 50%;
+    padding-bottom: 40px;
+}
