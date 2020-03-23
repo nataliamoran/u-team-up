@@ -119,7 +119,7 @@ class SearchStudent extends React.Component {
                                 multiline
                             />
                             <Button
-                                variant="contained"
+                                variant="outlined"
                                 color="primary"
                                 className="new_team_button"
                                 onClick={this.createStudent}
