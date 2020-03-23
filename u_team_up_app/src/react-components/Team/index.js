@@ -276,7 +276,16 @@ class Team extends React.Component {
     /* Method to show team deletion confirmation view */
     renderDeletionConfirmation = () => {
         return (
+            <div className="deletion_confirmation__view">
             <h2 id="deletion_confirmation">Team is successfully deleted</h2>
+                <Link className="join__link" to={`/`}>
+                <Button
+                    variant="outlined"
+                    color="primary"
+                    className="team_page__button">Back to searching teams
+                </Button>
+                </Link>
+            </div>
         )
     };
 
