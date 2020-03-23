@@ -2,7 +2,7 @@ import React from "react";
 
 
 import "./styles.css";
-import {TEAMS_BACKEND, PROFILES_BACKEND} from "../../config";
+import {PROFILES_BACKEND, TEAMS_BACKEND} from "../../config";
 import TeamMemberPreviewList from "./../TeamMemberPreviewList";
 import Header from '../Header';
 import {Link} from "react-router-dom";
@@ -14,8 +14,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import SearchStudentForm from "../SearchStudentForm";
 import {filterUnits} from "../../actions/filterUnits";
-import {deleteTeamFromDB} from "../../actions/teamScripts";
-import {updateTeamDataInDB} from "../../actions/teamScripts";
+import {deleteTeamFromDB, updateTeamDataInDB} from "../../actions/teamScripts";
 
 
 class Team extends React.Component {
@@ -129,7 +128,6 @@ class Team extends React.Component {
         const updatedTeam = this.state.team;
         updatedTeam.acceptNewApplications = !this.state.team.acceptNewApplications;
         this.setState({
-            isInEditMode: false,
             team: updatedTeam
         });
         //TODO Push updates to the DB
@@ -245,7 +243,7 @@ class Team extends React.Component {
         let data = {
             quizQuestions: this.state.team.quizQuestions,
         };
-       updateTeamDataInDB(data, this.state.team._id);
+        updateTeamDataInDB(data, this.state.team._id);
     };
 
     /* Method to add a quiz question */
@@ -277,13 +275,13 @@ class Team extends React.Component {
     renderDeletionConfirmation = () => {
         return (
             <div className="deletion_confirmation__view">
-            <h2 id="deletion_confirmation">Team is successfully deleted</h2>
+                <h2 id="deletion_confirmation">Team is successfully deleted</h2>
                 <Link className="join__link" to={`/`}>
-                <Button
-                    variant="outlined"
-                    color="primary"
-                    className="team_page__button">Back to searching teams
-                </Button>
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        className="team_page__button">Back to searching teams
+                    </Button>
                 </Link>
             </div>
         )
@@ -377,15 +375,15 @@ class Team extends React.Component {
                                 </div>
                             </div>
                             <hr className="team_hr"/>
-
-                            <p className="team_stop_accept_inv">Stop accepting new applications</p>
-                            <Checkbox
-                                className="team_stop_accept_inv_checkbox"
-                                checked={!this.state.team.acceptNewApplications}
-                                onChange={this.handleAcceptApplicationsChange}
-                                value="primary"
-                                inputProps={{'aria-label': 'primary checkbox'}}
-                            />
+                            <h4 className="edit_team_page__title">Stop accepting applications</h4>
+                            <div className="team_stop_accept_inv_checkbox">
+                                <Checkbox
+                                    checked={!this.state.team.acceptNewApplications}
+                                    onChange={this.handleAcceptApplicationsChange}
+                                    value="primary"
+                                    inputProps={{'aria-label': 'primary checkbox'}}
+                                />
+                            </div>
                         </Grid>
                         <div className="edit_team_page__buttons">
 
