@@ -2,9 +2,8 @@
 
 module.exports = function (req, res, next) {
     req.args = {
-        ...(['GET', 'DELETE'].includes(req.method)
-            ? req.query
-            : req.body),
+        ...req.query,
+        ...req.body,
     };
 
     next();

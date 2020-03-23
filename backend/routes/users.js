@@ -1,7 +1,9 @@
-const { Profile } = require('../db/mongoose');
+const { mongoose, Profile, User, Auth, Team } = require('../db/mongoose');
+
+const debug = console.log;
 
 module.exports = {
-    '/user': {
+    '/api/user': {
         get: async (req, res) => {
             const user = await Profile.findById(req.args.id).exec();
             if (!user) {
@@ -33,9 +35,35 @@ module.exports = {
 
             return user;
         },
+        delete: async (req, res) => {
+            // TODO authorize user to delete their own account
+            debug(req.identity.type);
+            if (req.identity.type !== 'admin'
+                /* && req.identity.uid !== req.args.id */) {
+                throw 401;
+            }
+
+            const id = req.args.id;
+            if (! mongoose.isValidObjectId(id)) {
+                throw 400;
+            }
+
+            const user = await User.findById(id);
+            if (! user) {
+                throw 404;
+            }
+            const username = user.username;
+            await user.remove();
+            await Profile.findByIdAndRemove(id);
+            await Auth.deleteMany({ username });
+            const teams = await Team.updateMany(
+                { members: id }, { members: { $pull: id } });
+
+            return 200;
+        },
     },
-    '/users': {
-        get: async (req, res) =>
-            await Profile.find().exec(),
+
+    '/api/users': {
+        get: async (req, res) => await Profile.find(req.args).exec(),
     },
 };
