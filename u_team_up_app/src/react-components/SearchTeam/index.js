@@ -40,7 +40,7 @@ class SearchTeam extends React.Component {
         };
 
         this.state.filteredTeams = Array.from(this.state.teams);
-        if(props.state.identity.type === "user"){
+        if (props.state.identity.type === "user") {
             this.state.studentUid = props.state.identity.uid;
         }
         console.log('starting SearchTeam');
@@ -85,7 +85,7 @@ class SearchTeam extends React.Component {
                 university: this.state.newTeamUniversity,
                 course: this.state.newTeamCourse,
                 description: this.state.newTeamDescription,
-                members: this.state.studentUid ? [this.state.studentUid ] : []
+                members: this.state.studentUid ? [this.state.studentUid] : []
             };
             const request = new Request(url, {
                 method: 'POST',
@@ -161,8 +161,21 @@ class SearchTeam extends React.Component {
         });
     };
 
+    isTeamMember = (team) => {
+        const member = team.members.filter(m => m === this.props.state.identity.uid);
+        const res = member.length !== 0;
+        console.log("isTeamMember");
+        console.log(res);
+        console.log(this.props.state.identity.uid);
+        console.log(team.members);
+        console.log(member);
+        return res;
+    };
+
     render() {
         let createTeamForm;
+        let teamButton;
+        let backgroundImg;
         console.log("redering");
 
         /* Show Create Team Form to registered users only*/
@@ -212,6 +225,28 @@ class SearchTeam extends React.Component {
                 </div>
         }
 
+        const displayTeamButton = (team) => {
+            const isMember = this.isTeamMember(team);
+            if (this.props.state.loginStatus === "guest"
+                || this.props.state.loginStatus === "admin"
+                || isMember) {
+                teamButton =
+                    <Button variant="outlined" color="primary"
+                            className="join__button">Open</Button>
+            } else {
+                teamButton =
+                    <Button variant="outlined" color="primary"
+                            className="join__button">Join</Button>
+            }
+
+            if (this.props.state.loginStatus === "user" && this.isTeamMember(team)) {
+                backgroundImg = "button__bg-image__member";
+            } else {
+                backgroundImg = "button__bg-image";
+            }
+
+        };
+
         return (
             <div className="search_team_view">
 
@@ -258,6 +293,7 @@ class SearchTeam extends React.Component {
                         <div key={uid(
                             teamPreview
                         )}>
+                            {displayTeamButton(teamPreview)}
                             <div id="wrapper">
                                 <div className="team-preview__bg-image">
                                     <Table className="team-preview">
@@ -278,15 +314,14 @@ class SearchTeam extends React.Component {
                                         </TableBody>
                                     </Table>
                                 </div>
-                                <div className="button__bg-image">
+                                <div className={backgroundImg}>
                                     <Table className="button-preview">
                                         <TableBody>
                                             <TableRow>
                                                 <TableCell component="td" scope="row" className="button_cell">
 
                                                     <Link className="join__link" to={`/team/${teamPreview._id}`}>
-                                                        <Button variant="outlined" color="primary"
-                                                                className="join__button">Join</Button>
+                                                        {teamButton}
                                                     </Link>
                                                 </TableCell>
                                             </TableRow>

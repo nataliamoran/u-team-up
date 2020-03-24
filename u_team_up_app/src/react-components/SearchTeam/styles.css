@@ -80,6 +80,18 @@
 }
 
 
+.button__bg-image__member{
+    background-size: contain;
+    height: 200px;
+    width: 200px;
+
+    background-image: url("./static/green-puzzle-piece.png");
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 70px;
+}
+
+
 .button-preview td {
     border-bottom-style: hidden !important;
     padding: 70px 55px 80px 55px;
