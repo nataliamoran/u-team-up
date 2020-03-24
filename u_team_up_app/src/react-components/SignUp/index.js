@@ -1,6 +1,7 @@
 import React from "react";
 import "./styles.css";
 import { withRouter } from "react-router-dom";
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 class Signup extends React.Component {
     constructor(props) {
@@ -21,9 +22,12 @@ class Signup extends React.Component {
     }
 
     handleSubmit(e) {
-        const { password, confirmedPassword } = this.state;
-        if (password !== confirmedPassword) {
-            alert("Passwords do not match");
+        const { username, university, email, password, confirmedPassword } = this.state;
+
+        if (!username || !university || !email || !password || !confirmedPassword) {
+            NotificationManager.error('Field cannot be empty')
+        } else if (password !== confirmedPassword) {
+            NotificationManager.error('Password do not match')
         } else {
             var identity = {
                 type: "user",
@@ -39,10 +43,10 @@ class Signup extends React.Component {
     }
 
     handleChange(e) {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-    }
+            this.setState({
+                [e.target.name]: e.target.value
+            });
+        }
 
     render() {
         return (
@@ -124,6 +128,7 @@ class Signup extends React.Component {
                         <button className="signup__button" type="submit">
                             SignUp
                         </button>
+                        <NotificationContainer/>
                     </form>
                 </div>
             </div>
