@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import "./styles.css";
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 class Login extends React.Component {
     constructor(props) {
@@ -39,7 +40,7 @@ class Login extends React.Component {
         );
 
         if (matchUsers.length === 0) {
-            alert("Username does not exist");
+            NotificationManager.error('Username does not exist')
         } else {
             if (matchUsers[0].password === password) {
                 // TODO: UPLOAD
@@ -56,7 +57,6 @@ class Login extends React.Component {
                         uid: matchUsers[0].uid // TODO: what will be the id?
                     };
                 }
-
                 this.loginCallback(identity);
 
                 this.props.history.goBack();
@@ -103,6 +103,7 @@ class Login extends React.Component {
                         <button className="login__button" type="submit">
                             Login
                         </button>
+                        <NotificationContainer/>
                     </form>
                     <p>Don't have an account?</p>
                     <p>
