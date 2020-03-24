@@ -2,7 +2,7 @@ import React from "react";
 
 
 import "./styles.css";
-import {PROFILES_BACKEND, TEAMS_BACKEND} from "../../config";
+import {PROFILES_BACKEND, TEAMS_BACKEND, USERS_BACKEND} from "../../config";
 import TeamMemberPreviewList from "./../TeamMemberPreviewList";
 import Header from '../Header';
 import {Link} from "react-router-dom";
@@ -184,7 +184,7 @@ class Team extends React.Component {
             <div key={uid(
                 memberId
             )}>
-                {url = PROFILES_BACKEND + "/" + memberId}
+                {url = USERS_BACKEND + "/" + memberId}
                 {
                     fetch(url)
                         .then((response) => response.json())
