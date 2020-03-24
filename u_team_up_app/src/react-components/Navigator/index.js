@@ -2,6 +2,7 @@ import React from 'react';
 
 import Header from '../Header';
 import Menu from '../Menu';
+import NavBar from '../NavBar';
 import { Link, withRouter } from 'react-router-dom';
 import Button from '@material-ui/core/Button/Button';
 import './styles.css';
@@ -21,6 +22,9 @@ class Navigator extends React.Component {
     }
 
     render() {
+
+
+
         return (
             <div className='navigator'>
                 <div className='navigator__header_line'>
@@ -34,7 +38,9 @@ class Navigator extends React.Component {
                     
                     <Header type='main' title={<Link to='/'>UTeamUp!</Link>}
                             className='navigator__header_title'>
-                        <Menu loginStatus={ this.props.globalState.loginStatus }
+                        {/*<Menu loginStatus={ this.props.globalState.loginStatus }*/}
+                              {/*identity={ this.props.globalState.identity } />*/}
+                        <NavBar loginStatus={ this.props.globalState.loginStatus }
                               identity={ this.props.globalState.identity } />
                     </Header>
                 </div>
