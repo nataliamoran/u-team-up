@@ -197,30 +197,9 @@ class AdminDashboard extends React.Component {
             <div className="admin_dashboard_view">
                 <div className="admin_options">
                     <h1 className="welcome_back">Welcome Back, admin!</h1>
-                    <h2>What would you like to do?</h2>
-                    <ul>
-                        <li>
-                            <a href="/adminDashboard#admin_list">
-                                View, Add, or Remove administrators
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/signup">Create a Student Profile</a>
-                        </li>
-                        <li>
-                            <a href="/adminDashboard#university_list">
-                                View, Add, or Remove universities
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/adminDashboard#course_list">
-                                View, Add, or Remove courses
-                            </a>
-                        </li>
-                    </ul>
                 </div>
                 <div id="admin_list">
-                    <h1 className="search_form_title">Administrators: </h1>
+                    <h1 className="search_form_title">view, add, remove administrators</h1>
                     <table className="headers">
                         <tr>
                             <td className="name">
