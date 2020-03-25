@@ -5,7 +5,7 @@ const debug = console.log;
 module.exports = {
     '/api/user': {
         get: async (req, res) => {
-            const user = await Profile.findById(req.args.id).exec();
+            const user = await Profile.findById(req.args.username);
             if (!user) {
                 throw 404;
             } else {
@@ -14,19 +14,23 @@ module.exports = {
         },
         put: async (req, res) => {
             if (req.identity.type !== 'admin'
-                && req.identity.uid !== req.args.id) {
+                && req.identity.username !== req.args.username) {
                 // do not allow users to modify others' profile
                 throw 401;
             }
 
             // now it is authorized
-            const user = (await Profile.findById(req.args.id).then())
-                  || new Profile({ _id: req.args.id });
+            const user = await Profile.findById(req.args.username);
+            if (! user) {
+                throw 404;
+            }
+
             console.log('user profile:', user);
             console.log(req.args);
+
             Object.keys(req.args)
             // do not allow to change id
-                .filter(k => k !== 'id' && k !== '_id')
+                .filter(k => k !== 'username' && k !== '_id')
                 .forEach(k => user[k] = req.args[k]);
 
             console.log('new user profile:', user);
@@ -43,27 +47,25 @@ module.exports = {
                 throw 401;
             }
 
-            const id = req.args.id;
-            if (! mongoose.isValidObjectId(id)) {
-                throw 400;
-            }
+            const username = req.args.username;
 
-            const user = await User.findById(id);
+            const user = await User.findById(username);
             if (! user) {
                 throw 404;
             }
-            const username = user.username;
             await user.remove();
             await Profile.findByIdAndRemove(id);
             await Auth.deleteMany({ username });
             const teams = await Team.updateMany(
-                { members: id }, { members: { $pull: id } });
+                { members: username }, { members: { $pull: username } });
 
             return 200;
         },
     },
 
     '/api/users': {
-        get: async (req, res) => await Profile.find(req.args).exec(),
+        get: async (req, res) =>
+            // https://github.com/Automattic/mongoose/issues/6427
+            await Profile.find(Profile.translateAliases(req.args)),
     },
 };

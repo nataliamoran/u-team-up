@@ -2,14 +2,12 @@ module.exports = (mongoose) => {
     const { ObjectId } = mongoose;
 
     const ProfileSchema = new mongoose.Schema({
-        username: {
+        _id: {
             type: String,
-            unique: true,
-            minlength: 1,
+            alias: 'username',
         },
         fullname: {
             type: String,
-            minlength: 1,
         },
         university: ObjectId,
         year: Number,

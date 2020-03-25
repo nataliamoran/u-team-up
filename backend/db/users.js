@@ -9,16 +9,11 @@ module.exports = (mongoose) => {
           .then(salt => bcrypt.hash(password, salt));
 
     const UserSchema = new mongoose.Schema({
-        username: {
+        _id: {
             type: String,
-            unique: true,
-            minlength: 1,
+            alias: 'username',
         },
         password: {
-            type: String,
-            minlength: 1,
-        },
-        email: {
             type: String,
             minlength: 1,
         },

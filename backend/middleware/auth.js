@@ -1,6 +1,6 @@
 const debug = console.log;
 
-const { User, Auth } = require('../db/mongoose');
+const { User, Auth, Profile } = require('../db/mongoose');
 
 const randomToken = require('random-token');
 const length = 32;
@@ -31,6 +31,8 @@ async function signup(req, res) {
     try {
         const user = new User({ username, password, type: 'user' });
         await user.save();
+        const profile = new Profile({ username });
+        await profile.save();
         res.send(user);
     } catch (e) {
         res.status(500).send({ error: e });
@@ -41,9 +43,13 @@ async function signup(req, res) {
 async function login(req, res) {
     const { username, password } = req.args;
 
-    const user = await User.findOne({ username });
-    if (! user ||
-        ! (await bcrypt.compare(password, user.password))) {
+    const user = await User.findById(username);
+    if (!user) {
+        res.status(401).send({ error: 'No such user.' });
+        return;
+    }
+
+    if (! (await bcrypt.compare(password, user.password))) {
         res.status(401)
             .send({ error: 'Username or password is not correct.' });
         return;
@@ -72,12 +78,13 @@ async function injectIdentity(req, res) {
         delete req.args.token;
         const auth = await Auth.findOne({ token });
         if (auth) {
-            const user = await User.findOne({ username: auth.username });
+            const user = await User.findById(auth.username);
             if (user) {
                 req.identity = {
                     type: user.type,
                     username: user.username,
-                    uid: user._id.toString(),
+                    // should be deprecated
+                    uid: user.username,
                 };
                 return;
             }
