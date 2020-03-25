@@ -1,6 +1,7 @@
 'use strict';
 
 const team = require('./routes/team');
+const image = require('./routes/image')
 // const {mongoose} = require('./db/mongoose');
 // const {mongoose} = require('./db/global.uTeamUpMongooseHelper.mongoose');
 const express = require('express');
@@ -26,6 +27,9 @@ const wrap = require('./helper/response-wrapper');
 // cors middleware
 const cors = require('cors');
 app.use(cors());
+
+// image API routes
+image.createImageCrud(app);
 
 // create CRUD for Team
 team.createTeamCrud(app);
