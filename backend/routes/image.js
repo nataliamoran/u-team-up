@@ -1,4 +1,4 @@
-const { Image } = require("./db/image");
+const { Image } = require("../db/mongoose");
 
 // multipart middleware: allows you to access uploaded file from req.file
 const multipart = require("connect-multiparty");
