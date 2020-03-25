@@ -23,6 +23,7 @@
     "react-toastr": "^3.0.0",
     "react-uid": "^2.2.0",
     "semantic-ui-react": "^0.88.2",
+    "string-similarity": "^4.0.1",
     "toastr": "^2.1.4"
   },
   "scripts": {
