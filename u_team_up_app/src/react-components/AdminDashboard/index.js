@@ -199,7 +199,7 @@ class AdminDashboard extends React.Component {
                     <h1 className="welcome_back">Welcome Back, admin!</h1>
                 </div>
                 <div id="admin_list">
-                    <h1 className="search_form_title">view, add, remove administrators</h1>
+                    <h1 className="admin_dashboard__title">view, add, remove administrators</h1>
                     <table className="headers">
                         <tr>
                             <td className="name">
@@ -235,7 +235,7 @@ class AdminDashboard extends React.Component {
                     />
                 </div>
                 <div id="university_list">
-                    <h1 className="search_form_title">Universities: </h1>
+                    <h1 className="admin_dashboard__title">Universities: </h1>
                     <table className="headers1">
                         <tr>
                             <td className="name">
@@ -273,7 +273,7 @@ class AdminDashboard extends React.Component {
                     />
                 </div>
                 <div id="course_list">
-                    <h1 className="search_form_title">Courses: </h1>
+                    <h1 className="admin_dashboard__title">Courses: </h1>
                     <table className="headers1">
                         <tr>
                             <td className="name">
