@@ -33,7 +33,7 @@ async function signup(req, res) {
         await user.save();
         const profile = new Profile({ username });
         await profile.save();
-        res.send(user);
+        res.status(201).send();
     } catch (e) {
         res.status(500).send({ error: e });
         return;

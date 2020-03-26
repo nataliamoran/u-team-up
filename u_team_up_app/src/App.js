@@ -5,6 +5,7 @@ import "./App.css";
 
 import Login from "./react-components/Login";
 import SignUp from "./react-components/SignUp";
+import Logout from './react-components/Logout';
 import SearchTeam from "./react-components/SearchTeam";
 import SearchStudent from "./react-components/SearchStudent";
 import Team from "./react-components/Team";
@@ -59,6 +60,8 @@ class App extends React.Component {
                                 <Login loginCallback={this.setIdentity} />
                             )}
                         />
+                        <Route exact path='/logout'
+                               render={() => <Logout loginCallback={this.setIdentity}/> }/>
                         <Route
                             exact
                             path="/signup"

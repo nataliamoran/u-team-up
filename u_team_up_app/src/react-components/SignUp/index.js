@@ -2,6 +2,10 @@ import React from "react";
 import "./styles.css";
 import { withRouter } from "react-router-dom";
 import {NotificationContainer, NotificationManager} from 'react-notifications';
+import { SERVER_URL } from '../../config';
+
+
+const debug = console.log;
 
 class Signup extends React.Component {
     constructor(props) {
@@ -29,14 +33,22 @@ class Signup extends React.Component {
         } else if (password !== confirmedPassword) {
             NotificationManager.error('Password do not match')
         } else {
-            var identity = {
-                type: "user",
-                username: this.state.username,
-                uid: this.state.uid
-            };
-
-            this.loginCallback(identity);
-            this.props.history.goBack();
+            debug(username, password);
+            fetch(`${SERVER_URL}auth/signup`,
+                  { method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                  })
+                .then(async res => {
+                    if (! res.ok) { throw await res.json(); }
+                    this.props.history.goBack();
+                })
+                .catch(e => {
+                    debug(e);
+                    NotificationManager.error('Error: ' + JSON.stringify(e));
+                });
         }
 
         e.preventDefault();
