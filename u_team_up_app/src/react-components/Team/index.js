@@ -98,7 +98,7 @@ class Team extends React.Component {
         //TODO: save this.state.quizApplication to the DB
         this.state.team.applications.push(
             {
-                studentId: this.props.globalState.identity.uid,
+                studentUsername: this.props.globalState.identity.username,
                 application: this.state.quizApplication
             });
 
@@ -204,8 +204,8 @@ class Team extends React.Component {
     };
 
     /* Method to delete a member */
-    removeMember = (uid) => {
-        const members = this.state.team.members.filter(member => member.uid !== uid);
+    removeMember = (username) => {
+        const members = this.state.team.members.filter(member => member !== username);
         const updatedTeam = this.state.team;
         updatedTeam.members = members;
         this.setState({
@@ -326,7 +326,7 @@ class Team extends React.Component {
                                         {member.name}
                                         <button
                                             className="team_page__button"
-                                            onClick={this.removeMember.bind(this, member.uid)}>Remove
+                                            onClick={this.removeMember.bind(this, member)}>Remove
                                         </button>
                                     </div>
                                 ))}
@@ -426,7 +426,7 @@ class Team extends React.Component {
                                     {member.name}
                                     <button
                                         className="team_page__button"
-                                        onClick={this.removeMember.bind(this, member.uid)}>Remove
+                                        onClick={this.removeMember.bind(this, member)}>Remove
                                     </button>
 
 
@@ -502,7 +502,7 @@ class Team extends React.Component {
         // to show team config buttons to team members only
 
         if (team !== null
-            && !(team.members.filter(uid => uid === global.identity.uid).length === 0)) {
+            && !(team.members.filter(username => username === global.identity.username).length === 0)) {
             editButton =
                 <Button variant="outlined" color="primary"
                         className="team_page__button" onClick={this.changeEditMode}>edit team profile</Button>
@@ -536,7 +536,7 @@ class Team extends React.Component {
             && team
             && team.acceptNewApplications === true
             && team.quizQuestions.length !== 0
-            && (team.members.filter(uid => uid === global.identity.uid).length === 0)) {
+            && (team.members.filter(username => username === global.identity.username).length === 0)) {
             quizButton =
                 <div>
                     <Button

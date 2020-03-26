@@ -26,8 +26,8 @@ class SearchTeam extends React.Component {
 
         this.state = {
             global: props.state,
-            studentUid: null,
-            uid: 3,
+            studentUsername: null,
+            // uid: 3,
             newTeamCourse: "",
             newTeamDescription: "",
             newTeamUniversity: "",
@@ -41,13 +41,8 @@ class SearchTeam extends React.Component {
 
         this.state.filteredTeams = Array.from(this.state.teams);
         if (props.state.identity.type === "user") {
-            this.state.studentUid = props.state.identity.uid;
+            this.state.studentUsername = props.state.identity.username;
         }
-        console.log('starting SearchTeam');
-        console.log(this.state);
-        console.log("Teams Search: props state identity");
-        console.log(props.state.identity);
-
     }
 
     componentDidMount() {
@@ -141,18 +136,6 @@ class SearchTeam extends React.Component {
             NotificationManager.error('Please complete all fields')
             return;
         }
-        // this.state.teams.push({
-        //     university: this.state.newTeamUniversity,
-        //     course: this.state.newTeamCourse,
-        //     id: this.state.uid,
-        //     description: this.state.newTeamDescription
-        // });
-        // this.state.uid += 1;
-        // this.setState({
-        //     teams: this.state.teams,
-        //     filteredTeams: this.state.teams
-        // });
-
         //TODO Push updates to the DB
 
         this.addTeamToDB()
@@ -162,13 +145,8 @@ class SearchTeam extends React.Component {
     };
 
     isTeamMember = (team) => {
-        const member = team.members.filter(m => m === this.props.state.identity.uid);
+        const member = team.members.filter(m => m === this.props.state.identity.username);
         const res = member.length !== 0;
-        console.log("isTeamMember");
-        console.log(res);
-        console.log(this.props.state.identity.uid);
-        console.log(team.members);
-        console.log(member);
         return res;
     };
 
@@ -180,7 +158,7 @@ class SearchTeam extends React.Component {
 
         /* Show Create Team Form to registered users only*/
 
-        if (this.props.state.identity.uid !== "") {
+        if (this.props.state.identity.username !== "") {
             createTeamForm =
                 <div>
                     <h1 className="search_form_title">create new team</h1>
