@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
+import { withCookies } from 'react-cookie';
 import "./App.css";
 
 import Login from "./react-components/Login";
@@ -21,17 +22,13 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            auth: {
-                user: "user",
-                user2: "user2",
-                admin: "admin"
-            },
-            loginStatus: "guest", // guest, user, admin
+            loginStatus: props.cookies.get('type') || 'guest', // guest, user, admin
             identity: {
-                type: "guest",
-                username: "",
-                uid: ""
-            }
+                type: props.cookies.get('type') || 'guest',
+                username: props.cookies.get('username') || '',
+                get uid() { return this.username; },
+                token: props.cookies.get('token') || '',
+            },
         };
 
         this.setIdentity = this.setIdentity.bind(this);
@@ -40,6 +37,9 @@ class App extends React.Component {
     // @param: identity: const Object
     setIdentity(identity) {
         this.setState({ identity, loginStatus: identity.type });
+        this.props.cookies.set('token', identity.token);
+        this.props.cookies.set('username', identity.username);
+        this.props.cookies.set('type', identity.type);
     }
 
     render() {
@@ -153,4 +153,4 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default withCookies(App);

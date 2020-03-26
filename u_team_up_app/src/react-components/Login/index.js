@@ -2,7 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import "./styles.css";
+import { SERVER_URL } from '../../config';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
+
+const debug = console.log;
 
 class Login extends React.Component {
     constructor(props) {
@@ -11,12 +14,6 @@ class Login extends React.Component {
         this.state = {
             username: "",
             password: "",
-            users: [
-                // TODO: FETCH
-                { username: "user", password: "user", uid: "1" },
-                { username: "user2", password: "user2", uid: "2" },
-                { username: "admin", password: "admin", uid: "3" }
-            ]
         };
 
         this.loginCallback = this.props.loginCallback;
@@ -35,35 +32,34 @@ class Login extends React.Component {
         e.preventDefault();
 
         const { username, password } = this.state;
-        const matchUsers = this.state.users.filter(
-            u => u.username === username
-        );
 
-        if (matchUsers.length === 0) {
-            NotificationManager.error('Username does not exist')
-        } else {
-            if (matchUsers[0].password === password) {
-                // TODO: UPLOAD
-                var identity = {
-                    type: "user",
-                    username: matchUsers[0].username,
-                    uid: matchUsers[0].uid // TODO: what will be the id?
+        fetch(`${SERVER_URL}auth/login`,
+              { method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+              })
+            .then(async res => {
+                if (! res.ok) { throw await res.json(); }
+                return res.json();
+            })
+            .then(({ username, token, type }) => {
+                const identity = {
+                    type,
+                    username,
+                    uid: username,
+                    token,
                 };
-
-                if (matchUsers[0].password === "admin") {
-                    identity = {
-                        type: "admin",
-                        username: matchUsers[0].username,
-                        uid: matchUsers[0].uid // TODO: what will be the id?
-                    };
-                }
                 this.loginCallback(identity);
+                debug('logged in');
 
                 this.props.history.goBack();
-            } else {
-                alert("Wrong password");
-            }
-        }
+            })
+            .catch(e => {
+                debug(e);
+                NotificationManager.error('Error: ' + JSON.stringify(e));
+            });
     }
 
     render() {

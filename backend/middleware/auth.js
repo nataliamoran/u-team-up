@@ -61,7 +61,7 @@ async function login(req, res) {
             const auth = new Auth({ username, token });
             auth.save();
             res.status(201)
-                .send({ username, token });
+                .send({ username, token, type: user.type });
             return;
         } catch (e) {
             debug('Error generating token. Retrying.', retry);

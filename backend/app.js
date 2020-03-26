@@ -16,6 +16,10 @@ app.use((req, res, next) => {
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
+// cors middleware
+const cors = require('cors');
+app.use(cors());
+
 // combine params, query and/or body into args
 app.use(require('./middleware/args'));
 
@@ -23,10 +27,6 @@ app.use(require('./middleware/auth'));
 
 const rh = require('./helper/route-helper');
 const wrap = require('./helper/response-wrapper');
-
-// cors middleware
-const cors = require('cors');
-app.use(cors());
 
 // image API routes
 image.createImageCrud(app);
