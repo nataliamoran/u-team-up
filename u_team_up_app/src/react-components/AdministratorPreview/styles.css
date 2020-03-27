@@ -29,3 +29,9 @@
 	width: 500px;
 	font-size: 1.2em;
 }
+
+.administrator-preview2 {
+	border-width: thin;
+	border-color: #958798;
+	border-radius: 1%;
+}

@@ -200,7 +200,7 @@ class AdminDashboard extends React.Component {
                 </div>
                 <div>
                     <h1 className="admin_dashboard__title">view, add, remove administrators</h1>
-                        <table className="headers">
+                        <table className="admin_dashboard_headers">
                                 <tr>
                                     <td className="name">
                                         <h3>Name</h3>
