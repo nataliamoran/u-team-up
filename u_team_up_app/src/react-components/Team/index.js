@@ -15,6 +15,7 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import SearchStudentForm from "../SearchStudentForm";
 import {filterUnits} from "../../actions/filterUnits";
 import {deleteTeamFromDB, updateTeamDataInDB} from "../../actions/teamScripts";
+import {updateProfileData} from "../../actions/profileScripts";
 
 
 class Team extends React.Component {
@@ -163,22 +164,24 @@ class Team extends React.Component {
                 studentUsername: this.props.globalState.identity.username,
                 application: this.state.quizApplication
             });
-
         let team_data = {
             applications: this.state.team.applications,
         };
         // TODO get profile applications, add the new application and push to DB
 
-        // this.state.student.applications.push({
-        //     teamId: this.state.team._id,
-        //     application: this.state.quizApplication
-        // });
-        // let profile_data = {
-        //     applications: this.state.student.applications,
-        //     _id: this.props.globalState.identity.username
-        // };
+        this.state.student.applications.push({
+            teamId: this.state.team._id,
+            application: this.state.quizApplication
+        });
+        this.setState({
+            student: this.state.student
+        });
+        let profile_data = {
+            applications: this.state.student.applications,
+            _id: this.props.globalState.identity.username
+        };
         updateTeamDataInDB(team_data, this.state.team._id);
-        // updateProfileData(profile_data, this.props.globalState.identity.username);
+        updateProfileData(profile_data, this.props.globalState.identity);
         NotificationManager.success('Your application is successfully submitted')
 
         console.log("team state");

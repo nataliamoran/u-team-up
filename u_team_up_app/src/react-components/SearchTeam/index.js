@@ -5,7 +5,7 @@ import {uid} from "react-uid";
 
 
 import {filterUnits} from "../../actions/filterUnits";
-import {TEAMS_BACKEND} from "../../config";
+import {TEAMS_BACKEND, USER_BACKEND} from "../../config";
 
 
 import Table from "@material-ui/core/Table/Table";
