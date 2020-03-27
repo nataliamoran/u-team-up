@@ -28,7 +28,7 @@ class Signup extends React.Component {
     handleSubmit(e) {
         const { username, university, email, password, confirmedPassword } = this.state;
 
-        if (!username || !university || !email || !password || !confirmedPassword) {
+        if (!username || !password || !confirmedPassword) {
             NotificationManager.error('Field cannot be empty')
         } else if (password !== confirmedPassword) {
             NotificationManager.error('Password do not match')
