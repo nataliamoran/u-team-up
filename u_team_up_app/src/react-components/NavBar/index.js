@@ -27,7 +27,7 @@ class NavBar extends React.Component {
                     <ListItem component="div">
                         <Link className="link" to='/student-profile'>
                             <ListItemText inset  className="navbarText" >
-                                <TypoGraphy  variant="title">
+                                <TypoGraphy>
                                     Your Profile
                                 </TypoGraphy>
                             </ListItemText>
@@ -35,7 +35,7 @@ class NavBar extends React.Component {
 
                         <Link className="link" to='/inbox'>
                             <ListItemText inset  className="navbarText" >
-                                <TypoGraphy variant="title">
+                                <TypoGraphy>
                                     Your Inbox
                                 </TypoGraphy>
                             </ListItemText>
@@ -43,7 +43,7 @@ class NavBar extends React.Component {
 
                         <Link className="link" to={"/appointments"}>
                             <ListItemText inset  className="navbarText" >
-                                <TypoGraphy variant="title">
+                                <TypoGraphy>
                                     Your Appointments
                                 </TypoGraphy>
                             </ListItemText>
@@ -51,7 +51,7 @@ class NavBar extends React.Component {
 
                         <Link className="link" to={"/"}>
                             <ListItemText inset  className="navbarText" >
-                                <TypoGraphy variant="title">
+                                <TypoGraphy>
                                     Search Teams
                                 </TypoGraphy>
                             </ListItemText>
@@ -59,7 +59,7 @@ class NavBar extends React.Component {
 
                         <Link className="link" to={"/search-student"}>
                             <ListItemText inset  className="navbarText" >
-                                <TypoGraphy variant="title">
+                                <TypoGraphy>
                                     Search Students
                                 </TypoGraphy>
                             </ListItemText>
@@ -68,7 +68,7 @@ class NavBar extends React.Component {
 
                         <Link className="link" to={"/logout"}>
                             <ListItemText inset className="navbarText" >
-                                <TypoGraphy variant="title">
+                                <TypoGraphy>
                                     Logout
                                 </TypoGraphy>
                             </ListItemText>
@@ -84,7 +84,7 @@ class NavBar extends React.Component {
                     <ListItem component="div">
                         <Link className="link" to={"/adminDashboard"}>
                             <ListItemText inset  className="navbarText" >
-                                <TypoGraphy variant="title">
+                                <TypoGraphy>
                                     Admin Dashboard
                                 </TypoGraphy>
                             </ListItemText>
@@ -92,7 +92,7 @@ class NavBar extends React.Component {
 
                         <Link className="link" to={"/"}>
                             <ListItemText inset  className="navbarText" >
-                                <TypoGraphy variant="title">
+                                <TypoGraphy>
                                     Search Teams
                                 </TypoGraphy>
                             </ListItemText>
@@ -100,7 +100,7 @@ class NavBar extends React.Component {
 
                         <Link className="link" to={"/search-student"}>
                             <ListItemText inset  className="navbarText" >
-                                <TypoGraphy variant="title">
+                                <TypoGraphy>
                                     Search Students
                                 </TypoGraphy>
                             </ListItemText>
@@ -109,7 +109,7 @@ class NavBar extends React.Component {
 
                         <Link className="link" to={"/logout"}>
                             <ListItemText inset  className="navbarText" >
-                                <TypoGraphy variant="title">
+                                <TypoGraphy>
                                     Logout
                                 </TypoGraphy>
                             </ListItemText>
@@ -124,7 +124,7 @@ class NavBar extends React.Component {
                     <ListItem component="div">
                         <Link className="link" to='/login'>
                             <ListItemText inset className="navbarText" >
-                                <TypoGraphy variant="title">
+                                <TypoGraphy>
                                      Login
                                 </TypoGraphy>
                             </ListItemText>
@@ -132,7 +132,7 @@ class NavBar extends React.Component {
 
                         <Link className="link" to='/signup'>
                             <ListItemText inset  className="navbarText" >
-                                <TypoGraphy variant="title">
+                                <TypoGraphy>
                                     Sign Up
                                 </TypoGraphy>
                             </ListItemText>
