@@ -198,41 +198,41 @@ class AdminDashboard extends React.Component {
                 <div className="admin_options">
                     <h1 className="welcome_back">Welcome Back, admin!</h1>
                 </div>
-                <div id="admin_list">
+                <div>
                     <h1 className="admin_dashboard__title">view, add, remove administrators</h1>
-                    <table className="headers">
-                        <tr>
-                            <td className="name">
-                                <h3>Name</h3>
-                            </td>
-                            <td className="email">
-                                <h3>Email</h3>
-                            </td>
-                        </tr>
-                    </table>
+                        <table className="headers">
+                                <tr>
+                                    <td className="name">
+                                        <h3>Name</h3>
+                                    </td>
+                                    <td className="email">
+                                        <h3>Email</h3>
+                                    </td>
+                                </tr>
+                            </table>
 
-                    <AdministratorPreviewList
-                        administrators={this.state.filteredAdmins}
-                    />
-                </div>
-                <div id="remove_admin">
-                    <h1 className="remove_admin_header">Remove Admin</h1>
-                    <SearchAdminForm
-                        adminName={this.state.adminName}
-                        adminEmail={this.state.adminEmail}
-                        handleSearch={this.handleSearchInput}
-                        filterAdmins={() => filterAdmins(this)}
-                    />
-                </div>
+                            <AdministratorPreviewList
+                                administrators={this.state.filteredAdmins}
+                            />
+                            <div id="remove_admin">
+                                <h1 className="remove_admin_header">Remove Admin</h1>
+                                <SearchAdminForm
+                                    adminName={this.state.adminName}
+                                    adminEmail={this.state.adminEmail}
+                                    handleSearch={this.handleSearchInput}
+                                    filterAdmins={() => filterAdmins(this)}
+                                />
+                            </div>
+                            <div id="add_admin">
+                                <h1 className="add_admin_header">Add Admin</h1>
+                                <AddAdminForm
+                                    adminName1={this.state.adminName1}
+                                    adminEmail1={this.state.adminEmail1}
+                                    handleSearch1={this.handleSearchInput1}
+                                    addAdmins={() => addAdmins(this)}
+                                />
+                            </div>
 
-                <div id="add_admin">
-                    <h1 className="add_admin_header">Add Admin</h1>
-                    <AddAdminForm
-                        adminName1={this.state.adminName1}
-                        adminEmail1={this.state.adminEmail1}
-                        handleSearch1={this.handleSearchInput1}
-                        addAdmins={() => addAdmins(this)}
-                    />
                 </div>
                 <div id="university_list">
                     <h1 className="admin_dashboard__title">Universities: </h1>

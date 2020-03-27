@@ -40,3 +40,8 @@
 	text-align: center;
 	color: #283b63;
 }
+
+.admin_dashboard_view {
+    margin: auto;
+    width: 50%;
+}
