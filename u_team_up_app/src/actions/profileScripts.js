@@ -1,12 +1,11 @@
 import {USER_BACKEND} from "../config";
 
-export const updateProfileData = (data, identity) => {
-    const url = USER_BACKEND + identity.username;
+export const updateProfileData = (data, username) => {
+    const url = USER_BACKEND + username;
 
     const request = new Request(url, {
         method: 'PUT',
         body: JSON.stringify(data),
-        identity: identity,
         headers: {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'

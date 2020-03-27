@@ -178,10 +178,11 @@ class Team extends React.Component {
         });
         let profile_data = {
             applications: this.state.student.applications,
-            _id: this.props.globalState.identity.username
+            _id: this.props.globalState.identity.username,
+            token: this.props.globalState.identity.token
         };
         updateTeamDataInDB(team_data, this.state.team._id);
-        updateProfileData(profile_data, this.props.globalState.identity);
+        updateProfileData(profile_data, this.props.globalState.identity.username);
         NotificationManager.success('Your application is successfully submitted')
 
         console.log("team state");
