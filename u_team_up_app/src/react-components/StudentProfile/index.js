@@ -6,7 +6,7 @@ import newUser from "./static/new_user.png";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button/Button";
 import TextField from "@material-ui/core/TextField";
-import { PROFILES_BACKEND } from "../../config";
+import { USER_BACKEND } from "../../config";
 
 // const studentInfo = {
 //     "1": {
@@ -111,7 +111,7 @@ class StudentProfile extends React.Component {
     }
 
     componentDidMount() {
-        const url = PROFILES_BACKEND + "/" + this.props.username;
+        const url = USER_BACKEND + this.props.globalState.identity.username;
 
         fetch(url)
             .then(response => response.json())
