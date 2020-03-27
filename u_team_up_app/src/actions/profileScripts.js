@@ -1,10 +1,10 @@
-import {PROFILE_BACKEND} from "../config";
+import {USER_BACKEND} from "../config";
 
 export const updateProfileData = (data, username) => {
-    const url = PROFILE_BACKEND + '/' + username;
+    const url = USER_BACKEND + username;
 
     const request = new Request(url, {
-        method: 'PATCH',
+        method: 'PUT',
         body: JSON.stringify(data),
         headers: {
             'Accept': 'application/json, text/plain, */*',
