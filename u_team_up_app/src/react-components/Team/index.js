@@ -2,7 +2,7 @@ import React from "react";
 
 
 import "./styles.css";
-import {PROFILES_BACKEND, TEAMS_BACKEND, USER_BACKEND} from "../../config";
+import {TEAMS_BACKEND, USER_BACKEND} from "../../config";
 import TeamMemberPreviewList from "./../TeamMemberPreviewList";
 import Header from '../Header';
 import {Link} from "react-router-dom";
@@ -15,7 +15,6 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import SearchStudentForm from "../SearchStudentForm";
 import {filterUnits} from "../../actions/filterUnits";
 import {deleteTeamFromDB, updateTeamDataInDB} from "../../actions/teamScripts";
-import {updateProfileData} from "../../actions/profileScripts";
 
 
 class Team extends React.Component {
@@ -37,6 +36,7 @@ class Team extends React.Component {
             studentCourse: "",
             // TODO: FETCH DATA FROM THE DB
             team: null,
+            teamMembers: [],
             student: null,
             students: [
                 {
@@ -60,22 +60,68 @@ class Team extends React.Component {
         };
     }
 
-    componentDidMount() {
-        const teamUrl = TEAMS_BACKEND + "/" + this.props.teamId;
-        const studentUrl = USER_BACKEND + this.props.globalState.identity.username;
 
-        fetch(teamUrl)
-            .then((response) => response.json())
-            .then((json) => {
-                console.log("Team JSON");
-                console.log(json);
-                this.setState({
-                    team: json
-                });
-                console.log(this.state);
-            }).catch((error) => {
+    getTeamFromDB = () => {
+        return new Promise((resolve, reject) => {
+            const teamUrl = TEAMS_BACKEND + "/" + this.props.teamId;
+            fetch(teamUrl)
+                .then((response) => response.json())
+                .then((json) => {
+                    console.log("Team JSON");
+                    console.log(json);
+                    this.setState({
+                        team: json
+                    });
+                    console.log(this.state);
+                    resolve();
+                }).catch((error) => {
+                console.error(error);
+                reject();
+            });
+        })
+    };
+
+    getTeamMembersFromDB = () => {
+        let url;
+
+        this.state.team.members.map(username => (
+            <div key={uid(
+                username
+            )}>
+                {url = USER_BACKEND + username}
+                {
+                    fetch(url)
+                        .then((response) => response.json())
+                        .then((json) => {
+                            this.state.teamMembers.push(json);
+                            this.setState({
+                                teamMembers: this.state.teamMembers
+                            });
+                            console.group("getTeamMembersFromDB")
+                            console.log(this.state.teamMembers)
+                            console.groupEnd()
+                        }).catch((error) => {
+                        console.error(error)
+                    })
+                }
+            </div>
+        ));
+
+        console.log("State after loading team members");
+        console.log(this.state);
+    };
+
+
+    componentDidMount() {
+
+        this.getTeamFromDB()
+            .then(() => this.getTeamMembersFromDB()).catch((error) => {
             console.error(error)
         });
+
+        const studentUrl = USER_BACKEND + this.props.globalState.identity.username;
+        console.log("Student username");
+        console.log(this.props.globalState.identity.username);
 
         fetch(studentUrl)
             .then((response) => response.json())
@@ -123,16 +169,16 @@ class Team extends React.Component {
         };
         // TODO get profile applications, add the new application and push to DB
 
-        // const student =
-        let profile_data = {
-
-            _id: this.props.globalState.identity.username
-        };
+        // this.state.student.applications.push({
+        //     teamId: this.state.team._id,
+        //     application: this.state.quizApplication
+        // });
+        // let profile_data = {
+        //     applications: this.state.student.applications,
+        //     _id: this.props.globalState.identity.username
+        // };
         updateTeamDataInDB(team_data, this.state.team._id);
-        // updateProfileData(profile_data, props.globalState.identity.username);
-
-
-
+        // updateProfileData(profile_data, this.props.globalState.identity.username);
         NotificationManager.success('Your application is successfully submitted')
 
         console.log("team state");
@@ -201,33 +247,6 @@ class Team extends React.Component {
             description: this.state.team.description,
         };
         updateTeamDataInDB(data, this.state.team._id);
-    };
-
-    getTeamMembers = (membersUsernames) => {
-        let url;
-        const teamMembers = [];
-
-        membersUsernames.map(username => (
-            <div key={uid(
-                username
-            )}>
-                {url = 'http://localhost:5000/api/' + username}
-                {
-                    fetch(url)
-                        .then((response) => response.json())
-                        .then((json) => {
-                            console.log("Team JSON");
-                            console.log(json);
-                            teamMembers.push(json);
-                            console.log(this.state);
-                        }).catch((error) => {
-                        console.error(error)
-                    })
-                }
-            </div>
-        ));
-
-        return teamMembers;
     };
 
     /* Method to delete a member */
@@ -567,7 +586,7 @@ class Team extends React.Component {
             quizButton =
                 <div>
                     <Button
-                        variant="contained"
+                        variant="outlined"
                         color="primary"
                         className="quiz_button"
                         onClick={this.submitApplication}
@@ -603,7 +622,10 @@ class Team extends React.Component {
                                 <h2 className="header__description">description:</h2>
                                 <p className="header__team_description">{team ? team.description : ""}</p>
 
-                                {team ? <TeamMemberPreviewList members={this.getTeamMembers(team.members)}/> : null}
+                                {<TeamMemberPreviewList members={this.state.teamMembers}/>}
+                                {console.log("Team Members Sent to Preview")}
+                                {console.log(this.state.teamMembers)}
+
                                 <div className="quiz">
                                     <Grid className="quiz_table">
                                         {team ? this.state.team.quizQuestions.map(question => (
