@@ -10,9 +10,10 @@ module.exports = mongoose => {
         fullname: {
             type: String
         },
-        university: ObjectId,
+        university: String,
         year: Number,
         major: String,
+        applications: Array,
         coursesTaken: [ObjectId],
         currentCourses: [ObjectId],
         teams: [ObjectId],
