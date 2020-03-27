@@ -83,32 +83,6 @@ class Signup extends React.Component {
                         <br />
                         <br />
 
-                        <label className="signup__label">University</label>
-                        <br />
-                        <input
-                            className="signup__input"
-                            type="text"
-                            name="university"
-                            value={this.state.university}
-                            onChange={this.handleChange}
-                        />
-                        <br />
-                        <br />
-
-                        <label className="signup__label">
-                            University Email
-                        </label>
-                        <br />
-                        <input
-                            className="signup__input"
-                            type="email"
-                            name="email"
-                            value={this.state.email}
-                            onChange={this.handleChange}
-                        />
-                        <br />
-                        <br />
-
                         <label className="signup__label">Password</label>
                         <br />
                         <input

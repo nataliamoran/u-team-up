@@ -1,27 +1,29 @@
-module.exports = (mongoose) => {
+module.exports = mongoose => {
     const { ObjectId } = mongoose;
 
     const ProfileSchema = new mongoose.Schema({
         _id: {
             type: String,
-            alias: 'username',
+            alias: "username"
         },
+        image: ObjectId,
         fullname: {
-            type: String,
+            type: String
         },
         university: ObjectId,
         year: Number,
+        major: String,
         coursesTaken: [ObjectId],
         currentCourses: [ObjectId],
         teams: [ObjectId],
-        major: String,
+        reviews: [String],
         description: String,
-        experience: [String],
-        image: ObjectId,
-        location: String,
-        pastProject: [String],
         email: String,
+        location: String,
+        gpa: String,
+        pastProject: [String],
+        experience: [String]
     });
 
-    return mongoose.model('Profile', ProfileSchema);
-}
+    return mongoose.model("Profile", ProfileSchema);
+};

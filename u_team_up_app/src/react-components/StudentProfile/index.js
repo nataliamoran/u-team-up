@@ -1,55 +1,57 @@
 import React from "react";
 import "./styles.css";
-import alice from "./static/alice.png";
-import bob from "./static/bob.png";
+// import alice from "./static/alice.png";
+// import bob from "./static/bob.png";
+import newUser from "./static/new_user.png";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button/Button";
 import TextField from "@material-ui/core/TextField";
+import { PROFILES_BACKEND } from "../../config";
 
-const studentInfo = {
-    "1": {
-        username: "",
-        imageUrl: alice,
-        name: "Alice Alison",
-        university: "University of Toronto, St. George Campus",
-        yearOfStudy: 3,
-        majorOfStudy: "Computer Science",
-        coursesTaken: "CSC207, CSC209",
-        currentCourses: "CSC309, CSC363, CSC401",
-        currentTeams: "CSC309 Team 1",
-        review: "",
-        reviews: [
-            "Bob - I love working with Alice!",
-            "Carl - Alice is amazing"
-        ],
-        description: "If you love burger like I do, add me to your team.",
-        location: "On campus",
-        gpa: "3.5/4.0",
-        pastProject: "Todo list",
-        experience:
-            "Teaching Assistant @ UofT, Software Developer Intern @ IBM",
-        resume: ""
-    },
-    "2": {
-        username: "",
-        imageUrl: bob,
-        name: "Bob Bobson",
-        university: "University of Toronto, St. George Campus",
-        yearOfStudy: 4,
-        majorOfStudy: "Computer Science",
-        coursesTaken: "CSC108",
-        currentCourses: "CSC207, CSC309",
-        currentTeams: "CSC207 Team 1, CSC309 Team1",
-        review: "",
-        reviews: [],
-        description: "I heart CS & pranks",
-        location: "North York",
-        gpa: "3.0/4.0",
-        pastProject: "Secret",
-        experience: "UofT student",
-        resume: ""
-    }
-};
+// const studentInfo = {
+//     "1": {
+//         username: "",
+//         imageUrl: alice,
+//         name: "Alice Alison",
+//         university: "University of Toronto, St. George Campus",
+//         yearOfStudy: 3,
+//         majorOfStudy: "Computer Science",
+//         coursesTaken: "CSC207, CSC209",
+//         currentCourses: "CSC309, CSC363, CSC401",
+//         currentTeams: "CSC309 Team 1",
+//         review: "",
+//         reviews: [
+//             "Bob - I love working with Alice!",
+//             "Carl - Alice is amazing"
+//         ],
+//         description: "If you love burger like I do, add me to your team.",
+//         location: "On campus",
+//         gpa: "3.5/4.0",
+//         pastProject: "Todo list",
+//         experience:
+//             "Teaching Assistant @ UofT, Software Developer Intern @ IBM",
+//         resume: ""
+//     },
+//     "2": {
+//         username: "",
+//         imageUrl: bob,
+//         name: "Bob Bobson",
+//         university: "University of Toronto, St. George Campus",
+//         yearOfStudy: 4,
+//         majorOfStudy: "Computer Science",
+//         coursesTaken: "CSC108",
+//         currentCourses: "CSC207, CSC309",
+//         currentTeams: "CSC207 Team 1, CSC309 Team1",
+//         review: "",
+//         reviews: [],
+//         description: "I heart CS & pranks",
+//         location: "North York",
+//         gpa: "3.0/4.0",
+//         pastProject: "Secret",
+//         experience: "UofT student",
+//         resume: ""
+//     }
+// };
 
 /** @param props: {
  *      editing: boolean,
@@ -60,21 +62,23 @@ const studentInfo = {
  *      name: string,
  * }
  */
+
 function ViewOrEdit(props) {
-    const { editing, multiline, value,
-            onChange, className, name } = props;
+    const { editing, multiline, value, onChange, className, name } = props;
 
-    const classToAdd = className ? ' ' + className : '';
+    const classToAdd = className ? " " + className : "";
 
-    return (editing ? React.createElement(
-        (multiline ? 'textarea' : 'input'),
-        { className: "student_profile__input" + classToAdd,
-          type: "text",
-          value,
-          onChange,
-          name,
-        }
-    ) : <p>{ value }</p>);
+    return editing ? (
+        React.createElement(multiline ? "textarea" : "input", {
+            className: "student_profile__input" + classToAdd,
+            type: "text",
+            value,
+            onChange,
+            name
+        })
+    ) : (
+        <p>{value}</p>
+    );
 }
 
 class StudentProfile extends React.Component {
@@ -82,11 +86,46 @@ class StudentProfile extends React.Component {
         super(props);
 
         this.state = {
-            ...(studentInfo[
-                this.props.id || this.props.globalState.identity.uid
-            ] || { reviews: [] }), // TODO: FETCH
-            isInEditMode: false
+            username: props.username,
+            global: props.globalState,
+            imageUrl: "",
+            name: "",
+            university: "",
+            yearOfStudy: "",
+            majorOfStudy: "",
+            coursesTaken: "",
+            currentCourses: "",
+            currentTeams: "",
+            reviews: [],
+            description: "",
+            location: "",
+            gpa: "",
+            pastProject: "",
+            experience: "",
+            // ...(studentInfo[
+            //     this.props.id || this.props.globalState.identity.uid
+            // ] || { reviews: [] }), // TODO: FETCH
+            isInEditMode: false,
+            profile: null
         };
+    }
+
+    componentDidMount() {
+        const url = PROFILES_BACKEND + "/" + this.props.username;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(json => {
+                console.log("Profile JSON");
+                console.log(json);
+                this.setState({
+                    profile: json
+                });
+                console.log(this.state);
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }
 
     updateInfo = () => {
@@ -128,18 +167,17 @@ class StudentProfile extends React.Component {
     };
 
     render() {
-        const loggedIn = this.props.globalState.identity.type !== 'guest';
+        const loggedIn = this.props.globalState.identity.type !== "guest";
         const isMe =
-              loggedIn &&
-              (this.props.id
-               || this.props.globalState.identity.uid) ===
-              this.props.globalState.identity.uid;
+            loggedIn &&
+            (this.props.id || this.props.globalState.identity.uid) ===
+                this.props.globalState.identity.uid;
 
         const editingInfo = isMe && this.state.isInEditMode;
         const canAddReview = loggedIn && !isMe;
 
-        const addReview = canAddReview ?
-              [
+        const addReview = canAddReview
+            ? [
                   <p>Write your teammate a review!</p>,
                   <TextField
                       className="reviewInput"
@@ -158,7 +196,8 @@ class StudentProfile extends React.Component {
                           Add
                       </Button>
                   </div>
-              ] : [];
+              ]
+            : [];
 
         return (
             <div>
@@ -166,21 +205,20 @@ class StudentProfile extends React.Component {
                     <div className="left-box">
                         <img
                             className="profile-pic"
-                            src={this.state.imageUrl}
+                            src={newUser}
                             alt="profile picture"
                         />
 
                         <div className="info inner">
-                            <h2>
-                                <ViewOrEdit
-                                    editing={editingInfo}
-                                    className="student_profile__input"
-                                    type="text"
-                                    value={this.state.name}
-                                    onChange={this.handleEditInput}
-                                    name="name"
-                                />
-                            </h2>
+                            <h4 className="student_profile_h4">Name:</h4>
+                            <ViewOrEdit
+                                editing={editingInfo}
+                                className="student_profile__input"
+                                type="text"
+                                value={this.state.name}
+                                onChange={this.handleEditInput}
+                                name="name"
+                            />
 
                             <h4 className="student_profile_h4">University:</h4>
                             <ViewOrEdit
@@ -192,7 +230,9 @@ class StudentProfile extends React.Component {
                                 name="university"
                             />
 
-                            <h4 className="student_profile_h4">Year of Study:</h4>
+                            <h4 className="student_profile_h4">
+                                Year of Study:
+                            </h4>
                             <ViewOrEdit
                                 editing={editingInfo}
                                 className="student_profile__input"
@@ -202,7 +242,9 @@ class StudentProfile extends React.Component {
                                 name="yearOfStudy"
                             />
 
-                            <h4 className="student_profile_h4">Major of Study:</h4>
+                            <h4 className="student_profile_h4">
+                                Major of Study:
+                            </h4>
                             <ViewOrEdit
                                 editing={editingInfo}
                                 className="student_profile__input"
@@ -214,7 +256,9 @@ class StudentProfile extends React.Component {
                         </div>
 
                         <div className="taken inner">
-                            <h4 className="student_profile_h4">Courses Taken:</h4>
+                            <h4 className="student_profile_h4">
+                                Courses Taken:
+                            </h4>
                             <ViewOrEdit
                                 editing={editingInfo}
                                 className="student_profile__input"
@@ -226,7 +270,9 @@ class StudentProfile extends React.Component {
                         </div>
 
                         <div className="taking inner">
-                            <h4 className="student_profile_h4">Currently Taking:</h4>
+                            <h4 className="student_profile_h4">
+                                Currently Taking:
+                            </h4>
                             <ViewOrEdit
                                 editing={editingInfo}
                                 className="student_profile__input"
@@ -238,21 +284,20 @@ class StudentProfile extends React.Component {
                         </div>
 
                         <div className="current-teams inner">
-                            <h4 className="student_profile_h4">Current Teams:</h4>
-                            <p>
-                                {this.state.currentTeams}
-                            </p>
+                            <h4 className="student_profile_h4">
+                                Current Teams:
+                            </h4>
+                            <p>{this.state.currentTeams}</p>
                         </div>
 
                         <div className="reviews inner">
                             <h4 className="student_profile_h4">Reviews:</h4>
                             <p>
-                                { this.state.reviews
-                                  .map(review =>
-                                       <div key={review}>{review}</div>)
-                                }
+                                {this.state.reviews.map(review => (
+                                    <div key={review}>{review}</div>
+                                ))}
                             </p>
-                            { addReview }
+                            {addReview}
                         </div>
                     </div>
 
@@ -281,6 +326,16 @@ class StudentProfile extends React.Component {
                         </div>
 
                         <div className="more-info inner">
+                            <h4 className="student_profile_h4">Email:</h4>
+                            <ViewOrEdit
+                                editing={editingInfo}
+                                className="student_profile__input"
+                                type="text"
+                                value={this.state.email}
+                                onChange={this.handleEditInput}
+                                name="email"
+                            />
+
                             <h4 className="student_profile_h4">Location:</h4>
                             <ViewOrEdit
                                 editing={editingInfo}
@@ -301,7 +356,9 @@ class StudentProfile extends React.Component {
                                 name="gpa"
                             />
 
-                            <h4 className="student_profile_h4">Past Project:</h4>
+                            <h4 className="student_profile_h4">
+                                Past Project:
+                            </h4>
                             <ViewOrEdit
                                 multiline={true}
                                 editing={editingInfo}
@@ -324,36 +381,39 @@ class StudentProfile extends React.Component {
                                 onChange={this.handleEditInput}
                                 name="experience"
                             />
-                            <h4 className="student_profile_h4">Resume: Link</h4>
                         </div>
 
-                        { isMe &&
-                          <div className="edit inner">
-                              { editingInfo ?
-                                [
+                        {isMe && (
+                            <div className="edit inner">
+                                {editingInfo ? (
+                                    [
+                                        <button
+                                            className="student_profile__button"
+                                            onClick={this.updateInfo}
+                                        >
+                                            Save
+                                        </button>,
+                                        /* Click the cancle button to go back
+                                           to default mode */
+                                        <button
+                                            className="student_profile__button"
+                                            onClick={this.changeEditMode}
+                                        >
+                                            Cancel
+                                        </button>
+                                    ]
+                                ) : (
                                     <button
                                         className="student_profile__button"
-                                        onClick={this.updateInfo}
-                                    >
-                                        Save
-                                    </button>,
-                                    /* Click the cancle button to go back to default mode*/
-                                    <button
-                                        className="student_profile__button"
+                                        type="button"
+                                        name="edit"
                                         onClick={this.changeEditMode}
                                     >
-                                        Cancel
-                                    </button>] :
-                                <button
-                                    className="student_profile__button"
-                                    type="button"
-                                    name="edit"
-                                    onClick={this.changeEditMode}
-                                >
-                                    edit your profile
-                                </button>
-                              }
-                          </div> }
+                                        Edit your profile
+                                    </button>
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
