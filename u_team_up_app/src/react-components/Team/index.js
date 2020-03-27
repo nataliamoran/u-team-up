@@ -2,7 +2,7 @@ import React from "react";
 
 
 import "./styles.css";
-import {PROFILES_BACKEND, TEAMS_BACKEND, USERS_BACKEND} from "../../config";
+import {PROFILES_BACKEND, TEAMS_BACKEND, USER_BACKEND} from "../../config";
 import TeamMemberPreviewList from "./../TeamMemberPreviewList";
 import Header from '../Header';
 import {Link} from "react-router-dom";
@@ -15,6 +15,7 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import SearchStudentForm from "../SearchStudentForm";
 import {filterUnits} from "../../actions/filterUnits";
 import {deleteTeamFromDB, updateTeamDataInDB} from "../../actions/teamScripts";
+import {updateProfileData} from "../../actions/profileScripts";
 
 
 class Team extends React.Component {
@@ -36,6 +37,7 @@ class Team extends React.Component {
             studentCourse: "",
             // TODO: FETCH DATA FROM THE DB
             team: null,
+            student: null,
             students: [
                 {
                     name: "Bob Bobson",
@@ -59,15 +61,29 @@ class Team extends React.Component {
     }
 
     componentDidMount() {
-        const url = TEAMS_BACKEND + "/" + this.props.teamId;
+        const teamUrl = TEAMS_BACKEND + "/" + this.props.teamId;
+        const studentUrl = USER_BACKEND + this.props.globalState.identity.username;
 
-        fetch(url)
+        fetch(teamUrl)
             .then((response) => response.json())
             .then((json) => {
                 console.log("Team JSON");
                 console.log(json);
                 this.setState({
                     team: json
+                });
+                console.log(this.state);
+            }).catch((error) => {
+            console.error(error)
+        });
+
+        fetch(studentUrl)
+            .then((response) => response.json())
+            .then((json) => {
+                console.log("Student JSON");
+                console.log(json);
+                this.setState({
+                    student: json
                 });
                 console.log(this.state);
             }).catch((error) => {
@@ -102,10 +118,21 @@ class Team extends React.Component {
                 application: this.state.quizApplication
             });
 
-        let data = {
+        let team_data = {
             applications: this.state.team.applications,
         };
-        updateTeamDataInDB(data, this.state.team._id);
+        // TODO get profile applications, add the new application and push to DB
+
+        // const student =
+        let profile_data = {
+
+            _id: this.props.globalState.identity.username
+        };
+        updateTeamDataInDB(team_data, this.state.team._id);
+        // updateProfileData(profile_data, props.globalState.identity.username);
+
+
+
         NotificationManager.success('Your application is successfully submitted')
 
         console.log("team state");
@@ -176,15 +203,15 @@ class Team extends React.Component {
         updateTeamDataInDB(data, this.state.team._id);
     };
 
-    getTeamMembers = (membersIds) => {
+    getTeamMembers = (membersUsernames) => {
         let url;
         const teamMembers = [];
 
-        membersIds.map(memberId => (
+        membersUsernames.map(username => (
             <div key={uid(
-                memberId
+                username
             )}>
-                {url = USERS_BACKEND + "/" + memberId}
+                {url = 'http://localhost:5000/api/' + username}
                 {
                     fetch(url)
                         .then((response) => response.json())
