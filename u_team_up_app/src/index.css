@@ -31,3 +31,13 @@ button.MuiButton-containedPrimary:hover {
     color: #f1574b;
     font-weight: bold;
 }
+
+
+nav.MuiList-root.MuiList-padding{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+h6.MuiTypography-root.MuiTypography-subtitle1{
+    font-weight: bold;
+}

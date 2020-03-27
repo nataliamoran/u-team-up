@@ -25,50 +25,50 @@ class NavBar extends React.Component {
             navbar =
                 <List component="nav">
                     <ListItem component="div">
-                        <Link className="link" to='/student-profile'>
+                        <Link className="navbarLink" to='/student-profile'>
                             <ListItemText inset  className="navbarText" >
-                                <TypoGraphy>
+                                <TypoGraphy variant="subtitle1">
                                     Your Profile
                                 </TypoGraphy>
                             </ListItemText>
                         </Link>
 
-                        <Link className="link" to='/inbox'>
+                        <Link className="navbarLink" to='/inbox'>
                             <ListItemText inset  className="navbarText" >
-                                <TypoGraphy>
+                                <TypoGraphy variant="subtitle1">
                                     Your Inbox
                                 </TypoGraphy>
                             </ListItemText>
                         </Link>
 
-                        <Link className="link" to={"/appointments"}>
+                        <Link className="navbarLink" to={"/appointments"}>
                             <ListItemText inset  className="navbarText" >
-                                <TypoGraphy>
+                                <TypoGraphy variant="subtitle1">
                                     Your Appointments
                                 </TypoGraphy>
                             </ListItemText>
                         </Link>
 
-                        <Link className="link" to={"/"}>
+                        <Link className="navbarLink" to={"/"}>
                             <ListItemText inset  className="navbarText" >
-                                <TypoGraphy>
+                                <TypoGraphy variant="subtitle1">
                                     Search Teams
                                 </TypoGraphy>
                             </ListItemText>
                         </Link>
 
-                        <Link className="link" to={"/search-student"}>
+                        <Link className="navbarLink" to={"/search-student"}>
                             <ListItemText inset  className="navbarText" >
-                                <TypoGraphy>
+                                <TypoGraphy variant="subtitle1">
                                     Search Students
                                 </TypoGraphy>
                             </ListItemText>
                         </Link>
 
 
-                        <Link className="link" to={"/logout"}>
+                        <Link className="navbarLink" to={"/logout"}>
                             <ListItemText inset className="navbarText" >
-                                <TypoGraphy>
+                                <TypoGraphy variant="subtitle1">
                                     Logout
                                 </TypoGraphy>
                             </ListItemText>
@@ -82,34 +82,34 @@ class NavBar extends React.Component {
             navbar =
                 <List component="nav">
                     <ListItem component="div">
-                        <Link className="link" to={"/adminDashboard"}>
+                        <Link className="navbarLink" to={"/adminDashboard"}>
                             <ListItemText inset  className="navbarText" >
-                                <TypoGraphy>
+                                <TypoGraphy variant="subtitle1">
                                     Admin Dashboard
                                 </TypoGraphy>
                             </ListItemText>
                         </Link>
 
-                        <Link className="link" to={"/"}>
+                        <Link className="navbarLink" to={"/"}>
                             <ListItemText inset  className="navbarText" >
-                                <TypoGraphy>
+                                <TypoGraphy variant="subtitle1">
                                     Search Teams
                                 </TypoGraphy>
                             </ListItemText>
                         </Link>
 
-                        <Link className="link" to={"/search-student"}>
+                        <Link className="navbarLink" to={"/search-student"}>
                             <ListItemText inset  className="navbarText" >
-                                <TypoGraphy>
+                                <TypoGraphy variant="subtitle1">
                                     Search Students
                                 </TypoGraphy>
                             </ListItemText>
                         </Link>
 
 
-                        <Link className="link" to={"/logout"}>
+                        <Link className="navbarLink" to={"/logout"}>
                             <ListItemText inset  className="navbarText" >
-                                <TypoGraphy>
+                                <TypoGraphy variant="subtitle1">
                                     Logout
                                 </TypoGraphy>
                             </ListItemText>
@@ -122,17 +122,17 @@ class NavBar extends React.Component {
             navbar =
                 <List component="nav">
                     <ListItem component="div">
-                        <Link className="link" to='/login'>
+                        <Link className="navbarLink" to='/login'>
                             <ListItemText inset className="navbarText" >
-                                <TypoGraphy>
+                                <TypoGraphy variant="subtitle1">
                                      Login
                                 </TypoGraphy>
                             </ListItemText>
                         </Link>
 
-                        <Link className="link" to='/signup'>
+                        <Link className="navbarLink" to='/signup'>
                             <ListItemText inset  className="navbarText" >
-                                <TypoGraphy>
+                                <TypoGraphy variant="subtitle1">
                                     Sign Up
                                 </TypoGraphy>
                             </ListItemText>

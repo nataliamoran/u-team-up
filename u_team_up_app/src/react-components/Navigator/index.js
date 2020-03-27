@@ -35,7 +35,7 @@ class Navigator extends React.Component {
 
                     <Header
                         type="main"
-                        title={<Link to="/">UTeamUp!</Link>}
+                        title={<Link className="navbar_title_Link" to="/">UTeamUp!</Link>}
                         className="navigator__header_title"
                     >
                         <NavBar

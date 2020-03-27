@@ -5,8 +5,20 @@
     min-height: 3em;
     height: max-content;
     background-color: #f1f1f1;
+    padding-top: 10px;
 }
 
 .navigator__header_left {
     float: left;
 }
+
+.navbarLink{
+    text-decoration: none !important;
+    color: #f1574b;
+}
+
+.navbar_title_Link{
+    text-decoration: none !important;
+    color: #283b63;
+}
+
