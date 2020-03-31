@@ -5,6 +5,8 @@ import "./styles.css";
 import { SERVER_URL } from '../../config';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
+import { request } from '../../actions/url';
+
 const debug = console.log;
 
 class Login extends React.Component {
@@ -33,17 +35,8 @@ class Login extends React.Component {
 
         const { username, password } = this.state;
 
-        fetch(`${SERVER_URL}auth/login`,
-              { method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password }),
-              })
-            .then(async res => {
-                if (! res.ok) { throw await res.json(); }
-                return res.json();
-            })
+        request.post(`${SERVER_URL}auth/login`,
+                     { username, password })
             .then(({ username, token, type }) => {
                 const identity = {
                     type,

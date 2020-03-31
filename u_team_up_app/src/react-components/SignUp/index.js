@@ -3,7 +3,7 @@ import "./styles.css";
 import { withRouter } from "react-router-dom";
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import { SERVER_URL } from '../../config';
-
+import { request } from '../../actions/url';
 
 const debug = console.log;
 
@@ -34,15 +34,9 @@ class Signup extends React.Component {
             NotificationManager.error('Password do not match')
         } else {
             debug(username, password);
-            fetch(`${SERVER_URL}auth/signup`,
-                  { method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ username, password }),
-                  })
-                .then(async res => {
-                    if (! res.ok) { throw await res.json(); }
+            request.post(`${SERVER_URL}auth/signup`,
+                    { username, password })
+                .then(res => {
                     this.props.history.goBack();
                 })
                 .catch(e => {
