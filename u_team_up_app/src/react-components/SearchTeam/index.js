@@ -18,6 +18,7 @@ import Input from "../Input";
 import Grid from "@material-ui/core/Grid/Grid";
 import {NotificationContainer, NotificationManager} from "react-notifications";
 import TextField from "@material-ui/core/TextField/TextField";
+import Checkbox from "@material-ui/core/Checkbox/Checkbox";
 
 class SearchTeam extends React.Component {
 
@@ -27,6 +28,7 @@ class SearchTeam extends React.Component {
         this.state = {
             global: props.state,
             studentUsername: null,
+            searchUserTeams: false,
             // uid: 3,
             newTeamCourse: "",
             newTeamDescription: "",
@@ -37,12 +39,10 @@ class SearchTeam extends React.Component {
                 // {university: "UofT", course: "CSC309", id: "1", description: "A+ group looking for a JS Jedi"},
                 // {university: "UofT", course: "CSC207", id: "2", description: "Let's crash this course together!"}
             ],
-        };
+            filteredTeams: [],
+            userTeams: []
 
-        this.state.filteredTeams = Array.from(this.state.teams);
-        if (props.state.identity.type === "user") {
-            this.state.studentUsername = props.state.identity.username;
-        }
+        };
     }
 
     componentDidMount() {
@@ -52,9 +52,26 @@ class SearchTeam extends React.Component {
             .then((json) => {
                 console.log(json);
                 this.setState({
-                    teams: json.teams,
-                    filteredTeams: json.teams
+                    teams: json.teams
                 });
+                if (this.props.state.identity.type === "user") {
+                    this.setState({
+                        studentUsername: this.props.state.identity.username,
+                        userTeams: filterUnits({members: this.props.state.identity.username}, this.state.teams)
+                    });
+                    console.log("Setting up User Teams");
+                    console.log(this.state.studentUsername);
+                    console.log(this.state.userTeams);
+                }
+                if(this.state.searchUserTeams){
+                    this.setState({
+                        filteredTeams: this.state.userTeams
+                    });
+                } else {
+                    this.setState({
+                        filteredTeams: this.state.teams
+                    });
+                }
                 console.log(this.state);
             }).catch((error) => {
             console.error(error)
@@ -70,6 +87,21 @@ class SearchTeam extends React.Component {
         this.setState({
             [name]: value
         });
+    };
+
+    handleSearchUserTeams = () => {
+        this.setState({
+            filteredTeams: filterUnits({
+                    university: this.state.teamUniversity,
+                    course: this.state.teamCourse,
+                },
+                !this.state.searchUserTeams ? this.state.userTeams : this.state.teams)
+        });
+
+        this.setState({
+            searchUserTeams: !this.state.searchUserTeams
+        });
+        this.forceUpdate();
     };
 
     addTeamToDB = () => {
@@ -118,9 +150,22 @@ class SearchTeam extends React.Component {
                 console.log("fetching after saving a new team");
                 console.log(json);
                 this.setState({
-                    teams: json.teams,
-                    filteredTeams: json.teams
+                    teams: json.teams
                 });
+                if (this.props.state.identity.type === "user") {
+                    this.setState({
+                        userTeams: filterUnits({members: this.state.studentUsername}, this.state.teams)
+                    });
+                }
+                if(this.state.searchUserTeams){
+                    this.setState({
+                        filteredTeams: this.state.userTeams
+                    });
+                } else {
+                    this.setState({
+                        filteredTeams: this.state.teams
+                    });
+                }
                 this.forceUpdate();
                 console.log("new state after saving a new team");
                 console.log(this.state);
@@ -155,6 +200,7 @@ class SearchTeam extends React.Component {
         let createTeamForm;
         let teamButton;
         let backgroundImg;
+        let searchUserTeamsCheckbox;
         console.log("redering");
 
         /* Show Create Team Form to registered users only*/
@@ -200,6 +246,19 @@ class SearchTeam extends React.Component {
                             Create
                         </Button>
                         <NotificationContainer/>
+                    </Grid>
+                </div>
+
+            searchUserTeamsCheckbox =
+                <div>
+                    <Grid className="search-checkbox" container direction="row" justify="center" alignItems="stretch">
+                    <p>search my teams only</p>
+                    <Checkbox
+                        checked={this.state.searchUserTeams}
+                        onChange={this.handleSearchUserTeams}
+                        value="primary"
+                        inputProps={{'aria-label': 'primary checkbox'}}
+                    />
                     </Grid>
                 </div>
         }
@@ -257,7 +316,7 @@ class SearchTeam extends React.Component {
                                     university: this.state.teamUniversity,
                                     course: this.state.teamCourse,
                                 },
-                                this.state.teams)
+                                this.state.searchUserTeams ? this.state.userTeams : this.state.teams)
                         })}
                         className="search-form__submit-button"
                     >
@@ -265,6 +324,7 @@ class SearchTeam extends React.Component {
                         Search
                     </Button>
                 </Grid>
+                {searchUserTeamsCheckbox}
 
                 {/* Team Previews Table*/}
                 <div>
