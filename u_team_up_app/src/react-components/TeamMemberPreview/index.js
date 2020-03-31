@@ -12,25 +12,33 @@ import {Link} from "react-router-dom";
 class TeamMemberPreview extends React.Component {
 
     render() {
+        let name;
         let photo;
         let university;
 
         const {teamMemberPreview} = this.props;
         console.log("Team Member Preview")
         console.log(teamMemberPreview)
-        if(teamMemberPreview.photo){
+
+        if (teamMemberPreview.fullname) {
+            name = teamMemberPreview.fullname;
+        } else {
+            name = teamMemberPreview._id;
+        }
+
+        if (teamMemberPreview.photo) {
             photo =
-                <img  className="team_member__photo"
-                          src={require(`${teamMemberPreview.photo}`)} alt="team member photo" />
+                <img className="team_member__photo"
+                     src={require(`${teamMemberPreview.photo}`)} alt="team member photo"/>
 
         } else {
             photo =
-                <img  className="team_member__photo"
-                      src={require(`${"./static/account.png"}`)} alt="team member photo" />
+                <img className="team_member__photo"
+                     src={require(`${"./static/account.png"}`)} alt="team member photo"/>
         }
 
 
-        if(teamMemberPreview.university){
+        if (teamMemberPreview.university) {
             university = teamMemberPreview.university
         }
 
@@ -42,13 +50,13 @@ class TeamMemberPreview extends React.Component {
                         <TableBody>
                             <TableRow key={teamMemberPreview._id}>
                                 <TableCell component="td" scope="row" className="photo_cell">
-                                {photo}
+                                    {photo}
                                 </TableCell>
                                 <TableCell component="td" scope="row" className="name_cell">
-                                    {teamMemberPreview._id}
+                                    {name}
                                 </TableCell>
                                 <TableCell component="td" scope="row" className="university_cell">
-                                {university}
+                                    {university}
                                 </TableCell>
                             </TableRow>
                         </TableBody>
