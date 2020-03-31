@@ -80,7 +80,8 @@ class SearchTeam extends React.Component {
                 university: this.state.newTeamUniversity,
                 course: this.state.newTeamCourse,
                 description: this.state.newTeamDescription,
-                members: this.state.studentUsername ? [this.state.studentUsername] : []
+                members: this.state.studentUsername ? [this.state.studentUsername] : [],
+                token: this.props.state.identity.token
             };
             const request = new Request(url, {
                 method: 'POST',

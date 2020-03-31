@@ -9,6 +9,10 @@ const createTeamCrud = function (app) {
 
     app.post('/api/teams', (req, res) => {
 
+        if (req.identity.type === 'guest') {
+            // do not allow guests (unregistered users) to create teams
+            throw 401;
+        }
         const team = new Team({
             university: req.body.university,
             course: req.body.course,
@@ -60,6 +64,11 @@ const createTeamCrud = function (app) {
     app.delete('/api/teams/:id', (req, res) => {
         const id = req.params.id
 
+        if (req.identity.type === 'guest') {
+            // do not allow guests (unregistered users) to delete teams
+            throw 401;
+        }
+
         if (!ObjectID.isValid(id)) {
             res.status(404).send()
             return;
@@ -79,6 +88,11 @@ const createTeamCrud = function (app) {
     app.patch('/api/teams/:id', (req, res) => {
         const id = req.params.id;
         const body = req.body;
+
+        if (req.identity.type === 'guest') {
+            // do not allow guests (unregistered users) to modify teams
+            throw 401;
+        }
 
         if (!ObjectID.isValid(id)) {
             res.status(404).send()

@@ -1,10 +1,11 @@
 import {TEAMS_BACKEND} from "../config";
 
-export const deleteTeamFromDB = (id) => {
+export const deleteTeamFromDB = (data, id) => {
     const url = TEAMS_BACKEND + '/' + id;
 
     const request = new Request(url, {
         method: 'DELETE',
+        body: JSON.stringify(data),
         headers: {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'

@@ -164,8 +164,9 @@ class Team extends React.Component {
                 studentUsername: this.props.globalState.identity.username,
                 application: this.state.quizApplication
             });
-        let team_data = {
+        const team_data = {
             applications: this.state.team.applications,
+            token: this.props.globalState.identity.token
         };
         // TODO get profile applications, add the new application and push to DB
 
@@ -176,7 +177,7 @@ class Team extends React.Component {
         this.setState({
             student: this.state.student
         });
-        let profile_data = {
+        const profile_data = {
             applications: this.state.student.applications,
             _id: this.props.globalState.identity.username,
             token: this.props.globalState.identity.token
@@ -208,7 +209,7 @@ class Team extends React.Component {
             team: updatedTeam
         });
         //TODO Push updates to the DB
-        let data = {
+        const data = {
             acceptNewApplications: this.state.team.acceptNewApplications,
         };
         updateTeamDataInDB(data, this.state.team._id);
@@ -232,7 +233,10 @@ class Team extends React.Component {
         this.setState({
             teamExists: false
         });
-        deleteTeamFromDB(this.state.team._id);
+        const team_data = {
+            token: this.props.globalState.identity.token
+        };
+        deleteTeamFromDB(team_data, this.state.team._id);
     };
 
     updateInfo = () => {
@@ -249,6 +253,7 @@ class Team extends React.Component {
         //TODO: Push updates to the DB
         let data = {
             description: this.state.team.description,
+            token: this.props.globalState.identity.token
         };
         updateTeamDataInDB(data, this.state.team._id);
     };
@@ -264,6 +269,7 @@ class Team extends React.Component {
         //TODO Push updates to the DB
         let data = {
             members: this.state.team.members,
+            token: this.props.globalState.identity.token
         };
         updateTeamDataInDB(data, this.state.team._id);
     };
@@ -277,6 +283,7 @@ class Team extends React.Component {
         //TODO Push updates to the DB
         let data = {
             members: this.state.team.members,
+            token: this.props.globalState.identity.token
         };
         updateTeamDataInDB(data, this.state.team._id);
     };
@@ -292,6 +299,7 @@ class Team extends React.Component {
         //TODO Push updates to the DB
         let data = {
             quizQuestions: this.state.team.quizQuestions,
+            token: this.props.globalState.identity.token
         };
         updateTeamDataInDB(data, this.state.team._id);
     };
@@ -305,6 +313,7 @@ class Team extends React.Component {
         //TODO Push updates to the DB
         let data = {
             quizQuestions: this.state.team.quizQuestions,
+            token: this.props.globalState.identity.token
         };
         updateTeamDataInDB(data, this.state.team._id);
     };
