@@ -2,7 +2,7 @@ import React from "react";
 
 
 import "./styles.css";
-import {TEAMS_BACKEND, USER_BACKEND} from "../../config";
+import {TEAMS_BACKEND, USER_BACKEND, USERS_BACKEND} from "../../config";
 import TeamMemberPreviewList from "./../TeamMemberPreviewList";
 import Header from '../Header';
 import {Link} from "react-router-dom";
@@ -35,28 +35,10 @@ class Team extends React.Component {
             studentName: "",
             studentUniversity: "",
             studentCourse: "",
-            // TODO: FETCH DATA FROM THE DB
             team: null,
             teamMembers: [],
             student: null,
-            students: [
-                {
-                    name: "Bob Bobson",
-                    university: "UofT",
-                    course: ["CSC309", "CSC369"],
-                    uid: "2",
-                    photo: "./static/bob2.png",
-                    profileLink: "/student-profile/2"
-                },
-                {
-                    name: "Alice Alison",
-                    university: "UofT",
-                    course: ["CSC309", "CSC207"],
-                    uid: "1",
-                    photo: "./static/alice.png",
-                    profileLink: "/student-profile"
-                }
-            ],
+            students: [],
             filteredStudents: []
         };
     }
@@ -68,12 +50,9 @@ class Team extends React.Component {
             fetch(teamUrl)
                 .then((response) => response.json())
                 .then((json) => {
-                    console.log("Team JSON");
-                    console.log(json);
                     this.setState({
                         team: json
                     });
-                    console.log(this.state);
                     resolve();
                 }).catch((error) => {
                 console.error(error);
@@ -98,18 +77,12 @@ class Team extends React.Component {
                             this.setState({
                                 teamMembers: this.state.teamMembers
                             });
-                            console.group("getTeamMembersFromDB")
-                            console.log(this.state.teamMembers)
-                            console.groupEnd()
                         }).catch((error) => {
                         console.error(error)
                     })
                 }
             </div>
         ));
-
-        console.log("State after loading team members");
-        console.log(this.state);
     };
 
 
@@ -121,18 +94,23 @@ class Team extends React.Component {
         });
 
         const studentUrl = USER_BACKEND + this.props.globalState.identity.username;
-        console.log("Student username");
-        console.log(this.props.globalState.identity.username);
 
         fetch(studentUrl)
             .then((response) => response.json())
             .then((json) => {
-                console.log("Student JSON");
-                console.log(json);
                 this.setState({
                     student: json
                 });
-                console.log(this.state);
+            }).catch((error) => {
+            console.error(error)
+        });
+
+        fetch(USERS_BACKEND)
+            .then((response) => response.json())
+            .then((json) => {
+                this.setState({
+                    students: json
+                });
             }).catch((error) => {
             console.error(error)
         });
@@ -158,7 +136,6 @@ class Team extends React.Component {
     };
 
     submitApplication = () => {
-        //TODO: save this.state.quizApplication to the DB
         this.state.team.applications.push(
             {
                 studentUsername: this.props.globalState.identity.username,
@@ -168,7 +145,6 @@ class Team extends React.Component {
             applications: this.state.team.applications,
             token: this.props.globalState.identity.token
         };
-        // TODO get profile applications, add the new application and push to DB
 
         this.state.student.applications.push({
             teamId: this.state.team._id,
@@ -208,9 +184,9 @@ class Team extends React.Component {
         this.setState({
             team: updatedTeam
         });
-        //TODO Push updates to the DB
         const data = {
             acceptNewApplications: this.state.team.acceptNewApplications,
+            token: this.props.globalState.identity.token
         };
         updateTeamDataInDB(data, this.state.team._id);
         console.log("Accept Applications Change");
@@ -229,7 +205,6 @@ class Team extends React.Component {
 
     /* Method to delete a team */
     deleteTeam = () => {
-        // TODO: Update DB - remove the team data from the DB
         this.setState({
             teamExists: false
         });
@@ -250,7 +225,6 @@ class Team extends React.Component {
             isInEditMode: false,
             team: updatedTeam
         });
-        //TODO: Push updates to the DB
         let data = {
             description: this.state.team.description,
             token: this.props.globalState.identity.token
@@ -259,33 +233,40 @@ class Team extends React.Component {
     };
 
     /* Method to delete a member */
-    removeMember = (username) => {
-        const members = this.state.team.members.filter(member => member !== username);
+    removeMember = (memberToRemove) => {
+        const members = this.state.team.members.filter(member => member !== memberToRemove._id);
         const updatedTeam = this.state.team;
         updatedTeam.members = members;
+        const updatedTeamMembers = this.state.teamMembers.filter(member => member._id !== memberToRemove._id);
         this.setState({
-            team: updatedTeam
+            team: updatedTeam,
+            teamMembers: updatedTeamMembers
         })
-        //TODO Push updates to the DB
         let data = {
             members: this.state.team.members,
             token: this.props.globalState.identity.token
         };
         updateTeamDataInDB(data, this.state.team._id);
+        if(this.state.student._id === memberToRemove._id){
+            this.changeEditMode();
+        }
+
     };
 
     /* Method to add a member */
     addMember = (student) => {
-        this.state.team.members.push(student);
+        this.state.team.members.push(student._id);
+        this.state.teamMembers.push(student);
         this.setState({
-            team: this.state.team
+            team: this.state.team,
+            teamMembers: this.state.teamMembers
         })
-        //TODO Push updates to the DB
         let data = {
             members: this.state.team.members,
             token: this.props.globalState.identity.token
         };
         updateTeamDataInDB(data, this.state.team._id);
+
     };
 
     /* Method to remove a quiz question */
@@ -296,7 +277,6 @@ class Team extends React.Component {
         this.setState({
             team: updatedTeam
         });
-        //TODO Push updates to the DB
         let data = {
             quizQuestions: this.state.team.quizQuestions,
             token: this.props.globalState.identity.token
@@ -310,7 +290,6 @@ class Team extends React.Component {
         this.setState({
             team: this.state.team
         })
-        //TODO Push updates to the DB
         let data = {
             quizQuestions: this.state.team.quizQuestions,
             token: this.props.globalState.identity.token
@@ -377,12 +356,12 @@ class Team extends React.Component {
                         <Grid className="edit_team_page__members">
                             <h4 className="edit_team_page__title">Team Members</h4>
                             <div className="team_members">
-                                {this.state.team.members.map(member => (
+                                {this.state.teamMembers.map(member => (
                                     <div key={uid(
                                         member
                                     )}>
 
-                                        {member.name}
+                                        {member.fullname ? member.fullname : member._id}
                                         <button
                                             className="team_page__button"
                                             onClick={this.removeMember.bind(this, member)}>Remove
@@ -477,12 +456,12 @@ class Team extends React.Component {
                     <div>
                         <Grid className="edit_team_page__members">
                             <h4 className="edit_team_page__title">Team Members</h4>
-                            {this.state.team.members.map(member => (
+                            {this.state.teamMembers.map(member => (
                                 <div key={uid(
                                     member
                                 )}>
 
-                                    {member.name}
+                                    {member.fullname ? member.fullname : member._id}
                                     <button
                                         className="team_page__button"
                                         onClick={this.removeMember.bind(this, member)}>Remove
@@ -501,9 +480,9 @@ class Team extends React.Component {
                                     handleSearch={this.handleSearchInput}
                                     filterStudents={() => this.setState({
                                         filteredStudents: filterUnits({
-                                                name: this.state.studentName,
+                                                fullname: this.state.studentName,
                                                 university: this.state.studentUniversity,
-                                                course: this.state.studentCourse
+                                                currentCourses: this.state.studentCourse
                                             },
                                             this.state.students)
                                     })}
@@ -513,7 +492,7 @@ class Team extends React.Component {
                                 <div key={uid(
                                     student
                                 )}>
-                                    {student.name}
+                                    {student.fullname ? student.fullname : student._id}
                                     <button
                                         className="team_page__button"
                                         onClick={this.addMember.bind(this, student)}>Add
