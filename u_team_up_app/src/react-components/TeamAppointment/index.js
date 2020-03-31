@@ -85,7 +85,8 @@ class TeamAppointment extends React.Component {
 
         // TODO: UPLOAD
         let data = {
-            events: otherSchedule
+            events: otherSchedule,
+            token: this.props.globalState.identity.token
         };
         updateTeamDataInDB(data, this.state.teamId);
 

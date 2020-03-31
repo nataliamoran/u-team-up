@@ -114,9 +114,12 @@
 
 .search-form {
     padding-top: 20px;
+}
+
+.search-checkbox{
     padding-bottom: 50px;
-
-
+    padding-left: 600px;
+    font-weight: bold;
 }
 
 .search-form__submit-button {
