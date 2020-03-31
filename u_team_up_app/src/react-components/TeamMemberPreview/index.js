@@ -44,7 +44,7 @@ class TeamMemberPreview extends React.Component {
 
 
         return (
-            <Link className="team_page__link" to={'/student-profile/' + teamMemberPreview.uid}>
+            <Link className="team_page__link" to={'/student-profile/' + teamMemberPreview._id}>
                 <div className="team-member-preview__bg-image">
                     <Table className="team-member-preview">
                         <TableBody>

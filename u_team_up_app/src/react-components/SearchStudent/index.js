@@ -11,6 +11,8 @@ import Input from "../Input";
 import Button from "@material-ui/core/Button/Button";
 import {NotificationContainer, NotificationManager} from "react-notifications";
 import {Link} from "react-router-dom";
+import { request } from '../../actions/url';
+import { SERVER_URL } from '../../config';
 
 class SearchStudent extends React.Component {
 
@@ -23,27 +25,9 @@ class SearchStudent extends React.Component {
             newStudentName: "",
             newStudentUniversity: "",
             studentCourse: "",
-            uid: 3,
-            students: [
-                {
-                    name: "Bob Bobson",
-                    university: "UofT",
-                    course: ["CSC309", "CSC369"],
-                    uid: "2",
-                    photo: "./static/bob2.png",
-                    profileLink: "/student-profile/2"
-                },
-                {
-                    name: "Alice Alison",
-                    university: "UofT",
-                    course: ["CSC309", "CSC207"],
-                    uid: "1",
-                    photo: "./static/alice.png",
-                    profileLink: "/student-profile"
-                }
-            ]
+            students: [],
         };
-        this.state.filteredStudents = Array.from(this.state.students);
+        this.state.filteredStudents = [];
     }
 
     /* Method to handle the Student Search Form input */
@@ -89,6 +73,23 @@ class SearchStudent extends React.Component {
         this.state.filteredStudents = Array.from(this.state.students);
         NotificationManager.success('New student was successfully created!')
         //TODO Push updates to the DB
+    };
+
+    filterStudents = () => {
+        request.get(`${SERVER_URL}api/users`,
+                    {
+                        fullname: this.state.studentName,
+                        university: this.state.studentUniversity,
+                        course: this.state.studentCourse, // FIXME
+                    })
+            .then(res => {
+                console.log("Success", res);
+                this.setState({ filteredStudents: res.result });
+            })
+            .catch(e => {
+                console.log('Error');
+                NotificationManager.error('There was an error getting the list of students.');
+            });
     };
 
     /* Student Search View - Admin Mode */
@@ -138,14 +139,7 @@ class SearchStudent extends React.Component {
                             studentUniversity={this.state.studentUniversity}
                             studentCourse={this.state.studentCourse}
                             handleSearch={this.handleSearchInput}
-                            filterStudents={() => this.setState({
-                                filteredStudents: filterUnits({
-                                        name: this.state.studentName,
-                                        university: this.state.studentUniversity,
-                                        course: this.state.studentCourse
-                                    },
-                                    this.state.students)
-                            })}
+                            filterStudents={this.filterStudents}
                         />
                     </div>
                     <div className="students-list__admin-view">
@@ -189,14 +183,7 @@ class SearchStudent extends React.Component {
                             studentUniversity={this.state.studentUniversity}
                             studentCourse={this.state.studentCourse}
                             handleSearch={this.handleSearchInput}
-                            filterStudents={() => this.setState({
-                                filteredStudents: filterUnits({
-                                        name: this.state.studentName,
-                                        university: this.state.studentUniversity,
-                                        course: this.state.studentCourse
-                                    },
-                                    this.state.students)
-                            })}
+                            filterStudents={this.filterStudents}
                         />
                     </div>
 

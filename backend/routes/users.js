@@ -1,5 +1,5 @@
 const { mongoose, Profile, User, Auth, Team } = require('../db/mongoose');
-
+const { validCriteria } = require('../helper/filter');
 const debug = console.log;
 
 module.exports = {
@@ -64,8 +64,9 @@ module.exports = {
     },
 
     '/api/users': {
+        // https://github.com/Automattic/mongoose/issues/6427
         get: async (req, res) =>
-            // https://github.com/Automattic/mongoose/issues/6427
-            await Profile.find(Profile.translateAliases(req.args)),
+            await Profile.find(
+                Profile.translateAliases(validCriteria(req.args))),
     },
 };

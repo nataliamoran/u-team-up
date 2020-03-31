@@ -13,15 +13,20 @@ match.all = (criteria) => (
     unit => Object.keys(criteria)
         .every(c => match(unit[c], criteria[c])));
 
-match.allValid = (criteria) => {
+const criterionValid =
+      c => c !== undefined && c !== '';
+
+const validCriteria = (criteria) => {
     const newCriteria = {};
     Object.keys(criteria)
-        .filter(c => criteria[c] !== undefined
-                && criteria[c] !== '')
+        .filter(c => criterionValid(criteria[c]))
         .forEach(c => newCriteria[c] = criteria[c]);
 
-    return match.all(newCriteria);
+    return newCriteria;
 }
+
+match.allValid = (criteria) =>
+    match.all(validCriteria(criteria));
 
 const filter = (criteria, list) =>
       list.filter(match.allValid(criteria));
@@ -29,4 +34,5 @@ const filter = (criteria, list) =>
 module.exports = {
     filter,
     match,
+    validCriteria,
 };
