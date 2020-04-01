@@ -8,7 +8,7 @@ const buildUrl = (url, params) => {
     return u;
 };
 
-const request = (url, params, options) =>
+const requestImpl = (url, params, options) =>
       fetch(buildUrl(url, params), options)
       .then(async res => {
           if (! res.ok) { throw await res.json(); }
@@ -18,6 +18,18 @@ const request = (url, params, options) =>
               return undefined;
           }
       });
+
+const request = (url, params, options) => {
+    const newOptions = { ...options };
+    const newParams = params ? { ...params } : {};
+    if ('token' in newParams) {
+        newOptions.headers = newOptions.headers ?
+            { ...newOptions.headers } : {};
+        newOptions.headers['Authorization'] = `Bearer ${params.token}`;
+        delete newParams.token;
+    }
+    return requestImpl(url, newParams, newOptions);
+};
 
 request.get = (url, params, options) =>
     request(url, params, options || {});

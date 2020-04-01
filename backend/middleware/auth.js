@@ -72,10 +72,17 @@ async function login(req, res) {
 }
 
 async function injectIdentity(req, res) {
-    const { token } = req.args;
+    let token;
+
+    const auth = req.header('Authorization');
+    if (auth && auth.startsWith('Bearer ')) {
+        token = auth.replace(/^Bearer /, '');
+    } else if (req.body.token) {
+        token = req.body.token;
+        delete req.args.token;
+    }
 
     if (token) {
-        delete req.args.token;
         const auth = await Auth.findOne({ token });
         if (auth) {
             const user = await User.findById(auth.username);
