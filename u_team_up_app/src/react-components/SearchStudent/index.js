@@ -51,30 +51,6 @@ class SearchStudent extends React.Component {
         //TODO Push updates to the DB
     };
 
-    /* Method to create a student */
-    createStudent = () => {
-        if(this.state.newStudentName === "" ||
-            this.state.newStudentUniversity === ""){
-            NotificationManager.error('Please complete all fields')
-            return;
-        }
-        this.state.students.push({
-            name: this.state.newStudentName,
-            university: this.state.newStudentUniversity,
-            course: [],
-            uid: this.state.uid,
-            photo: "",
-            profileLink: ""
-        });
-        this.state.uid += 1;
-        this.setState({
-            students: this.state.students
-        });
-        this.state.filteredStudents = Array.from(this.state.students);
-        NotificationManager.success('New student was successfully created!')
-        //TODO Push updates to the DB
-    };
-
     filterStudents = () => {
         request.get(`${SERVER_URL}api/users`,
                     {

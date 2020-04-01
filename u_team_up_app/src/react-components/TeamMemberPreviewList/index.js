@@ -7,7 +7,7 @@ import "./styles.css";
 
 class TeamMemberPreviewList extends React.Component {
     render() {
-        const members = this.props.members;
+        const { members, append } = this.props;
 
         console.group("TeamMemberPreviewList")
         console.log("Rendering Team Member Preview List")
@@ -21,14 +21,17 @@ class TeamMemberPreviewList extends React.Component {
 
         return (
             <div className="team-member-preview__list">
-                {members.map(teamMemberPreview => (
-                    <TeamMemberPreview
-                        key={uid(
-                            teamMemberPreview
-                        )}
-                        teamMemberPreview={teamMemberPreview}
-                    />
-                ))}
+                { members.map(
+                    (teamMemberPreview, index) => [
+                        <TeamMemberPreview
+                            key={uid(
+                                teamMemberPreview
+                            )}
+                            teamMemberPreview={teamMemberPreview}
+                            append={append}
+                        />
+                    ]
+                ) }
             </div>
 
         );

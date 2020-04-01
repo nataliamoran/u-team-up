@@ -12,57 +12,41 @@ import {Link} from "react-router-dom";
 class TeamMemberPreview extends React.Component {
 
     render() {
-        let name;
-        let photo;
-        let university;
-
         const {teamMemberPreview} = this.props;
         console.log("Team Member Preview")
         console.log(teamMemberPreview)
 
-        if (teamMemberPreview.fullname) {
-            name = teamMemberPreview.fullname;
-        } else {
-            name = teamMemberPreview._id;
-        }
+        const name = teamMemberPreview.fullname || teamMemberPreview._id;
 
-        if (teamMemberPreview.photo) {
-            photo =
-                <img className="team_member__photo"
-                     src={require(`${teamMemberPreview.photo}`)} alt="team member photo"/>
+        const photo =
+            <img className="team_member__photo"
+                 src={teamMemberPreview.photo ?
+                      require(teamMemberPreview.photo)
+                      : require('./static/account.png')}
+                 alt={ `${name} avatar` } />;
 
-        } else {
-            photo =
-                <img className="team_member__photo"
-                     src={require(`${"./static/account.png"}`)} alt="team member photo"/>
-        }
-
-
-        if (teamMemberPreview.university) {
-            university = teamMemberPreview.university
-        }
-
+        const university = teamMemberPreview.university;
 
         return (
-            <Link className="team_page__link" to={'/student-profile/' + teamMemberPreview._id}>
-                <div className="team-member-preview__bg-image">
-                    <Table className="team-member-preview">
-                        <TableBody>
-                            <TableRow key={teamMemberPreview._id}>
-                                <TableCell component="td" scope="row" className="photo_cell">
-                                    {photo}
-                                </TableCell>
-                                <TableCell component="td" scope="row" className="name_cell">
-                                    {name}
-                                </TableCell>
-                                <TableCell component="td" scope="row" className="university_cell">
-                                    {university}
-                                </TableCell>
-                            </TableRow>
-                        </TableBody>
-                    </Table>
+            <div className="team-member-preview">
+                <div className='team-member-preview__info-row'>
+                    <Link className="team_page__link"
+                          to={'/student-profile/' + teamMemberPreview._id}>
+                        {photo}
+                    </Link>
                 </div>
-            </Link>
+                <div className='name_cell team-member-preview__info-row'>
+                    <Link className="team_page__link"
+                          to={'/student-profile/' + teamMemberPreview._id}>
+                        {name}
+                    </Link>
+                </div>
+                <div className='university_cell team-member-preview__info-row'>
+                    {university}
+                </div>
+                { typeof(this.props.append) === 'function'
+                  && <div>{ this.props.append(teamMemberPreview) }</div> }
+            </div>
         );
     }
 }

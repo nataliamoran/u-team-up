@@ -1,18 +1,18 @@
-.team-member-preview__bg-image{
+.team-member-preview{
     background-size: contain;
-    height: 250px;
     width: 250px;
 
     background-image: url("./static/puzzle-piece.png");
     margin-left: 10px;
     margin-right: 10px;
+    background-repeat: no-repeat;
 }
 
-.team-member-preview td {
+.team-member-preview__info-row {
     display: flex;
     flex-direction: column;
     width: 100px;
-    border-style: hidden !important;
+    border-style: hidden;
     text-align: center;
     padding-left: 75px;
     padding-top: 70px;
@@ -23,21 +23,16 @@
 
 .team_member__photo {
     height: 100px;
-
-
 }
 
-.name_cell {
-    padding-top: 40px !important;
-    height: 5px;
-    font-size: 1em !important;
-    font-weight: bold !important;
+.name_cell, .name_cell a {
+    padding-top: 40px;
+    font-size: 1em;
+    font-weight: bold;
 
 }
 
 .university_cell{
-    padding-top: 5px !important;
-    height: 5px;
-    font-size: 1em !important;
+    padding-top: 5px;
+    font-size: 1em;
 }
-
