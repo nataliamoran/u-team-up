@@ -207,6 +207,14 @@ class StudentProfile extends React.Component {
                             src={newUser}
                             alt="profile picture"
                         />
+                        <button
+                            className="student_profile__img_button"
+                            type="button"
+                            name="edit"
+                            onClick={this.changeEditMode}
+                        >
+                            Upload profile picture
+                        </button>
 
                         <div className="info inner">
                             <h4 className="student_profile_h4">Name:</h4>
