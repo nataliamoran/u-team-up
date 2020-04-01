@@ -124,8 +124,11 @@ class App extends React.Component {
                         <Route
                             exact
                             path="/team/:id/application"
-                            render={() => (
-                                <TeamApplicationInvitation state={this.state} />
+                            render={({ match }) => (
+                                <TeamApplicationInvitation
+                                    teamId={match.params.id}
+                                    state={this.state}
+                                />
                             )}
                         />
                         <Route
