@@ -41,31 +41,33 @@ class SearchStudent extends React.Component {
     };
 
     /* Method to remove a student */
-    removeStudent = (student) => {
-        this.state.students = this.state.students.filter(s => s !== student);
-        this.setState({
-            students: this.state.students
-        });
-        this.state.filteredStudents = Array.from(this.state.students);
-        //TODO Push updates to the DB
-    };
+    removeStudent = student =>
+        request.delete(`${SERVER_URL}api/user`,
+                       { username: student._id,
+                         token: this.props.state.identity.token,
+                       })
+        .catch(e => {
+            NotificationManager.error(`Error deleting user ${student._id}: ${JSON.stringify(e)}`);
+            throw e; // skip re-fetching student list
+        })
+        .then(this.filterStudents)
+        .catch(() => {});
 
-    filterStudents = () => {
+    filterStudents = () =>
         request.get(`${SERVER_URL}api/users`,
                     {
                         fullname: this.state.studentName,
                         university: this.state.studentUniversity,
                         course: this.state.studentCourse, // FIXME
                     })
-            .then(res => {
-                console.log("Success", res);
-                this.setState({ filteredStudents: res.result });
-            })
-            .catch(e => {
-                console.log('Error');
-                NotificationManager.error('There was an error getting the list of students.');
-            });
-    };
+        .then(res => {
+            console.log("Success", res);
+            this.setState({ filteredStudents: res.result });
+        })
+        .catch(e => {
+            console.log('Error');
+            NotificationManager.error('There was an error getting the list of students.');
+        });
 
     createStudent = () => {};
 

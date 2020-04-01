@@ -56,7 +56,7 @@ module.exports = {
                 throw 404;
             }
             await user.remove();
-            await Profile.findByIdAndRemove(id);
+            await Profile.findByIdAndRemove(username);
             await Auth.deleteMany({username});
             const teams = await Team.updateMany(
                 {members: username}, {members: {$pull: username}});
