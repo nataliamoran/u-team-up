@@ -138,8 +138,10 @@ class Team extends React.Component {
     submitApplication = () => {
         this.state.team.applications.push(
             {
-                studentUsername: this.props.globalState.identity.username,
-                application: this.state.quizApplication
+                // studentUsername: this.props.globalState.identity.username,
+                student: this.state.student,
+                application: this.state.quizApplication,
+                open: false
             });
         const team_data = {
             applications: this.state.team.applications,
@@ -148,7 +150,8 @@ class Team extends React.Component {
 
         this.state.student.applications.push({
             teamId: this.state.team._id,
-            application: this.state.quizApplication
+            application: this.state.quizApplication,
+            status: "Pending"
         });
         this.setState({
             student: this.state.student
@@ -550,7 +553,7 @@ class Team extends React.Component {
                             className="team_page__button">team calendar</Button>
                 </Link>;
             applicationsButton =
-                <Link className="team_page__link" to={`/team/${team.id}/application`}>
+                <Link className="team_page__link" to={`/team/${team._id}/application`}>
                     <Button variant="outlined" color="primary"
                             className="team_page__button">applications</Button>
                 </Link>;

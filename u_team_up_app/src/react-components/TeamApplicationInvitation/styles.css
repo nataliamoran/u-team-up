@@ -33,8 +33,9 @@
     padding-bottom: 40px;
 }
 
-.application-preview__table{
+.application-preview__table td {
     border-bottom-style: hidden !important;
+    border-top-style: hidden !important;
 }
 
 
@@ -46,6 +47,22 @@
 }
 
 .application__link{
-    text-decoration: none /*!important*/;
+    text-decoration: none !important;
+    color: #283b63;
 
+}
+
+.application_question{
+    color: #F76073 !important;
+    font-weight: bold;
+}
+
+.application_answer{
+
+}
+
+.application {
+    padding-bottom: 15px;
+    padding-left: 20px;
+    text-align: start;
 }
