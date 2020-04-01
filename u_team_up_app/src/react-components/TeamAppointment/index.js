@@ -4,9 +4,10 @@ import Calendar from '../Calendar';
 import Header from '../Header';
 import { Link } from 'react-router-dom';
 import {updateTeamDataInDB} from "../../actions/teamScripts";
-import {TEAMS_BACKEND} from "../../config";
+import {TEAMS_BACKEND, USER_BACKEND} from "../../config";
 import {uid} from "react-uid";
 import TextField from "@material-ui/core/TextField/TextField";
+import {updateProfileData} from "../../actions/profileScripts";
 
 const debug = console.log;
 
@@ -23,6 +24,7 @@ class TeamAppointment extends React.Component {
                 start: null,
                 end: null
             }, // {start: Date, end: Date}
+            team: null,
             otherSchedule: [ // TODO: FETCH
                 // {
                 //     name: 'Some Meeting',
@@ -64,6 +66,7 @@ class TeamAppointment extends React.Component {
             .then((json) => {
                 const events = this.getEventsFromJson(json.events);
                 this.setState({
+                    team: json,
                     otherSchedule: events,
                     dataLoaded: true
                 });
@@ -89,6 +92,35 @@ class TeamAppointment extends React.Component {
             token: this.props.globalState.identity.token
         };
         updateTeamDataInDB(data, this.state.teamId);
+
+        let memberUrl;
+        let memberData;
+
+        this.state.team.members.map( memberUsername => (
+            <div key={uid(
+                memberUsername
+            )}>
+                {memberUrl = USER_BACKEND + memberUsername}
+                {
+                    fetch(memberUrl)
+                        .then((response) => response.json())
+                        .then((json) => {
+                            const memberEvents = json.events;
+                            memberEvents.push(ev);
+                            memberData = {
+                                events: memberEvents,
+                                token: this.props.globalState.identity.token
+                            };
+                            updateProfileData(memberData, memberUsername);
+
+                        }).catch((error) => {
+                        console.error(error)
+                    })
+                }
+
+            </div>
+            )
+        )
 
     }
     

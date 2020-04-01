@@ -14,6 +14,7 @@ module.exports = mongoose => {
         year: Number,
         major: String,
         applications: Array,
+        events: Array,
         coursesTaken: [ObjectId],
         currentCourses: [ObjectId],
         teams: [ObjectId],

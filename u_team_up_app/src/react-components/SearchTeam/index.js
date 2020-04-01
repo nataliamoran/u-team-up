@@ -248,19 +248,6 @@ class SearchTeam extends React.Component {
                         <NotificationContainer/>
                     </Grid>
                 </div>
-
-            searchUserTeamsCheckbox =
-                <div>
-                    <Grid className="search-checkbox" container direction="row" justify="center" alignItems="stretch">
-                    <p>search my teams only</p>
-                    <Checkbox
-                        checked={this.state.searchUserTeams}
-                        onChange={this.handleSearchUserTeams}
-                        value="primary"
-                        inputProps={{'aria-label': 'primary checkbox'}}
-                    />
-                    </Grid>
-                </div>
         }
 
         const displayTeamButton = (team) => {
@@ -284,6 +271,21 @@ class SearchTeam extends React.Component {
             }
 
         };
+
+        if (this.props.state.identity.type === "user") {
+            searchUserTeamsCheckbox =
+                <div>
+                    <Grid className="search-checkbox" container direction="row" justify="center" alignItems="stretch">
+                        <p>search my teams only</p>
+                        <Checkbox
+                            checked={this.state.searchUserTeams}
+                            onChange={this.handleSearchUserTeams}
+                            value="primary"
+                            inputProps={{'aria-label': 'primary checkbox'}}
+                        />
+                    </Grid>
+                </div>
+        }
 
         return (
             <div className="search_team_view">
