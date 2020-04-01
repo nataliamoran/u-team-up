@@ -1,5 +1,5 @@
-const { mongoose, Profile, User, Auth, Team } = require('../db/mongoose');
-const { validCriteria } = require('../helper/filter');
+const {mongoose, Profile, User, Auth, Team} = require('../db/mongoose');
+const {validCriteria} = require('../helper/filter');
 const debug = console.log;
 
 module.exports = {
@@ -14,14 +14,15 @@ module.exports = {
         },
         put: async (req, res) => {
             if (req.identity.type !== 'admin'
-                && req.identity.username !== req.args.username) {
+                && req.identity.username !== req.args.username
+                && !req.body.applications) {
                 // do not allow users to modify others' profile
                 throw 401;
             }
 
             // now it is authorized
             const user = await Profile.findById(req.args.username);
-            if (! user) {
+            if (!user) {
                 throw 404;
             }
 
@@ -29,7 +30,7 @@ module.exports = {
             console.log(req.args);
 
             Object.keys(req.args)
-            // do not allow to change id
+                // do not allow to change id
                 .filter(k => k !== 'username' && k !== '_id')
                 .forEach(k => user[k] = req.args[k]);
 
@@ -50,14 +51,14 @@ module.exports = {
             const username = req.args.username;
 
             const user = await User.findById(username);
-            if (! user) {
+            if (!user) {
                 throw 404;
             }
             await user.remove();
             await Profile.findByIdAndRemove(id);
-            await Auth.deleteMany({ username });
+            await Auth.deleteMany({username});
             const teams = await Team.updateMany(
-                { members: username }, { members: { $pull: username } });
+                {members: username}, {members: {$pull: username}});
 
             return 200;
         },
