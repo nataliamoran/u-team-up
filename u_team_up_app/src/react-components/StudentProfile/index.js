@@ -95,7 +95,6 @@ class StudentProfile extends React.Component {
             majorOfStudy: "",
             coursesTaken: "",
             currentCourses: "",
-            currentTeams: "",
             reviews: [],
             description: "",
             location: "",
@@ -281,13 +280,6 @@ class StudentProfile extends React.Component {
                                 onChange={this.handleEditInput}
                                 name="currentCourses"
                             />
-                        </div>
-
-                        <div className="current-teams inner">
-                            <h4 className="student_profile_h4">
-                                Current Teams:
-                            </h4>
-                            <p>{this.state.currentTeams}</p>
                         </div>
 
                         <div className="reviews inner">
