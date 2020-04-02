@@ -109,7 +109,8 @@ class Team extends React.Component {
             .then((response) => response.json())
             .then((json) => {
                 this.setState({
-                    students: json
+                    students: json.result,
+                    filteredStudents: json.result
                 });
             }).catch((error) => {
             console.error()
