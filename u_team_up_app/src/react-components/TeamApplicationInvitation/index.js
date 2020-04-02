@@ -38,23 +38,6 @@ class TeamApplicationInvitation extends React.Component {
         });
     }
 
-    sendMessage = (message, username) => {
-        this.state.student.messages.push({
-            teamUniversity: this.state.team.university,
-            teamCourse: this.state.team.course,
-            messageText: message
-        });
-        this.setState({
-            student: this.state.student
-        });
-        const profile_data = {
-            messages: this.state.student.messages,
-            token: this.props.state.identity.token
-        };
-        updateProfileData(profile_data, username);
-    };
-
-
     updateApplicationStatusInUserDB = (application, username, status) => {
         const studentUrl = USER_BACKEND + username;
 
@@ -71,11 +54,13 @@ class TeamApplicationInvitation extends React.Component {
                 const profile_data = {
                     applications: this.state.student.applications,
                     _id: username,
+                    teamUniversity: this.state.team.university,
+                    teamCourse: this.state.team.course,
+                    applicationStatus: status,
                     token: this.props.state.identity.token
                 };
 
                 updateProfileData(profile_data, username);
-                this.sendMessage("Congratulations! Your application was accepted.", username);
             }).catch((error) => {
             console.error(error)
         });
@@ -114,7 +99,6 @@ class TeamApplicationInvitation extends React.Component {
         };
         updateTeamDataInDB(data, this.state.team._id);
         this.updateApplicationStatusInUserDB(application, application.student._id, "Rejected");
-        this.sendMessage("Sorry, your application was rejected.");
     };
 
     seeApplication = (application) => {

@@ -17,7 +17,7 @@ module.exports = {
                 && req.identity.username !== req.args.username
                 && !req.body.applications
                 && !req.body.events
-                && !req.body.messages) {
+                && !req.body.teamMembershipUpdate) {
                 // do not allow users to modify others' profile
                 throw 401;
             }
@@ -35,6 +35,40 @@ module.exports = {
                 // do not allow to change id
                 .filter(k => k !== 'username' && k !== '_id')
                 .forEach(k => user[k] = req.args[k]);
+
+
+            if(req.body.events){
+                user["messages"].push({
+                    teamUniversity: req.body.teamUniversity,
+                    teamCourse: req.body.teamCourse,
+                    messageText: "New team event is scheduled.",
+                    event: req.body.event
+                })
+            } else if(req.body.applications || req.body.teamMembershipUpdate){
+                let messageText;
+                if (req.body.applications){
+                    if(req.body.applicationStatus.toLowerCase() === "accepted"){
+                        messageText = "Congratulations! Your application was accepted."
+                    } else if(req.body.applicationStatus.toLowerCase() === "rejected"){
+                        messageText = "Sorry, your application was rejected."
+                    } else {
+                        messageText = "Your application is successfully submitted."
+                    }
+                } else {
+                    if(req.body.teamMembershipUpdate.toLowerCase() === 'added'){
+                        messageText = "You were added to the team."
+                    } else {
+                        messageText = "You were removed from the team."
+                    }
+                }
+                user["messages"].push({
+                    teamUniversity: req.body.teamUniversity,
+                    teamCourse: req.body.teamCourse,
+                    messageText: messageText
+                })
+            }
+
+
 
             console.log('new user profile:', user);
             await user.save();

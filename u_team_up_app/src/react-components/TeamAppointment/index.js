@@ -97,15 +97,11 @@ class TeamAppointment extends React.Component {
                             const memberEvents = json.events;
                             const memberMessages = json.messages;
                             memberEvents.push(ev);
-                            memberMessages.push({
-                                teamUniversity: this.state.team.university,
-                                teamCourse: this.state.team.course,
-                                messageText: "New team event is scheduled.",
-                                event: ev
-                            });
                             memberData = {
                                 events: memberEvents,
-                                messages: memberMessages,
+                                teamUniversity: this.state.team.university,
+                                teamCourse: this.state.team.course,
+                                event: ev,
                                 token: this.props.globalState.identity.token
                             };
                             updateProfileData(memberData, memberUsername);

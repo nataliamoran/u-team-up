@@ -94,16 +94,17 @@ class Team extends React.Component {
         });
 
         const studentUrl = USER_BACKEND + this.props.globalState.identity.username;
-
-        fetch(studentUrl)
-            .then((response) => response.json())
-            .then((json) => {
-                this.setState({
-                    student: json
-                });
-            }).catch((error) => {
-            console.error()
-        });
+        if(this.props.globalState.identity.type === 'user'){
+            fetch(studentUrl)
+                .then((response) => response.json())
+                .then((json) => {
+                    this.setState({
+                        student: json
+                    });
+                }).catch((error) => {
+                console.error()
+            });
+        }
 
         fetch(USERS_BACKEND)
             .then((response) => response.json())
@@ -136,20 +137,14 @@ class Team extends React.Component {
         });
     };
 
-    sendMessage = (message) => {
-        this.state.student.messages.push({
+    sendMessage = (message, student) => {
+        const profile_data = {
+            teamMembershipUpdate: message,
             teamUniversity: this.state.team.university,
             teamCourse: this.state.team.course,
-            messageText: message
-        });
-        this.setState({
-            student: this.state.student
-        });
-        const profile_data = {
-            messages: this.state.student.messages,
             token: this.props.globalState.identity.token
         };
-        updateProfileData(profile_data, this.props.globalState.identity.username);
+        updateProfileData(profile_data, student._id);
     };
 
     submitApplication = () => {
@@ -176,11 +171,13 @@ class Team extends React.Component {
         const profile_data = {
             applications: this.state.student.applications,
             _id: this.props.globalState.identity.username,
+            teamUniversity: this.state.team.university,
+            teamCourse: this.state.team.course,
+            applicationStatus: "Pending",
             token: this.props.globalState.identity.token
         };
         updateTeamDataInDB(team_data, this.state.team._id);
         updateProfileData(profile_data, this.props.globalState.identity.username);
-        this.sendMessage("Your application is submitted.");
         NotificationManager.success('Your application is successfully submitted')
     };
 
@@ -263,10 +260,10 @@ class Team extends React.Component {
             token: this.props.globalState.identity.token
         };
         updateTeamDataInDB(data, this.state.team._id);
-        if(this.state.student._id === memberToRemove._id){
+        if(this.state.student && this.state.student._id === memberToRemove._id){
             this.changeEditMode();
         }
-        this.sendMessage("You were removed from the team.");
+        this.sendMessage("removed", memberToRemove);
     };
 
     /* Method to add a member */
@@ -282,7 +279,7 @@ class Team extends React.Component {
             token: this.props.globalState.identity.token
         };
         updateTeamDataInDB(data, this.state.team._id);
-        this.sendMessage("You were added to the team.");
+        this.sendMessage("added", student);
     };
 
     /* Method to remove a quiz question */
