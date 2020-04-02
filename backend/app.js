@@ -38,6 +38,8 @@ app.get('/', wrap((req, res) => 'It works!'));
 
 rh(app, require('./routes/users'));
 
+rh(app, require('./routes/university'));
+
 app.use(wrap(async () => { throw 404; }));
 
 const port = process.env.PORT || 5000;

@@ -6,15 +6,20 @@
 const wrap = (func) => ((req, res) => {
     Promise.resolve(func(req, res))
         .then(r => {
-            if (typeof r === 'object'
-                && r !== null
+            if (!r) {
+                res.status(204).send();
+            } else if (typeof r === 'object'
                 && !Array.isArray(r)) {
                 if (r._code) {
                     res.status(r._code);
-                    delete r._code;
+                    res.send(r._result);
+                } else {
+                    res.send(r);
                 }
-                res.send(r);
             } else {
+                if (typeof r === 'number') {
+                    res.status(r);
+                }
                 res.send({ result: r });
             }
         })

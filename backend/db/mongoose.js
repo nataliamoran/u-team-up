@@ -26,6 +26,7 @@ if (!global.uTeamUpMongooseHelper) {
     helper.Team = require("./teamSchema")(mongoose);
     helper.Profile = require("./profile")(mongoose);
     helper.Image = require("./image")(mongoose);
+    helper.University = require('./university')(mongoose);
 }
 
 module.exports = {
