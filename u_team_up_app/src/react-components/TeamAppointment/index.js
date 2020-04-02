@@ -25,18 +25,7 @@ class TeamAppointment extends React.Component {
                 end: null
             }, // {start: Date, end: Date}
             team: null,
-            otherSchedule: [ // TODO: FETCH
-                // {
-                //     name: 'Some Meeting',
-                //     start: new Date(2020, 1, 20, 14, 30),
-                //     end: new Date(2020, 1, 20, 15, 20)
-                // },
-                // {
-                //     name: 'Something else',
-                //     start: new Date(2020, 1, 22, 13, 0),
-                //     end: new Date(2020, 1, 22, 14, 0)
-                // }
-            ], // [{start: Date, end: Date, name: string}, ...]
+            otherSchedule: [], // [{start: Date, end: Date, name: string}, ...]
         };
 
         this.addEvent = this.addEvent.bind(this);
@@ -106,9 +95,17 @@ class TeamAppointment extends React.Component {
                         .then((response) => response.json())
                         .then((json) => {
                             const memberEvents = json.events;
+                            const memberMessages = json.messages;
                             memberEvents.push(ev);
+                            memberMessages.push({
+                                teamUniversity: this.state.team.university,
+                                teamCourse: this.state.team.course,
+                                messageText: "New team event is scheduled.",
+                                event: ev
+                            });
                             memberData = {
                                 events: memberEvents,
+                                messages: memberMessages,
                                 token: this.props.globalState.identity.token
                             };
                             updateProfileData(memberData, memberUsername);

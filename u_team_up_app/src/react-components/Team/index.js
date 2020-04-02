@@ -90,7 +90,7 @@ class Team extends React.Component {
 
         this.getTeamFromDB()
             .then(() => this.getTeamMembersFromDB()).catch((error) => {
-            console.error(error)
+            console.error()
         });
 
         const studentUrl = USER_BACKEND + this.props.globalState.identity.username;
@@ -102,7 +102,7 @@ class Team extends React.Component {
                     student: json
                 });
             }).catch((error) => {
-            console.error(error)
+            console.error()
         });
 
         fetch(USERS_BACKEND)
@@ -112,7 +112,7 @@ class Team extends React.Component {
                     students: json
                 });
             }).catch((error) => {
-            console.error(error)
+            console.error()
         });
     }
 
@@ -133,6 +133,22 @@ class Team extends React.Component {
         this.setState({
             newQuizQuestion: value
         });
+    };
+
+    sendMessage = (message) => {
+        this.state.student.messages.push({
+            teamUniversity: this.state.team.university,
+            teamCourse: this.state.team.course,
+            messageText: message
+        });
+        this.setState({
+            student: this.state.student
+        });
+        const profile_data = {
+            messages: this.state.student.messages,
+            token: this.props.globalState.identity.token
+        };
+        updateProfileData(profile_data, this.props.globalState.identity.username);
     };
 
     submitApplication = () => {
@@ -163,10 +179,8 @@ class Team extends React.Component {
         };
         updateTeamDataInDB(team_data, this.state.team._id);
         updateProfileData(profile_data, this.props.globalState.identity.username);
+        this.sendMessage("Your application is submitted.");
         NotificationManager.success('Your application is successfully submitted')
-
-        console.log("team state");
-        console.log(this.state.team);
     };
 
     changeEditMode = () => {
@@ -192,8 +206,6 @@ class Team extends React.Component {
             token: this.props.globalState.identity.token
         };
         updateTeamDataInDB(data, this.state.team._id);
-        console.log("Accept Applications Change");
-        console.log(this.state.team);
     };
 
     handleEditInput = event => {
@@ -253,7 +265,7 @@ class Team extends React.Component {
         if(this.state.student._id === memberToRemove._id){
             this.changeEditMode();
         }
-
+        this.sendMessage("You were removed from the team.");
     };
 
     /* Method to add a member */
@@ -269,7 +281,7 @@ class Team extends React.Component {
             token: this.props.globalState.identity.token
         };
         updateTeamDataInDB(data, this.state.team._id);
-
+        this.sendMessage("You were added to the team.");
     };
 
     /* Method to remove a quiz question */
