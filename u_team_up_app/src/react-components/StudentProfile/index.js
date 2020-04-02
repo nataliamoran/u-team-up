@@ -95,7 +95,6 @@ class StudentProfile extends React.Component {
             majorOfStudy: "",
             coursesTaken: "",
             currentCourses: "",
-            currentTeams: "",
             reviews: [],
             description: "",
             location: "",
@@ -208,6 +207,14 @@ class StudentProfile extends React.Component {
                             src={newUser}
                             alt="profile picture"
                         />
+                        <button
+                            className="student_profile__img_button"
+                            type="button"
+                            name="edit"
+                            onClick={this.changeEditMode}
+                        >
+                            Upload profile picture
+                        </button>
 
                         <div className="info inner">
                             <h4 className="student_profile_h4">Name:</h4>
@@ -281,13 +288,6 @@ class StudentProfile extends React.Component {
                                 onChange={this.handleEditInput}
                                 name="currentCourses"
                             />
-                        </div>
-
-                        <div className="current-teams inner">
-                            <h4 className="student_profile_h4">
-                                Current Teams:
-                            </h4>
-                            <p>{this.state.currentTeams}</p>
                         </div>
 
                         <div className="reviews inner">
