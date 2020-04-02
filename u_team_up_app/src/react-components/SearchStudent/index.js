@@ -24,9 +24,12 @@ class SearchStudent extends React.Component {
             newStudentName: "",
             newStudentUniversity: "",
             studentCourse: "",
-            students: [],
         };
         this.state.filteredStudents = [];
+    }
+
+    componentDidMount() {
+        this.filterStudents();
     }
 
     /* Method to handle the Student Search Form input */
