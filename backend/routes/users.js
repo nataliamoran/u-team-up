@@ -38,7 +38,7 @@ module.exports = {
                 .forEach(k => user[k] = req.args[k]);
 
 
-            if(req.body.events){
+            if(req.body.event){
                 user["messages"].push({
                     teamUniversity: req.body.teamUniversity,
                     teamCourse: req.body.teamCourse,
