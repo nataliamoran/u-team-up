@@ -16,7 +16,7 @@ module.exports = {
             if (req.identity.type !== 'admin'
                 && req.identity.username !== req.args.username
                 && !req.body.applications
-                && !req.body.events
+                && !req.body.event
                 && !req.body.teamMembershipUpdate) {
                 // do not allow users to modify others' profile
                 throw 401;

@@ -82,48 +82,32 @@ class TeamAppointment extends React.Component {
         };
         updateTeamDataInDB(data, this.state.teamId);
 
-        let memberUrl;
+       // Send messages to all team members
         let memberData;
-
         this.state.team.members.map( memberUsername => (
             <div key={uid(
                 memberUsername
             )}>
-                {memberUrl = USER_BACKEND + memberUsername}
-                {
-                    fetch(memberUrl)
-                        .then((response) => response.json())
-                        .then((json) => {
-                            const memberEvents = json.events;
-                            const memberMessages = json.messages;
-                            memberEvents.push(ev);
-                            memberData = {
-                                events: memberEvents,
-                                teamUniversity: this.state.team.university,
-                                teamCourse: this.state.team.course,
-                                event: ev,
-                                token: this.props.globalState.identity.token
-                            };
-                            updateProfileData(memberData, memberUsername);
-
-                        }).catch((error) => {
-                        console.error(error)
-                    })
-                }
-
+                {memberData = {
+                    teamUniversity: this.state.team.university,
+                    teamCourse: this.state.team.course,
+                    event: ev,
+                    token: this.props.globalState.identity.token
+                }}
+                {updateProfileData(memberData, memberUsername)}
             </div>
             )
         )
 
     }
-    
+
     render() {
         const authorized = this.props.globalState.identity.type === 'user';
-        
+
         return (
             this.state.dataLoaded ?
             <div className="team_appointment">
-                <Header type='main' 
+                <Header type='main'
                         title='Team Appointment' />
                 { authorized ? [
                     <Header type='secondary'
