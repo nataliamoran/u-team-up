@@ -37,7 +37,7 @@ export const addImage = (form, dashboardComp) => {
         });
 };
 
-export const getImages = imageListComp => {
+export const getImage = imageListComp => {
     // the URL for the request
     const url = IMAGES_BACKEND;
 

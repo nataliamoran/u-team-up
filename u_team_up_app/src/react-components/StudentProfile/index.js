@@ -6,7 +6,10 @@ import newUser from "./static/new_user.png";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button/Button";
 import TextField from "@material-ui/core/TextField";
+import ImageForm from "./../ImageForm";
 import { USER_BACKEND } from "../../config";
+import {updateProfileData} from "../../actions/profileScripts";
+import {NotificationManager} from 'react-notifications';
 
 // const studentInfo = {
 //     "1": {
@@ -109,7 +112,27 @@ class StudentProfile extends React.Component {
         };
     }
 
+    getUserProfileFromDB = () => {
+        return new Promise((resolve, reject) => {
+            const profileUrl = USER_BACKEND + this.props.username
+            fetch(profileUrl)
+                .then((response) => response.json())
+                .then((json) => {
+                    this.setState({
+                        profile: json
+                    })
+                    resolve()
+                }).catch((error) => {
+                    console.error(error)
+                    reject()
+                })
+        })
+    }
+
+
     componentDidMount() {
+        this.getUserProfileFromDB()
+
         const url = USER_BACKEND + this.props.globalState.identity.username;
 
         fetch(url)
@@ -127,10 +150,30 @@ class StudentProfile extends React.Component {
             });
     }
 
+
     updateInfo = () => {
         this.setState({
             isInEditMode: false
         });
+
+        const profile_data = {
+            _id: this.props.globalState.identity.username,
+            name: this.state.name,
+            university: this.state.university,
+            yearOfStudy: this.state.yearOfStudy,
+            majorOfStudy: this.state.majorOfStudy,
+            coursesTaken: this.state.coursesTaken,
+            currentCourses: this.state.currentCourses,
+            reviews: this.state.reviews,
+            description: this.state.description,
+            location: this.state.location,
+            gpa: this.state.gpa,
+            pastProject: this.state.pastProject,
+            experience: this.state.experience,
+        };
+
+        updateProfileData(profile_data, this.props.globalState.identity.username);
+        NotificationManager.success('Profile data saved!')
     };
 
     changeEditMode = () => {
@@ -207,14 +250,9 @@ class StudentProfile extends React.Component {
                             src={newUser}
                             alt="profile picture"
                         />
-                        <button
-                            className="student_profile__img_button"
-                            type="button"
-                            name="edit"
-                            onClick={this.changeEditMode}
-                        >
-                            Upload profile picture
-                        </button>
+                        {/* Image upload form */}
+                        <ImageForm profile={this} />
+
 
                         <div className="info inner">
                             <h4 className="student_profile_h4">Name:</h4>

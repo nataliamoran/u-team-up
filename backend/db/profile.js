@@ -18,7 +18,6 @@ module.exports = mongoose => {
         messages: Array,
         coursesTaken: [ObjectId],
         currentCourses: [ObjectId],
-        teams: [ObjectId],
         reviews: [String],
         description: String,
         email: String,
