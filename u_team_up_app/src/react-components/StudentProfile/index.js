@@ -97,8 +97,8 @@ class StudentProfile extends React.Component {
             university: "",
             yearOfStudy: "",
             majorOfStudy: "",
-            coursesTaken: "",
-            currentCourses: "",
+            coursesTaken: [],
+            currentCourses: [],
             reviews: [],
             description: "",
             location: "",
@@ -158,6 +158,20 @@ class StudentProfile extends React.Component {
         this.setState({
             [name]: value
         }, () => this.changedFields[name] = value);
+        event.preventDefault();
+    };
+
+    displayArray = arr => arr.join(' ');
+
+    handleEditInputArray = event => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        const arr = value.split(/\s+/);
+
+        this.setState({
+            [name]: arr,
+        }, () => this.changedFields[name] = arr);
         event.preventDefault();
     };
 
@@ -276,8 +290,8 @@ class StudentProfile extends React.Component {
                                 editing={editingInfo}
                                 className="student_profile__input"
                                 type="text"
-                                value={this.state.coursesTaken}
-                                onChange={this.handleEditInput}
+                                value={this.displayArray(this.state.coursesTaken)}
+                                onChange={this.handleEditInputArray}
                                 name="coursesTaken"
                             />
                         </div>
@@ -290,8 +304,8 @@ class StudentProfile extends React.Component {
                                 editing={editingInfo}
                                 className="student_profile__input"
                                 type="text"
-                                value={this.state.currentCourses}
-                                onChange={this.handleEditInput}
+                                value={this.displayArray(this.state.currentCourses)}
+                                onChange={this.handleEditInputArray}
                                 name="currentCourses"
                             />
                         </div>
