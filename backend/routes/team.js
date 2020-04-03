@@ -81,15 +81,37 @@ const createTeamCrud = function (app) {
             return;
         }
 
-        Team.findByIdAndRemove(id).then((team) => {
+        Team.findById(id).then(async (team) => {
             if (!team) {
-                res.status(404).send()
+                res.status(404).send();
             } else {
-                res.send(team)
+                const members = team.members;
+                members.map( async (member) => {
+                    const profile = await Profile.findById(member);
+                    const updatedTeams = profile.teams.filter(team => team != id);
+                    return profile.updateOne({teams: updatedTeams}).then(() => {
+                        res.status(201).send(profile);
+                    });
+
+                });
+
+                return Team.deleteOne({_id: id}).then(() => {
+                    res.status(201).send(team);
+                });
             }
         }).catch((error) => {
             res.status(500).send(error)
-        })
+        });
+
+        // Team.findByIdAndRemove(id).then((team) => {
+        //     if (!team) {
+        //         res.status(404).send()
+        //     } else {
+        //         res.send(team)
+        //     }
+        // }).catch((error) => {
+        //     res.status(500).send(error)
+        // })
     });
 
     app.patch('/api/teams/:id', (req, res) => {
