@@ -22,7 +22,7 @@ const formatTimeInterval = s => formatTime(s.start) + '-' + formatTime(s.end);
 class Calendar extends React.Component {
     constructor(props) {
         super(props);
-        
+
         const now = new Date();
         const displayMonth = props.displayMonth || now.getMonth();
         const displayYear = props.displayYear || now.getFullYear();
@@ -30,16 +30,14 @@ class Calendar extends React.Component {
         const displayDate = new Date(displayYear, displayMonth, displayDay, 2);
 
         debug(displayDate);
-              
+
         this.state = {
             today: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 2),
             displayDate,
-            schedule: props.schedule,
             newEventName: '',
             newEventStartTime: '',
             newEventEndTime: '',
         };
-        debug(this.state.schedule);
 
         this.addEventCallback = this.props.addEventCallback;
 
@@ -100,12 +98,12 @@ class Calendar extends React.Component {
             });
         }
     }
-    
+
     handleChange(e) {
         e.preventDefault();
 
         const { name, value } = e.target;
-        
+
         if (/Time$/.test(name)) {
             this.setState({ [name]: value.replace(/[^0-9:]/g, '') });
         } else {
@@ -125,7 +123,7 @@ class Calendar extends React.Component {
             nd.setDate(1);
             return nd.getDate() - nd.getDay();
         }
-        
+
         // returns a Date object pointing to the first day
         // that should be displayed in the calendar
         //
@@ -147,16 +145,16 @@ class Calendar extends React.Component {
             };
             const numDays = [31, isLeap(date) ? 29 : 28, 31, 30, 31, 30,
                              31, 31, 30, 31, 30, 31];
-            
+
             return Math.ceil((numDays[date.getMonth()] - firstDayNum(date)) / 7);
         };
 
         const newEvent = this.eventFromInput();
-        
+
         const schedule = newEvent
-              ? this.state.schedule.concat(newEvent)
-              : this.state.schedule;
-        
+              ? this.props.schedule.concat(newEvent)
+              : this.props.schedule;
+
         const generateCalendarDays = () =>
               Array(numWeeks(this.state.displayDate)).fill(0)
               .map((_, week) =>
@@ -200,7 +198,7 @@ class Calendar extends React.Component {
                            })
                        }
                    </tr>);
-        
+
         return (
             <div className='calendar'>
                 <div className='calendar__button_container'>
@@ -254,21 +252,23 @@ class Calendar extends React.Component {
                                      onChange={ this.handleChange } />
                           </div>
                       </div>
-                      <div className='calendar__add_event_line'>
-                          <div className='calendar__add_event'>
-                              <span className='calendar__add_event_date'>
-                                  Date: { formatDate(this.state.displayDate) }
-                              </span>
-                          </div>
-                          <div className='calendar__add_event'>
-                              <Button className='calendar__button'
-                                      variant='outlined'
-                                      color='primary'
-                                      onClick={ this.addEvent }>
-                                  Add event
-                              </Button>
-                          </div>
-                      </div>
+                      { typeof(this.addEvent) === 'function' &&
+                        <div className='calendar__add_event_line'>
+                            <div className='calendar__add_event'>
+                                <span className='calendar__add_event_date'>
+                                    Date: { formatDate(this.state.displayDate) }
+                                </span>
+                            </div>
+                            <div className='calendar__add_event'>
+                                <Button className='calendar__button'
+                                        variant='outlined'
+                                        color='primary'
+                                        onClick={ this.addEvent }>
+                                    Add event
+                                </Button>
+                            </div>
+                        </div>
+                      }
                   </div>
                 }
             </div>

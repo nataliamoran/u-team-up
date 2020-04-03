@@ -126,7 +126,7 @@ class SearchTeam extends React.Component {
             });
             fetch(request)
                 .then(function (res) {
-                    if (res.status === 200) {
+                    if (res.ok) {
                         console.log('Added team')
                         NotificationManager.success('New team was successfully created!');
                         resolve();
