@@ -72,42 +72,6 @@ class SearchStudent extends React.Component {
             NotificationManager.error('There was an error getting the list of students.');
         });
 
-    createStudent = () => {};
-
-    /* Student Search View - Admin Mode */
-    newStudentForm = () =>
-        [<h1 className="search_form_title">create a new student</h1>,
-         <Grid container direction="row" justify="center" alignItems="center">
-             <Input
-                 className="new_team__input"
-                 name="newStudentName"
-                 value={this.state.newStudentName}
-                 id="filled-textarea"
-                 label={"Name"}
-                 onChange={this.handleSearchInput}
-                 multiline
-             />
-             <Input
-                 className="new_team__input"
-                 name="newStudentUniversity"
-                 value={this.state.newStudentUniversity}
-                 id="filled-textarea"
-                 label={"University"}
-                 onChange={this.handleSearchInput}
-                 multiline
-             />
-             <Button
-                 variant="outlined"
-                 color="primary"
-                 className="new_team_button"
-                 onClick={this.createStudent}
-             >
-                 Create
-             </Button>
-         </Grid>];
-
-
-
     /* Student Search View - Student Mode */
     render() {
 
@@ -130,13 +94,6 @@ class SearchStudent extends React.Component {
                           ? 'manage students'
                           : 'find a partner' }
                     </h1>
-
-                    { isAdmin &&
-                      [this.newStudentForm(),
-                       <h1 className='search_form_title'>
-                           search students
-                       </h1>
-                      ] }
 
                     <NotificationContainer />
 
