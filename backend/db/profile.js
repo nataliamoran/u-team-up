@@ -14,13 +14,13 @@ module.exports = mongoose => {
             type: String,
             alias: "username"
         },
-        image: ObjectId,
+        imageUrl: String,
         fullname: {
             type: String
         },
         university: String,
         yearOfStudy: Number,
-        major: String,
+        majorOfStudy: String,
         applications: Array,
         events: Array,
         messages: [MessageSchema],
