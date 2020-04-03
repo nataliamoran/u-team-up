@@ -34,12 +34,25 @@ class Navigator extends React.Component {
     }
 
     componentDidMount() {
+        this.checkLoginStatus();
         this.getMessageCount();
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (this.state.msgCount === null) {
+            this.checkLoginStatus();
             this.getMessageCount();
+        }
+    }
+
+    async checkLoginStatus() {
+        if (this.props.globalState.identity.type !== 'guest') {
+            try {
+                await request.get(`${SERVER_URL}auth/check`,
+                                  { token: this.props.globalState.identity.token});
+            } catch(_) {
+                this.props.logoutCallback();
+            }
         }
     }
 

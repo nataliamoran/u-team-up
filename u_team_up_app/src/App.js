@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
-import { withCookies } from 'react-cookie';
 import "./App.css";
 
 import Login from "./react-components/Login";
@@ -23,30 +22,38 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            loginStatus: props.cookies.get('type') || 'guest', // guest, user, admin
+            loginStatus: window.localStorage.getItem('type') || 'guest', // guest, user, admin
             identity: {
-                type: props.cookies.get('type') || 'guest',
-                username: props.cookies.get('username') || '',
+                type: window.localStorage.getItem('type') || 'guest',
+                username: window.localStorage.getItem('username') || '',
                 get uid() { return this.username; },
-                token: props.cookies.get('token') || '',
+                token: window.localStorage.getItem('token') || '',
             },
         };
 
         this.setIdentity = this.setIdentity.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     // @param: identity: const Object
     setIdentity(identity) {
         this.setState({ identity, loginStatus: identity.type });
-        this.props.cookies.set('token', identity.token);
-        this.props.cookies.set('username', identity.username);
-        this.props.cookies.set('type', identity.type);
+        window.localStorage.setItem('token', identity.token);
+        window.localStorage.setItem('username', identity.username);
+        window.localStorage.setItem('type', identity.type);
+    }
+
+    logout() {
+        this.setIdentity({ type: 'guest',
+                           username: '',
+                           uid: '',
+                           token: '', });
     }
 
     render() {
         return (
             <BrowserRouter>
-                <Navigator globalState={this.state}>
+                <Navigator globalState={this.state} logoutCallback={this.logout}>
                     <Switch>
                         <Route
                             exact
@@ -134,7 +141,7 @@ class App extends React.Component {
                         <Route
                             exact
                             path="/adminDashboard"
-                            render={() => <AdminDashboard state={this.state} />}
+                            render={() => <AdminDashboard globalState={this.state} />}
                         />
                         <Route
                             exact
@@ -159,4 +166,4 @@ class App extends React.Component {
     }
 }
 
-export default withCookies(App);
+export default App;
