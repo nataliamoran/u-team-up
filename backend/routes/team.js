@@ -18,7 +18,11 @@ const createTeamCrud = function (app) {
             description: req.body.description,
             acceptNewApplications: true,
             members: [req.identity.username],
-            quizQuestions: [],
+            quizQuestions: [
+                "Which grade are you aiming for?",
+                "Will you be able to attend weekly team meetings on campus?",
+                "How many hours per week will you be working on the project?"
+            ],
             applications: [],
             invitations: [],
             events: []
