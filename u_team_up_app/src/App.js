@@ -14,7 +14,7 @@ import StudentProfile from "./react-components/StudentProfile";
 import StudentAppointment from "./react-components/StudentAppointment";
 import TeamApplicationInvitation from "./react-components/TeamApplicationInvitation";
 import AdminDashboard from "./react-components/AdminDashboard";
-import StudentApplicationInvitation from "./react-components/StudentApplicationInvitation";
+import StudentApplication from "./react-components/StudentApplication";
 import MessageBox from "./react-components/MessageBox";
 
 class App extends React.Component {
@@ -147,7 +147,7 @@ class App extends React.Component {
                             exact
                             path="/student-app-inv"
                             render={() => (
-                                <StudentApplicationInvitation
+                                <StudentApplication
                                     state={this.state}
                                 />
                             )}
