@@ -23,6 +23,11 @@ async function authMiddleware(req, res, next) {
         }
     }
     await injectIdentity(req, res);
+
+    if (req.method === 'GET' && req.path === '/auth/check') {
+        await checkAuth(req, res);
+        return;
+    }
     next();
 }
 
@@ -74,6 +79,14 @@ async function login(req, res) {
     }
     res.status(500)
         .send({ error: 'Cannot log in.' });
+}
+
+async function checkAuth(req, res) {
+    if (req.identity.type !== 'guest') {
+        res.status(204).send();
+    } else {
+        res.status(401).send();
+    }
 }
 
 async function injectIdentity(req, res) {

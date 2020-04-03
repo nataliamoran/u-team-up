@@ -193,6 +193,10 @@ class AdminDashboard extends React.Component {
     render() {
         const { adminId } = this.props;
 
+        if (this.props.globalState.identity.type !== 'admin') {
+            return "You are not allowed to visit this page.";
+        }
+
         return (
             <div className="admin_dashboard_view">
                 <div className="admin_options">

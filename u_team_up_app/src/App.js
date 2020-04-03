@@ -33,6 +33,7 @@ class App extends React.Component {
         };
 
         this.setIdentity = this.setIdentity.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     // @param: identity: const Object
@@ -43,10 +44,17 @@ class App extends React.Component {
         this.props.cookies.set('type', identity.type);
     }
 
+    logout() {
+        this.setIdentity({ type: 'guest',
+                           username: '',
+                           uid: '',
+                           token: '', });
+    }
+
     render() {
         return (
             <BrowserRouter>
-                <Navigator globalState={this.state}>
+                <Navigator globalState={this.state} logoutCallback={this.logout}>
                     <Switch>
                         <Route
                             exact
@@ -134,7 +142,7 @@ class App extends React.Component {
                         <Route
                             exact
                             path="/adminDashboard"
-                            render={() => <AdminDashboard state={this.state} />}
+                            render={() => <AdminDashboard globalState={this.state} />}
                         />
                         <Route
                             exact
