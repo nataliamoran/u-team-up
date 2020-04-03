@@ -137,14 +137,15 @@ class Team extends React.Component {
         });
     };
 
-    sendMessage = (message, student) => {
+    updateUserTeams = (message, username, teams) => {
         const profile_data = {
+            teams: teams,
             teamMembershipUpdate: message,
             teamUniversity: this.state.team.university,
             teamCourse: this.state.team.course,
             token: this.props.globalState.identity.token
         };
-        updateProfileData(profile_data, student._id);
+        updateProfileData(profile_data, username);
     };
 
     submitApplication = () => {
@@ -247,6 +248,7 @@ class Team extends React.Component {
 
     /* Method to delete a member */
     removeMember = (memberToRemove) => {
+        const updatedTeams = memberToRemove.teams.filter(team => team !== this.state.team._id);
         const members = this.state.team.members.filter(member => member !== memberToRemove._id);
         const updatedTeam = this.state.team;
         updatedTeam.members = members;
@@ -263,13 +265,14 @@ class Team extends React.Component {
         if(this.state.student && this.state.student._id === memberToRemove._id){
             this.changeEditMode();
         }
-        this.sendMessage("removed", memberToRemove);
+        this.updateUserTeams("removed", memberToRemove._id, updatedTeams);
     };
 
     /* Method to add a member */
     addMember = (student) => {
         this.state.team.members.push(student._id);
         this.state.teamMembers.push(student);
+        student.teams.push(this.state.team._id);
         this.setState({
             team: this.state.team,
             teamMembers: this.state.teamMembers
@@ -279,7 +282,7 @@ class Team extends React.Component {
             token: this.props.globalState.identity.token
         };
         updateTeamDataInDB(data, this.state.team._id);
-        this.sendMessage("added", student);
+        this.updateUserTeams("added", student._id, student.teams);
     };
 
     /* Method to remove a quiz question */
