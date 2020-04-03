@@ -28,7 +28,7 @@ class MessageBox extends React.Component {
                                     { token: this.props.globalState.identity.token });
         debug(r);
         const result = r.result;
-        this.setState({ inbox: result });
+        this.setState({ inbox: result.reverse() });
     }
 
     async markRead(id) {
