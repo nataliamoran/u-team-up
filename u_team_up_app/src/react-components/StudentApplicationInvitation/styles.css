@@ -1,10 +1,10 @@
-.app_inv__left_div {
+.application__left_div {
     float: left;
     width: 90%;
     text-align: center;
 }
 
-.app_inv__right_div {
+.application__right_div {
     float: left;
     width: 10%;
 }

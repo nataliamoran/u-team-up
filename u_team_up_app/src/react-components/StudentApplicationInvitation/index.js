@@ -38,24 +38,6 @@ class StudentApplicationInvitation extends React.Component {
         };
     }
 
-    acceptTeam = TeamInvitation => {
-        this.state.invitations = this.state.invitations.filter(
-            team => team !== TeamInvitation
-        );
-        this.setState({
-            invitations: this.state.invitations
-        });
-    };
-
-    rejectTeam = TeamInvitation => {
-        this.state.invitations = this.state.invitations.filter(
-            team => team !== TeamInvitation
-        );
-        this.setState({
-            invitations: this.state.invitations
-        });
-    };
-
     withdrawTeam = appliedTeam => {
         this.state.applications = this.state.applications.filter(
             team => team !== appliedTeam
@@ -68,9 +50,8 @@ class StudentApplicationInvitation extends React.Component {
     render() {
         return (
             <div>
-                <div className="app_inv__left_div">
-                    <h2>Your Applications and Invitations</h2>
-                    <div className="application">
+                <div className="application__left_div">
+                    <div className="student_application">
                         <br />
                         <h2>Current Applications</h2>
                         <Link to="/">
@@ -98,36 +79,12 @@ class StudentApplicationInvitation extends React.Component {
                         ))}
                         <br />
 
-                        <h2>Current Invitations</h2>
-                        {this.state.invitations.map(TeamInvitation => (
-                            <div key={TeamInvitation}>
-                                {TeamInvitation.teamName}
-                                <button
-                                    className="accept-button"
-                                    onClick={this.acceptTeam.bind(
-                                        this,
-                                        TeamInvitation
-                                    )}
-                                >
-                                    Accept
-                                </button>
-                                <button
-                                    className="reject-button"
-                                    onClick={this.rejectTeam.bind(
-                                        this,
-                                        TeamInvitation
-                                    )}
-                                >
-                                    Reject
-                                </button>
-                            </div>
-                        ))}
                     </div>
                 </div>
 
                 <br />
 
-                <div className="app_inv__right_div">
+                <div className="application__right_div">
                     <table>
                         <tbody>
                             <tr>
