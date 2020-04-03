@@ -55,13 +55,18 @@ async function login(req, res) {
         return;
     }
 
+    // make the token good for only 4 hrs
+    const validFor = 4 * 60; // mins
+    const expireDate = new Date();
+    expireDate.setMinutes(expireDate.getMinutes() + validFor);
+
     for (const retry of [0,1,2,3,4]) {
         try {
             const token = generateToken();
-            const auth = new Auth({ username, token });
+            const auth = new Auth({ username, token, expireDate });
             auth.save();
             res.status(201)
-                .send({ username, token, type: user.type });
+                .send({ username, token, type: user.type, expireDate });
             return;
         } catch (e) {
             debug('Error generating token. Retrying.', retry);
@@ -84,7 +89,8 @@ async function injectIdentity(req, res) {
 
     if (token) {
         const auth = await Auth.findOne({ token });
-        if (auth) {
+        if (auth && auth.expireDate
+            && auth.expireDate.getTime() > (new Date()).getTime()) { // the token has not expired
             const user = await User.findById(auth.username);
             if (user) {
                 req.identity = {

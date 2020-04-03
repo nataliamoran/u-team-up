@@ -6,7 +6,8 @@ module.exports = (mongoose) => {
         token: {
             type: String,
             unique: true,
-        }
+        },
+        expireDate: Date,
     });
     return mongoose.model('Auth', AuthSchema);
 };
