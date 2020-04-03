@@ -14,6 +14,8 @@ class MessageBox extends React.Component {
         this.state = {
             inbox: [],
         };
+
+        this.markRead = this.markRead.bind(this);
     }
 
     componentDidMount() {
@@ -29,6 +31,12 @@ class MessageBox extends React.Component {
         this.setState({ inbox: result });
     }
 
+    async markRead(id) {
+        await request.post(`${SERVER_URL}api/user/message/read`,
+                          { token: this.props.globalState.identity.token, id, read: true });
+        return this.fetchMessages();
+    }
+
     render() {
         // TODO: FETCH
         const authorized = this.props.globalState.loginStatus === "user";
@@ -39,7 +47,9 @@ class MessageBox extends React.Component {
                 className={
                     "message_box__message" +
                     (msg.read ? "" : " message_box_message_unread")
-                }>
+                }
+                onMouseUp={() => this.markRead(msg._id)}
+            >
                 <Header
                     type="secondary"
                     title={`${msg.read ? "" : "[*] "}Message from "${msg.teamCourse}":`} />
