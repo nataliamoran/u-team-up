@@ -130,7 +130,7 @@ module.exports = {
             debug('User: ', user);
             if (! user) { throw 404; }
 
-            return { count: Array.from(user.messages).length };
+            return { count: Array.from(user.messages).filter(m => !m.read).length };
         },
     },
 
