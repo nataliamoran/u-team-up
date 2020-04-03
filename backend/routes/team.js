@@ -1,7 +1,6 @@
-// const {mongoose} = require('../db/mongoose')
-const {ObjectID} = require('mongodb');
-// const { Team } = require('../db/teamSchema')
-const {Team} = require('../db/mongoose');
+const { ObjectID } = require('mongodb');
+
+const { Team, Profile } = require('../db/mongoose');
 
 const createTeamCrud = function (app) {
 
@@ -18,18 +17,26 @@ const createTeamCrud = function (app) {
             course: req.body.course,
             description: req.body.description,
             acceptNewApplications: true,
-            members: req.body.members,
+            members: [req.identity.username],
             quizQuestions: [],
             applications: [],
             invitations: [],
             events: []
         });
 
-        team.save().then((result) => {
-            res.send(result)
-        }, (error) => {
-            res.status(400).send(error)
+        team.save().then(async (result) => {
+            const profile = await Profile.findById(req.identity.username);
+
+            profile.teams.push(team._id);
+
+            return profile.save().then(() => {
+                res.status(201).send(result);
+            });
         })
+            .catch((error) => {
+                console.log(error);
+                res.status(400).send(error);
+            });
     });
 
     app.get('/api/teams', (req, res) => {

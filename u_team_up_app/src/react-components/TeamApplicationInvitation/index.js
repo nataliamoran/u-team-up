@@ -51,15 +51,28 @@ class TeamApplicationInvitation extends React.Component {
                     a.status = status
                     :
                     null);
-                const profile_data = {
-                    applications: this.state.student.applications,
-                    _id: username,
-                    teamUniversity: this.state.team.university,
-                    teamCourse: this.state.team.course,
-                    applicationStatus: status,
-                    token: this.props.state.identity.token
-                };
-
+                let profile_data;
+                if(status.toLowerCase() === "accepted"){
+                    this.state.student.teams.push(this.state.team._id);
+                    profile_data = {
+                        applications: this.state.student.applications,
+                        teams: this.state.student.teams,
+                        _id: username,
+                        teamUniversity: this.state.team.university,
+                        teamCourse: this.state.team.course,
+                        applicationStatus: status,
+                        token: this.props.state.identity.token
+                    };
+                } else {
+                    profile_data = {
+                        applications: this.state.student.applications,
+                        _id: username,
+                        teamUniversity: this.state.team.university,
+                        teamCourse: this.state.team.course,
+                        applicationStatus: status,
+                        token: this.props.state.identity.token
+                    };
+                }
                 updateProfileData(profile_data, username);
             }).catch((error) => {
             console.error(error)
@@ -180,7 +193,6 @@ class TeamApplicationInvitation extends React.Component {
                             </div>
                         ))}
                     </div>
-
                 </div>
                 :
                 null

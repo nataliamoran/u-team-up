@@ -19,6 +19,7 @@ import Grid from "@material-ui/core/Grid/Grid";
 import {NotificationContainer, NotificationManager} from "react-notifications";
 import TextField from "@material-ui/core/TextField/TextField";
 import Checkbox from "@material-ui/core/Checkbox/Checkbox";
+import {updateProfileData} from "../../actions/profileScripts";
 
 class SearchTeam extends React.Component {
 
@@ -125,7 +126,7 @@ class SearchTeam extends React.Component {
             });
             fetch(request)
                 .then(function (res) {
-                    if (res.status === 200) {
+                    if (res.ok) {
                         console.log('Added team')
                         NotificationManager.success('New team was successfully created!');
                         resolve();
@@ -165,6 +166,16 @@ class SearchTeam extends React.Component {
                     this.setState({
                         filteredTeams: this.state.teams
                     });
+                }
+                if(this.props.state.identity.type === "user"){
+                    console.log("USER TEAMS");
+                    console.log(this.state.userTeams);
+
+                    const profile_data = {
+                        teams: this.state.userTeams,
+                        token: this.props.state.identity.token
+                    };
+                    updateProfileData(profile_data, this.props.state.identity.username);
                 }
                 this.forceUpdate();
                 console.log("new state after saving a new team");
