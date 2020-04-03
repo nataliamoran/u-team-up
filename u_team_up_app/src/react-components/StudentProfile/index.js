@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button/Button";
 import TextField from "@material-ui/core/TextField";
 import ImageForm from "./../ImageForm";
-import { USER_BACKEND } from "../../config";
+import { SERVER_URL } from "../../config";
+import { request } from '../../actions/url';
 import {updateProfileData} from "../../actions/profileScripts";
 import {NotificationManager} from 'react-notifications';
 
@@ -92,7 +93,7 @@ class StudentProfile extends React.Component {
             username: props.username,
             global: props.globalState,
             imageUrl: "",
-            name: "",
+            fullname: "",
             university: "",
             yearOfStudy: "",
             majorOfStudy: "",
@@ -110,44 +111,20 @@ class StudentProfile extends React.Component {
             isInEditMode: false,
             profile: null
         };
+
+        this.changedFields = {};
     }
 
-    getUserProfileFromDB = () => {
-        return new Promise((resolve, reject) => {
-            const profileUrl = USER_BACKEND + this.props.username
-            fetch(profileUrl)
-                .then((response) => response.json())
-                .then((json) => {
-                    this.setState({
-                        profile: json
-                    })
-                    resolve()
-                }).catch((error) => {
-                    console.error(error)
-                    reject()
-                })
+    getUserProfileFromDB = () =>
+        request.get(`${SERVER_URL}api/user`,
+                    { username: this.props.username || this.props.globalState.identity.username })
+        .then(json => this.setState(json))
+        .catch((error) => {
+            console.error(error)
         })
-    }
-
 
     componentDidMount() {
-        this.getUserProfileFromDB()
-
-        const url = USER_BACKEND + this.props.globalState.identity.username;
-
-        fetch(url)
-            .then(response => response.json())
-            .then(json => {
-                console.log("Profile JSON");
-                console.log(json);
-                this.setState({
-                    profile: json
-                });
-                console.log(this.state);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        this.getUserProfileFromDB();
     }
 
 
@@ -157,23 +134,14 @@ class StudentProfile extends React.Component {
         });
 
         const profile_data = {
-            _id: this.props.globalState.identity.username,
-            name: this.state.name,
-            university: this.state.university,
-            yearOfStudy: this.state.yearOfStudy,
-            majorOfStudy: this.state.majorOfStudy,
-            coursesTaken: this.state.coursesTaken,
-            currentCourses: this.state.currentCourses,
-            reviews: this.state.reviews,
-            description: this.state.description,
-            location: this.state.location,
-            gpa: this.state.gpa,
-            pastProject: this.state.pastProject,
-            experience: this.state.experience,
+            username: this.props.globalState.identity.username,
+            token: this.props.globalState.identity.token,
+            ...this.changedFields,
         };
 
         updateProfileData(profile_data, this.props.globalState.identity.username);
         NotificationManager.success('Profile data saved!')
+        this.changedFields = {};
     };
 
     changeEditMode = () => {
@@ -189,7 +157,7 @@ class StudentProfile extends React.Component {
 
         this.setState({
             [name]: value
-        });
+        }, () => this.changedFields[name] = value);
         event.preventDefault();
     };
 
@@ -260,9 +228,9 @@ class StudentProfile extends React.Component {
                                 editing={editingInfo}
                                 className="student_profile__input"
                                 type="text"
-                                value={this.state.name}
+                                value={this.state.fullname}
                                 onChange={this.handleEditInput}
-                                name="name"
+                                name="fullname"
                             />
 
                             <h4 className="student_profile_h4">University:</h4>

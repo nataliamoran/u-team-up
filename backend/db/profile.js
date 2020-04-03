@@ -19,7 +19,7 @@ module.exports = mongoose => {
             type: String
         },
         university: String,
-        year: Number,
+        yearOfStudy: Number,
         major: String,
         applications: Array,
         events: Array,

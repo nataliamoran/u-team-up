@@ -15,8 +15,8 @@ class ImageForm extends React.Component {
                     e.preventDefault();
                     addImage(e.target, profile);
                 }}>
-                    <div class="image-form__field">
-                        
+                    <div className="image-form__field">
+
                         <input name="image" type="file" />
                     </div>
                     <button
