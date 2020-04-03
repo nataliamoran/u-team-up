@@ -1,6 +1,14 @@
 module.exports = mongoose => {
     const { ObjectId } = mongoose;
 
+    const MessageSchema = new mongoose.Schema({
+        teamUniversity: String,
+        teamCourse: String,
+        messageText: String,
+        event: Object,
+        read: Boolean,
+    });
+
     const ProfileSchema = new mongoose.Schema({
         _id: {
             type: String,
@@ -15,7 +23,10 @@ module.exports = mongoose => {
         major: String,
         applications: Array,
         events: Array,
-        messages: Array,
+        messages: {
+            type: [MessageSchema],
+            select: false,
+        },
         teams: [ObjectId],
         coursesTaken: [ObjectId],
         currentCourses: [ObjectId],

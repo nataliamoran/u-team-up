@@ -2,6 +2,8 @@ import React from "react";
 
 import Header from "../Header";
 import "./styles.css";
+import { SERVER_URL } from '../../config';
+import { request } from '../../actions/url';
 
 class MessageBox extends React.Component {
     // @param props: {globalState: object}
@@ -9,29 +11,19 @@ class MessageBox extends React.Component {
         super(props);
 
         this.state = {
-            uid: props.globalState.identity.uid,
-            inbox: [
-                // TODO: FETCH
-                {
-                    type: "Notification",
-                    id: "1",
-                    timeSent: new Date(2020, 1, 25, 14, 45),
-                    sender: "system",
-                    title: "Appointment Notification",
-                    content: "You have a meeting in 1h.",
-                    read: false
-                },
-                {
-                    type: "Direct",
-                    id: "2",
-                    timeSent: new Date(2020, 1, 26, 3, 55),
-                    sender: "user2",
-                    title: "uwu",
-                    content: "Hello.",
-                    read: true
-                }
-            ]
+            inbox: [],
         };
+    }
+
+    componentDidMount() {
+        const authorized = this.props.globalState.loginStatus === "user";
+        authorized && this.fetchMessages();
+    }
+
+    async fetchMessages() {
+        const { username } = this.props.globalState;
+        const { result } = await request.get(`${SERVER_URL}api/user/messages`, { username });
+        this.setState({ inbox: result });
     }
 
     render() {
@@ -40,21 +32,17 @@ class MessageBox extends React.Component {
 
         const generateMessageView = msg => (
             <div
-                key={msg.id}
+                key={msg._id}
                 className={
                     "message_box__message" +
                     (msg.read ? "" : " message_box_message_unread")
-                }
-            >
+                }>
                 <Header
                     type="secondary"
-                    title={`${msg.read ? "" : "[*] "}${msg.type} from "${
-                        msg.sender
-                    }":`}
-                    data={msg.title}
-                />
+                    title={`${msg.read ? "" : "[*] "}Message from "${msg.teamCourse}":`} />
                 <div className="message_box__message_content">
-                    {msg.content}
+                    {msg.messageText}
+                    {msg.event && JSON.stringify(msg.event) /* FIXME */}
                 </div>
             </div>
         );

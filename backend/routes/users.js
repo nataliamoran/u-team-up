@@ -107,4 +107,35 @@ module.exports = {
             await Profile.find(
                 Profile.translateAliases(validCriteria(req.args))),
     },
+
+    '/api/user/messages': {
+        get: async (req, res) => {
+            if (req.identity.type !== 'user') { throw 401; }
+            const username = req.identity.username;
+
+            const user = await Profile.findById(username);
+            if (! user) { throw 404; }
+
+            return user.messages;
+        },
+    },
+
+    '/api/user/message/read': {
+        post: async (req, res) => {
+            if (req.identity.type !== 'user') { throw 401; }
+
+            const username = req.identity.username;
+            const user = await Profile.findById(username);
+            if (! user) { throw 404; }
+
+            const { read, id } = req.args;
+
+            const message = user.messages.id(id);
+            if (! message) { throw 404; }
+
+            message.read = read;
+            await user.save();
+            // 204 No Content
+        },
+    },
 };
