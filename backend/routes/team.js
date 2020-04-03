@@ -92,30 +92,20 @@ const createTeamCrud = function (app) {
                 const members = team.members;
                 members.map( async (member) => {
                     const profile = await Profile.findById(member);
-                    const updatedTeams = profile.teams.filter(team => team != id);
-                    return profile.updateOne({teams: updatedTeams}).then(() => {
-                        res.status(201).send(profile);
+                    profile.teams = profile.teams.filter(team => team != id);
+                    profile.save().then(() => {
+                        // return res.status(204).send();
                     });
 
                 });
 
-                return Team.deleteOne({_id: id}).then(() => {
-                    res.status(201).send(team);
+                Team.deleteOne({_id: id}).then(() => {
+                    return res.status(204).send();
                 });
             }
         }).catch((error) => {
             res.status(500).send(error)
         });
-
-        // Team.findByIdAndRemove(id).then((team) => {
-        //     if (!team) {
-        //         res.status(404).send()
-        //     } else {
-        //         res.send(team)
-        //     }
-        // }).catch((error) => {
-        //     res.status(500).send(error)
-        // })
     });
 
     app.patch('/api/teams/:id', (req, res) => {
