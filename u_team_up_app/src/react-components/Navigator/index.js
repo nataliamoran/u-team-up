@@ -6,13 +6,48 @@ import { Link, withRouter } from "react-router-dom";
 import Button from "@material-ui/core/Button/Button";
 import "./styles.css";
 
+import { request } from '../../actions/url';
+import { SERVER_URL } from '../../config';
+
 class Navigator extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            msgCount: null,
+            lastHistoryLocation: props.history.location,
+        };
 
         this.back = this.back.bind(this);
+    }
+
+    isUser() {
+        return this.props.globalState.identity.type === 'user';
+    }
+
+    // https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#fetching-external-data
+    static getDerivedStateFromProps(props, state) {
+        if (props.history.location !== state.lastHistoryLocation) { // clicked a link
+            return { msgCount: null, lastHistoryLocation: props.history.location };
+        }
+        return null;
+    }
+
+    componentDidMount() {
+        this.getMessageCount();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.msgCount === null) {
+            this.getMessageCount();
+        }
+    }
+
+    async getMessageCount() {
+        if (!this.isUser()) { return; }
+        const { count } = await request.get(`${SERVER_URL}api/user/messages/count`,
+                                            { token: this.props.globalState.identity.token });
+        this.setState({ msgCount: count });
     }
 
     back() {
@@ -41,6 +76,7 @@ class Navigator extends React.Component {
                         <NavBar
                             loginStatus={this.props.globalState.loginStatus}
                             identity={this.props.globalState.identity}
+                            msgCount={this.state.msgCount}
                         />
                     </Header>
                 </div>

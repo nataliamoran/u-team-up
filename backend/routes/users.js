@@ -5,7 +5,7 @@ const debug = console.log;
 module.exports = {
     '/api/user': {
         get: async (req, res) => {
-            const user = await Profile.findById(req.args.username);
+            const user = await Profile.findById(req.args.username).select('-messages');
             if (!user) {
                 throw 404;
             } else {
@@ -113,10 +113,24 @@ module.exports = {
             if (req.identity.type !== 'user') { throw 401; }
             const username = req.identity.username;
 
-            const user = await Profile.findById(username);
+            const user = await Profile.findById(username).select('messages');
+            debug('User: ', user);
             if (! user) { throw 404; }
 
             return user.messages;
+        },
+    },
+
+    '/api/user/messages/count': {
+        get: async(req, res) => {
+            if (req.identity.type !== 'user') { throw 401; }
+            const username = req.identity.username;
+
+            const user = await Profile.findById(username).select('messages');
+            debug('User: ', user);
+            if (! user) { throw 404; }
+
+            return { count: Array.from(user.messages).length };
         },
     },
 

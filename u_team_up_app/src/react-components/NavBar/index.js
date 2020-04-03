@@ -22,6 +22,8 @@ class NavBar extends React.Component {
         let navbar;
 
         if (this.props.loginStatus === 'user') {
+            const newMsgIndicator = this.props.msgCount ? `(${this.props.msgCount})` : '';
+
             navbar =
                 <List component="nav">
                     <ListItem component="div">
@@ -36,7 +38,7 @@ class NavBar extends React.Component {
                         <Link className="navbarLink" to='/inbox'>
                             <ListItemText inset  className="navbarText" >
                                 <TypoGraphy variant="subtitle1">
-                                    Your Inbox
+                                    Your Inbox{newMsgIndicator}
                                 </TypoGraphy>
                             </ListItemText>
                         </Link>

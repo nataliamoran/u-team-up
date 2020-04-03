@@ -23,10 +23,7 @@ module.exports = mongoose => {
         major: String,
         applications: Array,
         events: Array,
-        messages: {
-            type: [MessageSchema],
-            select: false,
-        },
+        messages: [MessageSchema],
         teams: [ObjectId],
         coursesTaken: [ObjectId],
         currentCourses: [ObjectId],

@@ -4,6 +4,7 @@ import Header from "../Header";
 import "./styles.css";
 import { SERVER_URL } from '../../config';
 import { request } from '../../actions/url';
+const debug = console.log;
 
 class MessageBox extends React.Component {
     // @param props: {globalState: object}
@@ -21,8 +22,10 @@ class MessageBox extends React.Component {
     }
 
     async fetchMessages() {
-        const { username } = this.props.globalState;
-        const { result } = await request.get(`${SERVER_URL}api/user/messages`, { username });
+        const r = await request.get(`${SERVER_URL}api/user/messages`,
+                                    { token: this.props.globalState.identity.token });
+        debug(r);
+        const result = r.result;
         this.setState({ inbox: result });
     }
 
@@ -42,7 +45,7 @@ class MessageBox extends React.Component {
                     title={`${msg.read ? "" : "[*] "}Message from "${msg.teamCourse}":`} />
                 <div className="message_box__message_content">
                     {msg.messageText}
-                    {msg.event && JSON.stringify(msg.event) /* FIXME */}
+                    {msg.event && `${msg.event.name} from ${msg.event.start} to ${msg.event.end}`}
                 </div>
             </div>
         );

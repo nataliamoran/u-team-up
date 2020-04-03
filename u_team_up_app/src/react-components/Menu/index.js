@@ -9,6 +9,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import SendIcon from '@material-ui/icons/Send';
 import "./styles.css";
 
+import { request } from '../../actions/url';
+import { SERVER_URL } from '../../config';
+
 const StyledMenu = withStyles({
   paper: {
     color: 'black',
@@ -78,6 +81,8 @@ export default function AppMenu(props) {
                     ]
 
     if (props.loginStatus === 'user') {
+
+        const newMsgIndicator = props.msgCount === 0 ? '' : `(${props.msgCount})`;
         var links =
                     [<Link className="link" to='/student-profile'>
                         <StyledMenuItem>
@@ -92,7 +97,7 @@ export default function AppMenu(props) {
                             <ListItemIcon>
                                 <SendIcon fontSize="small" />
                             </ListItemIcon>
-                        <ListItemText className="menuText" primary="Your Inbox" />
+                        <ListItemText className="menuText" primary=`Your Inbox${newMsgIndicator}` />
                         </StyledMenuItem>
                      </Link>,
                      <Link className="link" to={"/"}>
