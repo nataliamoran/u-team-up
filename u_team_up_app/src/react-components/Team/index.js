@@ -2,7 +2,7 @@ import React from "react";
 
 
 import "./styles.css";
-import {TEAMS_BACKEND, USER_BACKEND, USERS_BACKEND} from "../../config";
+import {SERVER_URL, TEAMS_BACKEND, USER_BACKEND, USERS_BACKEND} from "../../config";
 import TeamMemberPreviewList from "./../TeamMemberPreviewList";
 import Header from '../Header';
 import {Link} from "react-router-dom";
@@ -16,6 +16,7 @@ import SearchStudentForm from "../SearchStudentForm";
 import {filterUnits} from "../../actions/filterUnits";
 import {deleteTeamFromDB, updateTeamDataInDB} from "../../actions/teamScripts";
 import {updateProfileData} from "../../actions/profileScripts";
+import {request} from "../../actions/url";
 
 
 class Team extends React.Component {
@@ -494,14 +495,19 @@ class Team extends React.Component {
                                     studentUniversity={this.state.studentUniversity}
                                     studentCourse={this.state.studentCourse}
                                     handleSearch={this.handleSearchInput}
-                                    filterStudents={() => this.setState({
-                                        filteredStudents: filterUnits({
-                                                fullname: this.state.studentName,
-                                                university: this.state.studentUniversity,
-                                                currentCourses: this.state.studentCourse
-                                            },
-                                            this.state.students)
-                                    })}
+                                    filterStudents={() => request.get(`${SERVER_URL}api/users/relaxed-filter`,
+                                        {
+                                            fullname: this.state.studentName,
+                                            university: this.state.studentUniversity,
+                                            currentCourses: this.state.studentCourse,
+                                        })
+                                        .then(res => {
+                                            console.log("Success", res);
+                                            this.setState({ filteredStudents: res.result });
+                                        })
+                                        .catch(e => {
+                                            console.log('Error');
+                                        })}
                                 />
                             </div>
                             {this.state.filteredStudents.map(student => (
