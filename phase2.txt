@@ -1,0 +1,48 @@
+PHASE 2
+TEAM 17
+--------------------
+DEPLOYED APP URL:
+
+--------------------
+DATABASE OVERVIEW
+
+DATABASE: UTeamUp
+Collections:
+--- auths
+--- profiles
+--- teams
+--- users
+--- images
+
+--------------------
+ROUTES OVERVIEW
+
+--- USERS
+
+--- TEAM
+    --- CREATE TEAM
+        POST route to create a new team. The new team is added to
+    --- GET ALL TEAMS
+    --- GET TEAM BY ID
+    --- DELETE TEAM
+    --- UPDATE TEAM
+
+
+--------------------
+APPLICATION USAGE GUIDE - USER
+
+
+--------------------
+APPLICATION USAGE GUIDE - ADMIN
+
+
+--------------------
+PLEASE NOTE:
+
+--- One of out team members dropped the course a week before the deadline. We contacted the instructor and Mark approved
+dropping/trimming functionality that our ex-team member worked on.
+
+FUNCTIONALITY DROPPED:
+--- Team Membership Invitations
+--- Merging University/Courses names/codes
+--- Downloading teams data to .csv file
