@@ -24,7 +24,7 @@ class StudentApplicationInvitation extends React.Component {
     }
 
     componentDidMount() {
-        const url = USER_BACKEND + this.props.username;
+        const url = USER_BACKEND + this.props.state.identity.username;
 
         fetch(url)
             .then(response => response.json())
@@ -39,29 +39,9 @@ class StudentApplicationInvitation extends React.Component {
             });
     }
 
-    deleteApplicationFromTeamDB = application => {
-        const teamUrl = TEAMS_BACKEND + "/" + this.props.teamId;
-
-        fetch(teamUrl)
-            .then(response => response.json())
-            .then(json => {
-                this.setState({
-                    team: json
-                });
-                this.state.team.applications.map(a => a.username);
-                let team_data = {
-                    applications: this.state.team.applications,
-                    token: this.props.state.identity.token
-                };
-                updateTeamDataInDB(team_data, this.state.team._id);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    };
-
-    withdrawTeam = application => {
-        const updatedApplications = this.state.applications.filter(
+    withdrawTeam = (application) => {
+        // Remove application from User DB
+        const updatedApplications = this.state.student.applications.filter(
             a => a !== application
         );
         const updatedStudent = this.state.student;
@@ -73,23 +53,63 @@ class StudentApplicationInvitation extends React.Component {
             applications: this.state.student.applications,
             token: this.props.state.identity.token
         };
-        updateProfileData(profile_data, this.state.student.username);
-        this.deleteApplicationFromTeamDB(application);
+        updateProfileData(profile_data, this.props.state.identity.username);
+
+        // Remove application from Team DB
+        const url = TEAMS_BACKEND + "/" + application.teamId;
+        fetch(url)
+            .then((response) => response.json())
+            .then((json) => {
+                const team = json;
+                const updatedApplications = team.applications.filter(a => a.student._id !== this.props.state.identity.username);
+                const teamData = {
+                    applications: updatedApplications,
+                    token: this.props.state.identity.token
+                };
+                updateTeamDataInDB(teamData, application.teamId);
+            }).catch((error) => {
+            console.error(error)
+        });
     };
 
     render() {
+
+        let withdrawButton;
+
+        const showWithdrawButton = (application) => {
+            if(application.status === "pending"){
+                withdrawButton =
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        className="withdraw_button"
+                        onClick={this.withdrawTeam.bind(
+                            this,
+                            application
+                        )}
+                    >
+                        Withdraw
+                    </Button>
+            } else {
+                withdrawButton = null;
+            }
+        };
+
         return (
+            this.state.student
+                ?
             <div>
+
                 <div className="application__left_div">
                     <br />
-                    <h2>Current Applications</h2>
-                    <Link to="/">
-                        <button className="app_inv__button">+ NEW</button>
-                    </Link>
-                    {this.state.applications.map(application => (
+                    <h2 className="search_form_title">your applications</h2>
+
+                    {this.state.student.applications.slice(0).reverse().map(application => (
                         <div key={uid(application)}>
+                            {console.log("APPLICATION")}
+                            {console.log(application)}
                             <div className="student_applications__wrapper">
-                                <Table>
+                                <Table className="application-preview__table">
                                     <TableBody>
                                         <TableRow>
                                             <TableCell
@@ -98,14 +118,14 @@ class StudentApplicationInvitation extends React.Component {
                                                 className="application__name_cell"
                                             >
                                                 <Link
-                                                    className="team_link"
-                                                    to={`/team/:team._id`}
+                                                    className="application__link"
+                                                    to={'/team/' +  application.teamId}
                                                 >
-                                                    {`${application.team.university} +
-                                                      ${application.team.course} +
-                                                      ${application.team.description}
-                                            `}
+                                                    {application.teamUniversity + " " + application.teamCourse}
                                                 </Link>
+                                                <div>
+                                                {"status: " + application.status}
+                                                </div>
                                             </TableCell>
 
                                             <TableCell
@@ -113,17 +133,10 @@ class StudentApplicationInvitation extends React.Component {
                                                 scope="row"
                                                 className="button_cell"
                                             >
-                                                <Button
-                                                    variant="outlined"
-                                                    color="primary"
-                                                    className="withdraw_button"
-                                                    onClick={this.withdrawTeam.bind(
-                                                        this,
-                                                        application
-                                                    )}
-                                                >
-                                                    Withdraw
-                                                </Button>
+
+                                                {showWithdrawButton(application)}
+                                                {withdrawButton}
+
                                             </TableCell>
                                         </TableRow>
                                     </TableBody>
@@ -132,27 +145,9 @@ class StudentApplicationInvitation extends React.Component {
                         </div>
                     ))}
                 </div>
-                <br />
-
-                <div className="application__right_div">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <Link to="/">Main</Link>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <Link to="./../student-profile">
-                                        Your Profile
-                                    </Link>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
             </div>
+                :
+                null
         );
     }
 }

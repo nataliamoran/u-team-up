@@ -95,7 +95,7 @@ class TeamApplicationInvitation extends React.Component {
             token: this.props.state.identity.token
         };
         updateTeamDataInDB(data, this.state.team._id);
-        this.updateApplicationStatusInUserDB(application, application.student._id, "Accepted");
+        this.updateApplicationStatusInUserDB(application, application.student._id, "accepted");
     };
 
     rejectApplication = (application) => {
@@ -111,7 +111,7 @@ class TeamApplicationInvitation extends React.Component {
             token: this.props.state.identity.token
         };
         updateTeamDataInDB(data, this.state.team._id);
-        this.updateApplicationStatusInUserDB(application, application.student._id, "Rejected");
+        this.updateApplicationStatusInUserDB(application, application.student._id, "rejected");
     };
 
     seeApplication = (application) => {

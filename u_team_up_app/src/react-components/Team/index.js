@@ -165,7 +165,9 @@ class Team extends React.Component {
         this.state.student.applications.push({
             teamId: this.state.team._id,
             application: this.state.quizApplication,
-            status: "Pending"
+            teamUniversity: this.state.team.university,
+            teamCourse: this.state.team.course,
+            status: "pending"
         });
         this.setState({
             student: this.state.student
@@ -173,8 +175,6 @@ class Team extends React.Component {
         const profile_data = {
             applications: this.state.student.applications,
             _id: this.props.globalState.identity.username,
-            teamUniversity: this.state.team.university,
-            teamCourse: this.state.team.course,
             applicationStatus: "Pending",
             token: this.props.globalState.identity.token
         };

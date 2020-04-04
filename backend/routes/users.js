@@ -45,7 +45,8 @@ module.exports = {
                     messageText: "New team event is scheduled.",
                     event: req.body.event
                 })
-            } else if(req.body.applications || req.body.teamMembershipUpdate){
+            } else if(req.identity.username !== req.args.username
+                && (req.body.applications || req.body.teamMembershipUpdate)){
                 let messageText;
                 if (req.body.applications){
                     if(req.body.applicationStatus.toLowerCase() === "accepted"){
