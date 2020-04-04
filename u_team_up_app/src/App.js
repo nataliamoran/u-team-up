@@ -82,7 +82,7 @@ class App extends React.Component {
                             render={({ match }) => (
                                 <StudentProfile
                                     globalState={this.state}
-                                    id={match.params.id}
+                                    username={match.params.id}
                                 />
                             )}
                         />

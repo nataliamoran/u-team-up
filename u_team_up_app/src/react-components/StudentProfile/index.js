@@ -147,7 +147,7 @@ class StudentProfile extends React.Component {
         const loggedIn = this.props.globalState.identity.type !== "guest";
         const isMe =
             loggedIn &&
-            (this.props.id || this.props.globalState.identity.uid) ===
+            (this.props.username || this.props.globalState.identity.uid) ===
                 this.props.globalState.identity.uid;
 
         const editingInfo = isMe && this.state.isInEditMode;
