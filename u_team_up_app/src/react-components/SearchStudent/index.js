@@ -57,11 +57,11 @@ class SearchStudent extends React.Component {
         .catch(() => {});
 
     filterStudents = () =>
-        request.get(`${SERVER_URL}api/users`,
+        request.get(`${SERVER_URL}api/users/relaxed-filter`,
                     {
                         fullname: this.state.studentName,
                         university: this.state.studentUniversity,
-                        course: this.state.studentCourse, // FIXME
+                        currentCourses: this.state.studentCourse,
                     })
         .then(res => {
             console.log("Success", res);
