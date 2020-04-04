@@ -3,7 +3,7 @@ const match = (unit, criterion) => {
         return unit.some(u => match(u, criterion));
     }
     if (typeof(criterion) === 'string') {
-        return typeof(unit) === 'string' && unit.includes(criterion);
+        return typeof(unit) === 'string' && unit.toLowerCase().includes(criterion.toLowerCase());
     } else {
         return unit === criterion;
     }

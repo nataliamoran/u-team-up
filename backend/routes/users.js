@@ -1,5 +1,5 @@
 const {mongoose, Profile, User, Auth, Team} = require('../db/mongoose');
-const {validCriteria} = require('../helper/filter');
+const {filter, validCriteria} = require('../helper/filter');
 const debug = console.log;
 
 module.exports = {
@@ -106,6 +106,11 @@ module.exports = {
         get: async (req, res) =>
             await Profile.find(
                 Profile.translateAliases(validCriteria(req.args))),
+    },
+
+    '/api/users/relaxed-filter': {
+        get: async (req, res) =>
+            filter(req.args, await Profile.find({})),
     },
 
     '/api/user/messages': {
