@@ -36,12 +36,20 @@ class Signup extends React.Component {
             debug(username, password);
             request.post(`${SERVER_URL}auth/signup`,
                     { username, password })
-                .then(res => {
+                .then(async res => {
+                    try {
+                        const { type, token } =
+                              await request.post(`${SERVER_URL}auth/login`,
+                                                 { username, password });
+                        this.loginCallback({ type, username, uid: username, token });
+                    } catch (e) {
+                        debug('Login error: ', e);
+                    }
                     this.props.history.goBack();
                 })
                 .catch(e => {
                     debug(e);
-                    NotificationManager.error('Error: ' + JSON.stringify(e));
+                    NotificationManager.error('Error: This username is already taken.');
                 });
         }
 

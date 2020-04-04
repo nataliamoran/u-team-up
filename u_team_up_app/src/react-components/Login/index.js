@@ -51,7 +51,7 @@ class Login extends React.Component {
             })
             .catch(e => {
                 debug(e);
-                NotificationManager.error('Error: ' + JSON.stringify(e));
+                NotificationManager.error('Error: ' + e.error);
             });
     }
 
