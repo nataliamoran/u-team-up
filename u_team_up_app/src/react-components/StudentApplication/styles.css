@@ -1,12 +1,7 @@
 .application__left_div {
-    float: left;
-    width: 90%;
     text-align: center;
-}
-
-.application__right_div {
-    float: left;
-    width: 10%;
+    margin: auto;
+    width: 50%;
 }
 
 .application-table {
