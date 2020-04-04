@@ -95,7 +95,7 @@ module.exports = {
             await Profile.findByIdAndRemove(username);
             await Auth.deleteMany({username});
             const teams = await Team.updateMany(
-                {members: username}, {members: {$pull: username}});
+                {members: username}, {$pull: { members: username}});
 
             return 200;
         },
