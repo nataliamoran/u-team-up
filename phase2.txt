@@ -37,6 +37,11 @@ APPLICATION USAGE GUIDE - USER
 - Login page
 - Home page (also Search teams page)
     - Create teams
+        - Users can create new teams by 1) providing the University name, Course
+          name, and team Description, 2) clicking the "CREATE" button.
+        - If the team is successfully created, the user will see a "New team
+          was successfully created!" message on the right of the "CREATE"
+          button and the new team on the bottom of the page.
     - Search teams
 - Your Profile page
     - Users can provide and change their personal data in this page after
