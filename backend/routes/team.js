@@ -29,13 +29,17 @@ const createTeamCrud = function (app) {
         });
 
         team.save().then(async (result) => {
-            const profile = await Profile.findById(req.identity.username);
+            if(req.identity.type === "user"){
+                const profile = await Profile.findById(req.identity.username);
 
-            profile.teams.push(team._id);
+                profile.teams.push(team._id);
 
-            return profile.save().then(() => {
-                res.status(201).send(result);
-            });
+                return profile.save().then(() => {
+                    res.status(201).send(result);
+                });
+            } else {
+                return res.status(201).send(result);
+            }
         })
             .catch((error) => {
                 console.log(error);
