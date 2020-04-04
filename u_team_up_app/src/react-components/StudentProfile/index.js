@@ -95,6 +95,8 @@ class StudentProfile extends React.Component {
         updateProfileData(profile_data, this.props.globalState.identity.username);
         NotificationManager.success('Profile data saved!')
         this.changedFields = {};
+        this.getUserProfileFromDB();
+        this.forceUpdate();
     };
 
     changeEditMode = () => {
@@ -181,17 +183,6 @@ class StudentProfile extends React.Component {
             [<ImageForm profile={this} username={this.props.globalState.identity.username}/>]
              : null;
 
-            // const myApplication = isMe ?
-            // <div>
-            //     <p>
-            //         <Link
-            //             className="student__application"
-            //             to={"./../student-app-inv"}
-            //         >
-            //             My application
-            //         </Link>
-            //     </p>
-            // </div> : null
 
         return (
             <div>

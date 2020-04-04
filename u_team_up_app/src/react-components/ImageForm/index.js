@@ -12,7 +12,7 @@ class ImageForm extends React.Component {
     }
     render() {
         const { profile, username } = this.props;
-        let {imageUrl} = this.state
+        // let {imageUrl} = this.state
         return (
             <React.Fragment>
                 <form className="image-form" onSubmit={(e) => {
@@ -31,7 +31,7 @@ class ImageForm extends React.Component {
                         Upload profile picture
                     </button>
 
-                    <img src={imageUrl} alt="profileImg"/>
+                    {/*<img src={imageUrl} alt="profileImg"/>*/}
 
                 </form>
             </React.Fragment>
