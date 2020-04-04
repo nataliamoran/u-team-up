@@ -2,8 +2,6 @@
 
 const team = require('./routes/team');
 const image = require('./routes/image')
-// const {mongoose} = require('./db/mongoose');
-// const {mongoose} = require('./db/global.uTeamUpMongooseHelper.mongoose');
 const express = require('express');
 
 const app = express();
@@ -38,8 +36,6 @@ app.use(express.static('public'))
 // app.get('/', wrap((req, res) => 'It works!'));
 
 rh(app, require('./routes/users'));
-
-rh(app, require('./routes/university'));
 
 rh(app, require('./routes/admin'));
 
