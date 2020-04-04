@@ -33,6 +33,19 @@ ROUTES OVERVIEW
 
 --------------------
 APPLICATION USAGE GUIDE - USER
+- Sign up page
+- Login page
+- Home page (also Search teams page)
+    - Create teams
+    - Search teams
+- Your Profile page
+    - Users can provide and change their personal data in this page after
+      logging in by clicking on the "Edit your profile" button located in the
+      bottom right of the page.
+- Your Inbox page
+- Your appointments page
+- Your applications page
+- Search students page
 
 
 --------------------
