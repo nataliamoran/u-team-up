@@ -21,12 +21,15 @@ ROUTES OVERVIEW
 
 --- TEAM
     --- CREATE TEAM
-        POST route to create a new team. The new team is added to
+        POST route to create a new team: /api/teams The new team is added to
     --- GET ALL TEAMS
+        GET route to get all teams: /api/teams
     --- GET TEAM BY ID
+        GET route to get a team by its ID: /api/teams/:id
     --- DELETE TEAM
+        DELETE route to delete a team by its ID: /api/teams/:id
     --- UPDATE TEAM
-
+        PATCH route to update a team by its ID: /api/teams/:id
 
 --------------------
 APPLICATION USAGE GUIDE - USER
