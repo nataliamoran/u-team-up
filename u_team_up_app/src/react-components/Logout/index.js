@@ -1,10 +1,17 @@
 import React from 'react';
 import { withRouter } from "react-router-dom";
 
+import { request } from  '../../actions/url';
+import { SERVER_URL } from '../../config';
 
 class Logout extends React.Component {
     componentDidMount() {
-        this.props.loginCallback({ username: '', uid: '', type: 'guest', token: '' });
+        const { token } = this.props.globalState.identity;
+
+        request.post(`${SERVER_URL}auth/revoke`, { token, tokenToRevoke: token })
+            .catch(() => {});
+
+        this.props.logoutCallback();
 
         this.props.history.push('/');
     }

@@ -28,6 +28,11 @@ async function authMiddleware(req, res, next) {
         await checkAuth(req, res);
         return;
     }
+
+    if (req.method === 'POST' && req.path === '/auth/revoke') {
+        await revokeToken(req, res);
+        return;
+    }
     next();
 }
 
@@ -87,6 +92,25 @@ async function checkAuth(req, res) {
     } else {
         res.status(401).send();
     }
+}
+
+async function revokeToken(req, res) {
+    if (req.identity.type === 'guest') {
+        res.status(401).send();
+    }
+
+    const token = req.args.tokenToRevoke;
+    if (! token) {
+        res.status(400).send();
+    }
+
+    const auth = await Auth.findOne({ token });
+    if (! auth) {
+        res.status(404).send();
+    }
+
+    await auth.remove();
+    res.status(204).send();
 }
 
 async function injectIdentity(req, res) {

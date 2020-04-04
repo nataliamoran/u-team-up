@@ -64,11 +64,11 @@ class App extends React.Component {
                             exact
                             path="/login"
                             render={() => (
-                                <Login loginCallback={this.setIdentity} />
+                                <Login globalState={this.state} loginCallback={this.setIdentity} />
                             )}
                         />
                         <Route exact path='/logout'
-                               render={() => <Logout loginCallback={this.setIdentity}/> }/>
+                               render={() => <Logout logoutCallback={this.logout} globalState={this.state} /> }/>
                         <Route
                             exact
                             path="/signup"
