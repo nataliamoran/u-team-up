@@ -34,7 +34,8 @@ image.createImageCrud(app);
 // create CRUD for Team
 team.createTeamCrud(app);
 
-app.get('/', wrap((req, res) => 'It works!'));
+app.use(express.static('public'))
+// app.get('/', wrap((req, res) => 'It works!'));
 
 rh(app, require('./routes/users'));
 
