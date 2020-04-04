@@ -57,9 +57,6 @@ class StudentProfile extends React.Component {
             gpa: "",
             pastProject: "",
             experience: "",
-            // ...(studentInfo[
-            //     this.props.id || this.props.globalState.identity.uid
-            // ] || { reviews: [] }), // TODO: FETCH
             isInEditMode: false,
             profile: null
         };
@@ -142,6 +139,13 @@ class StudentProfile extends React.Component {
         this.setState({
             reviews: this.state.reviews
         });
+        const profile_data = {
+            username: this.props.globalState.identity.username,
+            reviews: this.state.reviews,
+            token: this.props.globalState.identity.token,
+        };
+
+        updateProfileData(profile_data, this.props.globalState.identity.username);
     };
 
     render() {
