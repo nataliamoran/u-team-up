@@ -36,3 +36,7 @@
     padding-top: 5px;
     font-size: 1em;
 }
+
+.team-member-preview__remove-button{
+    padding-left: 75px;
+}

@@ -15,7 +15,7 @@ class TeamMemberPreview extends React.Component {
         const photo =
             <img className="team_member__photo"
                  src={teamMemberPreview.imageUrl || require('./static/account.png')}
-                 alt={ `${name} avatar` } />;
+                 alt={`${name} avatar`}/>;
 
         const university = teamMemberPreview.university;
 
@@ -36,8 +36,10 @@ class TeamMemberPreview extends React.Component {
                 <div className='university_cell team-member-preview__info-row'>
                     {university}
                 </div>
-                { typeof(this.props.append) === 'function'
-                  && <div>{ this.props.append(teamMemberPreview) }</div> }
+                <div className='team-member-preview__remove-button'>
+                    {typeof (this.props.append) === 'function'
+                    && <div>{this.props.append(teamMemberPreview)}</div>}
+                </div>
             </div>
         );
     }
