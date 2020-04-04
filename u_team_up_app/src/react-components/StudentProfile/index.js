@@ -181,17 +181,17 @@ class StudentProfile extends React.Component {
             [<ImageForm profile={this} />]
              : null;
 
-            const myApplication = isMe ?
-            <div>
-                <p>
-                    <Link
-                        className="student__application"
-                        to={"./../student-app-inv"}
-                    >
-                        My application
-                    </Link>
-                </p>
-            </div> : null
+            // const myApplication = isMe ?
+            // <div>
+            //     <p>
+            //         <Link
+            //             className="student__application"
+            //             to={"./../student-app-inv"}
+            //         >
+            //             My application
+            //         </Link>
+            //     </p>
+            // </div> : null
 
         return (
             <div>
@@ -291,7 +291,7 @@ class StudentProfile extends React.Component {
                     </div>
 
                     <div className="right-box">
-                        {myApplication}
+                        {/*{myApplication}*/}
                         <div className="description inner">
                             <h4 className="student_profile_h4">Description:</h4>
                             <ViewOrEdit

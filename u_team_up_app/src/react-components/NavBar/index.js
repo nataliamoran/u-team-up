@@ -51,6 +51,14 @@ class NavBar extends React.Component {
                             </ListItemText>
                         </Link>
 
+                        <Link className="navbarLink" to={"/student-app-inv"}>
+                            <ListItemText inset  className="navbarText" >
+                                <TypoGraphy variant="subtitle1">
+                                    Your Applications
+                                </TypoGraphy>
+                            </ListItemText>
+                        </Link>
+
                         <Link className="navbarLink" to={"/"}>
                             <ListItemText inset  className="navbarText" >
                                 <TypoGraphy variant="subtitle1">
