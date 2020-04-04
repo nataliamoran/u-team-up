@@ -1,5 +1,5 @@
 // These are the settings for prod deployment environment
-export const SERVER_URL = window.location.origin+'/';
+export const SERVER_URL = window.location.origin + '/';
 const BASE_URL = window.location.origin + '/api';
 
 // These are the settings for local development environment

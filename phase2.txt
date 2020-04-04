@@ -1,7 +1,7 @@
 PHASE 2
 TEAM 17
 --------------------
-DEPLOYED APP URL:
+DEPLOYED APP URL: https://radiant-reef-20457.herokuapp.com/
 
 --------------------
 DATABASE OVERVIEW
