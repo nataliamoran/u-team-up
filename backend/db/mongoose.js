@@ -23,7 +23,7 @@ if (!global.uTeamUpMongooseHelper) {
 
     helper.Auth = require("./auth")(mongoose);
     helper.User = require("./users")(mongoose);
-    helper.Team = require("./teamSchema")(mongoose);
+    helper.Team = require("./team")(mongoose);
     helper.Profile = require("./profile")(mongoose);
     helper.Image = require("./image")(mongoose);
     helper.University = require('./university')(mongoose);
