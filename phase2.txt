@@ -50,6 +50,10 @@ APPLICATION USAGE GUIDE - USER
 - Your Inbox page
 - Your appointments page
 - Your applications page
+    - When the user submit an application to a team, it will show up in this
+      page along with the application status.
+    - Users can withdraw the application with a pending status by clicking on
+      the "WITHDRAW" button
 - Search students page
 
 
