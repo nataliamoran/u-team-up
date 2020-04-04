@@ -108,12 +108,10 @@ class SearchTeam extends React.Component {
     addTeamToDB = () => {
         return new Promise((resolve, reject) => {
             const url = TEAMS_BACKEND;
-
             let data = {
                 university: this.state.newTeamUniversity,
                 course: this.state.newTeamCourse,
                 description: this.state.newTeamDescription,
-                members: this.state.studentUsername ? [this.state.studentUsername] : [],
                 token: this.props.state.identity.token
             };
             const request = new Request(url, {
@@ -167,16 +165,6 @@ class SearchTeam extends React.Component {
                         filteredTeams: this.state.teams
                     });
                 }
-                // if(this.props.state.identity.type === "user"){
-                //     console.log("USER TEAMS");
-                //     console.log(this.state.userTeams);
-                //
-                //     const profile_data = {
-                //         teams: this.state.userTeams,
-                //         token: this.props.state.identity.token
-                //     };
-                //     updateProfileData(profile_data, this.props.state.identity.username);
-                // }
                 this.forceUpdate();
                 console.log("new state after saving a new team");
                 console.log(this.state);
