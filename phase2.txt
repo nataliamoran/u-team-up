@@ -58,6 +58,9 @@ APPLICATION USAGE GUIDE - USER
 - Search students page
 - Team page
     - Edit team profile
+        Team members can edit their team profile including the team description,
+        revome team members, create and remove quiz questions, change team
+        status to 'Stop accepting applications', and delete the team.
     - Team calendar
     - Applications
 
