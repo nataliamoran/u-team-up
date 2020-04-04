@@ -1,11 +1,5 @@
 import React from "react";
-
 import "./styles.css";
-
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
 import {Link} from "react-router-dom";
 
 

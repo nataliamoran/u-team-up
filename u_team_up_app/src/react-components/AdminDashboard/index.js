@@ -5,10 +5,6 @@ import "./styles.css";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Input from "./../Input";
-
-import AddAdminForm from "./../AddAdminForm";
-import { addAdmins } from "../../actions/searchAdmin";
-
 import { request } from '../../actions/url';
 import { SERVER_URL } from '../../config';
 

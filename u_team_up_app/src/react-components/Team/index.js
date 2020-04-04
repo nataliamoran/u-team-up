@@ -1,6 +1,4 @@
 import React from "react";
-
-
 import "./styles.css";
 import {SERVER_URL, TEAMS_BACKEND, USER_BACKEND, USERS_BACKEND} from "../../config";
 import TeamMemberPreviewList from "./../TeamMemberPreviewList";
@@ -13,7 +11,6 @@ import Grid from "@material-ui/core/Grid";
 import Checkbox from "@material-ui/core/Checkbox";
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import SearchStudentForm from "../SearchStudentForm";
-import {filterUnits} from "../../actions/filterUnits";
 import {deleteTeamFromDB, updateTeamDataInDB} from "../../actions/teamScripts";
 import {updateProfileData} from "../../actions/profileScripts";
 import {request} from "../../actions/url";

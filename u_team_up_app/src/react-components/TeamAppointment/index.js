@@ -4,9 +4,8 @@ import Calendar from '../Calendar';
 import Header from '../Header';
 import { Link } from 'react-router-dom';
 import {updateTeamDataInDB} from "../../actions/teamScripts";
-import {TEAMS_BACKEND, USER_BACKEND} from "../../config";
+import {TEAMS_BACKEND} from "../../config";
 import {uid} from "react-uid";
-import TextField from "@material-ui/core/TextField/TextField";
 import {updateProfileData} from "../../actions/profileScripts";
 
 const debug = console.log;

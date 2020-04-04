@@ -34,7 +34,7 @@ class StudentAppointment extends React.Component {
     }
 
     async getEvents() {
-        const { token, username } = this.props.globalState.identity;
+        const { username } = this.props.globalState.identity;
         const profile = await request.get(`${SERVER_URL}api/user`, { username });
         const teams = await Promise.all(profile.teams.map
                                   (id => request.get(`${SERVER_URL}api/teams/${id}`)));

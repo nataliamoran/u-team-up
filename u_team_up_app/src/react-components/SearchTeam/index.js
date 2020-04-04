@@ -2,12 +2,8 @@ import React from "react";
 
 import "./styles.css";
 import {uid} from "react-uid";
-
-
 import {filterUnits} from "../../actions/filterUnits";
-import {TEAMS_BACKEND, USER_BACKEND} from "../../config";
-
-
+import {TEAMS_BACKEND} from "../../config";
 import Table from "@material-ui/core/Table/Table";
 import TableBody from "@material-ui/core/TableBody/TableBody";
 import TableRow from "@material-ui/core/TableRow/TableRow";
@@ -19,7 +15,6 @@ import Grid from "@material-ui/core/Grid/Grid";
 import {NotificationContainer, NotificationManager} from "react-notifications";
 import TextField from "@material-ui/core/TextField/TextField";
 import Checkbox from "@material-ui/core/Checkbox/Checkbox";
-import {updateProfileData} from "../../actions/profileScripts";
 
 class SearchTeam extends React.Component {
 

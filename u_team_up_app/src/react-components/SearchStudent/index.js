@@ -1,15 +1,9 @@
 import React from "react";
 
 import "./styles.css";
-import {filterUnits} from "../../actions/filterUnits";
 import SearchStudentForm from "./../SearchStudentForm";
-
 import TeamMemberPreviewList from "../TeamMemberPreviewList";
-import Grid from "@material-ui/core/Grid/Grid";
-import Input from "../Input";
-import Button from "@material-ui/core/Button/Button";
 import {NotificationContainer, NotificationManager} from "react-notifications";
-import {Link} from "react-router-dom";
 import { request } from '../../actions/url';
 import { SERVER_URL } from '../../config';
 

@@ -1,7 +1,6 @@
 import React from "react";
 import "./styles.css";
 import newUser from "./static/new_user.png";
-import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button/Button";
 import TextField from "@material-ui/core/TextField";
 import ImageForm from "./../ImageForm";
