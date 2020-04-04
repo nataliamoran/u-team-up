@@ -178,7 +178,7 @@ class StudentProfile extends React.Component {
 
             const uploadImg = editingInfo ?
             /* Image upload form */
-            [<ImageForm profile={this} />]
+            [<ImageForm profile={this} username={this.props.globalState.identity.username}/>]
              : null;
 
             // const myApplication = isMe ?
@@ -200,7 +200,7 @@ class StudentProfile extends React.Component {
 
                         <img
                         className="profile-pic"
-                        src={newUser}
+                        src={this.state.imageUrl || newUser}
                         alt="profile picture"
                     />
                         {uploadImg}

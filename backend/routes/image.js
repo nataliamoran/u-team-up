@@ -1,4 +1,4 @@
-const { Image } = require("../db/mongoose");
+const { Image, Profile } = require("../db/mongoose");
 
 // multipart middleware: allows you to access uploaded file from req.file
 const multipart = require("connect-multiparty");
@@ -13,7 +13,7 @@ cloudinary.config({
 });
 
 const createImageCrud = function(app) {
-    app.post("/api/images", multipartMiddleware, (req, res) => {
+    app.post("/api/images/:username", multipartMiddleware, (req, res) => {
         // Use uploader.upload API to upload image to cloudinary server.
         cloudinary.uploader.upload(
             req.files.image.path, // req.files contains uploaded files
@@ -24,11 +24,23 @@ const createImageCrud = function(app) {
                     image_url: result.url, // image url on cloudinary server
                     created_at: new Date()
                 });
+                const saveImageInmUserDB = async (result) => {
+                    const profile = await Profile.findById(req.params.username);
+
+                    profile.imageUrl = img.image_url;
+
+                    return profile.save().then(() => {
+                        return result;
+                        // res.status(201).send(result);
+                    });
+                };
 
                 // Save image to the database
                 img.save().then(
                     saveRes => {
-                        res.send(saveRes);
+                        saveImageInmUserDB(saveRes).then(result => {
+                            res.send(result);
+                        });
                     },
                     error => {
                         res.status(400).send(error); // 400 bad request

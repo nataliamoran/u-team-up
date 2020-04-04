@@ -1,8 +1,8 @@
 import { IMAGES_BACKEND } from "../config";
 
-export const addImage = (form, dashboardComp) => {
+export const addImage = (form, dashboardComp, username) => {
     // the URL for the request
-    const url = IMAGES_BACKEND;
+    const url = IMAGES_BACKEND+'/'+username;
 
     // The data we are going to send in our request
     const imageData = new FormData(form);
