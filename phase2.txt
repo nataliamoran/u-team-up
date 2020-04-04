@@ -35,6 +35,7 @@ ROUTES OVERVIEW
 APPLICATION USAGE GUIDE - USER
 - Sign up page
 - Login page
+    -
 - Home page (also Search teams page)
     - Create teams
         - Users can create new teams by 1) providing the University name, Course
@@ -55,7 +56,10 @@ APPLICATION USAGE GUIDE - USER
     - Users can withdraw the application with a pending status by clicking on
       the "WITHDRAW" button
 - Search students page
-
+- Team page
+    - Edit team profile
+    - Team calendar
+    - Applications
 
 --------------------
 APPLICATION USAGE GUIDE - ADMIN
