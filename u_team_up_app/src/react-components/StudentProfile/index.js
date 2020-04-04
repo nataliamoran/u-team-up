@@ -1,7 +1,5 @@
 import React from "react";
 import "./styles.css";
-// import alice from "./static/alice.png";
-// import bob from "./static/bob.png";
 import newUser from "./static/new_user.png";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button/Button";
@@ -11,51 +9,6 @@ import { SERVER_URL } from "../../config";
 import { request } from '../../actions/url';
 import {updateProfileData} from "../../actions/profileScripts";
 import {NotificationManager} from 'react-notifications';
-
-// const studentInfo = {
-//     "1": {
-//         username: "",
-//         imageUrl: alice,
-//         name: "Alice Alison",
-//         university: "University of Toronto, St. George Campus",
-//         yearOfStudy: 3,
-//         majorOfStudy: "Computer Science",
-//         coursesTaken: "CSC207, CSC209",
-//         currentCourses: "CSC309, CSC363, CSC401",
-//         currentTeams: "CSC309 Team 1",
-//         review: "",
-//         reviews: [
-//             "Bob - I love working with Alice!",
-//             "Carl - Alice is amazing"
-//         ],
-//         description: "If you love burger like I do, add me to your team.",
-//         location: "On campus",
-//         gpa: "3.5/4.0",
-//         pastProject: "Todo list",
-//         experience:
-//             "Teaching Assistant @ UofT, Software Developer Intern @ IBM",
-//         resume: ""
-//     },
-//     "2": {
-//         username: "",
-//         imageUrl: bob,
-//         name: "Bob Bobson",
-//         university: "University of Toronto, St. George Campus",
-//         yearOfStudy: 4,
-//         majorOfStudy: "Computer Science",
-//         coursesTaken: "CSC108",
-//         currentCourses: "CSC207, CSC309",
-//         currentTeams: "CSC207 Team 1, CSC309 Team1",
-//         review: "",
-//         reviews: [],
-//         description: "I heart CS & pranks",
-//         location: "North York",
-//         gpa: "3.0/4.0",
-//         pastProject: "Secret",
-//         experience: "UofT student",
-//         resume: ""
-//     }
-// };
 
 /** @param props: {
  *      editing: boolean,
@@ -223,18 +176,34 @@ class StudentProfile extends React.Component {
               ]
             : [];
 
+            const uploadImg = editingInfo ?
+            /* Image upload form */
+            [<ImageForm profile={this} />]
+             : null;
+
+            const myApplication = isMe ?
+            <div>
+                <p>
+                    <Link
+                        className="student__application"
+                        to={"./../student-app-inv"}
+                    >
+                        My application
+                    </Link>
+                </p>
+            </div> : null
+
         return (
             <div>
                 <div>
                     <div className="left-box">
-                        <img
-                            className="profile-pic"
-                            src={newUser}
-                            alt="profile picture"
-                        />
-                        {/* Image upload form */}
-                        <ImageForm profile={this} />
 
+                        <img
+                        className="profile-pic"
+                        src={newUser}
+                        alt="profile picture"
+                    />
+                        {uploadImg}
 
                         <div className="info inner">
                             <h4 className="student_profile_h4">Name:</h4>
@@ -322,17 +291,7 @@ class StudentProfile extends React.Component {
                     </div>
 
                     <div className="right-box">
-                        <div>
-                            <p>
-                                <Link
-                                    className="student__application"
-                                    to={"./../student-app-inv"}
-                                >
-                                    My application
-                                </Link>
-                            </p>
-                        </div>
-
+                        {myApplication}
                         <div className="description inner">
                             <h4 className="student_profile_h4">Description:</h4>
                             <ViewOrEdit

@@ -30,7 +30,7 @@ class StudentApplicationInvitation extends React.Component {
             .then(response => response.json())
             .then(json => {
                 this.setState({
-                    team: json
+                    student: json
                 });
                 console.log(this.state);
             })
