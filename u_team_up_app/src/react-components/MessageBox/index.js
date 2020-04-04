@@ -55,7 +55,9 @@ class MessageBox extends React.Component {
                     title={`${msg.read ? "" : "[*] "}Message from "${msg.teamCourse}":`} />
                 <div className="message_box__message_content">
                     {msg.messageText}
-                    {msg.event && `${msg.event.name} from ${msg.event.start} to ${msg.event.end}`}
+                    {msg.event && `${msg.event.name} 
+                    from ${new Date(msg.event.start).toLocaleString()} 
+                    to ${new Date(msg.event.end).toLocaleString()}`}
                 </div>
             </div>
         );
