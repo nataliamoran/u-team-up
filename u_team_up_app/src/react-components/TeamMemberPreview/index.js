@@ -20,9 +20,7 @@ class TeamMemberPreview extends React.Component {
 
         const photo =
             <img className="team_member__photo"
-                 src={teamMemberPreview.photo ?
-                      require(teamMemberPreview.photo)
-                      : require('./static/account.png')}
+                 src={teamMemberPreview.imageUrl || require('./static/account.png')}
                  alt={ `${name} avatar` } />;
 
         const university = teamMemberPreview.university;
