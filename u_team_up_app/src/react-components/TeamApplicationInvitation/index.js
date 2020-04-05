@@ -120,6 +120,15 @@ class TeamApplicationInvitation extends React.Component {
     };
 
     render() {
+        let noApplicationsNote;
+
+        if(this.state.team && this.state.team.applications.length === 0){
+            noApplicationsNote =
+                <h2>
+                    Currently there are no applications
+                </h2>
+        }
+
         return (
             this.state.team ?
                 <div className="team_application_invitation_view">
@@ -190,6 +199,18 @@ class TeamApplicationInvitation extends React.Component {
                                 </div>
                             </div>
                         ))}
+                        <div className="no-applications-note">
+                        {noApplicationsNote}
+                        </div>
+                        <Link className="application__link" to={`/team/${this.props.teamId}`}>
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            className="reject__button"
+                        >
+                            Back to team
+                        </Button>
+                        </Link>
                     </div>
                 </div>
                 :
