@@ -140,12 +140,10 @@ class StudentProfile extends React.Component {
             reviews: this.state.reviews
         });
         const profile_data = {
-            username: this.props.globalState.identity.username,
             reviews: this.state.reviews,
             token: this.props.globalState.identity.token,
         };
-
-        updateProfileData(profile_data, this.props.globalState.identity.username);
+        updateProfileData(profile_data, this.state.username);
     };
 
     render() {

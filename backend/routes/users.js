@@ -18,7 +18,8 @@ module.exports = {
                 && !req.body.applications
                 && !req.body.event
                 && !req.body.teamMembershipUpdate
-                && !req.body.teams) {
+                && !req.body.teams
+                && !req.body.reviews) {
                 // do not allow users to modify others' profile
                 throw 401;
             }
