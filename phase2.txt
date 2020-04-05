@@ -193,10 +193,10 @@ ADMINS
 --------------------
 APPLICATION USAGE GUIDE - USER
 - Sign up page
-    - Users can create their accounts in this page with a unique username
+    - Users can create their accounts in this page with a unique username.
 
 - Login page
-    - Users can log in to their accounts by typing in their username and password
+    - Users can log in to their accounts by typing in their username and password.
 
 - Home page (also Search teams page)
     - Create teams
@@ -235,7 +235,7 @@ APPLICATION USAGE GUIDE - USER
     - When the user submit an application to a team, it will show up in this
       page along with the application status.
     - Users can withdraw the application with a pending status by clicking on
-      the "WITHDRAW" button
+      the "WITHDRAW" button.
 
 - Search students page
     - Users can search by name, university, and course. The search is a case-
