@@ -23,6 +23,8 @@ CONFIG
 --------------------
 ROUTES OVERVIEW
 
+NOTE: Tokens can be found in Collection 'auths'
+
 --- AUTH
     --- SIGNUP
         POST /auth/signup
@@ -72,14 +74,60 @@ ROUTES OVERVIEW
 --- TEAM
     --- CREATE TEAM
         POST route to create a new team: /api/teams
+        Body:
+        {
+        	"token": String,
+            "university": String,
+            "course": String,
+            "description": String
+        }
+        Successful Response:
+             Status 201, Team
+        Failed Response:
+             Status 400, with { error }
+             Status 401, if the token is not valid
     --- GET ALL TEAMS
         GET route to get all teams: /api/teams
+        Body: no body
+        Successful Response:
+              Teams
+        Failed Response:
+              Status 500, with { error }
     --- GET TEAM BY ID
-        GET route to get a team by its ID: /api/teams/:id
+        GET route to get a team by its ID: /api/teams/id
+        Body: no body
+        Successful Response:
+            Team
+        Failed Response:
+            Status 500, with { error }
+            Status 404, if team is not found
     --- DELETE TEAM
-        DELETE route to delete a team by its ID: /api/teams/:id
+        DELETE route to delete a team by its ID: /api/teams/id
+        Body:
+                {
+                	"token": String
+                }
+         Successful Response:
+                     Status 204
+         Failed Response:
+                     Status 400, with { error }
+                     Status 401, if the token is not valid
+                     Status 404, if team is not found
     --- UPDATE TEAM
-        PATCH route to update a team by its ID: /api/teams/:id
+        PATCH route to update a team by its ID: /api/teams/id
+        Body:
+            {
+            	"university": String,
+                "course": String,
+                "description": String,
+                "token": String
+            }
+        Successful Response:
+                        Team
+        Failed Response:
+                        Status 400, with { error }
+                        Status 401, if the token is not valid
+                        Status 404, if team is not found
 
 --- ADMIN (ADMINS ONLY)
     --- GET ALL ADMINS
