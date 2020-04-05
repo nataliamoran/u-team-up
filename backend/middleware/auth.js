@@ -45,7 +45,7 @@ async function signup(req, res) {
         await profile.save();
         res.status(201).send();
     } catch (e) {
-        res.status(500).send({ error: e });
+        res.status(400).send({ error: e });
         return;
     }
 }
@@ -97,16 +97,19 @@ async function checkAuth(req, res) {
 async function revokeToken(req, res) {
     if (req.identity.type === 'guest') {
         res.status(401).send();
+        return;
     }
 
     const token = req.args.tokenToRevoke;
     if (! token) {
         res.status(400).send();
+        return;
     }
 
     const auth = await Auth.findOne({ token });
     if (! auth) {
         res.status(404).send();
+        return;
     }
 
     await auth.remove();
