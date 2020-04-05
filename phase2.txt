@@ -19,14 +19,14 @@ ROUTES OVERVIEW
 
 --- AUTH
     --- SIGNUP
-        POST /auth/signup 
+        POST /auth/signup
     --- LOGIN
         POST /auth/login to get a token (has an expire time of 4 hours)
     --- REVOKE TOKEN
         POST /auth/revoke to revoke a token (logout)
     --- CHECK TOKEN VALIDITY
         GET /auth/check to check whether the token is still valid
-        
+
 --- USERS
     --- SEARCH USER
         GET /api/users
@@ -37,10 +37,10 @@ ROUTES OVERVIEW
         PUT /api/user
     --- DELETE USER (ADMIN ONLY)
         DELETE /api/user
-    
+
 --- TEAM
     --- CREATE TEAM
-        POST route to create a new team: /api/teams The new team is added to
+        POST route to create a new team: /api/teams
     --- GET ALL TEAMS
         GET route to get all teams: /api/teams
     --- GET TEAM BY ID
@@ -63,8 +63,14 @@ ROUTES OVERVIEW
 --------------------
 APPLICATION USAGE GUIDE - USER
 - Sign up page
+    - Users can create their accounts in this page with a unique username
+
 - Login page
-    -
+    - Users can log in to their accounts by typing in their username and password
+    - Login credentials:
+        1. username: user, password: user
+        2. username: user2, password: user2
+
 - Home page (also Search teams page)
     - Create teams
         - Users can create new teams by 1) providing the University name, Course
@@ -73,28 +79,35 @@ APPLICATION USAGE GUIDE - USER
           was successfully created!" message on the right of the "CREATE"
           button and the new team on the bottom of the page.
     - Search teams
+        -
+
 - Your Profile page
     - Users can provide and change their personal data in this page after
       logging in by clicking on the "Edit your profile" button located in the
       bottom right of the page.
+
 - Your Inbox page
     - The navigation bar will show the number of unread messages, if the current
       user has any.
     - Unread messages are with yellow background. Click on a message to mark it
       as read.
+
 - Your appointments page
     - Users can see the events of all the teams they are in.
       The events' names are prefixed by the course name of that team.
+
 - Your applications page
     - When the user submit an application to a team, it will show up in this
       page along with the application status.
     - Users can withdraw the application with a pending status by clicking on
       the "WITHDRAW" button
+
 - Search students page
     - Users can search by name, university, and course. The search is a case-
       insensitive `String.prototype.includes` search.
     - To view a student profile, click on the profile picture or name of that
       student.
+
 - Team page
     - Edit team profile
         Team members can edit their team profile including the team description,
@@ -103,6 +116,8 @@ APPLICATION USAGE GUIDE - USER
     - Team calendar
         Users can check and add events to the team.
     - Applications
+        Team members can view who applied to their team, and can accept/reject
+        the user application
 
 --------------------
 APPLICATION USAGE GUIDE - ADMIN
@@ -111,7 +126,7 @@ APPLICATION USAGE GUIDE - ADMIN
 - Manage Students
     - On search students page, search for students and there will be a remove
       button under each one. Click to remove that student.
-      
+
 
 --------------------
 PLEASE NOTE:
