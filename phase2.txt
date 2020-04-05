@@ -142,12 +142,38 @@ ROUTES OVERVIEW
 --- ADMIN (ADMINS ONLY)
     --- GET ALL ADMINS
         GET /api/admins
+        No parameters
+        Successful Response:
+            Status 200, { result }
+            `result` contains a list of all admins.
+        Failed Response:
+            Status 401, if you are not logged in as an admin.
     --- GET ADMIN BY USERNAME
         GET /api/admin
+        Query Parameter: { username }
+        Successful Response:
+            Status 200, { _id }
+            `_id` is the username of the admin.
+        Failed Response:
+            Status 401, if you are not logged in as an admin.
+            Status 404, if the admin is not found.
     --- CREATE ADMIN
         POST /api/admin
+        Body: { username, password }
+        Successful Response:
+            Status 200, { _id }
+            `_id` is the username of the admin.
+        Failed Response:
+            Status 401, if you are not logged in as an admin.
+            Status 500, if there is an error adding the admin.
     --- DELETE ADMIN
         DELETE /api/admin
+        Body: { username }
+        Successful Response:
+            Status 204
+        Failed Response:
+            Status 401, if you are not logged in as an admin.
+            Status 404, if the admin is not found.
 
 --------------------
 USERS
