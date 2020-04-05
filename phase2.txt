@@ -50,6 +50,16 @@ ROUTES OVERVIEW
     --- UPDATE TEAM
         PATCH route to update a team by its ID: /api/teams/:id
 
+--- ADMIN (ADMINS ONLY)
+    --- GET ALL ADMINS
+        GET /api/admins
+    --- GET ADMIN BY USERNAME
+        GET /api/admin
+    --- CREATE ADMIN
+        POST /api/admin
+    --- DELETE ADMIN
+        DELETE /api/admin
+
 --------------------
 APPLICATION USAGE GUIDE - USER
 - Sign up page
