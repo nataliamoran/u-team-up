@@ -39,7 +39,7 @@ ROUTES OVERVIEW
         Failed Response:
             Status 401, if the username or password is wrong.
             Status 500, if server failed to generate a token.
-        After logging in, follow-up requests need to send a header `Authorization:
+        !NOTE! After logging in, follow-up requests must send a header `Authorization:
         Bearer XXXXXXXX` or include { token: "XXXXXXXX" } in request body, where
         XXXXXXXX is the token obtained, to maintain log-in status.
     --- REVOKE TOKEN
@@ -61,13 +61,71 @@ ROUTES OVERVIEW
 --- USERS
     --- SEARCH USER
         GET /api/users
+        Query Parameters: filtering fields (e.g. fullname, university, currentCourses).
+        Response:
+            Status 200, { result }
+            `result` contains all users matching the given criteria, comparing using
+            equality for strings, and membership for arrays.
+        
         GET /api/users/relaxed-filter
+        Query Parameters: filtering fields (e.g. fullname, university, currentCourses).
+        Response:
+            Status 200, { result } 
+            `result` contains all users matching the given criteria, comparing using
+            `str.includes()` for strings, and "at least one member includes" for arrays.
     --- GET USER PROFILE
         GET /api/user
+        Query Parameters: { username }
+        Successful Response:
+            Status 200
+            The user profile for `username`.
+        Failed Response:
+            Status 404, if the user does not exist.
     --- CHANGE USER PROFILE
         PUT /api/user
+        Body: { fields to change }
+        Successful Response:
+            Status 200
+            The user profile after change.
+        Failed Response:
+            Status 404, if the user cannot be found.
+            Status 401, if the change is not allowed to be made.
     --- DELETE USER (ADMIN ONLY)
         DELETE /api/user
+        Body: { username }
+        Successful Response:
+            Status 200
+        Failed Response:
+            Status 404, if the user cannot be found.
+            Status 401, if you are not logged in as an admin.
+--- MESSAGES
+    --- GET ALL MESSAGES
+        GET /api/user/messages
+        No parameters
+        Successful Response:
+            Status 200, { result } 
+            `result` contains a list of messages to this user.
+        Failed Response:
+            Status 401, if you are not logged in as a normal user.
+    --- GET MESSAGE COUNT
+        GET /api/user/messages/count
+        No parameters
+        Successful Response:
+            Status 200, { count }
+            `count` is the number of messages the user has.
+        Failed Response:
+            Status 401, if you are not logged in as a normal user.
+    --- MARK A MESSAGE AS READ
+        POST /api/user/message/read
+        Body: { id, read }
+        `id` is the message id.
+        `read` is a boolean value. If you want to mark the message as read, pass true.
+        If you want to mark it as unread, pass false.
+        Successful Response:
+            Status 204
+        Failed Response:
+            Status 401, if you are not logged in as a normal user.
+            Status 404, if the message cannot be found.
 
 --- TEAM
     --- CREATE TEAM
