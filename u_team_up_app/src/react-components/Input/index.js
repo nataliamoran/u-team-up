@@ -2,7 +2,6 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 
-
 class Input extends React.Component {
     render() {
         const { label, value, onChange, name, className, type } = this.props;
@@ -15,7 +14,7 @@ class Input extends React.Component {
                     id="margin-normal"
                     value={value || ""}
                     type={type}
-                    className={"input" + (className ? ' ' + className : '')}
+                    className={"input" + (className ? " " + className : "")}
                     margin="normal"
                     onChange={onChange}
                 />

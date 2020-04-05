@@ -4,8 +4,6 @@ import Button from "@material-ui/core/Button";
 
 import Input from "./../Input";
 
-import "./styles.css";
-
 
 class SearchStudentForm extends React.Component {
     render() {

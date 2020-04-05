@@ -1,15 +1,14 @@
-import React from 'react';
+import React from "react";
 
-import Calendar from '../Calendar';
-import Header from '../Header';
-import { Link } from 'react-router-dom';
-import {updateTeamDataInDB} from "../../actions/teamScripts";
-import {TEAMS_BACKEND} from "../../config";
-import {uid} from "react-uid";
-import {updateProfileData} from "../../actions/profileScripts";
+import Calendar from "../Calendar";
+import Header from "../Header";
+import { Link } from "react-router-dom";
+import { updateTeamDataInDB } from "../../actions/teamScripts";
+import { TEAMS_BACKEND } from "../../config";
+import { uid } from "react-uid";
+import { updateProfileData } from "../../actions/profileScripts";
 
 const debug = console.log;
-
 
 class TeamAppointment extends React.Component {
     // @param props: {teamId: string, globalState}
@@ -18,24 +17,22 @@ class TeamAppointment extends React.Component {
 
         this.state = {
             dataLoaded: false,
-            teamId: props.teamId || '', // teamId: String
+            teamId: props.teamId || "", // teamId: String
             appointmentTime: {
                 start: null,
                 end: null
             }, // {start: Date, end: Date}
             team: null,
-            otherSchedule: [], // [{start: Date, end: Date, name: string}, ...]
+            otherSchedule: [] // [{start: Date, end: Date, name: string}, ...]
         };
 
         this.addEvent = this.addEvent.bind(this);
     }
 
-    getEventsFromJson = (eventsFromDB) => {
+    getEventsFromJson = eventsFromDB => {
         const events = [];
         eventsFromDB.map(event => (
-            <div key={uid(
-                event
-            )}>
+            <div key={uid(event)}>
                 {events.push({
                     name: event.name,
                     start: new Date(event.start),
@@ -50,8 +47,8 @@ class TeamAppointment extends React.Component {
         const url = TEAMS_BACKEND + "/" + this.props.teamId;
 
         fetch(url)
-            .then((response) => response.json())
-            .then((json) => {
+            .then(response => response.json())
+            .then(json => {
                 const events = this.getEventsFromJson(json.events);
                 this.setState({
                     team: json,
@@ -59,14 +56,15 @@ class TeamAppointment extends React.Component {
                     dataLoaded: true
                 });
                 console.log(this.state);
-            }).catch((error) => {
-            console.error(error)
-        });
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }
 
     // @param: ev: {start: Date, end: Date, name: string}
     addEvent(ev) {
-        debug('ta-addevent');
+        debug("ta-addevent");
         const { otherSchedule } = this.state;
 
         otherSchedule.push(ev);
@@ -80,53 +78,52 @@ class TeamAppointment extends React.Component {
         };
         updateTeamDataInDB(data, this.state.teamId);
 
-       // Send messages to all team members
+        // Send messages to all team members
         let memberData;
-        this.state.team.members.map( memberUsername => (
-            <div key={uid(
-                memberUsername
-            )}>
-                {memberData = {
-                    teamUniversity: this.state.team.university,
-                    teamCourse: this.state.team.course,
-                    event: ev,
-                    token: this.props.globalState.identity.token
-                }}
+        this.state.team.members.map(memberUsername => (
+            <div key={uid(memberUsername)}>
+                {
+                    (memberData = {
+                        teamUniversity: this.state.team.university,
+                        teamCourse: this.state.team.course,
+                        event: ev,
+                        token: this.props.globalState.identity.token
+                    })
+                }
                 {updateProfileData(memberData, memberUsername)}
             </div>
-            )
-        )
-
+        ));
     }
 
     render() {
-        const authorized = this.props.globalState.identity.type === 'user';
+        const authorized = this.props.globalState.identity.type === "user";
 
-        return (
-            this.state.dataLoaded ?
+        return this.state.dataLoaded ? (
             <div className="team_appointment">
-                <Header type='main'
-                        title='Team Appointment' />
-                { authorized ? [
-                    <Header type='secondary'
-                            title='Project Team ID:'
-                            data={
-                                <Link to={ `/team/${this.state.teamId}` }>
-                                    { this.state.teamId }
-                                </Link>
-                            } />,
-                    <div className="body">
-                        <Calendar highlight={ this.state.appointmentTime }
-                                  schedule={ this.state.otherSchedule }
-                                  addEventCallback={ this.addEvent } />
-                    </div>
-                ] : 'You are not allowed to visit this page. Please log in or sign up.'
-                }
+                <Header type="main" title="Team Appointment" />
+                {authorized
+                    ? [
+                          <Header
+                              type="secondary"
+                              title="Project Team ID:"
+                              data={
+                                  <Link to={`/team/${this.state.teamId}`}>
+                                      {this.state.teamId}
+                                  </Link>
+                              }
+                          />,
+                          <div className="body">
+                              <Calendar
+                                  highlight={this.state.appointmentTime}
+                                  schedule={this.state.otherSchedule}
+                                  addEventCallback={this.addEvent}
+                              />
+                          </div>
+                      ]
+                    : "You are not allowed to visit this page. Please log in or sign up."}
             </div>
-                :
-                null
-        );
+        ) : null;
     }
-};
+}
 
 export default TeamAppointment;

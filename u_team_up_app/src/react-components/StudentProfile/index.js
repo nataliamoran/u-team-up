@@ -5,9 +5,9 @@ import Button from "@material-ui/core/Button/Button";
 import TextField from "@material-ui/core/TextField";
 import ImageForm from "./../ImageForm";
 import { SERVER_URL } from "../../config";
-import { request } from '../../actions/url';
-import {updateProfileData} from "../../actions/profileScripts";
-import {NotificationManager} from 'react-notifications';
+import { request } from "../../actions/url";
+import { updateProfileData } from "../../actions/profileScripts";
+import { NotificationManager } from "react-notifications";
 
 /** @param props: {
  *      editing: boolean,
@@ -65,17 +65,20 @@ class StudentProfile extends React.Component {
     }
 
     getUserProfileFromDB = () =>
-        request.get(`${SERVER_URL}api/user`,
-                    { username: this.props.username || this.props.globalState.identity.username })
-        .then(json => this.setState(json))
-        .catch((error) => {
-            console.error(error)
-        })
+        request
+            .get(`${SERVER_URL}api/user`, {
+                username:
+                    this.props.username ||
+                    this.props.globalState.identity.username
+            })
+            .then(json => this.setState(json))
+            .catch(error => {
+                console.error(error);
+            });
 
     componentDidMount() {
         this.getUserProfileFromDB();
     }
-
 
     updateInfo = () => {
         this.setState({
@@ -85,11 +88,14 @@ class StudentProfile extends React.Component {
         const profile_data = {
             username: this.props.globalState.identity.username,
             token: this.props.globalState.identity.token,
-            ...this.changedFields,
+            ...this.changedFields
         };
 
-        updateProfileData(profile_data, this.props.globalState.identity.username);
-        NotificationManager.success('Profile data saved!')
+        updateProfileData(
+            profile_data,
+            this.props.globalState.identity.username
+        );
+        NotificationManager.success("Profile data saved!");
         this.changedFields = {};
         this.getUserProfileFromDB();
         this.forceUpdate();
@@ -106,13 +112,16 @@ class StudentProfile extends React.Component {
         const value = target.value;
         const name = target.name;
 
-        this.setState({
-            [name]: value
-        }, () => this.changedFields[name] = value);
+        this.setState(
+            {
+                [name]: value
+            },
+            () => (this.changedFields[name] = value)
+        );
         event.preventDefault();
     };
 
-    displayArray = arr => arr.join(' ');
+    displayArray = arr => arr.join(" ");
 
     handleEditInputArray = event => {
         const target = event.target;
@@ -120,9 +129,12 @@ class StudentProfile extends React.Component {
         const name = target.name;
         const arr = value.split(/\s+/);
 
-        this.setState({
-            [name]: arr,
-        }, () => this.changedFields[name] = arr);
+        this.setState(
+            {
+                [name]: arr
+            },
+            () => (this.changedFields[name] = arr)
+        );
         event.preventDefault();
     };
 
@@ -141,7 +153,7 @@ class StudentProfile extends React.Component {
         });
         const profile_data = {
             reviews: this.state.reviews,
-            token: this.props.globalState.identity.token,
+            token: this.props.globalState.identity.token
         };
         updateProfileData(profile_data, this.state.username);
     };
@@ -179,22 +191,25 @@ class StudentProfile extends React.Component {
               ]
             : [];
 
-            const uploadImg = editingInfo ?
-            /* Image upload form */
-            [<ImageForm profile={this} username={this.props.globalState.identity.username}/>]
-             : null;
-
+        const uploadImg = editingInfo
+            ? /* Image upload form */
+              [
+                  <ImageForm
+                      profile={this}
+                      username={this.props.globalState.identity.username}
+                  />
+              ]
+            : null;
 
         return (
             <div>
                 <div>
                     <div className="left-box">
-
                         <img
-                        className="profile-pic"
-                        src={this.state.imageUrl || newUser}
-                        alt="profile picture"
-                    />
+                            className="profile-pic"
+                            src={this.state.imageUrl || newUser}
+                            alt="profile picture"
+                        />
                         {uploadImg}
 
                         <div className="info inner">
@@ -251,7 +266,9 @@ class StudentProfile extends React.Component {
                                 editing={editingInfo}
                                 className="student_profile__input"
                                 type="text"
-                                value={this.displayArray(this.state.coursesTaken)}
+                                value={this.displayArray(
+                                    this.state.coursesTaken
+                                )}
                                 onChange={this.handleEditInputArray}
                                 name="coursesTaken"
                             />
@@ -265,7 +282,9 @@ class StudentProfile extends React.Component {
                                 editing={editingInfo}
                                 className="student_profile__input"
                                 type="text"
-                                value={this.displayArray(this.state.currentCourses)}
+                                value={this.displayArray(
+                                    this.state.currentCourses
+                                )}
                                 onChange={this.handleEditInputArray}
                                 name="currentCourses"
                             />

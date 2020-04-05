@@ -3,14 +3,11 @@
     font-size: 2.2em;
 }
 
-
 .search_team_view {
     text-align: center;
 }
 
-
-
-#wrapper{
+#wrapper {
     display: flex;
 }
 
@@ -20,7 +17,8 @@
     justify-content: center;
     height: 5px;
     font-size: 1.1em;
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
     padding-left: 20px;
     padding-right: 100px;
     width: 400px;
@@ -40,8 +38,8 @@
     padding-left: 100px;
 }
 
-.university_cell{
-    color: #F76073 !important;
+.university_cell {
+    color: #f76073 !important;
     font-weight: bold !important;
     font-size: 1.5em !important;
     background-color: white;
@@ -50,7 +48,7 @@
     border-bottom-style: hidden !important;
 }
 
-.course_cell{
+.course_cell {
     color: #283b63 !important;
     font-weight: bold !important;
     font-size: 1.2em !important;
@@ -59,7 +57,7 @@
     border-bottom-style: hidden !important;
 }
 
-.description_cell{
+.description_cell {
     margin-bottom: 70px !important;
     padding-bottom: 50px !important;
     background-color: white;
@@ -67,8 +65,7 @@
     border-bottom: 2px solid #283b63 !important;
 }
 
-
-.button__bg-image{
+.button__bg-image {
     background-size: contain;
     height: 200px;
     width: 200px;
@@ -79,8 +76,7 @@
     margin-top: 70px;
 }
 
-
-.button__bg-image__member{
+.button__bg-image__member {
     background-size: contain;
     height: 200px;
     width: 200px;
@@ -91,7 +87,6 @@
     margin-top: 70px;
 }
 
-
 .button-preview td {
     border-bottom-style: hidden !important;
     padding: 70px 55px 80px 55px;
@@ -99,24 +94,20 @@
     opacity: 0.9;
 }
 
-.join__link{
+.join__link {
     text-decoration: none !important;
-
 }
 
-
-
-.join__button{
+.join__button {
     width: 90px !important;
     font-size: 1.7em !important;
-
 }
 
 .search-form {
     padding-top: 20px;
 }
 
-.search-checkbox{
+.search-checkbox {
     padding-left: 600px;
     font-weight: bold;
 }
@@ -125,11 +116,11 @@
     height: 40px;
 }
 
-.new_team__input{
+.new_team__input {
     width: 200px;
 }
 
-.new_team_button{
+.new_team_button {
     margin-left: 50px !important;
     margin-right: 50px !important;
 }
