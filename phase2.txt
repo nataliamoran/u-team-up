@@ -15,6 +15,12 @@ Collections:
 --- images
 
 --------------------
+CONFIG
+--- To use the app locally update BASE_URL and SERVER_URL in 'u_team_up_app/src/config.js' file:
+    (1) Uncomment lines 6-7
+    (2) Comment out lines 2-3
+
+--------------------
 ROUTES OVERVIEW
 
 --- AUTH
@@ -61,6 +67,21 @@ ROUTES OVERVIEW
         DELETE /api/admin
 
 --------------------
+USERS
+(1) username: user
+    password: user
+
+(2) username: user2
+    password: user2
+
+(3) username: user3
+    password: user3
+
+ADMINS
+(1) username: admin
+    password: admin
+
+--------------------
 APPLICATION USAGE GUIDE - USER
 - Sign up page
 - Login page
@@ -73,10 +94,19 @@ APPLICATION USAGE GUIDE - USER
           was successfully created!" message on the right of the "CREATE"
           button and the new team on the bottom of the page.
     - Search teams
+        - Input search parameters to 'University' and/or  'Course' fields
+          and press 'Search'.
+        - For a student to limit the search to her/his teams only,
+          check the checkbox 'search my teams only'.
+        - Teams, where the student user is a member, have the green button 'Open';
+          other teams have the red button 'Join'.
 - Your Profile page
     - Users can provide and change their personal data in this page after
       logging in by clicking on the "Edit your profile" button located in the
       bottom right of the page.
+    - To change the profile picture click '"Edit your profile' and then 'Choose File'
+      ('Choose File' button is located near the profile image). After the picture is chosen,
+      click 'Upload profile picture' button and then 'Save' button.
 - Your Inbox page
     - The navigation bar will show the number of unread messages, if the current
       user has any.
@@ -94,15 +124,21 @@ APPLICATION USAGE GUIDE - USER
     - Users can search by name, university, and course. The search is a case-
       insensitive `String.prototype.includes` search.
     - To view a student profile, click on the profile picture or name of that
-      student.
+      student. When you open the student's profile, you can leave a review for this
+      student - type in the review and press 'Add' button.
 - Team page
     - Edit team profile
         Team members can edit their team profile including the team description,
-        revome team members, create and remove quiz questions, change team
+        remove team members, create and remove quiz questions, change team
         status to 'Stop accepting applications', and delete the team.
     - Team calendar
         Users can check and add events to the team.
+        When a team event is added, a message is sent to the team's members.
     - Applications
+        Team members can view each application by clicking the button 'Open'.
+        To accept the application click 'Accept' - the applicant will be
+        added to the team, otherwise click 'Reject'. In both cases the
+        applicant will receive a message with the application update.
 
 --------------------
 APPLICATION USAGE GUIDE - ADMIN
@@ -111,7 +147,11 @@ APPLICATION USAGE GUIDE - ADMIN
 - Manage Students
     - On search students page, search for students and there will be a remove
       button under each one. Click to remove that student.
-      
+- Manage Teams
+    - Team creation works the same as for the student user,
+      except for the admin user not being added to team members.
+    - To add/remove team members or delete the team, open the team page
+      and click 'Edit team profile' button.
 
 --------------------
 PLEASE NOTE:
