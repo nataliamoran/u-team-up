@@ -96,7 +96,12 @@ APPLICATION USAGE GUIDE - USER
 
 --------------------
 APPLICATION USAGE GUIDE - ADMIN
-
+- Admin Dashboard
+    - Add and remove admins. Pretty self-documenting.
+- Manage Students
+    - On search students page, search for students and there will be a remove
+      button under each one. Click to remove that student.
+      
 
 --------------------
 PLEASE NOTE:
