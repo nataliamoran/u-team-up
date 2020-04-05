@@ -81,37 +81,35 @@ class TeamApplicationInvitation extends React.Component {
 
     };
 
-    acceptApplication = (application) => {
+    updateTeamAndUserApplicationsInDB = (application, accept) => {
         const updatedApplications = this.state.team.applications.filter(a => a !== application);
         const updatedTeam = this.state.team;
         updatedTeam.applications = updatedApplications;
-        updatedTeam.members.push(application.student._id);
+        if(accept){
+            updatedTeam.members.push(application.student._id);
+        }
         this.setState({
             team: updatedTeam
         });
-        let data = {
-            applications: this.state.team.applications,
-            members: this.state.team.members,
-            token: this.props.state.identity.token
-        };
+        let data;
+        if(accept){
+            data = {
+                applications: this.state.team.applications,
+                members: this.state.team.members,
+                token: this.props.state.identity.token
+            };
+        } else {
+            data = {
+                applications: this.state.team.applications,
+                token: this.props.state.identity.token
+            };
+        }
         updateTeamDataInDB(data, this.state.team._id);
-        this.updateApplicationStatusInUserDB(application, application.student._id, "accepted");
-    };
-
-    rejectApplication = (application) => {
-        // TODO remove application from profile applications
-        const updatedApplications = this.state.team.applications.filter(a => a !== application);
-        const updatedTeam = this.state.team;
-        updatedTeam.applications = updatedApplications;
-        this.setState({
-            team: updatedTeam
-        })
-        let data = {
-            applications: this.state.team.applications,
-            token: this.props.state.identity.token
-        };
-        updateTeamDataInDB(data, this.state.team._id);
-        this.updateApplicationStatusInUserDB(application, application.student._id, "rejected");
+        if(accept){
+            this.updateApplicationStatusInUserDB(application, application.student._id, "accepted");
+        } else {
+            this.updateApplicationStatusInUserDB(application, application.student._id, "rejected");
+        }
     };
 
     seeApplication = (application) => {
@@ -158,7 +156,7 @@ class TeamApplicationInvitation extends React.Component {
                                                         variant="outlined"
                                                         color="primary"
                                                         className="accept__button"
-                                                        onClick={this.acceptApplication.bind(this, application)}
+                                                        onClick={this.updateTeamAndUserApplicationsInDB.bind(this, application, true)}
                                                     >
                                                         Accept
                                                     </Button>
@@ -171,7 +169,7 @@ class TeamApplicationInvitation extends React.Component {
                                                         variant="outlined"
                                                         color="primary"
                                                         className="reject__button"
-                                                        onClick={this.rejectApplication.bind(this, application)}
+                                                        onClick={this.updateTeamAndUserApplicationsInDB.bind(this, application, false)}
                                                     >
                                                         Reject
                                                     </Button>
