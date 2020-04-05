@@ -17,8 +17,27 @@ Collections:
 --------------------
 ROUTES OVERVIEW
 
+--- AUTH
+    --- SIGNUP
+        POST /auth/signup 
+    --- LOGIN
+        POST /auth/login to get a token (has an expire time of 4 hours)
+    --- REVOKE TOKEN
+        POST /auth/revoke to revoke a token (logout)
+    --- CHECK TOKEN VALIDITY
+        GET /auth/check to check whether the token is still valid
+        
 --- USERS
-
+    --- SEARCH USER
+        GET /api/users
+        GET /api/users/relaxed-filter
+    --- GET USER PROFILE
+        GET /api/user
+    --- CHANGE USER PROFILE
+        PUT /api/user
+    --- DELETE USER (ADMIN ONLY)
+        DELETE /api/user
+    
 --- TEAM
     --- CREATE TEAM
         POST route to create a new team: /api/teams The new team is added to
