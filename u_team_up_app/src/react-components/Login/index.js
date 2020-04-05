@@ -2,10 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import "./styles.css";
-import { SERVER_URL } from '../../config';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import { SERVER_URL } from "../../config";
+import {
+    NotificationContainer,
+    NotificationManager
+} from "react-notifications";
 
-import { request } from '../../actions/url';
+import { request } from "../../actions/url";
 
 const debug = console.log;
 
@@ -15,7 +18,7 @@ class Login extends React.Component {
 
         this.state = {
             username: "",
-            password: "",
+            password: ""
         };
 
         this.loginCallback = this.props.loginCallback;
@@ -35,23 +38,23 @@ class Login extends React.Component {
 
         const { username, password } = this.state;
 
-        request.post(`${SERVER_URL}auth/login`,
-                     { username, password })
+        request
+            .post(`${SERVER_URL}auth/login`, { username, password })
             .then(({ username, token, type }) => {
                 const identity = {
                     type,
                     username,
                     uid: username,
-                    token,
+                    token
                 };
                 this.loginCallback(identity);
-                debug('logged in');
+                debug("logged in");
 
                 this.props.history.goBack();
             })
             .catch(e => {
                 debug(e);
-                NotificationManager.error('Error: ' + e.error);
+                NotificationManager.error("Error: " + e.error);
             });
     }
 
@@ -92,7 +95,7 @@ class Login extends React.Component {
                         <button className="login__button" type="submit">
                             Login
                         </button>
-                        <NotificationContainer/>
+                        <NotificationContainer />
                     </form>
                     <p>Don't have an account?</p>
                     <p>

@@ -1,16 +1,16 @@
 import React from "react";
 
 import "./styles.css";
-import {uid} from "react-uid";
+import { uid } from "react-uid";
 import Table from "@material-ui/core/Table/Table";
 import TableBody from "@material-ui/core/TableBody/TableBody";
 import TableRow from "@material-ui/core/TableRow/TableRow";
 import TableCell from "@material-ui/core/TableCell/TableCell";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button/Button";
-import {TEAMS_BACKEND, USER_BACKEND} from "../../config";
-import {updateTeamDataInDB} from "../../actions/teamScripts";
-import {updateProfileData} from "../../actions/profileScripts";
+import { TEAMS_BACKEND, USER_BACKEND } from "../../config";
+import { updateTeamDataInDB } from "../../actions/teamScripts";
+import { updateProfileData } from "../../actions/profileScripts";
 
 class TeamApplicationInvitation extends React.Component {
     constructor(props) {
@@ -22,37 +22,38 @@ class TeamApplicationInvitation extends React.Component {
         };
     }
 
-
     componentDidMount() {
         const url = TEAMS_BACKEND + "/" + this.props.teamId;
         console.log("TEAM ID");
         console.log(this.props.teamId);
         fetch(url)
-            .then((response) => response.json())
-            .then((json) => {
+            .then(response => response.json())
+            .then(json => {
                 this.setState({
                     team: json
                 });
-            }).catch((error) => {
-            console.error(error)
-        });
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }
 
     updateApplicationStatusInUserDB = (application, username, status) => {
         const studentUrl = USER_BACKEND + username;
 
         fetch(studentUrl)
-            .then((response) => response.json())
-            .then((json) => {
+            .then(response => response.json())
+            .then(json => {
                 this.setState({
                     student: json
                 });
-                this.state.student.applications.map(a => a.teamId === this.state.team._id ?
-                    a.status = status
-                    :
-                    null);
+                this.state.student.applications.map(a =>
+                    a.teamId === this.state.team._id
+                        ? (a.status = status)
+                        : null
+                );
                 let profile_data;
-                if(status.toLowerCase() === "accepted"){
+                if (status.toLowerCase() === "accepted") {
                     this.state.student.teams.push(this.state.team._id);
                     profile_data = {
                         applications: this.state.student.applications,
@@ -74,25 +75,26 @@ class TeamApplicationInvitation extends React.Component {
                     };
                 }
                 updateProfileData(profile_data, username);
-            }).catch((error) => {
-            console.error(error)
-        });
-
-
+            })
+            .catch(error => {
+                console.error(error);
+            });
     };
 
     updateTeamAndUserApplicationsInDB = (application, accept) => {
-        const updatedApplications = this.state.team.applications.filter(a => a !== application);
+        const updatedApplications = this.state.team.applications.filter(
+            a => a !== application
+        );
         const updatedTeam = this.state.team;
         updatedTeam.applications = updatedApplications;
-        if(accept){
+        if (accept) {
             updatedTeam.members.push(application.student._id);
         }
         this.setState({
             team: updatedTeam
         });
         let data;
-        if(accept){
+        if (accept) {
             data = {
                 applications: this.state.team.applications,
                 members: this.state.team.members,
@@ -105,15 +107,25 @@ class TeamApplicationInvitation extends React.Component {
             };
         }
         updateTeamDataInDB(data, this.state.team._id);
-        if(accept){
-            this.updateApplicationStatusInUserDB(application, application.student._id, "accepted");
+        if (accept) {
+            this.updateApplicationStatusInUserDB(
+                application,
+                application.student._id,
+                "accepted"
+            );
         } else {
-            this.updateApplicationStatusInUserDB(application, application.student._id, "rejected");
+            this.updateApplicationStatusInUserDB(
+                application,
+                application.student._id,
+                "rejected"
+            );
         }
     };
 
-    seeApplication = (application) => {
-        this.state.team.applications.map(a => a === application ? a.open = !a.open : null);
+    seeApplication = application => {
+        this.state.team.applications.map(a =>
+            a === application ? (a.open = !a.open) : null
+        );
         this.setState({
             team: this.state.team
         });
@@ -122,87 +134,125 @@ class TeamApplicationInvitation extends React.Component {
     render() {
         let noApplicationsNote;
 
-        if(this.state.team && this.state.team.applications.length === 0){
-            noApplicationsNote =
-                <h2>
-                    Currently there are no applications
-                </h2>
+        if (this.state.team && this.state.team.applications.length === 0) {
+            noApplicationsNote = <h2>Currently there are no applications</h2>;
         }
 
-        return (
-            this.state.team ?
-                <div className="team_application_invitation_view">
-                    <h1 className="search_form_title">Team Applications</h1>
-                    <div className="team_application_view">
-                        {this.state.team.applications.map(application => (
-                            <div key={uid(
-                                application
-                            )}>
-
-                                <div className="team_applications__wrapper">
-                                    <Table className="application-preview__table">
-                                        <TableBody>
-                                            <TableRow>
-                                                <TableCell component="td" scope="row"
-                                                           className="application__name_cell">
-                                                    <Link className="application__link" to={`/student-profile`}>
-                                                        {application.student.fullname ?
-                                                            application.student.fullname : application.student._id}
-                                                    </Link>
-                                                </TableCell>
-                                                <TableCell component="td" scope="row" className="button_cell">
-                                                    <Button
-                                                        variant="outlined"
-                                                        color="primary"
-                                                        className="see__button"
-                                                        onClick={this.seeApplication.bind(this, application)}
-                                                    >
-                                                        {application.open ? "Hide" : "Open"}
-                                                    </Button>
-                                                </TableCell>
-                                                <TableCell component="td" scope="row" className="button_cell">
-                                                    <Button
-                                                        variant="outlined"
-                                                        color="primary"
-                                                        className="accept__button"
-                                                        onClick={this.updateTeamAndUserApplicationsInDB.bind(this, application, true)}
-                                                    >
-                                                        Accept
-                                                    </Button>
-
-                                                </TableCell>
-                                                <TableCell component="td" scope="row" className="button_cell">
-
-
-                                                    <Button
-                                                        variant="outlined"
-                                                        color="primary"
-                                                        className="reject__button"
-                                                        onClick={this.updateTeamAndUserApplicationsInDB.bind(this, application, false)}
-                                                    >
-                                                        Reject
-                                                    </Button>
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableBody>
-                                    </Table>
-                                    {application.open ?
-                                        Object.keys(application.application).map((key, index) => (
-                                            <div className="application" key={index}>
-                                                <span className="application_question">{key + " "}</span>
-                                                <span
-                                                    className="application_answer">{application.application[key]}</span>
-                                            </div>
-                                        ))
-                                        :
-                                        null}
-                                </div>
+        return this.state.team ? (
+            <div className="team_application_invitation_view">
+                <h1 className="search_form_title">Team Applications</h1>
+                <div className="team_application_view">
+                    {this.state.team.applications.map(application => (
+                        <div key={uid(application)}>
+                            <div className="team_applications__wrapper">
+                                <Table className="application-preview__table">
+                                    <TableBody>
+                                        <TableRow>
+                                            <TableCell
+                                                component="td"
+                                                scope="row"
+                                                className="application__name_cell"
+                                            >
+                                                <Link
+                                                    className="application__link"
+                                                    to={`/student-profile`}
+                                                >
+                                                    {application.student
+                                                        .fullname
+                                                        ? application.student
+                                                              .fullname
+                                                        : application.student
+                                                              ._id}
+                                                </Link>
+                                            </TableCell>
+                                            <TableCell
+                                                component="td"
+                                                scope="row"
+                                                className="button_cell"
+                                            >
+                                                <Button
+                                                    variant="outlined"
+                                                    color="primary"
+                                                    className="see__button"
+                                                    onClick={this.seeApplication.bind(
+                                                        this,
+                                                        application
+                                                    )}
+                                                >
+                                                    {application.open
+                                                        ? "Hide"
+                                                        : "Open"}
+                                                </Button>
+                                            </TableCell>
+                                            <TableCell
+                                                component="td"
+                                                scope="row"
+                                                className="button_cell"
+                                            >
+                                                <Button
+                                                    variant="outlined"
+                                                    color="primary"
+                                                    className="accept__button"
+                                                    onClick={this.updateTeamAndUserApplicationsInDB.bind(
+                                                        this,
+                                                        application,
+                                                        true
+                                                    )}
+                                                >
+                                                    Accept
+                                                </Button>
+                                            </TableCell>
+                                            <TableCell
+                                                component="td"
+                                                scope="row"
+                                                className="button_cell"
+                                            >
+                                                <Button
+                                                    variant="outlined"
+                                                    color="primary"
+                                                    className="reject__button"
+                                                    onClick={this.updateTeamAndUserApplicationsInDB.bind(
+                                                        this,
+                                                        application,
+                                                        false
+                                                    )}
+                                                >
+                                                    Reject
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                </Table>
+                                {application.open
+                                    ? Object.keys(application.application).map(
+                                          (key, index) => (
+                                              <div
+                                                  className="application"
+                                                  key={index}
+                                              >
+                                                  <span className="application_question">
+                                                      {key + " "}
+                                                  </span>
+                                                  <span className="application_answer">
+                                                      {
+                                                          application
+                                                              .application[key]
+                                                      }
+                                                  </span>
+                                              </div>
+                                          )
+                                      )
+                                    : null}
                             </div>
-                        ))}
-                        <div className="no-applications-note">
-                        {noApplicationsNote}
                         </div>
-                        <Link className="application__link" to={`/team/${this.props.teamId}`}>
+                    ))}
+                    <div className="no-applications-note">
+                        {noApplicationsNote}
+                    </div>
+                    <Link
+                        className="application__link"
+                        to={`/team/${this.props.teamId}`}
+                    >
                         <Button
                             variant="outlined"
                             color="primary"
@@ -210,12 +260,10 @@ class TeamApplicationInvitation extends React.Component {
                         >
                             Back to team
                         </Button>
-                        </Link>
-                    </div>
+                    </Link>
                 </div>
-                :
-                null
-        );
+            </div>
+        ) : null;
     }
 }
 

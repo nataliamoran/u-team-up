@@ -4,7 +4,7 @@ import "./App.css";
 
 import Login from "./react-components/Login";
 import SignUp from "./react-components/SignUp";
-import Logout from './react-components/Logout';
+import Logout from "./react-components/Logout";
 import SearchTeam from "./react-components/SearchTeam";
 import SearchStudent from "./react-components/SearchStudent";
 import Team from "./react-components/Team";
@@ -22,13 +22,15 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            loginStatus: window.localStorage.getItem('type') || 'guest', // guest, user, admin
+            loginStatus: window.localStorage.getItem("type") || "guest", // guest, user, admin
             identity: {
-                type: window.localStorage.getItem('type') || 'guest',
-                username: window.localStorage.getItem('username') || '',
-                get uid() { return this.username; },
-                token: window.localStorage.getItem('token') || '',
-            },
+                type: window.localStorage.getItem("type") || "guest",
+                username: window.localStorage.getItem("username") || "",
+                get uid() {
+                    return this.username;
+                },
+                token: window.localStorage.getItem("token") || ""
+            }
         };
 
         this.setIdentity = this.setIdentity.bind(this);
@@ -38,22 +40,22 @@ class App extends React.Component {
     // @param: identity: const Object
     setIdentity(identity) {
         this.setState({ identity, loginStatus: identity.type });
-        window.localStorage.setItem('token', identity.token);
-        window.localStorage.setItem('username', identity.username);
-        window.localStorage.setItem('type', identity.type);
+        window.localStorage.setItem("token", identity.token);
+        window.localStorage.setItem("username", identity.username);
+        window.localStorage.setItem("type", identity.type);
     }
 
     logout() {
-        this.setIdentity({ type: 'guest',
-                           username: '',
-                           uid: '',
-                           token: '', });
+        this.setIdentity({ type: "guest", username: "", uid: "", token: "" });
     }
 
     render() {
         return (
             <BrowserRouter>
-                <Navigator globalState={this.state} logoutCallback={this.logout}>
+                <Navigator
+                    globalState={this.state}
+                    logoutCallback={this.logout}
+                >
                     <Switch>
                         <Route
                             exact
@@ -64,11 +66,22 @@ class App extends React.Component {
                             exact
                             path="/login"
                             render={() => (
-                                <Login globalState={this.state} loginCallback={this.setIdentity} />
+                                <Login
+                                    globalState={this.state}
+                                    loginCallback={this.setIdentity}
+                                />
                             )}
                         />
-                        <Route exact path='/logout'
-                               render={() => <Logout logoutCallback={this.logout} globalState={this.state} /> }/>
+                        <Route
+                            exact
+                            path="/logout"
+                            render={() => (
+                                <Logout
+                                    logoutCallback={this.logout}
+                                    globalState={this.state}
+                                />
+                            )}
+                        />
                         <Route
                             exact
                             path="/signup"
@@ -141,15 +154,15 @@ class App extends React.Component {
                         <Route
                             exact
                             path="/adminDashboard"
-                            render={() => <AdminDashboard globalState={this.state} />}
+                            render={() => (
+                                <AdminDashboard globalState={this.state} />
+                            )}
                         />
                         <Route
                             exact
                             path="/student-app-inv"
                             render={() => (
-                                <StudentApplication
-                                    state={this.state}
-                                />
+                                <StudentApplication state={this.state} />
                             )}
                         />
                         <Route

@@ -4,18 +4,20 @@ import "./styles.css";
 
 class ImageForm extends React.Component {
     state = {
-        imageUrl:''
-    }
+        imageUrl: ""
+    };
     render() {
         const { profile, username } = this.props;
         return (
             <React.Fragment>
-                <form className="image-form" onSubmit={(e) => {
-                    e.preventDefault();
-                    addImage(e.target, profile, username);
-                }}>
+                <form
+                    className="image-form"
+                    onSubmit={e => {
+                        e.preventDefault();
+                        addImage(e.target, profile, username);
+                    }}
+                >
                     <div className="image-form__field">
-
                         <input name="image" type="file" />
                     </div>
                     <button
@@ -25,7 +27,6 @@ class ImageForm extends React.Component {
                     >
                         Upload profile picture
                     </button>
-
                 </form>
             </React.Fragment>
         );

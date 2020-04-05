@@ -1,4 +1,4 @@
-.team-member-preview{
+.team-member-preview {
     background-size: contain;
     width: 250px;
 
@@ -16,7 +16,7 @@
     text-align: center;
     padding-left: 75px;
     padding-top: 70px;
-    padding-right:80px;
+    padding-right: 80px;
     background-color: white;
     opacity: 0.9;
 }
@@ -25,18 +25,18 @@
     height: 100px;
 }
 
-.name_cell, .name_cell a {
+.name_cell,
+.name_cell a {
     padding-top: 40px;
     font-size: 1em;
     font-weight: bold;
-
 }
 
-.university_cell{
+.university_cell {
     padding-top: 5px;
     font-size: 1em;
 }
 
-.team-member-preview__remove-button{
+.team-member-preview__remove-button {
     padding-left: 75px;
 }
