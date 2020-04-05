@@ -41,7 +41,7 @@ NOTE: Tokens can be found in Collection 'auths'
         Failed Response:
             Status 401, if the username or password is wrong.
             Status 500, if server failed to generate a token.
-        After logging in, follow-up requests need to send a header `Authorization:
+        !NOTE! After logging in, follow-up requests must send a header `Authorization:
         Bearer XXXXXXXX` or include { token: "XXXXXXXX" } in request body, where
         XXXXXXXX is the token obtained, to maintain log-in status.
     --- REVOKE TOKEN
@@ -63,13 +63,71 @@ NOTE: Tokens can be found in Collection 'auths'
 --- USERS
     --- SEARCH USER
         GET /api/users
+        Query Parameters: filtering fields (e.g. fullname, university, currentCourses).
+        Response:
+            Status 200, { result }
+            `result` contains all users matching the given criteria, comparing using
+            equality for strings, and membership for arrays.
+        
         GET /api/users/relaxed-filter
+        Query Parameters: filtering fields (e.g. fullname, university, currentCourses).
+        Response:
+            Status 200, { result } 
+            `result` contains all users matching the given criteria, comparing using
+            `str.includes()` for strings, and "at least one member includes" for arrays.
     --- GET USER PROFILE
         GET /api/user
+        Query Parameters: { username }
+        Successful Response:
+            Status 200
+            The user profile for `username`.
+        Failed Response:
+            Status 404, if the user does not exist.
     --- CHANGE USER PROFILE
         PUT /api/user
+        Body: { fields to change }
+        Successful Response:
+            Status 200
+            The user profile after change.
+        Failed Response:
+            Status 404, if the user cannot be found.
+            Status 401, if the change is not allowed to be made.
     --- DELETE USER (ADMIN ONLY)
         DELETE /api/user
+        Body: { username }
+        Successful Response:
+            Status 200
+        Failed Response:
+            Status 404, if the user cannot be found.
+            Status 401, if you are not logged in as an admin.
+--- MESSAGES
+    --- GET ALL MESSAGES
+        GET /api/user/messages
+        No parameters
+        Successful Response:
+            Status 200, { result } 
+            `result` contains a list of messages to this user.
+        Failed Response:
+            Status 401, if you are not logged in as a normal user.
+    --- GET MESSAGE COUNT
+        GET /api/user/messages/count
+        No parameters
+        Successful Response:
+            Status 200, { count }
+            `count` is the number of messages the user has.
+        Failed Response:
+            Status 401, if you are not logged in as a normal user.
+    --- MARK A MESSAGE AS READ
+        POST /api/user/message/read
+        Body: { id, read }
+        `id` is the message id.
+        `read` is a boolean value. If you want to mark the message as read, pass true.
+        If you want to mark it as unread, pass false.
+        Successful Response:
+            Status 204
+        Failed Response:
+            Status 401, if you are not logged in as a normal user.
+            Status 404, if the message cannot be found.
 
 --- TEAM
     --- CREATE TEAM
@@ -132,12 +190,38 @@ NOTE: Tokens can be found in Collection 'auths'
 --- ADMIN (ADMINS ONLY)
     --- GET ALL ADMINS
         GET /api/admins
+        No parameters
+        Successful Response:
+            Status 200, { result }
+            `result` contains a list of all admins.
+        Failed Response:
+            Status 401, if you are not logged in as an admin.
     --- GET ADMIN BY USERNAME
         GET /api/admin
+        Query Parameter: { username }
+        Successful Response:
+            Status 200, { _id }
+            `_id` is the username of the admin.
+        Failed Response:
+            Status 401, if you are not logged in as an admin.
+            Status 404, if the admin is not found.
     --- CREATE ADMIN
         POST /api/admin
+        Body: { username, password }
+        Successful Response:
+            Status 200, { _id }
+            `_id` is the username of the admin.
+        Failed Response:
+            Status 401, if you are not logged in as an admin.
+            Status 500, if there is an error adding the admin.
     --- DELETE ADMIN
         DELETE /api/admin
+        Body: { username }
+        Successful Response:
+            Status 204
+        Failed Response:
+            Status 401, if you are not logged in as an admin.
+            Status 404, if the admin is not found.
 
 --------------------
 USERS
@@ -157,10 +241,10 @@ ADMINS
 --------------------
 APPLICATION USAGE GUIDE - USER
 - Sign up page
-    - Users can create their accounts in this page with a unique username
+    - Users can create their accounts in this page with a unique username.
 
 - Login page
-    - Users can log in to their accounts by typing in their username and password
+    - Users can log in to their accounts by typing in their username and password.
 
 - Home page (also Search teams page)
     - Create teams
@@ -199,7 +283,7 @@ APPLICATION USAGE GUIDE - USER
     - When the user submit an application to a team, it will show up in this
       page along with the application status.
     - Users can withdraw the application with a pending status by clicking on
-      the "WITHDRAW" button
+      the "WITHDRAW" button.
 
 - Search students page
     - Users can search by name, university, and course. The search is a case-
