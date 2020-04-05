@@ -8,6 +8,12 @@
     margin-left: 415px;
 }
 
+.student-application-preview__table td {
+    border-bottom-style: hidden !important;
+    border-top-style: hidden !important;
+    padding-left: 150px;
+}
+
 .app_inv__button {
     border-radius: 4px;
     color: #f1574b;

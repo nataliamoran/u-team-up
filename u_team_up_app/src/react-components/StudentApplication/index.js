@@ -75,6 +75,14 @@ class StudentApplicationInvitation extends React.Component {
     render() {
 
         let withdrawButton;
+        let noApplicationsNote;
+
+        if(this.state.student && this.state.student.applications.length === 0){
+            noApplicationsNote =
+                <h2>
+                    Currently there are no applications
+                </h2>
+        }
 
         const showWithdrawButton = (application) => {
             if(application.status === "pending"){
@@ -109,7 +117,7 @@ class StudentApplicationInvitation extends React.Component {
                             {console.log("APPLICATION")}
                             {console.log(application)}
                             <div className="student_applications__wrapper">
-                                <Table className="application-preview__table">
+                                <Table className="student-application-preview__table">
                                     <TableBody>
                                         <TableRow>
                                             <TableCell
@@ -144,6 +152,9 @@ class StudentApplicationInvitation extends React.Component {
                             </div>
                         </div>
                     ))}
+                    <div className="no-applications-note">
+                        {noApplicationsNote}
+                    </div>
                 </div>
             </div>
                 :
