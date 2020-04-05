@@ -26,12 +26,37 @@ ROUTES OVERVIEW
 --- AUTH
     --- SIGNUP
         POST /auth/signup
+        Body: { username, password }
+        Successful Response: 
+            Status 201
+        Failed Response:
+            Status 400, with { error }
     --- LOGIN
         POST /auth/login to get a token (has an expire time of 4 hours)
+        Body: { username, password }
+        Successful Response: 
+            Status 201, with { type, _id, token, expireDate }
+        Failed Response:
+            Status 401, if the username or password is wrong.
+            Status 500, if server failed to generate a token.
+        After logging in, follow-up requests need to send a header `Authorization:
+        Bearer XXXXXXXX` or include { token: "XXXXXXXX" } in request body, where
+        XXXXXXXX is the token obtained, to maintain log-in status.
     --- REVOKE TOKEN
         POST /auth/revoke to revoke a token (logout)
+        Body: { tokenToRevoke }
+        Successful Response:
+            Status 204
+        Failed Response:
+            Status 401, if not logged in (or the token has already expired)
+            Status 404, if there is no such token
+            Status 400, if tokenToRevoke is not specified.
     --- CHECK TOKEN VALIDITY
         GET /auth/check to check whether the token is still valid
+        Successful Response:
+            Status 204
+        Failed Response:
+            Status 401, if the token is not valid
 
 --- USERS
     --- SEARCH USER
