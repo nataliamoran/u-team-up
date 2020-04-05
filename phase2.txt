@@ -68,19 +68,30 @@ APPLICATION USAGE GUIDE - USER
       logging in by clicking on the "Edit your profile" button located in the
       bottom right of the page.
 - Your Inbox page
+    - The navigation bar will show the number of unread messages, if the current
+      user has any.
+    - Unread messages are with yellow background. Click on a message to mark it
+      as read.
 - Your appointments page
+    - Users can see the events of all the teams they are in.
+      The events' names are prefixed by the course name of that team.
 - Your applications page
     - When the user submit an application to a team, it will show up in this
       page along with the application status.
     - Users can withdraw the application with a pending status by clicking on
       the "WITHDRAW" button
 - Search students page
+    - Users can search by name, university, and course. The search is a case-
+      insensitive `String.prototype.includes` search.
+    - To view a student profile, click on the profile picture or name of that
+      student.
 - Team page
     - Edit team profile
         Team members can edit their team profile including the team description,
         revome team members, create and remove quiz questions, change team
         status to 'Stop accepting applications', and delete the team.
     - Team calendar
+        Users can check and add events to the team.
     - Applications
 
 --------------------
