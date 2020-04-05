@@ -74,7 +74,6 @@ class TeamAppointment extends React.Component {
 
         this.setState({ otherSchedule });
 
-        // TODO: UPLOAD
         let data = {
             events: otherSchedule,
             token: this.props.globalState.identity.token

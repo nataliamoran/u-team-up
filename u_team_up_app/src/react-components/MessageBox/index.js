@@ -38,7 +38,6 @@ class MessageBox extends React.Component {
     }
 
     render() {
-        // TODO: FETCH
         const authorized = this.props.globalState.loginStatus === "user";
 
         const generateMessageView = msg => (

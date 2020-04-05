@@ -149,7 +149,6 @@ class Team extends React.Component {
     submitApplication = () => {
         this.state.team.applications.push(
             {
-                // studentUsername: this.props.globalState.identity.username,
                 student: this.state.student,
                 application: this.state.quizApplication,
                 open: false

@@ -25,16 +25,12 @@ class SearchTeam extends React.Component {
             global: props.state,
             studentUsername: null,
             searchUserTeams: false,
-            // uid: 3,
             newTeamCourse: "",
             newTeamDescription: "",
             newTeamUniversity: "",
             teamUniversity: "",
             teamCourse: "",
-            teams: [ // TODO: FETCH DATA FROM DB
-                // {university: "UofT", course: "CSC309", id: "1", description: "A+ group looking for a JS Jedi"},
-                // {university: "UofT", course: "CSC207", id: "2", description: "Let's crash this course together!"}
-            ],
+            teams: [],
             filteredTeams: [],
             userTeams: []
 
@@ -176,8 +172,6 @@ class SearchTeam extends React.Component {
             NotificationManager.error('Please complete all fields')
             return;
         }
-        //TODO Push updates to the DB
-
         this.addTeamToDB()
             .then(() => this.getAllTeamsFromDB()).catch((error) => {
             console.error(error)
