@@ -52,7 +52,7 @@ class MessageBox extends React.Component {
             >
                 <Header
                     type="secondary"
-                    title={`${msg.read ? "" : "[*] "}Message from "${msg.teamCourse}":`} />
+                    title={`${msg.read ? "" : "[*] "}Message from "${msg.teamCourse || "Deleted Team"}":`} />
                 <div className="message_box__message_content">
                     {msg.messageText}
                     {msg.event && `${msg.event.name} 
